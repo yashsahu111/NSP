@@ -1,0 +1,816 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Roomzy — PG / Hostel / Co-living & Roommate Finder</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        coral: { DEFAULT: '#E53935', dark: '#C62828', light: '#FF6B66', soft: '#FEE5E5' },
+        slate950: '#111827',
+        softbg: '#F9FAFB',
+        softline: '#E5E7EB'
+      },
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+        display: ['Plus Jakarta Sans', 'Inter', 'ui-sans-serif']
+      },
+      boxShadow: {
+        soft: '0 6px 24px -12px rgba(17,24,39,0.12)',
+        card: '0 10px 30px -15px rgba(17,24,39,0.15)',
+        pill: '0 20px 40px -20px rgba(229,57,53,0.25)'
+      }
+    }
+  }
+}
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background:#F9FAFB; color:#111827; -webkit-font-smoothing:antialiased; }
+  .font-display { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .chip-active { background:#E53935; color:#fff; border-color:#E53935; }
+  .fade-up { opacity:0; transform: translateY(12px); animation: fadeUp .6s ease forwards; }
+  @keyframes fadeUp { to { opacity:1; transform: translateY(0); } }
+  .heart-active svg { fill:#E53935; stroke:#E53935; }
+  .pulse-dot::after { content:''; position:absolute; inset:-3px; border-radius:9999px; background:rgba(229,57,53,.25); animation: pulse 1.6s infinite; }
+  @keyframes pulse { 0%{transform:scale(.8);opacity:1} 100%{transform:scale(1.8);opacity:0} }
+  .nav-link { position:relative; }
+  .nav-link::after { content:''; position:absolute; left:0; right:0; bottom:-6px; height:2px; background:#E53935; transform:scaleX(0); transform-origin:left; transition:transform .25s ease; border-radius:2px; }
+  .nav-link:hover::after { transform:scaleX(1); }
+  .card-hover { transition: transform .3s ease, box-shadow .3s ease; }
+  .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(17,24,39,0.2); }
+  .dropdown-enter { animation: ddEnter .18s ease forwards; }
+  @keyframes ddEnter { from{opacity:0; transform:translateY(-6px)} to{opacity:1; transform:translateY(0)} }
+  .hero-gradient { background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(229,57,53,0.10), transparent 60%),
+    radial-gradient(800px 500px at -10% 10%, rgba(229,57,53,0.06), transparent 60%),
+    #F9FAFB;
+  }
+  .shimmer {
+    background: linear-gradient(90deg, #f3f4f6 0%, #e5e7eb 50%, #f3f4f6 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s infinite;
+  }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+  .tag-dot::before{content:''; width:6px; height:6px; border-radius:9999px; background:#E53935; display:inline-block; margin-right:6px;}
+  .btn-primary { background:#E53935; color:#fff; transition: all .2s ease; }
+  .btn-primary:hover { background:#C62828; transform: translateY(-1px); box-shadow: 0 10px 20px -10px rgba(229,57,53,0.6); }
+  .btn-ghost:hover { background:#FEE5E5; color:#C62828; border-color:#FEE5E5; }
+  input:focus, select:focus, button:focus-visible { outline: 2px solid rgba(229,57,53,.35); outline-offset: 2px; }
+  .divider-v { width:1px; align-self:stretch; background:#E5E7EB; margin: 6px 0; }
+  .no-select { user-select:none; }
+</style>
+</head>
+<body class="bg-softbg text-slate950">
+
+<!-- TOP BAR (utility) -->
+<div class="hidden lg:block bg-slate950 text-white/90 text-xs">
+  <div class="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
+    <div class="flex items-center gap-5">
+      <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg> Verified PGs in 12+ cities</span>
+      <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg> 4.8 ★ average rating from 24k reviews</span>
+    </div>
+    <div class="flex items-center gap-5">
+      <a href="#" class="hover:text-white">Download App</a>
+      <a href="#" class="hover:text-white">For Owners</a>
+      <a href="#" class="hover:text-white">Support</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-softline">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3 lg:gap-6">
+    <!-- Logo -->
+    <a href="#" class="flex items-center gap-2 shrink-0">
+      <span class="relative inline-flex items-center justify-center w-9 h-9 rounded-xl bg-coral text-white shadow-soft">
+        <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
+          <path d="M12 2.5l9.5 8.3a1 1 0 01-.6 1.7H19V20a1 1 0 01-1 1h-4.5v-6a1 1 0 00-1-1h-1a1 1 0 00-1 1v6H6a1 1 0 01-1-1v-7.5H3.1a1 1 0 01-.6-1.7L12 2.5z"/>
+        </svg>
+      </span>
+      <span class="font-display font-extrabold text-xl tracking-tight">Roomzy</span>
+    </a>
+
+    <!-- Search Pill (desktop) -->
+    <div class="hidden lg:flex flex-1 max-w-2xl mx-auto">
+      <div class="w-full bg-white border border-softline rounded-full shadow-soft flex items-stretch pl-2 pr-1.5 py-1.5">
+        <!-- Location -->
+        <div class="relative flex-1" id="locWrap">
+          <button id="locBtn" class="w-full flex items-center gap-2 px-3 py-2 rounded-full hover:bg-gray-50 transition">
+            <svg class="w-4 h-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-7.5 7-13a7 7 0 10-14 0c0 5.5 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <div class="text-left">
+              <div class="text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Location</div>
+              <div class="text-sm font-semibold text-slate950" id="locLabel">Bengaluru</div>
+            </div>
+            <svg class="w-3.5 h-3.5 text-gray-400 ml-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div id="locDropdown" class="hidden absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl border border-softline shadow-card p-2 dropdown-enter z-50">
+            <div class="px-3 py-2 text-[11px] uppercase tracking-wider text-gray-500 font-semibold">Popular cities</div>
+            <div id="cityList" class="max-h-64 overflow-auto"></div>
+          </div>
+        </div>
+        <div class="divider-v"></div>
+        <!-- Date -->
+        <button class="flex-1 flex items-center gap-2 px-3 py-2 rounded-full hover:bg-gray-50 transition">
+          <svg class="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+          <div class="text-left">
+            <div class="text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Move-in</div>
+            <div class="text-sm font-semibold text-slate950">Flexible</div>
+          </div>
+        </button>
+        <div class="divider-v"></div>
+        <!-- Budget -->
+        <button class="flex-1 flex items-center gap-2 px-3 py-2 rounded-full hover:bg-gray-50 transition">
+          <svg class="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9a3 3 0 000 6h6a3 3 0 010 6H7"/></svg>
+          <div class="text-left">
+            <div class="text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Budget</div>
+            <div class="text-sm font-semibold text-slate950">₹8k – ₹18k</div>
+          </div>
+        </button>
+        <button class="shrink-0 ml-1 btn-primary rounded-full px-5 h-10 flex items-center gap-2 font-semibold text-sm">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          Search
+        </button>
+      </div>
+    </div>
+
+    <!-- Nav links -->
+    <nav class="hidden xl:flex items-center gap-5 text-sm font-medium text-slate950/80">
+      <a href="#listings" class="nav-link">Explore PGs</a>
+      <a href="#roommates" class="nav-link">Roommate Finder</a>
+    </nav>
+
+    <!-- Actions (desktop) -->
+    <div class="hidden lg:flex items-center gap-2 ml-auto">
+      <button class="btn-ghost border border-softline rounded-full px-4 py-2 text-sm font-semibold text-slate950 transition">
+        List Your Property
+      </button>
+      <button class="relative w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center" title="Saved">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 10-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 000-7.8z"/></svg>
+        <span class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-coral text-white text-[10px] font-bold rounded-full flex items-center justify-center">3</span>
+      </button>
+      <button class="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center" title="My Bookings">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M8 14h3"/></svg>
+      </button>
+      <button class="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full border border-softline hover:border-coral/40 hover:bg-coral-soft transition">
+        <span class="w-8 h-8 rounded-full bg-gradient-to-br from-coral to-coral-dark flex items-center justify-center text-white font-bold text-sm">AR</span>
+        <span class="text-sm font-semibold">Arjun</span>
+      </button>
+    </div>
+
+    <!-- Mobile toggle -->
+    <button id="mobileBtn" class="lg:hidden ml-auto w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+
+  <!-- Mobile search -->
+  <div class="lg:hidden px-4 pb-3">
+    <button class="w-full bg-white border border-softline rounded-full shadow-soft px-4 py-3 flex items-center gap-3">
+      <svg class="w-4 h-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <span class="text-sm font-semibold text-slate950">Search PGs in Bengaluru</span>
+      <span class="ml-auto flex items-center gap-1 text-xs text-gray-500"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M6 12h12M10 18h4"/></svg> Filters</span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="hidden lg:hidden border-t border-softline bg-white px-4 py-4">
+    <div class="flex flex-col gap-3 text-sm font-medium">
+      <a href="#listings" class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50">🏠 Explore PGs</a>
+      <a href="#roommates" class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50">👥 Roommate Finder</a>
+      <a href="#" class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50">🏡 List Your Property</a>
+      <a href="#" class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50">❤️ Saved (3)</a>
+      <a href="#" class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50">📅 My Bookings</a>
+      <div class="pt-2 border-t border-softline">
+        <button class="btn-primary w-full rounded-full py-3 font-semibold">Sign in / Sign up</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero-gradient relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-6 lg:pt-14 lg:pb-10">
+    <div class="grid lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-7 fade-up">
+        <div class="inline-flex items-center gap-2 bg-white border border-softline rounded-full px-3 py-1.5 text-xs font-semibold text-slate950 shadow-soft mb-5">
+          <span class="relative w-2 h-2 rounded-full bg-coral pulse-dot"></span>
+          12,480 verified rooms available this week
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05]">
+          Find your next <span class="text-coral">home-away-from-home</span>, without the hustle.
+        </h1>
+        <p class="mt-5 text-base sm:text-lg text-gray-600 max-w-xl">
+          Browse verified PGs, hostels & co-living spaces. Meet compatible roommates. Pay rent, sign agreements and move in — all inside Roomzy.
+        </p>
+
+        <!-- Mobile search card -->
+        <div class="lg:hidden mt-6 bg-white rounded-2xl border border-softline shadow-card p-4 space-y-3">
+          <div>
+            <label class="text-[10px] uppercase font-semibold tracking-wider text-gray-500">City</label>
+            <div class="mt-1 flex items-center gap-2 border border-softline rounded-xl px-3 py-2.5">
+              <svg class="w-4 h-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-7.5 7-13a7 7 0 10-14 0c0 5.5 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              <span class="font-semibold">Bengaluru</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-[10px] uppercase font-semibold tracking-wider text-gray-500">Move-in</label>
+              <div class="mt-1 flex items-center gap-2 border border-softline rounded-xl px-3 py-2.5">
+                <svg class="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/></svg>
+                <span class="font-semibold text-sm">Flexible</span>
+              </div>
+            </div>
+            <div>
+              <label class="text-[10px] uppercase font-semibold tracking-wider text-gray-500">Budget</label>
+              <div class="mt-1 flex items-center gap-2 border border-softline rounded-xl px-3 py-2.5">
+                <svg class="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9a3 3 0 000 6h6a3 3 0 010 6H7"/></svg>
+                <span class="font-semibold text-sm">₹8k – ₹18k</span>
+              </div>
+            </div>
+          </div>
+          <button class="btn-primary w-full rounded-xl py-3 font-semibold">Search 12,480+ rooms</button>
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center gap-4 text-sm text-gray-600">
+          <div class="flex items-center gap-2"><svg class="w-4 h-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg> Zero brokerage</div>
+          <div class="flex items-center gap-2"><svg class="w-4 h-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg> Verified listings</div>
+          <div class="flex items-center gap-2"><svg class="w-4 h-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg> Digital agreements</div>
+        </div>
+      </div>
+
+      <!-- Stats / visual -->
+      <div class="lg:col-span-5 hidden lg:block relative">
+        <div class="relative">
+          <div class="absolute -inset-6 bg-gradient-to-br from-coral/10 to-transparent rounded-[2rem] blur-2xl"></div>
+          <div class="relative grid grid-cols-2 gap-4">
+            <div class="space-y-4">
+              <div class="bg-white rounded-2xl border border-softline shadow-card p-5">
+                <div class="text-xs text-gray-500 font-semibold">Move-in ready</div>
+                <div class="font-display text-3xl font-extrabold mt-1">48 hrs</div>
+                <div class="text-xs text-gray-500 mt-1">avg. from tour to keys</div>
+              </div>
+              <div class="bg-slate950 text-white rounded-2xl shadow-card p-5 relative overflow-hidden">
+                <div class="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-coral/20"></div>
+                <div class="text-xs text-white/70 font-semibold">Tenant satisfaction</div>
+                <div class="font-display text-3xl font-extrabold mt-1">97.2%</div>
+                <div class="mt-3 flex items-end gap-1 h-12">
+                  <span class="w-2 bg-white/30 rounded-sm" style="height:30%"></span>
+                  <span class="w-2 bg-white/40 rounded-sm" style="height:50%"></span>
+                  <span class="w-2 bg-white/50 rounded-sm" style="height:40%"></span>
+                  <span class="w-2 bg-white/70 rounded-sm" style="height:70%"></span>
+                  <span class="w-2 bg-coral rounded-sm" style="height:95%"></span>
+                  <span class="w-2 bg-coral rounded-sm" style="height:80%"></span>
+                  <span class="w-2 bg-coral rounded-sm" style="height:90%"></span>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-4 pt-8">
+              <div class="bg-white rounded-2xl border border-softline shadow-card p-5">
+                <div class="text-xs text-gray-500 font-semibold">Happy tenants</div>
+                <div class="font-display text-3xl font-extrabold mt-1">1.2 L+</div>
+                <div class="flex -space-x-2 mt-3">
+                  <span class="w-7 h-7 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 border-2 border-white"></span>
+                  <span class="w-7 h-7 rounded-full bg-gradient-to-br from-sky-400 to-indigo-500 border-2 border-white"></span>
+                  <span class="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 border-2 border-white"></span>
+                  <span class="w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-red-500 border-2 border-white"></span>
+                  <span class="w-7 h-7 rounded-full bg-coral text-white border-2 border-white text-[10px] font-bold flex items-center justify-center">+1k</span>
+                </div>
+              </div>
+              <div class="bg-white rounded-2xl border border-softline shadow-card p-5">
+                <div class="flex items-center gap-2">
+                  <div class="w-10 h-10 rounded-xl bg-coral-soft flex items-center justify-center">
+                    <svg class="w-5 h-5 text-coral" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+                  </div>
+                  <div>
+                    <div class="font-display font-extrabold text-lg">4.8 / 5</div>
+                    <div class="text-xs text-gray-500">from 24k reviews</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORY CHIPS -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 -mt-2 lg:-mt-4 relative z-10">
+  <div class="bg-white border border-softline rounded-2xl shadow-soft p-2 overflow-x-auto scrollbar-hide">
+    <div class="flex items-center gap-2 min-w-max px-1">
+      <button class="chip chip-active no-select flex items-center gap-2 px-4 py-2.5 rounded-full border border-softline text-sm font-semibold transition" data-chip="all">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        All PGs
+      </button>
+      <button class="chip no-select flex items-center gap-2 px-4 py-2.5 rounded-full border border-softline text-sm font-semibold text-slate950/80 hover:border-coral/40 transition" data-chip="women">👩 Women Only</button>
+      <button class="chip no-select flex items-center gap-2 px-4 py-2.5 rounded-full border border-softline text-sm font-semibold text-slate950/80 hover:border-coral/40 transition" data-chip="men">👨 Men Only</button>
+      <button class="chip no-select flex items-center gap-2 px-4 py-2.5 rounded-full border border-softline text-sm font-semibold text-slate950/80 hover:border-coral/40 transition" data-chip="co">🤝 Co-living</button>
+      <button class="chip no-select flex items-center gap-2 px-4 py-2.5 rounded-full border border-softline text-sm font-semibold text-slate950/80 hover:border-coral/40 transition" data-chip="student">🎓 Students</button>
+      <button class="chip no-select flex items-center gap-2 px-4 py-2.5 rounded-full border border-softline text-sm font-semibold text-slate950/80 hover:border-coral/40 transition" data-chip="prof">💼 Professionals</button>
+      <button class="chip no-select flex items-center gap-2 px-4 py-2.5 rounded-full border border-softline text-sm font-semibold text-slate950/80 hover:border-coral/40 transition" data-chip="lux">✨ Premium</button>
+      <button class="chip no-select flex items-center gap-2 px-4 py-2.5 rounded-full border border-softline text-sm font-semibold text-slate950/80 hover:border-coral/40 transition" data-chip="pet">🐾 Pet Friendly</button>
+    </div>
+  </div>
+</section>
+
+<!-- LISTINGS -->
+<section id="listings" class="max-w-7xl mx-auto px-4 sm:px-6 py-10 lg:py-14">
+  <div class="flex items-end justify-between mb-6 gap-4 flex-wrap">
+    <div>
+      <div class="text-xs font-semibold tracking-wider uppercase text-coral">Trending in Bengaluru</div>
+      <h2 class="font-display text-2xl sm:text-3xl font-extrabold mt-1">Hand-picked spaces you'll love</h2>
+      <p class="text-sm text-gray-500 mt-1">Showing 1,248 of 12,480 listings</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <button class="px-4 py-2 rounded-full border border-softline bg-white text-sm font-semibold hover:border-coral/40 flex items-center gap-2">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
+        Filters
+      </button>
+      <select class="px-4 py-2 rounded-full border border-softline bg-white text-sm font-semibold">
+        <option>Sort: Recommended</option>
+        <option>Price: Low to High</option>
+        <option>Price: High to Low</option>
+        <option>Rating</option>
+        <option>Newest</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6" id="listingsGrid"></div>
+
+  <div class="text-center mt-10">
+    <button class="px-6 py-3 rounded-full border border-softline bg-white font-semibold hover:border-coral hover:text-coral transition">Load more listings</button>
+  </div>
+</section>
+
+<!-- ROOMMATE FINDER -->
+<section id="roommates" class="bg-white border-y border-softline">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 lg:py-14">
+    <div class="grid lg:grid-cols-12 gap-10 items-start">
+      <div class="lg:col-span-4 lg:sticky lg:top-28">
+        <div class="text-xs font-semibold tracking-wider uppercase text-coral">Roommate Finder</div>
+        <h2 class="font-display text-2xl sm:text-3xl font-extrabold mt-1">Meet your perfect flatmate</h2>
+        <p class="text-sm text-gray-600 mt-3 max-w-md">Match with verified students & professionals based on lifestyle, work hours, hobbies & budget. Chat, meet and move in together.</p>
+
+        <div class="mt-6 space-y-3">
+          <div class="flex items-center gap-3 p-3 rounded-xl bg-softbg border border-softline">
+            <div class="w-9 h-9 rounded-lg bg-coral-soft flex items-center justify-center">
+              <svg class="w-4 h-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12z"/></svg>
+            </div>
+            <div>
+              <div class="text-sm font-semibold">100% verified profiles</div>
+              <div class="text-xs text-gray-500">Govt. ID & work email checks</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-xl bg-softbg border border-softline">
+            <div class="w-9 h-9 rounded-lg bg-coral-soft flex items-center justify-center">
+              <svg class="w-4 h-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 7h12M8 12h12M8 17h8M4 7h.01M4 12h.01M4 17h.01"/></svg>
+            </div>
+            <div>
+              <div class="text-sm font-semibold">Smart compatibility score</div>
+              <div class="text-xs text-gray-500">Based on 40+ lifestyle signals</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-xl bg-softbg border border-softline">
+            <div class="w-9 h-9 rounded-lg bg-coral-soft flex items-center justify-center">
+              <svg class="w-4 h-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H8l-5 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            </div>
+            <div>
+              <div class="text-sm font-semibold">In-app chat & meet-up booking</div>
+              <div class="text-xs text-gray-500">No personal contact shared</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-primary mt-6 rounded-full px-5 py-3 text-sm font-semibold inline-flex items-center gap-2">
+          Create my profile
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <div class="lg:col-span-8">
+        <div class="grid sm:grid-cols-2 gap-4" id="mateGrid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-10 lg:py-14">
+  <div class="text-center mb-10">
+    <div class="text-xs font-semibold tracking-wider uppercase text-coral">How Roomzy works</div>
+    <h2 class="font-display text-2xl sm:text-3xl font-extrabold mt-1">Move in within 48 hours</h2>
+  </div>
+  <div class="grid md:grid-cols-3 gap-5">
+    <div class="bg-white rounded-2xl border border-softline p-6 shadow-soft card-hover">
+      <div class="w-12 h-12 rounded-2xl bg-coral-soft flex items-center justify-center mb-4">
+        <span class="font-display text-xl font-extrabold text-coral">1</span>
+      </div>
+      <h3 class="font-display font-extrabold text-lg">Search & shortlist</h3>
+      <p class="text-sm text-gray-600 mt-2">Filter by area, budget, occupancy, amenities and food preferences. Save your favourites.</p>
+    </div>
+    <div class="bg-white rounded-2xl border border-softline p-6 shadow-soft card-hover">
+      <div class="w-12 h-12 rounded-2xl bg-coral-soft flex items-center justify-center mb-4">
+        <span class="font-display text-xl font-extrabold text-coral">2</span>
+      </div>
+      <h3 class="font-display font-extrabold text-lg">Tour virtually or in-person</h3>
+      <p class="text-sm text-gray-600 mt-2">Book a self-guided tour or join a video walkthrough with our verified hosts.</p>
+    </div>
+    <div class="bg-white rounded-2xl border border-softline p-6 shadow-soft card-hover">
+      <div class="w-12 h-12 rounded-2xl bg-coral-soft flex items-center justify-center mb-4">
+        <span class="font-display text-xl font-extrabold text-coral">3</span>
+      </div>
+      <h3 class="font-display font-extrabold text-lg">Pay & move in</h3>
+      <p class="text-sm text-gray-600 mt-2">Digital agreement, zero-brokerage payment, keys in hand. Welcome home.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CITIES -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-10 lg:py-14">
+  <div class="flex items-end justify-between mb-6 flex-wrap gap-3">
+    <div>
+      <div class="text-xs font-semibold tracking-wider uppercase text-coral">Explore cities</div>
+      <h2 class="font-display text-2xl sm:text-3xl font-extrabold mt-1">We're live across India</h2>
+    </div>
+    <a href="#" class="text-sm font-semibold text-coral hover:underline">View all cities →</a>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" id="citiesGrid"></div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="bg-slate950 text-white relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-coral/10 via-transparent to-transparent"></div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-14 lg:py-20">
+    <div class="text-center mb-10">
+      <div class="text-xs font-semibold tracking-wider uppercase text-coral-light">Loved by tenants</div>
+      <h2 class="font-display text-3xl sm:text-4xl font-extrabold mt-1">Real stories from Roomzy homes</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5">
+      <div class="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6">
+        <div class="flex items-center gap-1 mb-3">
+          <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+        </div>
+        <p class="text-white/85 leading-relaxed">"Found a fully-furnished PG in HSR Layout within a day. The digital agreement and rent receipts saved me so much paperwork."</p>
+        <div class="flex items-center gap-3 mt-5">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-coral to-coral-dark"></div>
+          <div>
+            <div class="font-semibold">Priya Sharma</div>
+            <div class="text-xs text-white/60">Product Designer · Bengaluru</div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6">
+        <div class="flex items-center gap-1 mb-3">
+          <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+        </div>
+        <p class="text-white/85 leading-relaxed">"The roommate finder matched me with a fellow dev who also loves board games. 10/10 would move in again."</p>
+        <div class="flex items-center gap-3 mt-5">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-sky-400 to-indigo-500"></div>
+          <div>
+            <div class="font-semibold">Arjun Reddy</div>
+            <div class="text-xs text-white/60">SDE II · Hyderabad</div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6">
+        <div class="flex items-center gap-1 mb-3">
+          <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+        </div>
+        <p class="text-white/85 leading-relaxed">"As a student moving to a new city, Roomzy felt like a safety net. Transparent pricing, friendly hosts, no surprises."</p>
+        <div class="flex items-center gap-3 mt-5">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500"></div>
+          <div>
+            <div class="font-semibold">Ananya Iyer</div>
+            <div class="text-xs text-white/60">MBA Student · Mumbai</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+  <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-coral to-coral-dark p-8 sm:p-12 text-white">
+    <div class="absolute -right-20 -top-20 w-72 h-72 rounded-full bg-white/10 blur-2xl"></div>
+    <div class="absolute -left-16 -bottom-16 w-64 h-64 rounded-full bg-black/10 blur-2xl"></div>
+    <div class="relative grid md:grid-cols-2 gap-6 items-center">
+      <div>
+        <h3 class="font-display text-2xl sm:text-3xl font-extrabold">Own a property? Earn with Roomzy.</h3>
+        <p class="mt-3 text-white/90 max-w-md">List your PG, hostel or co-living space, reach 1.2 L+ verified tenants, and manage everything from one dashboard.</p>
+      </div>
+      <div class="md:text-right flex flex-wrap md:justify-end gap-3">
+        <button class="bg-white text-coral rounded-full px-6 py-3 font-semibold hover:bg-gray-100 transition">List Your Property</button>
+        <button class="border border-white/40 rounded-full px-6 py-3 font-semibold hover:bg-white/10 transition">Talk to sales</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-white border-t border-softline">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid md:grid-cols-5 gap-8">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-coral text-white">
+            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor"><path d="M12 2.5l9.5 8.3a1 1 0 01-.6 1.7H19V20a1 1 0 01-1 1h-4.5v-6a1 1 0 00-1-1h-1a1 1 0 00-1 1v6H6a1 1 0 01-1-1v-7.5H3.1a1 1 0 01-.6-1.7L12 2.5z"/></svg>
+          </span>
+          <span class="font-display font-extrabold text-xl">Roomzy</span>
+        </div>
+        <p class="text-sm text-gray-600 mt-4 max-w-sm">The smarter way to find your PG, hostel or co-living home — and the people you'll share it with.</p>
+        <div class="flex items-center gap-3 mt-5">
+          <a href="#" class="w-9 h-9 rounded-full bg-softbg border border-softline flex items-center justify-center hover:border-coral hover:text-coral">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.8a8.5 8.5 0 01-2.4.7 4.2 4.2 0 001.8-2.3 8.3 8.3 0 01-2.6 1A4.1 4.1 0 0012 9.1c0 .3 0 .6.1.9A11.7 11.7 0 013 4.9a4.1 4.1 0 001.3 5.5 4 4 0 01-1.9-.5v.1a4.1 4.1 0 003.3 4 4.1 4.1 0 01-1.9.1 4.1 4.1 0 003.8 2.9A8.3 8.3 0 012 18.6 11.7 11.7 0 008.3 20c7.5 0 11.7-6.3 11.7-11.7v-.5A8.4 8.4 0 0022 5.8z"/></svg>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full bg-softbg border border-softline flex items-center justify-center hover:border-coral hover:text-coral">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2 0 1.8.2 2.2.4a4 4 0 011.4 1 4 4 0 011 1.4c.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c0 1.2-.2 1.8-.4 2.2a4 4 0 01-1 1.4 4 4 0 01-1.4 1c-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2 0-1.8-.2-2.2-.4a4 4 0 01-1.4-1 4 4 0 01-1-1.4c-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c0-1.2.2-1.8.4-2.2a4 4 0 011-1.4 4 4 0 011.4-1c.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 5.3a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm5.4-.3a1 1 0 11-2.1 0 1 1 0 012.1 0zM12 9.3a2.7 2.7 0 110 5.4 2.7 2.7 0 010-5.4z"/></svg>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full bg-softbg border border-softline flex items-center justify-center hover:border-coral hover:text-coral">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zM8.3 18.3H5.7V9.7h2.6v8.6zM7 8.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm11.3 9.8h-2.6v-4.2c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.3h-2.6V9.7h2.5v1.2a2.8 2.8 0 012.5-1.4c2.7 0 3.2 1.8 3.2 4v4.8z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-display font-bold">For Tenants</h4>
+        <ul class="mt-4 space-y-2 text-sm text-gray-600">
+          <li><a href="#" class="hover:text-coral">Explore PGs</a></li>
+          <li><a href="#" class="hover:text-coral">Roommate Finder</a></li>
+          <li><a href="#" class="hover:text-coral">Co-living Spaces</a></li>
+          <li><a href="#" class="hover:text-coral">Hostels</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-display font-bold">For Owners</h4>
+        <ul class="mt-4 space-y-2 text-sm text-gray-600">
+          <li><a href="#" class="hover:text-coral">List Property</a></li>
+          <li><a href="#" class="hover:text-coral">Owner Dashboard</a></li>
+          <li><a href="#" class="hover:text-coral">Pricing</a></li>
+          <li><a href="#" class="hover:text-coral">Success Stories</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-display font-bold">Company</h4>
+        <ul class="mt-4 space-y-2 text-sm text-gray-600">
+          <li><a href="#" class="hover:text-coral">About</a></li>
+          <li><a href="#" class="hover:text-coral">Careers</a></li>
+          <li><a href="#" class="hover:text-coral">Blog</a></li>
+          <li><a href="#" class="hover:text-coral">Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-10 pt-6 border-t border-softline flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
+      <div>© 2025 Roomzy Technologies Pvt. Ltd. All rights reserved.</div>
+      <div class="flex gap-5">
+        <a href="#" class="hover:text-coral">Privacy</a>
+        <a href="#" class="hover:text-coral">Terms</a>
+        <a href="#" class="hover:text-coral">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------- DATA ---------- */
+const cities = [
+  { name:'Bengaluru', count:4820, img:'https://images.unsplash.com/photo-1596436889106-be35e843f974?w=400&h=500&fit=crop' },
+  { name:'Mumbai', count:3180, img:'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=400&h=500&fit=crop' },
+  { name:'Pune', count:2040, img:'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=400&h=500&fit=crop' },
+  { name:'Hyderabad', count:1620, img:'https://images.unsplash.com/photo-1621903500124-a53a83d88e4d?w=400&h=500&fit=crop' },
+  { name:'Delhi NCR', count:1480, img:'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=400&h=500&fit=crop' },
+  { name:'Chennai', count:940, img:'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=400&h=500&fit=crop' },
+];
+
+const cityOptions = ['Bengaluru','Mumbai','Pune','Hyderabad','Delhi NCR','Chennai','Kolkata','Ahmedabad','Jaipur','Goa'];
+
+const listings = [
+  {
+    title:'The Nest Co-living · HSR Layout',
+    area:'Sector 2, HSR Layout',
+    price:12500, type:'Co-living', occ:'Single',
+    rating:4.8, reviews:124, verified:true, tag:'Women only',
+    img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop',
+    amenities:['Wi-Fi','Meals','Laundry','AC']
+  },
+  {
+    title:'UrbanBase PG · Koramangala',
+    area:'5th Block, Koramangala',
+    price:9800, type:'PG', occ:'Double sharing',
+    rating:4.6, reviews:88, verified:true, tag:'Men only',
+    img:'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&h=600&fit=crop',
+    amenities:['Wi-Fi','Meals','Parking','Power backup']
+  },
+  {
+    title:'Stanza Living · Indiranagar',
+    area:'12th Main, Indiranagar',
+    price:18500, type:'Premium', occ:'Single Studio',
+    rating:4.9, reviews:212, verified:true, tag:'Premium',
+    img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop',
+    amenities:['Wi-Fi','Meals','Gym','Housekeeping']
+  },
+  {
+    title:'Colive 91 · Whitefield',
+    area:'ITPL Main Rd, Whitefield',
+    price:11200, type:'Co-living', occ:'Single',
+    rating:4.7, reviews:156, verified:true, tag:'Unisex',
+    img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&h=600&fit=crop',
+    amenities:['Wi-Fi','Meals','Lounge','AC']
+  },
+  {
+    title:'Zolo Stays · BTM Layout',
+    area:'16th Main, BTM 2nd Stage',
+    price:7500, type:'PG', occ:'Triple sharing',
+    rating:4.3, reviews:64, verified:true, tag:'Students',
+    img:'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&h=600&fit=crop',
+    amenities:['Wi-Fi','Meals','Power backup','Laundry']
+  },
+  {
+    title:'Settl. · JP Nagar',
+    area:'6th Phase, JP Nagar',
+    price:14200, type:'Co-living', occ:'Single',
+    rating:4.8, reviews:93, verified:true, tag:'Professionals',
+    img:'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&h=600&fit=crop',
+    amenities:['Wi-Fi','Cafe','Gym','Events']
+  },
+];
+
+const mates = [
+  { name:'Sneha K.', age:24, role:'UX Designer @ Flipkart', area:'HSR Layout', budget:'10–15k', compat:94, img:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop', tags:['Early riser','Non-smoker','Gym','Vegetarian'] },
+  { name:'Rohit M.', age:27, role:'SDE @ Razorpay', area:'Koramangala', budget:'12–18k', compat:88, img:'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=400&fit=crop', tags:['Night owl','Gamer','Pet friendly','Foodie'] },
+  { name:'Aisha P.', age:22, role:'MBA Student · IIM-B', area:'Bannerghatta', budget:'8–12k', compat:91, img:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop', tags:['Reader','Yoga','Clean freak','No parties'] },
+  { name:'Vivek S.', age:29, role:'Product Manager @ Swiggy', area:'Indiranagar', budget:'15–22k', compat:82, img:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop', tags:['Runner','Coffee snob','Traveller','Social'] },
+];
+
+/* ---------- RENDER ---------- */
+function renderListings(){
+  const grid = document.getElementById('listingsGrid');
+  grid.innerHTML = listings.map((l,i)=>`
+    <article class="bg-white rounded-2xl border border-softline overflow-hidden card-hover shadow-soft fade-up" style="animation-delay:${i*60}ms">
+      <div class="relative">
+        <img src="${l.img}" alt="${l.title}" class="w-full h-56 object-cover" loading="lazy" onerror="this.style.background='#e5e7eb';this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><rect width=%22800%22 height=%22600%22 fill=%22%23e5e7eb%22/></svg>'"/>
+        <span class="absolute top-3 left-3 bg-white/95 backdrop-blur text-xs font-semibold px-2.5 py-1 rounded-full text-slate950">${l.tag}</span>
+        ${l.verified ? `<span class="absolute top-3 right-12 bg-slate950/80 text-white text-[10px] font-semibold px-2 py-1 rounded-full flex items-center gap-1"><svg class='w-3 h-3' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3'><path d='M5 12l5 5L20 7'/></svg>Verified</span>`:''}
+        <button class="fav absolute top-3 right-3 w-9 h-9 rounded-full bg-white/95 backdrop-blur flex items-center justify-center hover:bg-white" aria-label="Save">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 10-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 000-7.8z"/></svg>
+        </button>
+        <div class="absolute bottom-3 left-3 flex gap-1.5">
+          ${l.amenities.slice(0,3).map(a=>`<span class="bg-white/95 backdrop-blur text-[11px] font-semibold px-2 py-1 rounded-full">${a}</span>`).join('')}
+        </div>
+      </div>
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3">
+          <div class="min-w-0">
+            <h3 class="font-display font-bold text-base leading-tight truncate">${l.title}</h3>
+            <p class="text-xs text-gray-500 mt-1 flex items-center gap-1"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-7.5 7-13a7 7 0 10-14 0c0 5.5 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/></svg>${l.area}</p>
+          </div>
+          <div class="shrink-0 flex items-center gap-1 bg-softbg rounded-full px-2 py-1">
+            <svg class="w-3 h-3 text-yellow-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+            <span class="text-xs font-bold">${l.rating}</span>
+            <span class="text-[10px] text-gray-500">(${l.reviews})</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 mt-3 text-xs text-gray-500">
+          <span class="px-2 py-1 rounded-full bg-softbg font-semibold">${l.type}</span>
+          <span class="text-softline">•</span>
+          <span>${l.occ}</span>
+        </div>
+        <div class="mt-4 pt-4 border-t border-softline flex items-center justify-between">
+          <div>
+            <div class="font-display font-extrabold text-lg">₹${l.price.toLocaleString('en-IN')}<span class="text-xs font-semibold text-gray-500">/mo</span></div>
+            <div class="text-[11px] text-gray-500">All-inclusive · Zero brokerage</div>
+          </div>
+          <button class="btn-primary rounded-full px-4 py-2 text-sm font-semibold">View</button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+
+  grid.querySelectorAll('.fav').forEach(b=>{
+    b.addEventListener('click', e=>{
+      e.stopPropagation();
+      b.classList.toggle('heart-active');
+    });
+  });
+}
+
+function renderMates(){
+  const grid = document.getElementById('mateGrid');
+  grid.innerHTML = mates.map((m,i)=>`
+    <div class="bg-white rounded-2xl border border-softline p-5 card-hover shadow-soft fade-up" style="animation-delay:${i*80}ms">
+      <div class="flex items-center gap-4">
+        <div class="relative">
+          <img src="${m.img}" class="w-14 h-14 rounded-full object-cover" alt="${m.name}" onerror="this.style.background='linear-gradient(135deg,#E53935,#C62828)';this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23E53935%22/></svg>'"/>
+          <span class="absolute -bottom-1 -right-1 bg-green-500 border-2 border-white w-4 h-4 rounded-full"></span>
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2">
+            <h3 class="font-display font-bold truncate">${m.name}, ${m.age}</h3>
+            <span class="shrink-0 text-[10px] font-bold bg-coral-soft text-coral px-2 py-0.5 rounded-full">${m.compat}% match</span>
+          </div>
+          <p class="text-xs text-gray-500 truncate">${m.role}</p>
+          <p class="text-xs text-gray-500 mt-0.5">Looking in ${m.area} · ₹${m.budget}</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-1.5 mt-4">
+        ${m.tags.map(t=>`<span class="text-[11px] font-semibold text-slate950/80 bg-softbg border border-softline rounded-full px-2.5 py-1">${t}</span>`).join('')}
+      </div>
+      <div class="mt-4 flex gap-2">
+        <button class="flex-1 bg-white border border-softline hover:border-coral hover:text-coral rounded-full py-2 text-xs font-semibold transition">View profile</button>
+        <button class="flex-1 btn-primary rounded-full py-2 text-xs font-semibold">Connect</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderCities(){
+  const grid = document.getElementById('citiesGrid');
+  grid.innerHTML = cities.map((c,i)=>`
+    <a href="#" class="group relative block aspect-[4/5] rounded-2xl overflow-hidden border border-softline shadow-soft card-hover fade-up" style="animation-delay:${i*50}ms">
+      <img src="${c.img}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="${c.name}" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#E53935,#111827)';this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 500%22><rect width=%22400%22 height=%22500%22 fill=%22%23E53935%22/></svg>'"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+      <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+        <div class="font-display font-extrabold text-lg">${c.name}</div>
+        <div class="text-xs text-white/80">${c.count.toLocaleString('en-IN')} rooms</div>
+      </div>
+      <span class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/95 backdrop-blur flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+        <svg class="w-4 h-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </span>
+    </a>
+  `).join('');
+}
+
+function renderCityList(){
+  const list = document.getElementById('cityList');
+  list.innerHTML = cityOptions.map(c=>`
+    <button data-city="${c}" class="city-opt w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-softbg text-sm font-medium text-left">
+      <span>${c}</span>
+      <svg class="w-3.5 h-3.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+  `).join('');
+}
+
+/* ---------- INTERACTIONS ---------- */
+renderListings();
+renderMates();
+renderCities();
+renderCityList();
+
+// Chips
+document.querySelectorAll('.chip').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('chip-active'));
+    chip.classList.add('chip-active');
+  });
+});
+
+// Location dropdown
+const locBtn = document.getElementById('locBtn');
+const locDropdown = document.getElementById('locDropdown');
+const locLabel = document.getElementById('locLabel');
+locBtn.addEventListener('click', e=>{
+  e.stopPropagation();
+  locDropdown.classList.toggle('hidden');
+});
+document.addEventListener('click', e=>{
+  if(!locDropdown.contains(e.target) && !locBtn.contains(e.target)){
+    locDropdown.classList.add('hidden');
+  }
+});
+document.getElementById('cityList').addEventListener('click', e=>{
+  const btn = e.target.closest('.city-opt');
+  if(btn){
+    locLabel.textContent = btn.dataset.city;
+    locDropdown.classList.add('hidden');
+  }
+});
+
+// Mobile menu
+document.getElementById('mobileBtn').addEventListener('click', ()=>{
+  document.getElementById('mobileMenu').classList.toggle('hidden');
+});
+</script>
+</body>
+</html>
