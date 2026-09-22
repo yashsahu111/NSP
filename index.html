@@ -123,7 +123,7 @@ tailwind.config = {
             <svg class="h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h12M6 9h12M9 4c4 0 6 2 6 5s-2 5-6 5h-3l7 6"/></svg>
             <span class="text-left leading-none">
               <span class="block text-[10px] uppercase tracking-wide text-gray-400 font-semibold">Budget</span>
-              <span id="budgetLabel" class="block text-[13.5px] font-bold">₹5k – ₹35k</span>
+              <span id="budgetLabel" class="block text-[13.5px] font-bold">₹3k – ₹40k</span>
             </span>
           </button>
           <div class="flex items-center pl-2 pr-1.5">
@@ -146,12 +146,12 @@ tailwind.config = {
           <div id="budgetPop" class="hidden absolute top-[58px] right-0 w-[340px] bg-white rounded-2xl shadow-pop border border-line p-5 z-50">
             <div class="flex items-center justify-between mb-1">
               <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Monthly rent</p>
-              <p class="text-sm font-extrabold text-coral" id="hdrBudgetVal">₹5,000 – ₹35,000</p>
+              <p class="text-sm font-extrabold text-coral" id="hdrBudgetVal">₹3,000 – ₹40,000</p>
             </div>
             <div class="range-wrap mt-3">
               <div class="range-track"></div><div class="range-fill" id="hFill"></div>
-              <input type="range" id="hMin" min="3000" max="40000" step="500" value="5000">
-              <input type="range" id="hMax" min="3000" max="40000" step="500" value="35000">
+              <input type="range" id="hMin" min="3000" max="40000" step="500" value="3000">
+              <input type="range" id="hMax" min="3000" max="40000" step="500" value="40000">
             </div>
           </div>
         </div>
@@ -270,12 +270,12 @@ tailwind.config = {
               <div>
                 <div class="flex items-center justify-between mb-1">
                   <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400">Budget</p>
-                  <p class="text-[12.5px] font-extrabold text-coral" id="sideBudgetVal">₹5k – ₹35k</p>
+                  <p class="text-[12.5px] font-extrabold text-coral" id="sideBudgetVal">₹3k – ₹40k</p>
                 </div>
                 <div class="range-wrap">
                   <div class="range-track"></div><div class="range-fill" id="sFill"></div>
-                  <input type="range" id="sMin" min="3000" max="40000" step="500" value="5000">
-                  <input type="range" id="sMax" min="3000" max="40000" step="500" value="35000">
+                  <input type="range" id="sMin" min="3000" max="40000" step="500" value="3000">
+                  <input type="range" id="sMax" min="3000" max="40000" step="500" value="40000">
                 </div>
               </div>
 
@@ -318,12 +318,12 @@ tailwind.config = {
       <div>
         <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
           <div>
-            <h2 class="text-[22px] sm:text-[27px] font-extrabold tracking-tight">PGs & Co-living in <span id="resCity">Jaipur</span></h2>
-            <p class="text-[13.5px] text-gray-500 mt-0.5"><span id="resCount">6</span> stays available · updated 12 min ago</p>
+            <h2 class="text-[22px] sm:text-[27px] font-extrabold tracking-tight">PGs & Hostels in <span id="resCity">Jaipur</span></h2>
+            <p class="text-[13.5px] text-gray-500 mt-0.5"><span id="resCount">0</span> stays available · updated recently</p>
           </div>
           <div class="flex items-center gap-2">
             <div class="relative">
-              <select id="sortSel" class="appearance-none h-11 pl-4 pr-9 rounded-xl border border-line bg-white font-bold text-sm outline-none focus:border-coral cursor-pointer">
+              <select id="sortSel" onchange="render()" class="appearance-none h-11 pl-4 pr-9 rounded-xl border border-line bg-white font-bold text-sm outline-none focus:border-coral cursor-pointer">
                 <option value="rec">Recommended</option>
                 <option value="low">Price: Low to High</option>
                 <option value="high">Price: High to Low</option>
@@ -588,12 +588,35 @@ const AMENITIES = [
 ];
 
 const LISTINGS = [
-  {id:1, name:'Urban Nest Co-living', type:'Co-living', area:'Malviya Nagar, Jaipur', price:13500, rating:4.8, reviews:216, dist:1.2, gender:'Unisex', occ:['Single','Double'], tag:'Zero brokerage', img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60'},
-  {id:2, name:'Skyline Girls PG', type:'PG', area:'Vaishali Nagar, Jaipur', price:9800, rating:4.6, reviews:142, dist:2.6, gender:'Female', occ:['Double','Triple'], tag:'Meals included', img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60'},
-  {id:3, name:'The Hive Hostel', type:'Hostel', area:'Jagatpura, Jaipur', price:7200, rating:4.4, reviews:98, dist:4.1, gender:'Male', occ:['Triple','Shared'], tag:'Budget pick', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60'},
-  {id:4, name:'Casa Verde Residency', type:'Co-living', area:'Raja Park, Jaipur', price:16500, rating:4.9, reviews:311, dist:11.4, gender:'Unisex', occ:['Single'], tag:'Premium', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60'},
-  {id:5, name:'Comfort Stay PG', type:'PG', area:'Gopalpura Bypass, Jaipur', price:8500, rating:4.3, reviews:76, dist:3.3, gender:'Male', occ:['Double','Triple'], tag:'Popular', img:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60'},
-  {id:6, name:'Bloom Co-living Studio', type:'Studio', area:'Mansarovar, Jaipur', price:19500, rating:4.7, reviews:189, dist:8.7, gender:'Unisex', occ:['Single'], tag:'Private studio', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60'}
+  // Malviya Nagar
+  {id:1, name:'Urban Nest Co-living', type:'Co-living', area:'Malviya Nagar, Jaipur', price:13500, rating:4.8, reviews:216, dist:1.2, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','food','power'], tag:'Zero brokerage', img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60'},
+  {id:2, name:'Aanchal Girls PG', type:'PG', area:'Malviya Nagar, Jaipur', price:8500, rating:4.7, reviews:112, dist:1.8, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Meals included', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60'},
+  {id:3, name:'Gurukul Boys Hostel', type:'Hostel', area:'Malviya Nagar, Jaipur', price:6500, rating:4.5, reviews:84, dist:2.1, gender:'Male', occ:['Triple','Shared'], amen:['wifi','food','power'], tag:'Student choice', img:'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60'},
+  {id:4, name:'Studio Metro Stays', type:'Studio', area:'Malviya Nagar, Jaipur', price:18000, rating:4.9, reviews:68, dist:0.8, gender:'Unisex', occ:['Single'], amen:['wifi','ac','gym','power'], tag:'Private Studio', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60'},
+
+  // Vaishali Nagar
+  {id:5, name:'Skyline Girls PG', type:'PG', area:'Vaishali Nagar, Jaipur', price:9800, rating:4.6, reviews:142, dist:2.6, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Top Rated', img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60'},
+  {id:6, name:'Sanskar Boys PG', type:'PG', area:'Vaishali Nagar, Jaipur', price:7800, rating:4.4, reviews:92, dist:3.0, gender:'Male', occ:['Single','Double','Triple'], amen:['wifi','power'], tag:'Budget Pick', img:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60'},
+  {id:7, name:'Imperial Co-living Suites', type:'Co-living', area:'Vaishali Nagar, Jaipur', price:15000, rating:4.8, reviews:175, dist:1.5, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','gym','laundry'], tag:'Couple Friendly', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60'},
+
+  // Jagatpura
+  {id:8, name:'The Hive Student Hostel', type:'Hostel', area:'Jagatpura, Jaipur', price:5500, rating:4.4, reviews:98, dist:4.1, gender:'Male', occ:['Triple','Shared'], amen:['wifi','food','power'], tag:'Near Colleges', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60'},
+  {id:9, name:'Satyam Girls Residency', type:'PG', area:'Jagatpura, Jaipur', price:8200, rating:4.6, reviews:89, dist:3.5, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Safe Stay', img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60'},
+  {id:10, name:'HelloWorld Zem Co-living', type:'Co-living', area:'Jagatpura, Jaipur', price:12000, rating:4.7, reviews:140, dist:2.0, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','gym','power'], tag:'Short Stay Allowed', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60'},
+
+  // Raja Park
+  {id:11, name:'Casa Verde Residency', type:'Co-living', area:'Raja Park, Jaipur', price:16500, rating:4.9, reviews:311, dist:1.4, gender:'Unisex', occ:['Single'], amen:['wifi','ac','food','gym'], tag:'Premium Stay', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60'},
+  {id:12, name:'Pink City Girls Hostel', type:'Hostel', area:'Raja Park, Jaipur', price:9000, rating:4.5, reviews:105, dist:1.9, gender:'Female', occ:['Double','Shared'], amen:['wifi','food','laundry'], tag:'Heart of City', img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60'},
+
+  // Gopalpura Bypass
+  {id:13, name:'Comfort Stay Boys PG', type:'PG', area:'Gopalpura Bypass, Jaipur', price:7500, rating:4.3, reviews:76, dist:3.3, gender:'Male', occ:['Double','Triple'], amen:['wifi','food','power'], tag:'Coaching Hub', img:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60'},
+  {id:14, name:'Bed Buddies Girls PG', type:'PG', area:'Gopalpura Bypass, Jaipur', price:8800, rating:4.6, reviews:120, dist:2.5, gender:'Female', occ:['Single','Double'], amen:['wifi','ac','food'], tag:'Verified Stay', img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60'},
+
+  // Mansarovar
+  {id:15, name:'Bloom Co-living Studio', type:'Studio', area:'Mansarovar, Jaipur', price:19500, rating:4.7, reviews:189, dist:8.7, gender:'Unisex', occ:['Single'], amen:['wifi','ac','gym','power'], tag:'Couple Friendly', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60'},
+  {id:16, name:'HelloWorld Tapovan', type:'Co-living', area:'Mansarovar, Jaipur', price:11000, rating:4.6, reviews:134, dist:4.2, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','laundry'], tag:'Short Stay', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60'},
+  {id:17, name:'Apex Student Boys Hostel', type:'Hostel', area:'Mansarovar, Jaipur', price:6000, rating:4.2, reviews:88, dist:5.0, gender:'Male', occ:['Triple','Shared'], amen:['wifi','food'], tag:'Budget Pick', img:'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60'},
+  {id:18, name:'Grace Girls PG', type:'PG', area:'Mansarovar, Jaipur', price:8000, rating:4.5, reviews:95, dist:3.8, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','power'], tag:'Homely Food', img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60'}
 ];
 
 const ROOMMATES = [
@@ -616,7 +639,7 @@ const TESTI = [
   {n:'Arjun K.', r:'Roommate matching is scarily accurate. My match score was 91%!', img:'https://i.pravatar.cc/100?img=52', role:'Marketing Manager'}
 ];
 
-const state = { city:'Jaipur (All)', min:5000, max:35000, gender:'Any', occ:[], amen:[], category:'All' };
+const state = { city:'Jaipur (All)', min:3000, max:40000, gender:'Any', occ:[], amen:[], category:'All' };
 const saved = new Set();
 
 /* ═════════ HELPERS ═════════ */
@@ -694,11 +717,11 @@ function setCategory(cat){
 }
 
 function renderCities(){
-  $('#cityGrid').innerHTML = CITIES.map(c=>`<button onclick="pickCity('${c}')" class="px-3 py-2 rounded-xl text-xs font-bold text-left border border-line hover:border-coral">${c}</button>`).join('');
+  $('#cityGrid').innerHTML = CITIES.map(c=>`<button onclick="pickCity('${c}')" class="px-3 py-2 rounded-xl text-xs font-bold text-left border ${state.city===c?'border-coral bg-coral-50 text-coral':'border-line'} hover:border-coral">${c}</button>`).join('');
 }
 
 function pickCity(c){
-  state.city = c; $('#cityLabel').textContent = c; $('#resCity').textContent = c; $('#cityPop').classList.add('hidden'); render();
+  state.city = c; $('#cityLabel').textContent = c; $('#resCity').textContent = c; $('#cityPop').classList.add('hidden'); renderCities(); render();
 }
 
 function renderFilterControls(){
@@ -720,9 +743,10 @@ function setGender(g){ state.gender = g; render(); }
 function toggleAmen(a){ state.amen.includes(a) ? state.amen.splice(state.amen.indexOf(a),1) : state.amen.push(a); render(); }
 
 function resetFilters(){
-  state.min=5000; state.max=35000; state.gender='Any'; state.occ=[]; state.amen=[]; state.category='All';
-  $('#sMin').value=5000; $('#sMax').value=35000; $('#hMin').value=5000; $('#hMax').value=35000;
-  syncRanges(); renderCats(); render(); toast('Filters reset');
+  state.min=3000; state.max=40000; state.gender='Any'; state.occ=[]; state.amen=[]; state.category='All'; state.city='Jaipur (All)';
+  $('#sMin').value=3000; $('#sMax').value=40000; $('#hMin').value=3000; $('#hMax').value=40000;
+  $('#cityLabel').textContent = 'Jaipur (All)'; $('#resCity').textContent = 'Jaipur';
+  syncRanges(); renderCats(); renderCities(); render(); toast('Filters reset');
 }
 
 function bindRange(){
@@ -766,46 +790,71 @@ function syncRanges(){
 }
 
 function getFiltered(){
-  return LISTINGS.filter(l => {
+  let list = LISTINGS.filter(l => {
     if(l.price < state.min || l.price > state.max) return false;
     if(state.gender!=='Any' && l.gender!==state.gender && l.gender!=='Unisex') return false;
     if(state.occ.length && !state.occ.some(o=>l.occ.includes(o))) return false;
-    if(state.category!=='All' && l.type!==state.category) return false;
+    if(state.category!=='All' && l.type!==state.category && !(state.category==='Short stay' && l.tag.includes('Short Stay')) && !(state.category==='Couple friendly' && l.tag.includes('Couple Friendly'))) return false;
     if(state.city!=='Jaipur (All)' && !l.area.includes(state.city)) return false;
+    if(state.amen.length && !state.amen.every(a=>l.amen && l.amen.includes(a))) return false;
     return true;
   });
+
+  const sortVal = $('#sortSel') ? $('#sortSel').value : 'rec';
+  if(sortVal === 'low') list.sort((a,b)=>a.price - b.price);
+  else if(sortVal === 'high') list.sort((a,b)=>b.price - a.price);
+  else if(sortVal === 'rating') list.sort((a,b)=>b.rating - a.rating);
+
+  return list;
 }
 
 function render(){
   const list = getFiltered();
-  $('#cards').innerHTML = list.map(l => {
-    const isSaved = saved.has(l.id);
-    return `
-    <article class="card-hov bg-white rounded-3xl border border-line overflow-hidden hover:shadow-card">
-      <div class="relative">
-        <img src="${l.img}" alt="${l.name}" class="w-full h-52 object-cover">
-        <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-lg bg-white/95 text-[11px] font-extrabold shadow-soft">${l.tag}</span>
-        <button onclick="toggleSave(event, ${l.id})" class="absolute top-3.5 right-3.5 h-9 w-9 grid place-items-center rounded-full bg-white/95 shadow-soft hover:scale-110 transition">
-          <svg class="h-[17px] w-[17px] ${isSaved ? 'text-coral fill-coral' : 'text-gray-500'}" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21.2l7.7-7.7 1.1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
-        </button>
-      </div>
-      <div class="p-5">
-        <div class="flex items-start justify-between gap-3">
-          <div>
-            <h3 class="font-extrabold text-[16.5px] truncate">${l.name}</h3>
-            <p class="text-[13px] text-gray-500 font-medium mt-1">${l.area}</p>
-          </div>
-          <span class="px-2.5 py-1 rounded-lg bg-mist border border-line text-[11px] font-extrabold text-gray-600">${l.type}</span>
+  const cardsContainer = $('#cards');
+  
+  if(list.length === 0){
+    cardsContainer.innerHTML = `
+      <div class="col-span-full bg-white rounded-3xl border border-line p-10 text-center">
+        <p class="text-3xl mb-2">🔍</p>
+        <h3 class="font-extrabold text-lg">No properties found</h3>
+        <p class="text-sm text-gray-500 mt-1">Try relaxing your filters or choosing a different locality in Jaipur.</p>
+        <button onclick="resetFilters()" class="mt-4 px-4 py-2 rounded-xl bg-coral text-white font-bold text-xs shadow-redglow">Reset Filters</button>
+      </div>`;
+  } else {
+    cardsContainer.innerHTML = list.map(l => {
+      const isSaved = saved.has(l.id);
+      return `
+      <article class="card-hov bg-white rounded-3xl border border-line overflow-hidden hover:shadow-card">
+        <div class="relative">
+          <img src="${l.img}" alt="${l.name}" class="w-full h-52 object-cover">
+          <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-lg bg-white/95 text-[11px] font-extrabold shadow-soft">${l.tag}</span>
+          <button onclick="toggleSave(event, ${l.id})" class="absolute top-3.5 right-3.5 h-9 w-9 grid place-items-center rounded-full bg-white/95 shadow-soft hover:scale-110 transition">
+            <svg class="h-[17px] w-[17px] ${isSaved ? 'text-coral fill-coral' : 'text-gray-500'}" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21.2l7.7-7.7 1.1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+          </button>
         </div>
-        <div class="mt-4 pt-4 border-t border-line flex items-end justify-between gap-3">
-          <div>
-            <p class="text-[20px] font-extrabold leading-none">${inr(l.price)}<span class="text-[12.5px] font-bold text-gray-400">/mo</span></p>
+        <div class="p-5">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <h3 class="font-extrabold text-[16.5px] truncate">${l.name}</h3>
+              <p class="text-[13px] text-gray-500 font-medium mt-1">${l.area}</p>
+            </div>
+            <span class="px-2.5 py-1 rounded-lg bg-mist border border-line text-[11px] font-extrabold text-gray-600">${l.type}</span>
           </div>
-          <button onclick="openProp(${l.id})" class="h-10 px-4 rounded-xl bg-coral text-white text-[13.5px] font-extrabold shadow-redglow shine">View details</button>
+          <div class="mt-3 flex items-center gap-2 text-xs text-gray-500 font-semibold">
+            <span>⭐ ${l.rating} (${l.reviews})</span>
+            <span>·</span>
+            <span>👤 ${l.gender}</span>
+          </div>
+          <div class="mt-4 pt-4 border-t border-line flex items-end justify-between gap-3">
+            <div>
+              <p class="text-[20px] font-extrabold leading-none">${inr(l.price)}<span class="text-[12.5px] font-bold text-gray-400">/mo</span></p>
+            </div>
+            <button onclick="openProp(${l.id})" class="h-10 px-4 rounded-xl bg-coral text-white text-[13.5px] font-extrabold shadow-redglow shine">View details</button>
+          </div>
         </div>
-      </div>
-    </article>
-  `}).join('');
+      </article>
+    `}).join('');
+  }
   
   $('#resCount').textContent = list.length;
   renderFilterControls();
