@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roomzy Jaipur — Find PGs, Hostels, Co-living & Roommates</title>
-<meta name="description" content="Roomzy helps students & professionals find verified PGs, hostels, co-living spaces and compatible roommates in Jaipur.">
+<title>Roomzy — Find PGs, Hostels, Co-living & Roommates</title>
+<meta name="description" content="Roomzy helps students & professionals find verified PGs, hostels, co-living spaces and compatible roommates across India.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -76,6 +76,7 @@ tailwind.config = {
   .shine::after{content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg)}
   .shine:hover::after{animation:sh .8s ease}
   @keyframes sh{to{left:140%}}
+  input[type=date]::-webkit-calendar-picker-indicator{opacity:.45;cursor:pointer}
 </style>
 </head>
 <body class="bg-mist text-ink">
@@ -590,7 +591,7 @@ const TESTI = [
   {n:'Arjun K.', r:'Roommate matching is scarily accurate. My match score was 91%!', img:'https://i.pravatar.cc/100?img=52', role:'Marketing Manager'}
 ];
 
-const state = { city:'Jaipur (All)', min:5000, max:35000, gender:'Any', occ:[], amen:[] };
+const state = { city:'Jaipur (All)', min:5000, max:35000, gender:'Any', occ:[], amen:[], category:'All' };
 const saved = new Set();
 
 /* ═════════ HELPERS ═════════ */
@@ -608,16 +609,22 @@ function toast(msg){
 /* ═════════ RENDERERS ═════════ */
 function renderCats(){
   $('#catRow').innerHTML = CATS.map(c=>`
-    <button onclick="render()" class="shrink-0 flex items-center gap-3 pl-4 pr-5 py-3.5 rounded-2xl border border-line bg-white hover:border-coral transition text-left">
+    <button onclick="setCategory('${c.t}')" class="shrink-0 flex items-center gap-3 pl-4 pr-5 py-3.5 rounded-2xl border ${state.category===c.t?'border-coral bg-coral-50 text-coral':'border-line bg-white'} hover:border-coral transition text-left">
       <div><span class="block text-[14.5px] font-extrabold whitespace-nowrap">${c.t}</span><span class="block text-[12px] text-gray-400 font-semibold whitespace-nowrap">${c.d}</span></div>
     </button>`).join('');
+}
+
+function setCategory(cat){
+  state.category = state.category === cat ? 'All' : cat;
+  renderCats();
+  render();
 }
 
 function renderCities(){
   $('#cityGrid').innerHTML = CITIES.map(c=>`<button onclick="pickCity('${c}')" class="px-3 py-2 rounded-xl text-xs font-bold text-left border border-line hover:border-coral">${c}</button>`).join('');
 }
 function pickCity(c){
-  state.city = c; $('#cityLabel').textContent = c; $('#cityPop').classList.add('hidden'); render();
+  state.city = c; $('#cityLabel').textContent = c; $('#resCity').textContent = c; $('#cityPop').classList.add('hidden'); render();
 }
 
 function renderFilterControls(){
@@ -639,19 +646,49 @@ function setGender(g){ state.gender = g; render(); }
 function toggleAmen(a){ state.amen.includes(a) ? state.amen.splice(state.amen.indexOf(a),1) : state.amen.push(a); render(); }
 
 function resetFilters(){
-  state.min=5000; state.max=35000; state.gender='Any'; state.occ=[]; state.amen=[];
-  $('#sMin').value=5000; $('#sMax').value=35000; syncRanges(); render(); toast('Filters cleared');
+  state.min=5000; state.max=35000; state.gender='Any'; state.occ=[]; state.amen=[]; state.category='All';
+  $('#sMin').value=5000; $('#sMax').value=35000; $('#hMin').value=5000; $('#hMax').value=35000;
+  syncRanges(); renderCats(); render(); toast('Filters cleared');
 }
 
 function bindRange(){
-  const mn = $('#sMin'), mx = $('#sMax');
-  mn.oninput = () => { state.min = +mn.value; syncRanges(); render(); };
-  mx.oninput = () => { state.max = +mx.value; syncRanges(); render(); };
+  const sMin = $('#sMin'), sMax = $('#sMax');
+  const hMin = $('#hMin'), hMax = $('#hMax');
+
+  const updateRange = (minVal, maxVal) => {
+    state.min = minVal;
+    state.max = maxVal;
+    sMin.value = minVal;
+    sMax.value = maxVal;
+    hMin.value = minVal;
+    hMax.value = maxVal;
+    syncRanges();
+    render();
+  };
+
+  sMin.oninput = () => updateRange(+sMin.value, +sMax.value);
+  sMax.oninput = () => updateRange(+sMin.value, +sMax.value);
+  hMin.oninput = () => updateRange(+hMin.value, +hMax.value);
+  hMax.oninput = () => updateRange(+hMin.value, +hMax.value);
 }
 
 function syncRanges(){
-  $('#sideBudgetVal').textContent = `₹${state.min} – ₹${state.max}`;
-  $('#budgetLabel').textContent = `₹${state.min} – ₹${state.max}`;
+  const txt = `₹${state.min.toLocaleString('en-IN')} – ₹${state.max.toLocaleString('en-IN')}`;
+  $('#sideBudgetVal').textContent = txt;
+  $('#budgetLabel').textContent = txt;
+  $('#hdrBudgetVal').textContent = txt;
+
+  const total = 40000 - 3000;
+  const leftPerc = ((state.min - 3000) / total) * 100;
+  const widthPerc = ((state.max - state.min) / total) * 100;
+
+  ['sFill', 'hFill'].forEach(id => {
+    const fill = $('#' + id);
+    if(fill) {
+      fill.style.left = `${leftPerc}%`;
+      fill.style.width = `${widthPerc}%`;
+    }
+  });
 }
 
 function getFiltered(){
@@ -659,17 +696,24 @@ function getFiltered(){
     if(l.price < state.min || l.price > state.max) return false;
     if(state.gender!=='Any' && l.gender!==state.gender && l.gender!=='Unisex') return false;
     if(state.occ.length && !state.occ.some(o=>l.occ.includes(o))) return false;
+    if(state.category!=='All' && l.type!==state.category) return false;
+    if(state.city!=='Jaipur (All)' && !l.area.includes(state.city)) return false;
     return true;
   });
 }
 
 function render(){
   const list = getFiltered();
-  $('#cards').innerHTML = list.map(l => `
+  $('#cards').innerHTML = list.map(l => {
+    const isSaved = saved.has(l.id);
+    return `
     <article class="card-hov bg-white rounded-3xl border border-line overflow-hidden hover:shadow-card">
       <div class="relative">
         <img src="${l.img}" alt="${l.name}" class="w-full h-52 object-cover">
         <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-lg bg-white/95 text-[11px] font-extrabold shadow-soft">${l.tag}</span>
+        <button onclick="toggleSave(event, ${l.id})" class="absolute top-3.5 right-3.5 h-9 w-9 grid place-items-center rounded-full bg-white/95 shadow-soft hover:scale-110 transition">
+          <svg class="h-[17px] w-[17px] ${isSaved ? 'text-coral fill-coral' : 'text-gray-500'}" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21.2l7.7-7.7 1.1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+        </button>
       </div>
       <div class="p-5">
         <div class="flex items-start justify-between gap-3">
@@ -687,8 +731,24 @@ function render(){
         </div>
       </div>
     </article>
-  `).join('');
+  `}).join('');
+  
   $('#resCount').textContent = list.length;
+  renderFilterControls();
+}
+
+function toggleSave(e, id){
+  e.stopPropagation();
+  if(saved.has(id)) saved.delete(id);
+  else saved.add(id);
+  $('#savedBadge').textContent = saved.size;
+  $('#savedBadge').classList.toggle('hidden', saved.size === 0);
+  toast(saved.has(id) ? 'Stay saved to bookmarks ❤️' : 'Removed from bookmarks');
+  render();
+}
+
+function openSaved(){
+  toast(saved.size ? `You have ${saved.size} saved stay(s)` : 'No saved stays yet!');
 }
 
 function renderRoommates(){
@@ -718,7 +778,7 @@ function renderRoommates(){
 
 function renderExtras(){
   $('#localityGrid').innerHTML = LOCALITIES.map(l=>`
-    <a href="#explore" class="group relative rounded-3xl overflow-hidden h-44 lg:h-52 border border-line">
+    <a href="#explore" onclick="pickCity('${l.n}')" class="group relative rounded-3xl overflow-hidden h-44 lg:h-52 border border-line block">
       <img src="${l.img}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="${l.n}">
       <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent"></div>
       <div class="absolute bottom-4 left-4 text-white">
@@ -779,12 +839,23 @@ function openProp(id){
   const l = LISTINGS.find(x => x.id === id);
   $('#pmTitle').textContent = l.name;
   $('#pmBody').innerHTML = `
-    <div class="p-5">
-      <img src="${l.img}" class="w-full h-56 object-cover rounded-2xl"/>
-      <h2 class="text-2xl font-extrabold mt-4">${l.name}</h2>
-      <p class="text-xs text-gray-500">${l.area}</p>
-      <p class="text-xl font-extrabold text-coral mt-3">${inr(l.price)}/month (Zero Brokerage)</p>
-      <button onclick="closeProp();toast('Visit request sent to owner!')" class="mt-5 w-full h-12 rounded-xl bg-coral text-white font-extrabold shadow-redglow">Confirm Booking Request</button>
+    <div class="p-6">
+      <img src="${l.img}" class="w-full h-64 object-cover rounded-2xl"/>
+      <div class="mt-4 flex items-center justify-between">
+        <div>
+          <h2 class="text-2xl font-extrabold">${l.name}</h2>
+          <p class="text-sm text-gray-500">${l.area}</p>
+        </div>
+        <span class="px-3 py-1 rounded-lg bg-green-50 text-green-600 font-bold text-xs">✓ Verified</span>
+      </div>
+      <div class="mt-6 border-t border-b border-line py-4 flex items-center justify-between">
+        <div>
+          <p class="text-xs text-gray-400 font-bold">STARTING AT</p>
+          <p class="text-2xl font-extrabold text-coral">${inr(l.price)}<span class="text-xs text-gray-400">/mo</span></p>
+        </div>
+        <p class="text-xs text-gray-500 font-bold">Deposit: ${inr(l.price * 2)} (Refundable)</p>
+      </div>
+      <button onclick="closeProp();toast('Booking request submitted! Owner will call you 📲')" class="mt-6 w-full h-12 rounded-xl bg-coral text-white font-extrabold shadow-redglow shine">Request Free Visit & Book</button>
     </div>
   `;
   $('#propModal').classList.remove('hidden');
@@ -801,10 +872,16 @@ $('#cityBtn').onclick = e => { e.stopPropagation(); togglePop('cityPop'); };
 $('#dateBtn').onclick = e => { e.stopPropagation(); togglePop('datePop'); };
 $('#budgetBtn').onclick = e => { e.stopPropagation(); togglePop('budgetPop'); };
 
+document.addEventListener('click', e => {
+  if(!e.target.closest('#cityPop, #datePop, #budgetPop, #cityBtn, #dateBtn, #budgetBtn')) {
+    ['cityPop','datePop','budgetPop'].forEach(p => $('#'+p).classList.add('hidden'));
+  }
+});
+
 function applyHeaderSearch(){ $('#explore').scrollIntoView({behavior:'smooth'}); toast(`Showing stays in ${state.city}`); }
 
 /* ═════════ INIT ═════════ */
-renderCats(); renderCities(); renderFilterControls(); bindRange(); syncRanges(); render(); renderRoommates(); renderExtras();
+renderCats(); renderCities(); bindRange(); syncRanges(); render(); renderRoommates(); renderExtras();
 </script>
 </body>
 </html>
