@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roomzy — Find PGs, Hostels, Co-living & Roommates</title>
-<meta name="description" content="Roomzy helps students & professionals find verified PGs, hostels, co-living spaces and compatible roommates across India.">
+<title>Roomzy Jaipur — Find PGs, Hostels, Co-living & Roommates</title>
+<meta name="description" content="Roomzy helps students & professionals find verified PGs, hostels, co-living spaces and compatible roommates in Jaipur.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -56,17 +56,6 @@ tailwind.config = {
   .marquee{animation:scrollx 30s linear infinite}
   @keyframes scrollx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-  .mapbg{
-    background-color:#EEF1F5;
-    background-image:
-      linear-gradient(rgba(17,24,39,.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(17,24,39,.045) 1px, transparent 1px),
-      radial-gradient(circle at 20% 30%, rgba(229,57,53,.07), transparent 45%),
-      radial-gradient(circle at 75% 70%, rgba(59,130,246,.08), transparent 45%);
-    background-size:34px 34px,34px 34px,100% 100%,100% 100%;
-  }
-  .pin{animation:bob 2.6s ease-in-out infinite}
-  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
   .pulse-dot::after{content:'';position:absolute;inset:0;border-radius:99px;background:rgba(229,57,53,.45);animation:pulser 2s ease-out infinite}
   @keyframes pulser{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.6);opacity:0}}
 
@@ -76,21 +65,20 @@ tailwind.config = {
   .shine::after{content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg)}
   .shine:hover::after{animation:sh .8s ease}
   @keyframes sh{to{left:140%}}
-  input[type=date]::-webkit-calendar-picker-indicator{opacity:.45;cursor:pointer}
 </style>
 </head>
 <body class="bg-mist text-ink">
 
-<!-- ══════════ ROLE INDICATOR BAR ══════════ -->
+<!-- ══════════ TOP UTILITY BAR ══════════ -->
 <div class="bg-ink text-white text-[12.5px] border-b border-gray-800">
   <div class="max-w-[1500px] mx-auto px-6 h-9 flex items-center justify-between">
     <p class="flex items-center gap-2">
       <span class="inline-flex h-2 w-2 rounded-full bg-green-400"></span> 
-      Active Mode: <strong id="roleStatusText" class="text-coral">Tenant (Student/Professional)</strong>
+      <span id="topBarStatus">Browsing Stays in <strong>Jaipur</strong> (Zero Brokerage)</span>
     </p>
     <div class="flex items-center gap-6 text-white/70">
-      <button onclick="handleListPropertyClick()" class="hover:text-white transition font-bold text-coral">List Your Property</button>
-      <button onclick="openAuthModal('owner')" class="hover:text-white transition">Owner Dashboard</button>
+      <button onclick="handleOwnerAction()" class="hover:text-white transition font-bold text-coral">List Your Property</button>
+      <button id="ownerNavBtn" onclick="handleOwnerAction()" class="hover:text-white transition">Owner Login Portal</button>
     </div>
   </div>
 </div>
@@ -110,10 +98,10 @@ tailwind.config = {
         <span class="text-[22px] font-extrabold tracking-tight">Room<span class="text-coral">zy</span> <span class="text-xs px-2 py-0.5 rounded-full bg-coral-50 text-coral font-bold ml-1">Jaipur</span></span>
       </a>
 
-      <!-- Center search pill (desktop) -->
-      <div class="hidden lg:flex flex-1 justify-center">
+      <!-- Center Search Pill (Desktop) -->
+      <div id="headerSearchPill" class="hidden lg:flex flex-1 justify-center">
         <div class="relative flex items-stretch h-12 rounded-full border border-line bg-white shadow-soft hover:shadow-card transition divide-x divide-line">
-          <!-- city/locality -->
+          <!-- Locality Selector -->
           <button id="cityBtn" class="group flex items-center gap-2 pl-5 pr-4 rounded-l-full hover:bg-mist transition">
             <svg class="h-4 w-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
             <span class="text-left leading-none">
@@ -122,7 +110,7 @@ tailwind.config = {
             </span>
             <svg class="h-3.5 w-3.5 text-gray-400 group-hover:text-ink transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg>
           </button>
-          <!-- date -->
+          <!-- Move-in Date -->
           <button id="dateBtn" class="flex items-center gap-2 px-4 hover:bg-mist transition">
             <svg class="h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
             <span class="text-left leading-none">
@@ -130,7 +118,7 @@ tailwind.config = {
               <span id="dateLabel" class="block text-[13.5px] font-bold">Immediate</span>
             </span>
           </button>
-          <!-- budget -->
+          <!-- Budget Selector -->
           <button id="budgetBtn" class="flex items-center gap-2 px-4 hover:bg-mist transition">
             <svg class="h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h12M6 9h12M9 4c4 0 6 2 6 5s-2 5-6 5h-3l7 6"/></svg>
             <span class="text-left leading-none">
@@ -144,17 +132,17 @@ tailwind.config = {
             </button>
           </div>
 
-          <!-- City popover -->
+          <!-- Locality Popover -->
           <div id="cityPop" class="hidden absolute top-[58px] left-0 w-[330px] bg-white rounded-2xl shadow-pop border border-line p-4 z-50">
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Jaipur Hotspots</p>
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Jaipur Localities</p>
             <div id="cityGrid" class="grid grid-cols-2 gap-2"></div>
           </div>
-          <!-- Date popover -->
+          <!-- Date Popover -->
           <div id="datePop" class="hidden absolute top-[58px] left-1/3 w-[300px] bg-white rounded-2xl shadow-pop border border-line p-4 z-50">
             <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Preferred move-in date</p>
             <input type="date" id="moveInInput" class="w-full rounded-xl border border-line px-3 py-2.5 text-sm font-semibold focus:border-coral focus:ring-2 focus:ring-coral/20 outline-none">
           </div>
-          <!-- Budget popover -->
+          <!-- Budget Popover -->
           <div id="budgetPop" class="hidden absolute top-[58px] right-0 w-[340px] bg-white rounded-2xl shadow-pop border border-line p-5 z-50">
             <div class="flex items-center justify-between mb-1">
               <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Monthly rent</p>
@@ -169,30 +157,33 @@ tailwind.config = {
         </div>
       </div>
 
-      <!-- Right nav -->
+      <!-- Navigation Links -->
       <nav class="hidden xl:flex items-center gap-1 ml-auto">
         <a href="#explore" onclick="showView('tenant')" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Explore PGs</a>
         <a href="#roommates" onclick="showView('tenant')" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Roommate Finder</a>
-        <button onclick="handleListPropertyClick()" class="ml-1 px-4 py-2 rounded-xl border-[1.5px] border-coral text-coral text-[14px] font-bold hover:bg-coral hover:text-white transition">List Your Property</button>
+        <button onclick="handleOwnerAction()" class="ml-1 px-4 py-2 rounded-xl border-[1.5px] border-coral text-coral text-[14px] font-bold hover:bg-coral hover:text-white transition">List Your Property</button>
       </nav>
 
       <div class="flex items-center gap-1.5 ml-auto xl:ml-3">
-        <button onclick="openSaved()" class="relative h-10 w-10 grid place-items-center rounded-xl hover:bg-mist border border-transparent hover:border-line transition" title="Saved">
+        <button onclick="openSaved()" class="relative h-10 w-10 grid place-items-center rounded-xl hover:bg-mist border border-transparent hover:border-line transition" title="Saved Stays">
           <svg class="h-[19px] w-[19px] text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21.2l7.7-7.7 1.1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
           <span id="savedBadge" class="hidden absolute -top-0.5 -right-0.5 h-[18px] min-w-[18px] px-1 rounded-full bg-coral text-white text-[10px] font-extrabold grid place-items-center">0</span>
         </button>
-        <button onclick="openAuthModal('tenant')" class="flex items-center gap-2 h-10 pl-1.5 pr-1.5 sm:pr-3 rounded-full border border-line bg-white hover:shadow-soft transition">
-          <span class="h-7 w-7 rounded-full bg-coral text-white font-extrabold text-xs grid place-items-center" id="userAvatar">YS</span>
-          <span class="hidden sm:block text-[13.5px] font-bold pr-0.5" id="userName">Yash (Tenant)</span>
-        </button>
+        <!-- Owner Login Button / Account Status -->
+        <div id="userAccountContainer">
+          <button onclick="openOwnerLoginModal()" class="flex items-center gap-2 h-10 px-3 rounded-xl border border-line bg-mist hover:bg-white font-bold text-xs text-ink transition">
+            <svg class="h-4 w-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Owner Portal
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- ══════════ TENANT VIEW CONTAINER ══════════ -->
+<!-- ══════════ TENANT INTERFACE ══════════ -->
 <div id="tenantView">
-  <!-- HERO SECTION WITH COUNTERS & CTA BUTTONS -->
+  <!-- HERO SECTION -->
   <section class="relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-b from-coral-50 via-white to-mist"></div>
     <div class="relative max-w-[1500px] mx-auto px-4 sm:px-6 pt-10 pb-12 lg:pt-16 lg:pb-16">
@@ -335,7 +326,7 @@ tailwind.config = {
         <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
           <div>
             <h2 class="text-[22px] sm:text-[27px] font-extrabold tracking-tight">PGs & Co-living in <span id="resCity">Jaipur</span></h2>
-            <p class="text-[13.5px] text-gray-500 mt-0.5"><span id="resCount">12</span> stays available · updated 12 min ago</p>
+            <p class="text-[13.5px] text-gray-500 mt-0.5"><span id="resCount">6</span> stays available · updated 12 min ago</p>
           </div>
           <div class="flex items-center gap-2">
             <div class="relative">
@@ -416,31 +407,31 @@ tailwind.config = {
   </section>
 </div>
 
-<!-- ══════════ OWNER DASHBOARD VIEW ══════════ -->
+<!-- ══════════ PROTECTED OWNER DASHBOARD ══════════ -->
 <div id="ownerView" class="hidden max-w-[1500px] mx-auto px-4 sm:px-6 py-10">
   <div class="flex items-center justify-between border-b border-line pb-5 mb-8">
     <div>
       <span class="text-xs font-bold text-coral uppercase tracking-wider">Owner Management Portal</span>
-      <h1 class="text-3xl font-extrabold mt-1">Jaipur Landlord Control Panel</h1>
+      <h1 class="text-3xl font-extrabold mt-1">Landlord Control Panel</h1>
     </div>
     <div class="flex gap-3">
-      <button onclick="toast('Property addition form opened! 🎉')" class="h-11 px-5 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow">
-        + Add New PG Listing
+      <button onclick="toast('Add property form opened! 🎉')" class="h-11 px-5 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow">
+        + Add New Listing
       </button>
-      <button onclick="showView('tenant')" class="h-11 px-4 rounded-2xl border border-line bg-white font-extrabold text-sm hover:border-ink">
-        Switch to Tenant Mode
+      <button onclick="logoutOwner()" class="h-11 px-4 rounded-2xl border border-line bg-white font-extrabold text-sm hover:border-ink">
+        Logout & Exit Portal
       </button>
     </div>
   </div>
 
   <div class="grid sm:grid-cols-4 gap-5 mb-8">
     <div class="bg-white rounded-3xl border border-line p-6 shadow-soft">
-      <p class="text-xs font-bold text-gray-400 uppercase">Total Properties</p>
+      <p class="text-xs font-bold text-gray-400 uppercase">Total Listed Properties</p>
       <p class="text-3xl font-extrabold mt-2">3 PGs</p>
       <p class="text-xs text-green-600 font-bold mt-1">Active in Jaipur</p>
     </div>
     <div class="bg-white rounded-3xl border border-line p-6 shadow-soft">
-      <p class="text-xs font-bold text-gray-400 uppercase">Total Capacity</p>
+      <p class="text-xs font-bold text-gray-400 uppercase">Total Bed Capacity</p>
       <p class="text-3xl font-extrabold mt-2">32 Beds</p>
       <p class="text-xs text-gray-500 font-bold mt-1">26 Occupied (81%)</p>
     </div>
@@ -450,9 +441,45 @@ tailwind.config = {
       <p class="text-xs text-coral font-bold mt-1">Ready for booking</p>
     </div>
     <div class="bg-white rounded-3xl border border-line p-6 shadow-soft">
-      <p class="text-xs font-bold text-gray-400 uppercase">Monthly Earnings</p>
+      <p class="text-xs font-bold text-gray-400 uppercase">Monthly Income</p>
       <p class="text-3xl font-extrabold mt-2">₹2,21,000</p>
       <p class="text-xs text-green-600 font-bold mt-1">Updated today</p>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-3xl border border-line p-6 shadow-soft">
+    <h2 class="text-xl font-extrabold mb-4">Pending Jaipur Booking Enquiries</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-sm">
+        <thead class="bg-mist border-b border-line text-xs uppercase text-gray-400 font-bold">
+          <tr>
+            <th class="p-3">Tenant Name</th>
+            <th class="p-3">Property Name</th>
+            <th class="p-3">Move-in Date</th>
+            <th class="p-3">Sharing Type</th>
+            <th class="p-3">Status</th>
+            <th class="p-3">Action</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-line">
+          <tr>
+            <td class="p-3 font-extrabold">Rahul Sharma</td>
+            <td class="p-3">Urban Nest Co-living</td>
+            <td class="p-3">1 Oct 2026</td>
+            <td class="p-3">Double Sharing</td>
+            <td class="p-3"><span class="bg-yellow-100 text-yellow-800 text-xs px-2.5 py-1 rounded-full font-bold">Pending Visit</span></td>
+            <td class="p-3"><button onclick="toast('Booking Approved!')" class="bg-coral text-white text-xs px-3 py-1.5 rounded-xl font-bold">Approve</button></td>
+          </tr>
+          <tr>
+            <td class="p-3 font-extrabold">Ananya Verma</td>
+            <td class="p-3">Skyline Girls PG</td>
+            <td class="p-3">25 Sept 2026</td>
+            <td class="p-3">Single Room</td>
+            <td class="p-3"><span class="bg-green-100 text-green-800 text-xs px-2.5 py-1 rounded-full font-bold">Approved</span></td>
+            <td class="p-3"><button onclick="toast('Opening contact phone...')" class="border border-line text-xs px-3 py-1.5 rounded-xl font-bold">Call Tenant</button></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
@@ -485,7 +512,7 @@ tailwind.config = {
           <li><a href="#" class="hover:text-coral transition">About us</a></li>
           <li><a href="#" class="hover:text-coral transition">Careers</a></li>
           <li><a href="#" class="hover:text-coral transition">Blog</a></li>
-          <li><a href="#" onclick="handleListPropertyClick()" class="hover:text-coral transition">List your property</a></li>
+          <li><a href="#" onclick="handleOwnerAction()" class="hover:text-coral transition">List your property</a></li>
         </ul>
       </div>
       <div>
@@ -509,30 +536,34 @@ tailwind.config = {
   <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeProp()"></div>
   <div class="absolute inset-x-0 bottom-0 top-auto sm:inset-0 sm:m-auto sm:h-[88vh] sm:max-w-[1040px] bg-white sm:rounded-3xl rounded-t-3xl overflow-hidden shadow-pop flex flex-col max-h-[92vh]">
     <div class="flex items-center justify-between px-5 sm:px-7 h-16 border-b border-line shrink-0">
-      <p class="font-extrabold text-[17px] truncate" id="pmTitle">Property</p>
+      <p class="font-extrabold text-[17px] truncate" id="pmTitle">Property Details</p>
       <button onclick="closeProp()" class="h-9 w-9 grid place-items-center rounded-xl hover:bg-mist border border-line">✕</button>
     </div>
     <div class="flex-1 overflow-y-auto" id="pmBody"></div>
   </div>
 </div>
 
-<!-- ══════════ AUTH / ROLE LOGIN MODAL ══════════ -->
-<div id="authModal" class="hidden fixed inset-0 z-[80]">
-  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeAuthModal()"></div>
+<!-- ══════════ OWNER LOGIN MODAL ══════════ -->
+<div id="ownerAuthModal" class="hidden fixed inset-0 z-[80]">
+  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeOwnerAuthModal()"></div>
   <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[440px] bg-white rounded-3xl shadow-pop p-7">
-    <button onclick="closeAuthModal()" class="absolute right-4 top-4 h-9 w-9 grid place-items-center rounded-xl hover:bg-mist">✕</button>
-    <h3 class="text-2xl font-extrabold tracking-tight">Portal Access Login</h3>
-    <p class="text-gray-500 text-[14px] mt-1">Select your account role to proceed.</p>
-    <div class="mt-6 space-y-4">
+    <button onclick="closeOwnerAuthModal()" class="absolute right-4 top-4 h-9 w-9 grid place-items-center rounded-xl hover:bg-mist">✕</button>
+    <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral flex items-center justify-center font-bold mb-3">🏠</div>
+    <h3 class="text-2xl font-extrabold tracking-tight">Property Owner Login</h3>
+    <p class="text-gray-500 text-[14px] mt-1">Access your landlord dashboard & manage PG listings.</p>
+    
+    <form class="mt-6 space-y-4" onsubmit="submitOwnerLogin(event)">
       <div>
-        <label class="text-[12.5px] font-bold text-gray-500">Account Role</label>
-        <select id="roleSelect" class="mt-1.5 w-full h-12 px-3 rounded-xl border border-line font-bold text-sm outline-none focus:border-coral">
-          <option value="owner">Property Owner / Host</option>
-          <option value="tenant">Tenant (Student / Professional)</option>
-        </select>
+        <label class="text-[12.5px] font-bold text-gray-500">Mobile Number or Email</label>
+        <input required type="text" id="ownerIdentifier" placeholder="e.g. +91 98XXX XXXXX or landlord@roomzy.com" class="mt-1.5 w-full h-12 px-4 rounded-xl border border-line bg-mist focus:bg-white focus:border-coral outline-none text-sm font-medium transition">
       </div>
-      <button onclick="confirmRoleLogin()" class="shine w-full h-12 rounded-xl bg-coral text-white font-extrabold shadow-redglow">Continue</button>
-    </div>
+      <div>
+        <label class="text-[12.5px] font-bold text-gray-500">Passcode / OTP</label>
+        <input required type="password" id="ownerPasscode" placeholder="••••••••" class="mt-1.5 w-full h-12 px-4 rounded-xl border border-line bg-mist focus:bg-white focus:border-coral outline-none text-sm font-medium transition">
+      </div>
+      <button class="shine w-full h-12 rounded-xl bg-coral text-white font-extrabold hover:bg-coral-dark transition shadow-redglow">Sign In as Owner</button>
+    </form>
+    <p class="text-[11.5px] text-gray-400 text-center mt-4">Students/Tenants do not require a login to explore stays.</p>
   </div>
 </div>
 
@@ -541,7 +572,8 @@ tailwind.config = {
 
 <script>
 /* ═════════ DATA & STATE ═════════ */
-let currentUserRole = 'tenant';
+let isOwnerLoggedIn = false;
+
 const CITIES = ['Jaipur (All)','Malviya Nagar','Vaishali Nagar','Jagatpura','Raja Park','Gopalpura Bypass','Mansarovar'];
 
 const CATS = [
@@ -572,10 +604,10 @@ const LISTINGS = [
 ];
 
 const ROOMMATES = [
-  {n:'Ananya Sharma', a:24, job:'Product Designer @ Swiggy', loc:'Malviya Nagar', b:14000, m:94, img:'https://i.pravatar.cc/200?img=47', tags:['Non-smoker','Early riser','Vegetarian'], traits:{Cleanliness:92,Social:78,Quiet:85}},
-  {n:'Rohit Verma', a:26, job:'SDE-2 @ Razorpay', loc:'Vaishali Nagar', b:18000, m:89, img:'https://i.pravatar.cc/200?img=12', tags:['Gym buddy','Night owl','Pet friendly'], traits:{Cleanliness:80,Social:88,Quiet:62}},
-  {n:'Meera Iyer', a:22, job:'MBA Student, MNIT', loc:'Jagatpura', b:11000, m:91, img:'https://i.pravatar.cc/200?img=45', tags:['Studious','Vegetarian','Non-smoker'], traits:{Cleanliness:95,Social:60,Quiet:93}},
-  {n:'Karthik Nair', a:28, job:'Data Analyst @ Genpact', loc:'Raja Park', b:16000, m:86, img:'https://i.pravatar.cc/200?img=60', tags:['Cooks often','Weekend traveller'], traits:{Cleanliness:85,Social:82,Quiet:70}}
+  {n:'Ananya Sharma', a:24, job:'Product Designer @ Swiggy', loc:'Malviya Nagar', b:14000, m:94, img:'https://i.pravatar.cc/200?img=47', tags:['Non-smoker','Early riser','Vegetarian']},
+  {n:'Rohit Verma', a:26, job:'SDE-2 @ Razorpay', loc:'Vaishali Nagar', b:18000, m:89, img:'https://i.pravatar.cc/200?img=12', tags:['Gym buddy','Night owl','Pet friendly']},
+  {n:'Meera Iyer', a:22, job:'MBA Student, MNIT', loc:'Jagatpura', b:11000, m:91, img:'https://i.pravatar.cc/200?img=45', tags:['Studious','Vegetarian','Non-smoker']},
+  {n:'Karthik Nair', a:28, job:'Data Analyst @ Genpact', loc:'Raja Park', b:16000, m:86, img:'https://i.pravatar.cc/200?img=60', tags:['Cooks often','Weekend traveller']}
 ];
 
 const LOCALITIES = [
@@ -606,7 +638,66 @@ function toast(msg){
   toastT = setTimeout(()=>t.classList.add('opacity-0','translate-y-3'), 2600);
 }
 
-/* ═════════ RENDERERS ═════════ */
+/* ═════════ AUTHENTICATION SYSTEM ═════════ */
+function handleOwnerAction(){
+  if(isOwnerLoggedIn){
+    showView('owner');
+  } else {
+    openOwnerAuthModal();
+  }
+}
+
+function openOwnerAuthModal(){
+  $('#ownerAuthModal').classList.remove('hidden');
+}
+
+function closeOwnerAuthModal(){
+  $('#ownerAuthModal').classList.add('hidden');
+}
+
+function submitOwnerLogin(e){
+  e.preventDefault();
+  isOwnerLoggedIn = true;
+  closeOwnerAuthModal();
+  
+  // Update Header UI for Logged-In Owner
+  $('#topBarStatus').innerHTML = '<strong>Owner Portal Active</strong> (Landlord Session)';
+  $('#ownerNavBtn').textContent = 'Owner Dashboard';
+  $('#userAccountContainer').innerHTML = `
+    <button onclick="showView('owner')" class="flex items-center gap-2 h-10 px-3 rounded-xl bg-coral text-white font-bold text-xs shadow-redglow">
+      Dashboard
+    </button>
+  `;
+  
+  toast('Owner login successful! Welcome back 🎉');
+  showView('owner');
+}
+
+function logoutOwner(){
+  isOwnerLoggedIn = false;
+  $('#topBarStatus').innerHTML = 'Browsing Stays in <strong>Jaipur</strong> (Zero Brokerage)';
+  $('#ownerNavBtn').textContent = 'Owner Login Portal';
+  $('#userAccountContainer').innerHTML = `
+    <button onclick="openOwnerAuthModal()" class="flex items-center gap-2 h-10 px-3 rounded-xl border border-line bg-mist hover:bg-white font-bold text-xs text-ink transition">
+      <svg class="h-4 w-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Owner Portal
+    </button>
+  `;
+  toast('Logged out from Owner Portal');
+  showView('tenant');
+}
+
+function showView(viewName){
+  if(viewName === 'owner' && !isOwnerLoggedIn){
+    openOwnerAuthModal();
+    return;
+  }
+  $('#tenantView').classList.toggle('hidden', viewName !== 'tenant');
+  $('#ownerView').classList.toggle('hidden', viewName !== 'owner');
+  $('#headerSearchPill').classList.toggle('hidden', viewName === 'owner');
+}
+
+/* ═════════ RENDERERS & STATE ═════════ */
 function renderCats(){
   $('#catRow').innerHTML = CATS.map(c=>`
     <button onclick="setCategory('${c.t}')" class="shrink-0 flex items-center gap-3 pl-4 pr-5 py-3.5 rounded-2xl border ${state.category===c.t?'border-coral bg-coral-50 text-coral':'border-line bg-white'} hover:border-coral transition text-left">
@@ -623,6 +714,7 @@ function setCategory(cat){
 function renderCities(){
   $('#cityGrid').innerHTML = CITIES.map(c=>`<button onclick="pickCity('${c}')" class="px-3 py-2 rounded-xl text-xs font-bold text-left border border-line hover:border-coral">${c}</button>`).join('');
 }
+
 function pickCity(c){
   state.city = c; $('#cityLabel').textContent = c; $('#resCity').textContent = c; $('#cityPop').classList.add('hidden'); render();
 }
@@ -648,7 +740,7 @@ function toggleAmen(a){ state.amen.includes(a) ? state.amen.splice(state.amen.in
 function resetFilters(){
   state.min=5000; state.max=35000; state.gender='Any'; state.occ=[]; state.amen=[]; state.category='All';
   $('#sMin').value=5000; $('#sMax').value=35000; $('#hMin').value=5000; $('#hMax').value=35000;
-  syncRanges(); renderCats(); render(); toast('Filters cleared');
+  syncRanges(); renderCats(); render(); toast('Filters reset');
 }
 
 function bindRange(){
@@ -798,43 +890,7 @@ function renderExtras(){
     </div>`).join('');
 }
 
-/* ═════════ PORTAL ACCESSIBILITY (RBAC) ═════════ */
-function handleListPropertyClick(){
-  if(currentUserRole !== 'owner') openAuthModal('owner');
-  else showView('owner');
-}
-
-function openAuthModal(role){
-  $('#roleSelect').value = role;
-  $('#authModal').classList.remove('hidden');
-}
-
-function closeAuthModal(){ $('#authModal').classList.add('hidden'); }
-
-function confirmRoleLogin(){
-  const role = $('#roleSelect').value;
-  currentUserRole = role;
-  if(role === 'owner') {
-    $('#roleStatusText').textContent = 'Property Owner (Landlord)';
-    $('#userName').textContent = 'Yash (Host)';
-  } else {
-    $('#roleStatusText').textContent = 'Tenant (Student/Professional)';
-    $('#userName').textContent = 'Yash (Tenant)';
-  }
-  closeAuthModal();
-  showView(role);
-}
-
-function showView(v){
-  if(v === 'owner' && currentUserRole !== 'owner') {
-    openAuthModal('owner');
-    return;
-  }
-  $('#tenantView').classList.toggle('hidden', v !== 'tenant');
-  $('#ownerView').classList.toggle('hidden', v !== 'owner');
-}
-
-/* ═════════ MODALS ═════════ */
+/* ═════════ MODALS & POPOVERS ═════════ */
 function openProp(id){
   const l = LISTINGS.find(x => x.id === id);
   $('#pmTitle').textContent = l.name;
@@ -850,12 +906,12 @@ function openProp(id){
       </div>
       <div class="mt-6 border-t border-b border-line py-4 flex items-center justify-between">
         <div>
-          <p class="text-xs text-gray-400 font-bold">STARTING AT</p>
+          <p class="text-xs text-gray-400 font-bold">RENT STARTING AT</p>
           <p class="text-2xl font-extrabold text-coral">${inr(l.price)}<span class="text-xs text-gray-400">/mo</span></p>
         </div>
         <p class="text-xs text-gray-500 font-bold">Deposit: ${inr(l.price * 2)} (Refundable)</p>
       </div>
-      <button onclick="closeProp();toast('Booking request submitted! Owner will call you 📲')" class="mt-6 w-full h-12 rounded-xl bg-coral text-white font-extrabold shadow-redglow shine">Request Free Visit & Book</button>
+      <button onclick="closeProp();toast('Booking request submitted! Owner will contact you 📲')" class="mt-6 w-full h-12 rounded-xl bg-coral text-white font-extrabold shadow-redglow shine">Request Free Visit & Book</button>
     </div>
   `;
   $('#propModal').classList.remove('hidden');
@@ -863,7 +919,6 @@ function openProp(id){
 
 function closeProp(){ $('#propModal').classList.add('hidden'); }
 
-/* ═════════ POPOVERS ═════════ */
 function togglePop(id){
   ['cityPop','datePop','budgetPop'].forEach(p=>{ if(p!==id) $('#'+p).classList.add('hidden'); });
   $('#'+id).classList.toggle('hidden');
