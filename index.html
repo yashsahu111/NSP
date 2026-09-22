@@ -169,13 +169,6 @@ tailwind.config = {
           <svg class="h-[19px] w-[19px] text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21.2l7.7-7.7 1.1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
           <span id="savedBadge" class="hidden absolute -top-0.5 -right-0.5 h-[18px] min-w-[18px] px-1 rounded-full bg-coral text-white text-[10px] font-extrabold grid place-items-center">0</span>
         </button>
-        <!-- Owner Login Button / Account Status -->
-        <div id="userAccountContainer">
-          <button onclick="openOwnerLoginModal()" class="flex items-center gap-2 h-10 px-3 rounded-xl border border-line bg-mist hover:bg-white font-bold text-xs text-ink transition">
-            <svg class="h-4 w-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            Owner Portal
-          </button>
-        </div>
       </div>
     </div>
   </div>
@@ -663,11 +656,6 @@ function submitOwnerLogin(e){
   // Update Header UI for Logged-In Owner
   $('#topBarStatus').innerHTML = '<strong>Owner Portal Active</strong> (Landlord Session)';
   $('#ownerNavBtn').textContent = 'Owner Dashboard';
-  $('#userAccountContainer').innerHTML = `
-    <button onclick="showView('owner')" class="flex items-center gap-2 h-10 px-3 rounded-xl bg-coral text-white font-bold text-xs shadow-redglow">
-      Dashboard
-    </button>
-  `;
   
   toast('Owner login successful! Welcome back 🎉');
   showView('owner');
@@ -677,12 +665,6 @@ function logoutOwner(){
   isOwnerLoggedIn = false;
   $('#topBarStatus').innerHTML = 'Browsing Stays in <strong>Jaipur</strong> (Zero Brokerage)';
   $('#ownerNavBtn').textContent = 'Owner Login Portal';
-  $('#userAccountContainer').innerHTML = `
-    <button onclick="openOwnerAuthModal()" class="flex items-center gap-2 h-10 px-3 rounded-xl border border-line bg-mist hover:bg-white font-bold text-xs text-ink transition">
-      <svg class="h-4 w-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      Owner Portal
-    </button>
-  `;
   toast('Logged out from Owner Portal');
   showView('tenant');
 }
