@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Pannellum 360 Viewer CSS & JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -524,11 +527,11 @@ tailwind.config = {
   </div>
 </footer>
 
-<!-- ══════════ PROPERTY DETAIL MODAL ══════════ -->
+<!-- ══════════ PROPERTY DETAIL MODAL WITH PHOTOS & 360 DEGREE TOUR ══════════ -->
 <div id="propModal" class="hidden fixed inset-0 z-[70]">
   <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeProp()"></div>
-  <div class="absolute inset-x-0 bottom-0 top-auto sm:inset-0 sm:m-auto sm:h-[88vh] sm:max-w-[1040px] bg-white sm:rounded-3xl rounded-t-3xl overflow-hidden shadow-pop flex flex-col max-h-[92vh]">
-    <div class="flex items-center justify-between px-5 sm:px-7 h-16 border-b border-line shrink-0">
+  <div class="absolute inset-x-0 bottom-0 top-auto sm:inset-0 sm:m-auto sm:h-[90vh] sm:max-w-[1040px] bg-white sm:rounded-3xl rounded-t-3xl overflow-hidden shadow-pop flex flex-col max-h-[95vh]">
+    <div class="flex items-center justify-between px-5 sm:px-7 h-16 border-b border-line shrink-0 bg-white">
       <p class="font-extrabold text-[17px] truncate" id="pmTitle">Property Details</p>
       <button onclick="closeProp()" class="h-9 w-9 grid place-items-center rounded-xl hover:bg-mist border border-line">✕</button>
     </div>
@@ -566,6 +569,7 @@ tailwind.config = {
 <script>
 /* ═════════ DATA & STATE ═════════ */
 let isOwnerLoggedIn = false;
+let pannellumViewer = null;
 
 const CITIES = ['Jaipur (All)','Malviya Nagar','Vaishali Nagar','Jagatpura','Raja Park','Gopalpura Bypass','Mansarovar'];
 
@@ -589,34 +593,34 @@ const AMENITIES = [
 
 const LISTINGS = [
   // Malviya Nagar
-  {id:1, name:'Urban Nest Co-living', type:'Co-living', area:'Malviya Nagar, Jaipur', price:13500, rating:4.8, reviews:216, dist:1.2, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','food','power'], tag:'Zero brokerage', img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60'},
-  {id:2, name:'Aanchal Girls PG', type:'PG', area:'Malviya Nagar, Jaipur', price:8500, rating:4.7, reviews:112, dist:1.8, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Meals included', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60'},
-  {id:3, name:'Gurukul Boys Hostel', type:'Hostel', area:'Malviya Nagar, Jaipur', price:6500, rating:4.5, reviews:84, dist:2.1, gender:'Male', occ:['Triple','Shared'], amen:['wifi','food','power'], tag:'Student choice', img:'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60'},
-  {id:4, name:'Studio Metro Stays', type:'Studio', area:'Malviya Nagar, Jaipur', price:18000, rating:4.9, reviews:68, dist:0.8, gender:'Unisex', occ:['Single'], amen:['wifi','ac','gym','power'], tag:'Private Studio', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60'},
+  {id:1, name:'Urban Nest Co-living', type:'Co-living', area:'Malviya Nagar, Jaipur', price:13500, rating:4.8, reviews:216, dist:1.2, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','food','power'], tag:'Zero brokerage', img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=60', 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=60']},
+  {id:2, name:'Aanchal Girls PG', type:'PG', area:'Malviya Nagar, Jaipur', price:8500, rating:4.7, reviews:112, dist:1.8, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Meals included', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60']},
+  {id:3, name:'Gurukul Boys Hostel', type:'Hostel', area:'Malviya Nagar, Jaipur', price:6500, rating:4.5, reviews:84, dist:2.1, gender:'Male', occ:['Triple','Shared'], amen:['wifi','food','power'], tag:'Student choice', img:'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60', 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60']},
+  {id:4, name:'Studio Metro Stays', type:'Studio', area:'Malviya Nagar, Jaipur', price:18000, rating:4.9, reviews:68, dist:0.8, gender:'Unisex', occ:['Single'], amen:['wifi','ac','gym','power'], tag:'Private Studio', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60', 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60']},
 
   // Vaishali Nagar
-  {id:5, name:'Skyline Girls PG', type:'PG', area:'Vaishali Nagar, Jaipur', price:9800, rating:4.6, reviews:142, dist:2.6, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Top Rated', img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60'},
-  {id:6, name:'Sanskar Boys PG', type:'PG', area:'Vaishali Nagar, Jaipur', price:7800, rating:4.4, reviews:92, dist:3.0, gender:'Male', occ:['Single','Double','Triple'], amen:['wifi','power'], tag:'Budget Pick', img:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60'},
-  {id:7, name:'Imperial Co-living Suites', type:'Co-living', area:'Vaishali Nagar, Jaipur', price:15000, rating:4.8, reviews:175, dist:1.5, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','gym','laundry'], tag:'Couple Friendly', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60'},
+  {id:5, name:'Skyline Girls PG', type:'PG', area:'Vaishali Nagar, Jaipur', price:9800, rating:4.6, reviews:142, dist:2.6, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Top Rated', img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60', 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60']},
+  {id:6, name:'Sanskar Boys PG', type:'PG', area:'Vaishali Nagar, Jaipur', price:7800, rating:4.4, reviews:92, dist:3.0, gender:'Male', occ:['Single','Double','Triple'], amen:['wifi','power'], tag:'Budget Pick', img:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60']},
+  {id:7, name:'Imperial Co-living Suites', type:'Co-living', area:'Vaishali Nagar, Jaipur', price:15000, rating:4.8, reviews:175, dist:1.5, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','gym','laundry'], tag:'Couple Friendly', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60']},
 
   // Jagatpura
-  {id:8, name:'The Hive Student Hostel', type:'Hostel', area:'Jagatpura, Jaipur', price:5500, rating:4.4, reviews:98, dist:4.1, gender:'Male', occ:['Triple','Shared'], amen:['wifi','food','power'], tag:'Near Colleges', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60'},
-  {id:9, name:'Satyam Girls Residency', type:'PG', area:'Jagatpura, Jaipur', price:8200, rating:4.6, reviews:89, dist:3.5, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Safe Stay', img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60'},
-  {id:10, name:'HelloWorld Zem Co-living', type:'Co-living', area:'Jagatpura, Jaipur', price:12000, rating:4.7, reviews:140, dist:2.0, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','gym','power'], tag:'Short Stay Allowed', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60'},
+  {id:8, name:'The Hive Student Hostel', type:'Hostel', area:'Jagatpura, Jaipur', price:5500, rating:4.4, reviews:98, dist:4.1, gender:'Male', occ:['Triple','Shared'], amen:['wifi','food','power'], tag:'Near Colleges', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60']},
+  {id:9, name:'Satyam Girls Residency', type:'PG', area:'Jagatpura, Jaipur', price:8200, rating:4.6, reviews:89, dist:3.5, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Safe Stay', img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60']},
+  {id:10, name:'HelloWorld Zem Co-living', type:'Co-living', area:'Jagatpura, Jaipur', price:12000, rating:4.7, reviews:140, dist:2.0, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','gym','power'], tag:'Short Stay Allowed', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60']},
 
   // Raja Park
-  {id:11, name:'Casa Verde Residency', type:'Co-living', area:'Raja Park, Jaipur', price:16500, rating:4.9, reviews:311, dist:1.4, gender:'Unisex', occ:['Single'], amen:['wifi','ac','food','gym'], tag:'Premium Stay', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60'},
-  {id:12, name:'Pink City Girls Hostel', type:'Hostel', area:'Raja Park, Jaipur', price:9000, rating:4.5, reviews:105, dist:1.9, gender:'Female', occ:['Double','Shared'], amen:['wifi','food','laundry'], tag:'Heart of City', img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60'},
+  {id:11, name:'Casa Verde Residency', type:'Co-living', area:'Raja Park, Jaipur', price:16500, rating:4.9, reviews:311, dist:1.4, gender:'Unisex', occ:['Single'], amen:['wifi','ac','food','gym'], tag:'Premium Stay', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60']},
+  {id:12, name:'Pink City Girls Hostel', type:'Hostel', area:'Raja Park, Jaipur', price:9000, rating:4.5, reviews:105, dist:1.9, gender:'Female', occ:['Double','Shared'], amen:['wifi','food','laundry'], tag:'Heart of City', img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60']},
 
   // Gopalpura Bypass
-  {id:13, name:'Comfort Stay Boys PG', type:'PG', area:'Gopalpura Bypass, Jaipur', price:7500, rating:4.3, reviews:76, dist:3.3, gender:'Male', occ:['Double','Triple'], amen:['wifi','food','power'], tag:'Coaching Hub', img:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60'},
-  {id:14, name:'Bed Buddies Girls PG', type:'PG', area:'Gopalpura Bypass, Jaipur', price:8800, rating:4.6, reviews:120, dist:2.5, gender:'Female', occ:['Single','Double'], amen:['wifi','ac','food'], tag:'Verified Stay', img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60'},
+  {id:13, name:'Comfort Stay Boys PG', type:'PG', area:'Gopalpura Bypass, Jaipur', price:7500, rating:4.3, reviews:76, dist:3.3, gender:'Male', occ:['Double','Triple'], amen:['wifi','food','power'], tag:'Coaching Hub', img:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60']},
+  {id:14, name:'Bed Buddies Girls PG', type:'PG', area:'Gopalpura Bypass, Jaipur', price:8800, rating:4.6, reviews:120, dist:2.5, gender:'Female', occ:['Single','Double'], amen:['wifi','ac','food'], tag:'Verified Stay', img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60']},
 
   // Mansarovar
-  {id:15, name:'Bloom Co-living Studio', type:'Studio', area:'Mansarovar, Jaipur', price:19500, rating:4.7, reviews:189, dist:8.7, gender:'Unisex', occ:['Single'], amen:['wifi','ac','gym','power'], tag:'Couple Friendly', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60'},
-  {id:16, name:'HelloWorld Tapovan', type:'Co-living', area:'Mansarovar, Jaipur', price:11000, rating:4.6, reviews:134, dist:4.2, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','laundry'], tag:'Short Stay', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60'},
-  {id:17, name:'Apex Student Boys Hostel', type:'Hostel', area:'Mansarovar, Jaipur', price:6000, rating:4.2, reviews:88, dist:5.0, gender:'Male', occ:['Triple','Shared'], amen:['wifi','food'], tag:'Budget Pick', img:'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60'},
-  {id:18, name:'Grace Girls PG', type:'PG', area:'Mansarovar, Jaipur', price:8000, rating:4.5, reviews:95, dist:3.8, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','power'], tag:'Homely Food', img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60'}
+  {id:15, name:'Bloom Co-living Studio', type:'Studio', area:'Mansarovar, Jaipur', price:19500, rating:4.7, reviews:189, dist:8.7, gender:'Unisex', occ:['Single'], amen:['wifi','ac','gym','power'], tag:'Couple Friendly', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60']},
+  {id:16, name:'HelloWorld Tapovan', type:'Co-living', area:'Mansarovar, Jaipur', price:11000, rating:4.6, reviews:134, dist:4.2, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','laundry'], tag:'Short Stay', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60']},
+  {id:17, name:'Apex Student Boys Hostel', type:'Hostel', area:'Mansarovar, Jaipur', price:6000, rating:4.2, reviews:88, dist:5.0, gender:'Male', occ:['Triple','Shared'], amen:['wifi','food'], tag:'Budget Pick', img:'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60']},
+  {id:18, name:'Grace Girls PG', type:'PG', area:'Mansarovar, Jaipur', price:8000, rating:4.5, reviews:95, dist:3.8, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','power'], tag:'Homely Food', img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60']}
 ];
 
 const ROOMMATES = [
@@ -921,34 +925,105 @@ function renderExtras(){
     </div>`).join('');
 }
 
-/* ═════════ MODALS & POPOVERS ═════════ */
+/* ═════════ MODALS WITH 360 DEGREE ROOM VIEW ═════════ */
 function openProp(id){
   const l = LISTINGS.find(x => x.id === id);
   $('#pmTitle').textContent = l.name;
+  
+  const galleryPhotos = l.gallery || [l.img];
+  
   $('#pmBody').innerHTML = `
     <div class="p-6">
-      <img src="${l.img}" class="w-full h-64 object-cover rounded-2xl"/>
-      <div class="mt-4 flex items-center justify-between">
+      <!-- Media Navigation Tabs -->
+      <div class="flex items-center gap-3 mb-4 border-b border-line pb-3">
+        <button id="tabPhotosBtn" onclick="switchMediaTab('photos')" class="px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow flex items-center gap-2">
+          🖼️ Photos Gallery
+        </button>
+        <button id="tab360Btn" onclick="switchMediaTab('360', '${l.panorama}')" class="px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs hover:border-coral flex items-center gap-2">
+          🔄 360° Virtual Tour
+        </button>
+      </div>
+
+      <!-- Photo Gallery View -->
+      <div id="photosViewContainer" class="space-y-3">
+        <img src="${l.img}" class="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-soft"/>
+        <div class="grid grid-cols-3 gap-3">
+          ${galleryPhotos.map(p => `<img src="${p}" class="h-24 w-full object-cover rounded-xl border border-line"/>`).join('')}
+        </div>
+      </div>
+
+      <!-- 360 Degree Viewer Container -->
+      <div id="panoramaViewContainer" class="hidden relative">
+        <div id="panoramaViewer" class="w-full h-72 sm:h-96 rounded-2xl overflow-hidden border border-line"></div>
+        <div class="absolute top-3 left-3 bg-ink/80 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg backdrop-blur-sm pointer-events-none">
+          👆 Drag left/right to rotate 360° room view
+        </div>
+      </div>
+
+      <div class="mt-6 flex items-center justify-between">
         <div>
           <h2 class="text-2xl font-extrabold">${l.name}</h2>
-          <p class="text-sm text-gray-500">${l.area}</p>
+          <p class="text-sm text-gray-500 font-medium">${l.area}</p>
         </div>
-        <span class="px-3 py-1 rounded-lg bg-green-50 text-green-600 font-bold text-xs">✓ Verified</span>
+        <span class="px-3 py-1 rounded-lg bg-green-50 text-green-600 font-extrabold text-xs">✓ Physically Verified</span>
       </div>
+
       <div class="mt-6 border-t border-b border-line py-4 flex items-center justify-between">
         <div>
-          <p class="text-xs text-gray-400 font-bold">RENT STARTING AT</p>
+          <p class="text-xs text-gray-400 font-bold uppercase">Rent Starting At</p>
           <p class="text-2xl font-extrabold text-coral">${inr(l.price)}<span class="text-xs text-gray-400">/mo</span></p>
         </div>
-        <p class="text-xs text-gray-500 font-bold">Deposit: ${inr(l.price * 2)} (Refundable)</p>
+        <p class="text-xs text-gray-500 font-bold">Security Deposit: ${inr(l.price * 2)} (100% Refundable)</p>
       </div>
-      <button onclick="closeProp();toast('Booking request submitted! Owner will contact you 📲')" class="mt-6 w-full h-12 rounded-xl bg-coral text-white font-extrabold shadow-redglow shine">Request Free Visit & Book</button>
+
+      <button onclick="closeProp();toast('Booking request submitted! Property manager will call you 📲')" class="mt-6 w-full h-12 rounded-xl bg-coral text-white font-extrabold shadow-redglow shine">Request Free Visit & Book</button>
     </div>
   `;
   $('#propModal').classList.remove('hidden');
 }
 
-function closeProp(){ $('#propModal').classList.add('hidden'); }
+function switchMediaTab(tab, panoramaUrl){
+  const photosView = $('#photosViewContainer');
+  const panoView = $('#panoramaViewContainer');
+  const tabPhotosBtn = $('#tabPhotosBtn');
+  const tab360Btn = $('#tab360Btn');
+
+  if(tab === '360'){
+    photosView.classList.add('hidden');
+    panoView.classList.remove('hidden');
+    
+    tab360Btn.className = "px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow flex items-center gap-2";
+    tabPhotosBtn.className = "px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs hover:border-coral flex items-center gap-2";
+
+    // Initialize Pannellum Viewer
+    setTimeout(() => {
+      if(pannellumViewer){
+        try{ pannellumViewer.destroy(); }catch(e){}
+      }
+      pannellumViewer = pannellum.viewer('panoramaViewer', {
+        type: 'equirectangular',
+        panorama: panoramaUrl || 'https://pannellum.org/images/alma.jpg',
+        autoLoad: true,
+        compass: false,
+        showZoomCtrl: true
+      });
+    }, 100);
+  } else {
+    panoView.classList.add('hidden');
+    photosView.classList.remove('hidden');
+
+    tabPhotosBtn.className = "px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow flex items-center gap-2";
+    tab360Btn.className = "px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs hover:border-coral flex items-center gap-2";
+  }
+}
+
+function closeProp(){
+  if(pannellumViewer){
+    try{ pannellumViewer.destroy(); }catch(e){}
+    pannellumViewer = null;
+  }
+  $('#propModal').classList.add('hidden');
+}
 
 function togglePop(id){
   ['cityPop','datePop','budgetPop'].forEach(p=>{ if(p!==id) $('#'+p).classList.add('hidden'); });
