@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Pannellum 360 Viewer CSS & JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -217,6 +220,17 @@ tailwind.config = {
     </div>
   </section>
 
+  <!-- CATEGORY CHIPS ROW -->
+  <section class="max-w-[1500px] mx-auto px-4 sm:px-6 pt-10">
+    <div class="flex items-end justify-between gap-4 mb-4">
+      <div>
+        <h2 class="text-[22px] sm:text-[26px] font-extrabold tracking-tight">Browse by stay type</h2>
+        <p class="text-[14px] text-gray-500 mt-1">Handpicked options for students & working professionals</p>
+      </div>
+    </div>
+    <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2" id="catRow"></div>
+  </section>
+
   <!-- MAIN LISTINGS -->
   <section id="explore" class="max-w-[1500px] mx-auto px-4 sm:px-6 py-8 lg:py-12">
     <div class="grid lg:grid-cols-[288px_1fr] gap-7">
@@ -274,17 +288,34 @@ tailwind.config = {
   </div>
 </div>
 
+<!-- OWNER LOGIN MODAL -->
+<div id="ownerAuthModal" class="hidden fixed inset-0 z-[80]">
+  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeOwnerAuthModal()"></div>
+  <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[440px] bg-white rounded-3xl shadow-pop p-7">
+    <button onclick="closeOwnerAuthModal()" class="absolute right-4 top-4 h-9 w-9 grid place-items-center rounded-xl hover:bg-mist">✕</button>
+    <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral flex items-center justify-center font-bold mb-3">🏠</div>
+    <h3 class="text-2xl font-extrabold tracking-tight">Property Owner Login</h3>
+    <form class="mt-6 space-y-4" onsubmit="submitOwnerLogin(event)">
+      <div>
+        <label class="text-[12.5px] font-bold text-gray-500">Mobile Number or Email</label>
+        <input required type="text" placeholder="landlord@roomzy.com" class="mt-1.5 w-full h-12 px-4 rounded-xl border border-line bg-mist outline-none text-sm font-medium">
+      </div>
+      <div>
+        <label class="text-[12.5px] font-bold text-gray-500">Passcode</label>
+        <input required type="password" placeholder="••••••••" class="mt-1.5 w-full h-12 px-4 rounded-xl border border-line bg-mist outline-none text-sm font-medium">
+      </div>
+      <button class="w-full h-12 rounded-xl bg-coral text-white font-extrabold hover:bg-coral-dark transition shadow-redglow">Sign In as Owner</button>
+    </form>
+  </div>
+</div>
+
 <div id="toast" class="fixed z-[90] bottom-8 left-1/2 -translate-x-1/2 px-5 py-3.5 rounded-2xl bg-ink text-white text-sm font-semibold shadow-pop opacity-0 translate-y-3 pointer-events-none transition-all duration-300"></div>
 
 <script>
-let currentAngleIndex = 0;
+let pannellumViewer = null;
 
-// REAL PG PHOTOS ASSIGNED
-const REAL_PG_PHOTOS = [
-  { url: 'image_6a5ba1.jpg', title: 'Main Bedroom Angle (Double Bed)' },
-  { url: 'image_6a5bfd.jpg', title: 'Study Corner & Wardrobe Area' },
-  { url: 'image_6a5c41.jpg', title: 'Storage & Window View' }
-];
+const CITIES = ['Jaipur (All)','Sitapura','Malviya Nagar','Vaishali Nagar','Jagatpura'];
+const CATS = [{t:'All', d:'8,000+ stays'}, {t:'PG', d:'4,120 stays'}, {t:'Hostel', d:'1,860 stays'}, {t:'Co-living', d:'2,340 stays'}];
 
 const LISTINGS = [
   {
@@ -301,19 +332,115 @@ const LISTINGS = [
     tag: 'Near JECRC & Poornima', 
     phone: '090247 76588',
     landmarks: 'Near JECRC, Poornima, Mahatma Gandhi & Jagannath University',
-    img: 'image_6a5ba1.jpg',
-    gallery: ['image_6a5ba1.jpg', 'image_6a5bfd.jpg', 'image_6a5c41.jpg']
+    img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60',
+    panorama: 'https://pannellum.org/images/cerro-toco-0.jpg',
+    gallery: [
+      'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60',
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60',
+      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=60'
+    ]
+  },
+  {
+    id: 1, 
+    name: 'Urban Nest Co-living', 
+    type: 'Co-living', 
+    area: 'Malviya Nagar, Jaipur', 
+    price: 13500, 
+    rating: 4.8, 
+    reviews: 216, 
+    gender: 'Unisex', 
+    occ: ['Single','Double'], 
+    amen: ['wifi','ac','food','power'], 
+    tag: 'Zero brokerage', 
+    img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', 
+    panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
+    gallery: ['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60']
+  },
+  {
+    id: 2, 
+    name: 'Aanchal Girls PG', 
+    type: 'PG', 
+    area: 'Malviya Nagar, Jaipur', 
+    price: 8500, 
+    rating: 4.7, 
+    reviews: 112, 
+    gender: 'Female', 
+    occ: ['Double','Triple'], 
+    amen: ['wifi','food','laundry'], 
+    tag: 'Meals included', 
+    img: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60', 
+    panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
+    gallery: ['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60']
+  },
+  {
+    id: 3, 
+    name: 'Gurukul Boys Hostel', 
+    type: 'Hostel', 
+    area: 'Jagatpura, Jaipur', 
+    price: 5500, 
+    rating: 4.5, 
+    reviews: 84, 
+    gender: 'Male', 
+    occ: ['Triple','Shared'], 
+    amen: ['wifi','food','power'], 
+    tag: 'Student choice', 
+    img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60', 
+    panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
+    gallery: ['https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60']
+  },
+  {
+    id: 4, 
+    name: 'Skyline Girls PG', 
+    type: 'PG', 
+    area: 'Vaishali Nagar, Jaipur', 
+    price: 9800, 
+    rating: 4.6, 
+    reviews: 142, 
+    gender: 'Female', 
+    occ: ['Double','Triple'], 
+    amen: ['wifi','food','laundry'], 
+    tag: 'Top Rated', 
+    img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60', 
+    panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
+    gallery: ['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60']
   }
 ];
 
-const state = { city:'Jaipur (All)', min:3000, max:40000, gender:'Any', occ:[], amen:[], category:'All' };
+const state = { city:'Jaipur (All)', min:3000, max:40000, gender:'Any', occ:[], category:'All' };
 const $ = s => document.querySelector(s);
 const inr = n => '₹' + n.toLocaleString('en-IN');
 
+function renderCats(){
+  $('#catRow').innerHTML = CATS.map(c=>`
+    <button onclick="setCategory('${c.t}')" class="shrink-0 flex items-center gap-3 pl-4 pr-5 py-3.5 rounded-2xl border ${state.category===c.t?'border-coral bg-coral-50 text-coral':'border-line bg-white'} hover:border-coral transition text-left">
+      <div><span class="block text-[14.5px] font-extrabold whitespace-nowrap">${c.t}</span><span class="block text-[12px] text-gray-400 font-semibold whitespace-nowrap">${c.d}</span></div>
+    </button>`).join('');
+}
+
+function setCategory(cat){
+  state.category = state.category === cat ? 'All' : cat;
+  renderCats();
+  render();
+}
+
+function renderCities(){
+  $('#cityGrid').innerHTML = CITIES.map(c=>`<button onclick="pickCity('${c}')" class="px-3 py-2 rounded-xl text-xs font-bold text-left border ${state.city===c?'border-coral bg-coral-50 text-coral':'border-line'} hover:border-coral">${c}</button>`).join('');
+}
+
+function pickCity(c){
+  state.city = c; $('#cityLabel').textContent = c; $('#resCity').textContent = c; $('#cityPop').classList.add('hidden'); renderCities(); render();
+}
+
 function render(){
-  $('#cards').innerHTML = LISTINGS.map(l => `
+  const list = LISTINGS.filter(l => {
+    if(state.category!=='All' && l.type!==state.category) return false;
+    if(state.city!=='Jaipur (All)' && !l.area.includes(state.city)) return false;
+    return true;
+  });
+
+  $('#cards').innerHTML = list.map(l => `
     <article class="card-hov bg-white rounded-3xl border border-line overflow-hidden hover:shadow-card">
-      <img src="${l.img}" class="w-full h-52 object-cover">
+      <img src="${l.img}" class="w-full h-52 object-cover" alt="${l.name}">
       <div class="p-5">
         <h3 class="font-extrabold text-[16.5px] truncate">${l.name}</h3>
         <p class="text-[13px] text-gray-500 font-medium mt-1">${l.area}</p>
@@ -323,7 +450,7 @@ function render(){
         </div>
       </div>
     </article>`).join('');
-  $('#resCount').textContent = LISTINGS.length;
+  $('#resCount').textContent = list.length;
 }
 
 function openProp(id){
@@ -333,8 +460,8 @@ function openProp(id){
   $('#pmBody').innerHTML = `
     <div class="p-6">
       <div class="flex items-center gap-3 mb-4 border-b border-line pb-3">
-        <button id="tabPhotosBtn" onclick="switchMediaTab('photos')" class="px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs">🖼️ Standard Gallery</button>
-        <button id="tab360Btn" onclick="switchMediaTab('360')" class="px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs">🔄 Interactive 360° Walkthrough</button>
+        <button id="tabPhotosBtn" onclick="switchMediaTab('photos')" class="px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs">🖼️ Photos Gallery</button>
+        <button id="tab360Btn" onclick="switchMediaTab('360', '${l.panorama}')" class="px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs">🔄 360° Virtual Tour</button>
       </div>
 
       <div id="photosViewContainer" class="space-y-3">
@@ -344,60 +471,79 @@ function openProp(id){
         </div>
       </div>
 
-      <div id="panoramaViewContainer" class="hidden">
-        <div class="relative w-full h-80 sm:h-[420px] rounded-2xl overflow-hidden border border-line bg-black flex items-center justify-center">
-          <img id="rotatorImg" src="${REAL_PG_PHOTOS[0].url}" class="w-full h-full object-contain transition-all duration-300"/>
-          
-          <div class="absolute top-3 left-3 bg-ink/80 text-white text-[11.5px] font-bold px-3 py-1.5 rounded-lg backdrop-blur-sm">
-            🔄 Angle: <span id="rotatorTitle" class="text-coral">${REAL_PG_PHOTOS[0].title}</span>
-          </div>
-
-          <button onclick="rotateAngle(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-white/90 text-ink font-extrabold shadow-pop hover:bg-white">&larr;</button>
-          <button onclick="rotateAngle(1)" class="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-white/90 text-ink font-extrabold shadow-pop hover:bg-white">&rarr;</button>
-
-          <div class="absolute bottom-4 flex gap-2">
-            ${REAL_PG_PHOTOS.map((_, idx) => `<span id="dot-${idx}" class="h-2.5 w-2.5 rounded-full ${idx===0?'bg-coral':'bg-white/50'}"></span>`).join('')}
-          </div>
+      <div id="panoramaViewContainer" class="hidden relative">
+        <div id="panoramaViewer" class="w-full h-80 sm:h-96 rounded-2xl overflow-hidden border border-line"></div>
+        <div class="absolute top-3 left-3 bg-ink/80 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg backdrop-blur-sm pointer-events-none">
+          👆 Drag left/right to rotate 360° room view
         </div>
-        <p class="text-xs text-gray-500 font-semibold text-center mt-2">Click arrows to rotate around the PG room</p>
       </div>
 
       <div class="mt-6">
         <h2 class="text-2xl font-extrabold">${l.name}</h2>
         <p class="text-sm text-gray-500 font-medium mt-0.5">📍 ${l.area}</p>
-        <p class="text-xs text-coral font-bold mt-1">🏫 ${l.landmarks}</p>
-        <p class="text-xs text-gray-700 font-bold mt-1">📞 Contact: ${l.phone}</p>
+        ${l.landmarks ? `<p class="text-xs text-coral font-bold mt-1">🏫 ${l.landmarks}</p>` : ''}
+        ${l.phone ? `<p class="text-xs text-gray-700 font-bold mt-1">📞 Contact: ${l.phone}</p>` : ''}
       </div>
     </div>`;
   
   $('#propModal').classList.remove('hidden');
 }
 
-function switchMediaTab(tab){
+function switchMediaTab(tab, panoramaUrl){
+  const photosView = $('#photosViewContainer');
+  const panoView = $('#panoramaViewContainer');
+
   if(tab === '360'){
-    $('#photosViewContainer').classList.add('hidden');
-    $('#panoramaViewContainer').classList.remove('hidden');
+    photosView.classList.add('hidden');
+    panoView.classList.remove('hidden');
     $('#tab360Btn').className = "px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs";
     $('#tabPhotosBtn').className = "px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs";
+
+    setTimeout(() => {
+      if(pannellumViewer){
+        try{ pannellumViewer.destroy(); }catch(e){}
+      }
+      pannellumViewer = pannellum.viewer('panoramaViewer', {
+        type: 'equirectangular',
+        panorama: panoramaUrl || 'https://pannellum.org/images/cerro-toco-0.jpg',
+        autoLoad: true,
+        compass: false,
+        showZoomCtrl: true
+      });
+    }, 100);
   } else {
-    $('#panoramaViewContainer').classList.add('hidden');
-    $('#photosViewContainer').classList.remove('hidden');
+    panoView.classList.add('hidden');
+    photosView.classList.remove('hidden');
     $('#tabPhotosBtn').className = "px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs";
     $('#tab360Btn').className = "px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs";
   }
 }
 
-function rotateAngle(dir){
-  currentAngleIndex = (currentAngleIndex + dir + REAL_PG_PHOTOS.length) % REAL_PG_PHOTOS.length;
-  $('#rotatorImg').src = REAL_PG_PHOTOS[currentAngleIndex].url;
-  $('#rotatorTitle').textContent = REAL_PG_PHOTOS[currentAngleIndex].title;
-  REAL_PG_PHOTOS.forEach((_, idx) => {
-    $(`#dot-${idx}`).className = `h-2.5 w-2.5 rounded-full ${idx===currentAngleIndex?'bg-coral':'bg-white/50'}`;
-  });
+function closeProp(){ 
+  if(pannellumViewer){
+    try{ pannellumViewer.destroy(); }catch(e){}
+    pannellumViewer = null;
+  }
+  $('#propModal').classList.add('hidden'); 
 }
 
-function closeProp(){ $('#propModal').classList.add('hidden'); }
-render();
+function togglePop(id){
+  ['cityPop','datePop','budgetPop'].forEach(p=>{ if(p!==id) $('#'+p).classList.add('hidden'); });
+  $('#'+id).classList.toggle('hidden');
+}
+$('#cityBtn').onclick = e => { e.stopPropagation(); togglePop('cityPop'); };
+$('#dateBtn').onclick = e => { e.stopPropagation(); togglePop('datePop'); };
+$('#budgetBtn').onclick = e => { e.stopPropagation(); togglePop('budgetPop'); };
+
+document.addEventListener('click', e => {
+  if(!e.target.closest('#cityPop, #datePop, #budgetPop, #cityBtn, #dateBtn, #budgetBtn')) {
+    ['cityPop','datePop','budgetPop'].forEach(p => $('#'+p).classList.add('hidden'));
+  }
+});
+
+function applyHeaderSearch(){ $('#explore').scrollIntoView({behavior:'smooth'}); }
+
+renderCats(); renderCities(); render();
 </script>
 </body>
 </html>
