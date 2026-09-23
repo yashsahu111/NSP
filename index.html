@@ -44,7 +44,6 @@ tailwind.config = {
   .no-scrollbar::-webkit-scrollbar{display:none}
   .no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
 
-  /* dual range slider */
   .range-wrap{position:relative;height:34px}
   .range-track{position:absolute;top:15px;left:0;right:0;height:4px;background:#E5E7EB;border-radius:99px}
   .range-fill{position:absolute;top:15px;height:4px;background:linear-gradient(90deg,#FF3B30,#E53935);border-radius:99px}
@@ -72,7 +71,7 @@ tailwind.config = {
 </head>
 <body class="bg-mist text-ink">
 
-<!-- ══════════ TOP UTILITY BAR ══════════ -->
+<!-- TOP UTILITY BAR -->
 <div class="bg-ink text-white text-[12.5px] border-b border-gray-800">
   <div class="max-w-[1500px] mx-auto px-6 h-9 flex items-center justify-between">
     <p class="flex items-center gap-2">
@@ -86,12 +85,11 @@ tailwind.config = {
   </div>
 </div>
 
-<!-- ══════════ HEADER ══════════ -->
+<!-- HEADER -->
 <header id="siteHeader" class="sticky top-0 z-50 glass border-b border-line">
   <div class="max-w-[1500px] mx-auto px-4 sm:px-6">
     <div class="h-[68px] flex items-center gap-4">
 
-      <!-- Logo -->
       <a href="#" onclick="showView('tenant')" class="flex items-center gap-2.5 shrink-0 group">
         <span class="relative grid place-items-center h-10 w-10 rounded-2xl bg-gradient-to-br from-coral to-[#FF6B5A] shadow-redglow group-hover:scale-105 transition">
           <svg viewBox="0 0 24 24" class="h-[22px] w-[22px] text-white" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -101,10 +99,8 @@ tailwind.config = {
         <span class="text-[22px] font-extrabold tracking-tight">Room<span class="text-coral">zy</span> <span class="text-xs px-2 py-0.5 rounded-full bg-coral-50 text-coral font-bold ml-1">Jaipur</span></span>
       </a>
 
-      <!-- Center Search Pill (Desktop) -->
       <div id="headerSearchPill" class="hidden lg:flex flex-1 justify-center">
         <div class="relative flex items-stretch h-12 rounded-full border border-line bg-white shadow-soft hover:shadow-card transition divide-x divide-line">
-          <!-- Locality Selector -->
           <button id="cityBtn" class="group flex items-center gap-2 pl-5 pr-4 rounded-l-full hover:bg-mist transition">
             <svg class="h-4 w-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
             <span class="text-left leading-none">
@@ -113,7 +109,6 @@ tailwind.config = {
             </span>
             <svg class="h-3.5 w-3.5 text-gray-400 group-hover:text-ink transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg>
           </button>
-          <!-- Move-in Date -->
           <button id="dateBtn" class="flex items-center gap-2 px-4 hover:bg-mist transition">
             <svg class="h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
             <span class="text-left leading-none">
@@ -121,7 +116,6 @@ tailwind.config = {
               <span id="dateLabel" class="block text-[13.5px] font-bold">Immediate</span>
             </span>
           </button>
-          <!-- Budget Selector -->
           <button id="budgetBtn" class="flex items-center gap-2 px-4 hover:bg-mist transition">
             <svg class="h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h12M6 9h12M9 4c4 0 6 2 6 5s-2 5-6 5h-3l7 6"/></svg>
             <span class="text-left leading-none">
@@ -135,17 +129,14 @@ tailwind.config = {
             </button>
           </div>
 
-          <!-- Locality Popover -->
           <div id="cityPop" class="hidden absolute top-[58px] left-0 w-[330px] bg-white rounded-2xl shadow-pop border border-line p-4 z-50">
             <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Jaipur Localities</p>
             <div id="cityGrid" class="grid grid-cols-2 gap-2"></div>
           </div>
-          <!-- Date Popover -->
           <div id="datePop" class="hidden absolute top-[58px] left-1/3 w-[300px] bg-white rounded-2xl shadow-pop border border-line p-4 z-50">
             <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Preferred move-in date</p>
             <input type="date" id="moveInInput" class="w-full rounded-xl border border-line px-3 py-2.5 text-sm font-semibold focus:border-coral focus:ring-2 focus:ring-coral/20 outline-none">
           </div>
-          <!-- Budget Popover -->
           <div id="budgetPop" class="hidden absolute top-[58px] right-0 w-[340px] bg-white rounded-2xl shadow-pop border border-line p-5 z-50">
             <div class="flex items-center justify-between mb-1">
               <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Monthly rent</p>
@@ -160,7 +151,6 @@ tailwind.config = {
         </div>
       </div>
 
-      <!-- Navigation Links -->
       <nav class="hidden xl:flex items-center gap-1 ml-auto">
         <a href="#explore" onclick="showView('tenant')" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Explore PGs</a>
         <a href="#roommates" onclick="showView('tenant')" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Roommate Finder</a>
@@ -177,7 +167,7 @@ tailwind.config = {
   </div>
 </header>
 
-<!-- ══════════ TENANT INTERFACE ══════════ -->
+<!-- TENANT INTERFACE -->
 <div id="tenantView">
   <!-- HERO SECTION -->
   <section class="relative overflow-hidden">
@@ -193,7 +183,7 @@ tailwind.config = {
             Find your next<br><span class="gradtext">home & roommate</span><br>without brokerage.
           </h1>
           <p class="mt-5 text-[16px] sm:text-[17px] text-gray-500 max-w-xl leading-relaxed">
-            Roomzy brings together verified PGs, hostels and co-living spaces in Malviya Nagar, Jagatpura & Vaishali Nagar — plus a smart compatibility engine that matches you with flatmates you'll actually get along with.
+            Roomzy brings together verified PGs, hostels and co-living spaces in Sitapura, Malviya Nagar & Jagatpura — plus a smart compatibility engine that matches you with flatmates you'll actually get along with.
           </p>
 
           <div class="mt-7 flex flex-wrap items-center gap-3">
@@ -206,7 +196,6 @@ tailwind.config = {
             </a>
           </div>
 
-          <!-- Hero Metrics Counters -->
           <div class="mt-9 flex flex-wrap gap-x-9 gap-y-4">
             <div><p class="text-2xl font-extrabold">12k+</p><p class="text-[13px] text-gray-500 font-medium">Verified listings</p></div>
             <div class="hidden sm:block w-px bg-line"></div>
@@ -216,15 +205,14 @@ tailwind.config = {
           </div>
         </div>
 
-        <!-- Featured Jaipur Visual -->
         <div class="relative">
           <div class="relative rounded-4xl overflow-hidden shadow-card border border-white/70 bg-white">
-            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1000&q=70" alt="Jaipur PG" class="w-full h-[300px] sm:h-[400px] lg:h-[460px] object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent"></div>
+            <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1000&q=70" alt="Shree Radhe Krishna PG Hostel" class="w-full h-[300px] sm:h-[400px] lg:h-[460px] object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent"></div>
             <div class="absolute bottom-5 left-5 right-5 text-white">
-              <p class="text-[11px] font-bold uppercase tracking-[.16em] text-white/70">Featured Jaipur Stay</p>
-              <p class="text-xl font-extrabold mt-1">Royal Stays · Malviya Nagar</p>
-              <p class="text-sm text-white/80 font-medium">From ₹8,500/mo · Near MNIT & GT Mall · 2 beds left</p>
+              <p class="text-[11px] font-bold uppercase tracking-[.16em] text-white/70">Featured Sitapura Stay</p>
+              <p class="text-xl font-extrabold mt-1">Shree Radhe Krishna PG Hostel</p>
+              <p class="text-sm text-white/80 font-medium">From ₹6,500/mo · Near JECRC, Poornima & Mahatma Gandhi · 3 beds left</p>
             </div>
           </div>
         </div>
@@ -259,7 +247,6 @@ tailwind.config = {
   <section id="explore" class="max-w-[1500px] mx-auto px-4 sm:px-6 py-8 lg:py-12">
     <div class="grid lg:grid-cols-[288px_1fr] gap-7">
 
-      <!-- Sidebar Filters -->
       <aside class="hidden lg:block">
         <div class="sticky top-[92px] space-y-4">
           <div class="bg-white rounded-3xl border border-line shadow-soft p-5">
@@ -269,7 +256,6 @@ tailwind.config = {
             </div>
 
             <div class="space-y-6">
-              <!-- Budget Range Slider -->
               <div>
                 <div class="flex items-center justify-between mb-1">
                   <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400">Budget</p>
@@ -284,7 +270,6 @@ tailwind.config = {
 
               <div class="h-px bg-line"></div>
 
-              <!-- Occupancy -->
               <div>
                 <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400 mb-3">Occupancy</p>
                 <div class="flex flex-wrap gap-2" id="occRow"></div>
@@ -292,7 +277,6 @@ tailwind.config = {
 
               <div class="h-px bg-line"></div>
 
-              <!-- Preferred For -->
               <div>
                 <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400 mb-3">Preferred for</p>
                 <div class="grid grid-cols-3 gap-2" id="genderRow"></div>
@@ -300,7 +284,6 @@ tailwind.config = {
 
               <div class="h-px bg-line"></div>
 
-              <!-- Amenities -->
               <div>
                 <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400 mb-3">Amenities</p>
                 <div class="space-y-2.5" id="amenRow"></div>
@@ -317,7 +300,6 @@ tailwind.config = {
         </div>
       </aside>
 
-      <!-- Main Results Grid -->
       <div>
         <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
           <div>
@@ -403,7 +385,7 @@ tailwind.config = {
   </section>
 </div>
 
-<!-- ══════════ PROTECTED OWNER DASHBOARD ══════════ -->
+<!-- PROTECTED OWNER DASHBOARD -->
 <div id="ownerView" class="hidden max-w-[1500px] mx-auto px-4 sm:px-6 py-10">
   <div class="flex items-center justify-between border-b border-line pb-5 mb-8">
     <div>
@@ -460,7 +442,7 @@ tailwind.config = {
         <tbody class="divide-y divide-line">
           <tr>
             <td class="p-3 font-extrabold">Rahul Sharma</td>
-            <td class="p-3">Urban Nest Co-living</td>
+            <td class="p-3">Shree Radhe Krishna PG Hostel</td>
             <td class="p-3">1 Oct 2026</td>
             <td class="p-3">Double Sharing</td>
             <td class="p-3"><span class="bg-yellow-100 text-yellow-800 text-xs px-2.5 py-1 rounded-full font-bold">Pending Visit</span></td>
@@ -480,7 +462,7 @@ tailwind.config = {
   </div>
 </div>
 
-<!-- ══════════ DARK FOOTER ══════════ -->
+<!-- FOOTER -->
 <footer class="bg-ink text-white/70">
   <div class="max-w-[1500px] mx-auto px-4 sm:px-6 py-14">
     <div class="grid md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10">
@@ -527,7 +509,7 @@ tailwind.config = {
   </div>
 </footer>
 
-<!-- ══════════ PROPERTY DETAIL MODAL WITH PHOTOS & 360 DEGREE TOUR ══════════ -->
+<!-- PROPERTY DETAIL MODAL WITH PHOTOS & 360 DEGREE TOUR -->
 <div id="propModal" class="hidden fixed inset-0 z-[70]">
   <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeProp()"></div>
   <div class="absolute inset-x-0 bottom-0 top-auto sm:inset-0 sm:m-auto sm:h-[90vh] sm:max-w-[1040px] bg-white sm:rounded-3xl rounded-t-3xl overflow-hidden shadow-pop flex flex-col max-h-[95vh]">
@@ -539,7 +521,7 @@ tailwind.config = {
   </div>
 </div>
 
-<!-- ══════════ OWNER LOGIN MODAL ══════════ -->
+<!-- OWNER LOGIN MODAL -->
 <div id="ownerAuthModal" class="hidden fixed inset-0 z-[80]">
   <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeOwnerAuthModal()"></div>
   <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[440px] bg-white rounded-3xl shadow-pop p-7">
@@ -567,11 +549,11 @@ tailwind.config = {
 <div id="toast" class="fixed z-[90] bottom-8 left-1/2 -translate-x-1/2 px-5 py-3.5 rounded-2xl bg-ink text-white text-sm font-semibold shadow-pop opacity-0 translate-y-3 pointer-events-none transition-all duration-300"></div>
 
 <script>
-/* ═════════ DATA & STATE ═════════ */
+/* DATA & STATE */
 let isOwnerLoggedIn = false;
 let pannellumViewer = null;
 
-const CITIES = ['Jaipur (All)','Malviya Nagar','Vaishali Nagar','Jagatpura','Raja Park','Gopalpura Bypass','Mansarovar'];
+const CITIES = ['Jaipur (All)','Sitapura','Malviya Nagar','Vaishali Nagar','Jagatpura','Raja Park','Gopalpura Bypass','Mansarovar'];
 
 const CATS = [
   {t:'PG', d:'4,120 stays'},
@@ -592,35 +574,36 @@ const AMENITIES = [
 ];
 
 const LISTINGS = [
-  // Malviya Nagar
-  {id:1, name:'Urban Nest Co-living', type:'Co-living', area:'Malviya Nagar, Jaipur', price:13500, rating:4.8, reviews:216, dist:1.2, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','food','power'], tag:'Zero brokerage', img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=60', 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=60']},
-  {id:2, name:'Aanchal Girls PG', type:'PG', area:'Malviya Nagar, Jaipur', price:8500, rating:4.7, reviews:112, dist:1.8, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Meals included', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60']},
-  {id:3, name:'Gurukul Boys Hostel', type:'Hostel', area:'Malviya Nagar, Jaipur', price:6500, rating:4.5, reviews:84, dist:2.1, gender:'Male', occ:['Triple','Shared'], amen:['wifi','food','power'], tag:'Student choice', img:'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60', 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60']},
-  {id:4, name:'Studio Metro Stays', type:'Studio', area:'Malviya Nagar, Jaipur', price:18000, rating:4.9, reviews:68, dist:0.8, gender:'Unisex', occ:['Single'], amen:['wifi','ac','gym','power'], tag:'Private Studio', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60', 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60']},
-
-  // Vaishali Nagar
-  {id:5, name:'Skyline Girls PG', type:'PG', area:'Vaishali Nagar, Jaipur', price:9800, rating:4.6, reviews:142, dist:2.6, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Top Rated', img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60', 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60']},
+  {
+    id: 101, 
+    name: 'Shree Radhe Krishna PG Hostel', 
+    type: 'PG', 
+    area: 'A-458 RIICO Residential Colony, Sitapura, Jaipur', 
+    price: 6500, 
+    rating: 4.8, 
+    reviews: 142, 
+    dist: 0.5, 
+    gender: 'Unisex', 
+    occ: ['Single','Double','Triple'], 
+    amen: ['wifi','ac','food','power','laundry'], 
+    tag: 'Near JECRC & Poornima', 
+    phone: '090247 76588',
+    landmarks: 'Near JECRC, Poornima, Mahatma Gandhi & Jagannath University',
+    img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', 
+    panorama: 'https://pannellum.org/images/alma.jpg', 
+    gallery: [
+      'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', 
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', 
+      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=60'
+    ]
+  },
+  {id:1, name:'Urban Nest Co-living', type:'Co-living', area:'Malviya Nagar, Jaipur', price:13500, rating:4.8, reviews:216, dist:1.2, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','food','power'], tag:'Zero brokerage', img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=60']},
+  {id:2, name:'Aanchal Girls PG', type:'PG', area:'Malviya Nagar, Jaipur', price:8500, rating:4.7, reviews:112, dist:1.8, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Meals included', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60']},
+  {id:3, name:'Gurukul Boys Hostel', type:'Hostel', area:'Malviya Nagar, Jaipur', price:6500, rating:4.5, reviews:84, dist:2.1, gender:'Male', occ:['Triple','Shared'], amen:['wifi','food','power'], tag:'Student choice', img:'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60']},
+  {id:4, name:'Studio Metro Stays', type:'Studio', area:'Malviya Nagar, Jaipur', price:18000, rating:4.9, reviews:68, dist:0.8, gender:'Unisex', occ:['Single'], amen:['wifi','ac','gym','power'], tag:'Private Studio', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60']},
+  {id:5, name:'Skyline Girls PG', type:'PG', area:'Vaishali Nagar, Jaipur', price:9800, rating:4.6, reviews:142, dist:2.6, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Top Rated', img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60']},
   {id:6, name:'Sanskar Boys PG', type:'PG', area:'Vaishali Nagar, Jaipur', price:7800, rating:4.4, reviews:92, dist:3.0, gender:'Male', occ:['Single','Double','Triple'], amen:['wifi','power'], tag:'Budget Pick', img:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60']},
-  {id:7, name:'Imperial Co-living Suites', type:'Co-living', area:'Vaishali Nagar, Jaipur', price:15000, rating:4.8, reviews:175, dist:1.5, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','gym','laundry'], tag:'Couple Friendly', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60']},
-
-  // Jagatpura
-  {id:8, name:'The Hive Student Hostel', type:'Hostel', area:'Jagatpura, Jaipur', price:5500, rating:4.4, reviews:98, dist:4.1, gender:'Male', occ:['Triple','Shared'], amen:['wifi','food','power'], tag:'Near Colleges', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60']},
-  {id:9, name:'Satyam Girls Residency', type:'PG', area:'Jagatpura, Jaipur', price:8200, rating:4.6, reviews:89, dist:3.5, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Safe Stay', img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60']},
-  {id:10, name:'HelloWorld Zem Co-living', type:'Co-living', area:'Jagatpura, Jaipur', price:12000, rating:4.7, reviews:140, dist:2.0, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','gym','power'], tag:'Short Stay Allowed', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60']},
-
-  // Raja Park
-  {id:11, name:'Casa Verde Residency', type:'Co-living', area:'Raja Park, Jaipur', price:16500, rating:4.9, reviews:311, dist:1.4, gender:'Unisex', occ:['Single'], amen:['wifi','ac','food','gym'], tag:'Premium Stay', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60']},
-  {id:12, name:'Pink City Girls Hostel', type:'Hostel', area:'Raja Park, Jaipur', price:9000, rating:4.5, reviews:105, dist:1.9, gender:'Female', occ:['Double','Shared'], amen:['wifi','food','laundry'], tag:'Heart of City', img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60']},
-
-  // Gopalpura Bypass
-  {id:13, name:'Comfort Stay Boys PG', type:'PG', area:'Gopalpura Bypass, Jaipur', price:7500, rating:4.3, reviews:76, dist:3.3, gender:'Male', occ:['Double','Triple'], amen:['wifi','food','power'], tag:'Coaching Hub', img:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60']},
-  {id:14, name:'Bed Buddies Girls PG', type:'PG', area:'Gopalpura Bypass, Jaipur', price:8800, rating:4.6, reviews:120, dist:2.5, gender:'Female', occ:['Single','Double'], amen:['wifi','ac','food'], tag:'Verified Stay', img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60']},
-
-  // Mansarovar
-  {id:15, name:'Bloom Co-living Studio', type:'Studio', area:'Mansarovar, Jaipur', price:19500, rating:4.7, reviews:189, dist:8.7, gender:'Unisex', occ:['Single'], amen:['wifi','ac','gym','power'], tag:'Couple Friendly', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60']},
-  {id:16, name:'HelloWorld Tapovan', type:'Co-living', area:'Mansarovar, Jaipur', price:11000, rating:4.6, reviews:134, dist:4.2, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','laundry'], tag:'Short Stay', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60']},
-  {id:17, name:'Apex Student Boys Hostel', type:'Hostel', area:'Mansarovar, Jaipur', price:6000, rating:4.2, reviews:88, dist:5.0, gender:'Male', occ:['Triple','Shared'], amen:['wifi','food'], tag:'Budget Pick', img:'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60']},
-  {id:18, name:'Grace Girls PG', type:'PG', area:'Mansarovar, Jaipur', price:8000, rating:4.5, reviews:95, dist:3.8, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','power'], tag:'Homely Food', img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60']}
+  {id:7, name:'Imperial Co-living Suites', type:'Co-living', area:'Vaishali Nagar, Jaipur', price:15000, rating:4.8, reviews:175, dist:1.5, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','gym','laundry'], tag:'Couple Friendly', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/alma.jpg', gallery:['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60']}
 ];
 
 const ROOMMATES = [
@@ -631,14 +614,14 @@ const ROOMMATES = [
 ];
 
 const LOCALITIES = [
+  {n:'Sitapura', c:185, img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=60'},
   {n:'Malviya Nagar', c:412, img:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=60'},
   {n:'Vaishali Nagar', c:368, img:'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=600&q=60'},
-  {n:'Jagatpura', c:295, img:'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=600&q=60'},
-  {n:'Raja Park', c:521, img:'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=600&q=60'}
+  {n:'Jagatpura', c:295, img:'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=600&q=60'}
 ];
 
 const TESTI = [
-  {n:'Nikhil P.', r:'Moved into a co-living in Malviya Nagar within 4 days. Virtual tours saved me weeks!', img:'https://i.pravatar.cc/100?img=13', role:'Software Engineer'},
+  {n:'Nikhil P.', r:'Moved into a co-living in Sitapura within 4 days. Virtual tours saved me weeks!', img:'https://i.pravatar.cc/100?img=13', role:'Software Engineer'},
   {n:'Ritika S.', r:'As a girl moving to Jaipur, the verified badge gave my parents real peace of mind.', img:'https://i.pravatar.cc/100?img=41', role:'MNIT Student'},
   {n:'Arjun K.', r:'Roommate matching is scarily accurate. My match score was 91%!', img:'https://i.pravatar.cc/100?img=52', role:'Marketing Manager'}
 ];
@@ -646,7 +629,6 @@ const TESTI = [
 const state = { city:'Jaipur (All)', min:3000, max:40000, gender:'Any', occ:[], amen:[], category:'All' };
 const saved = new Set();
 
-/* ═════════ HELPERS ═════════ */
 const $ = s => document.querySelector(s);
 const inr = n => '₹' + n.toLocaleString('en-IN');
 
@@ -658,7 +640,6 @@ function toast(msg){
   toastT = setTimeout(()=>t.classList.add('opacity-0','translate-y-3'), 2600);
 }
 
-/* ═════════ AUTHENTICATION SYSTEM ═════════ */
 function handleOwnerAction(){
   if(isOwnerLoggedIn){
     showView('owner');
@@ -667,23 +648,15 @@ function handleOwnerAction(){
   }
 }
 
-function openOwnerAuthModal(){
-  $('#ownerAuthModal').classList.remove('hidden');
-}
-
-function closeOwnerAuthModal(){
-  $('#ownerAuthModal').classList.add('hidden');
-}
+function openOwnerAuthModal(){ $('#ownerAuthModal').classList.remove('hidden'); }
+function closeOwnerAuthModal(){ $('#ownerAuthModal').classList.add('hidden'); }
 
 function submitOwnerLogin(e){
   e.preventDefault();
   isOwnerLoggedIn = true;
   closeOwnerAuthModal();
-  
-  // Update Header UI for Logged-In Owner
   $('#topBarStatus').innerHTML = '<strong>Owner Portal Active</strong> (Landlord Session)';
   $('#ownerNavBtn').textContent = 'Owner Dashboard';
-  
   toast('Owner login successful! Welcome back 🎉');
   showView('owner');
 }
@@ -706,7 +679,6 @@ function showView(viewName){
   $('#headerSearchPill').classList.toggle('hidden', viewName === 'owner');
 }
 
-/* ═════════ RENDERERS & STATE ═════════ */
 function renderCats(){
   $('#catRow').innerHTML = CATS.map(c=>`
     <button onclick="setCategory('${c.t}')" class="shrink-0 flex items-center gap-3 pl-4 pr-5 py-3.5 rounded-2xl border ${state.category===c.t?'border-coral bg-coral-50 text-coral':'border-line bg-white'} hover:border-coral transition text-left">
@@ -925,7 +897,6 @@ function renderExtras(){
     </div>`).join('');
 }
 
-/* ═════════ MODALS WITH 360 DEGREE ROOM VIEW ═════════ */
 function openProp(id){
   const l = LISTINGS.find(x => x.id === id);
   $('#pmTitle').textContent = l.name;
@@ -934,7 +905,6 @@ function openProp(id){
   
   $('#pmBody').innerHTML = `
     <div class="p-6">
-      <!-- Media Navigation Tabs -->
       <div class="flex items-center gap-3 mb-4 border-b border-line pb-3">
         <button id="tabPhotosBtn" onclick="switchMediaTab('photos')" class="px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow flex items-center gap-2">
           🖼️ Photos Gallery
@@ -944,7 +914,6 @@ function openProp(id){
         </button>
       </div>
 
-      <!-- Photo Gallery View -->
       <div id="photosViewContainer" class="space-y-3">
         <img src="${l.img}" class="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-soft"/>
         <div class="grid grid-cols-3 gap-3">
@@ -952,7 +921,6 @@ function openProp(id){
         </div>
       </div>
 
-      <!-- 360 Degree Viewer Container -->
       <div id="panoramaViewContainer" class="hidden relative">
         <div id="panoramaViewer" class="w-full h-72 sm:h-96 rounded-2xl overflow-hidden border border-line"></div>
         <div class="absolute top-3 left-3 bg-ink/80 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg backdrop-blur-sm pointer-events-none">
@@ -960,12 +928,14 @@ function openProp(id){
         </div>
       </div>
 
-      <div class="mt-6 flex items-center justify-between">
+      <div class="mt-6 flex items-start justify-between gap-4">
         <div>
           <h2 class="text-2xl font-extrabold">${l.name}</h2>
-          <p class="text-sm text-gray-500 font-medium">${l.area}</p>
+          <p class="text-sm text-gray-500 font-medium mt-0.5">📍 ${l.area}</p>
+          ${l.landmarks ? `<p class="text-xs text-coral font-bold mt-1">🏫 ${l.landmarks}</p>` : ''}
+          ${l.phone ? `<p class="text-xs text-gray-700 font-bold mt-1">📞 Contact: ${l.phone}</p>` : ''}
         </div>
-        <span class="px-3 py-1 rounded-lg bg-green-50 text-green-600 font-extrabold text-xs">✓ Physically Verified</span>
+        <span class="px-3 py-1 rounded-lg bg-green-50 text-green-600 font-extrabold text-xs shrink-0">✓ Physically Verified</span>
       </div>
 
       <div class="mt-6 border-t border-b border-line py-4 flex items-center justify-between">
@@ -995,7 +965,6 @@ function switchMediaTab(tab, panoramaUrl){
     tab360Btn.className = "px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow flex items-center gap-2";
     tabPhotosBtn.className = "px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs hover:border-coral flex items-center gap-2";
 
-    // Initialize Pannellum Viewer
     setTimeout(() => {
       if(pannellumViewer){
         try{ pannellumViewer.destroy(); }catch(e){}
@@ -1041,7 +1010,6 @@ document.addEventListener('click', e => {
 
 function applyHeaderSearch(){ $('#explore').scrollIntoView({behavior:'smooth'}); toast(`Showing stays in ${state.city}`); }
 
-/* ═════════ INIT ═════════ */
 renderCats(); renderCities(); bindRange(); syncRanges(); render(); renderRoommates(); renderExtras();
 </script>
 </body>
