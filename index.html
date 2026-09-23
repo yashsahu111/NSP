@@ -8,9 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<!-- Pannellum 360 Viewer CSS & JS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
-<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -220,33 +217,9 @@ tailwind.config = {
     </div>
   </section>
 
-  <!-- TRUST MARQUEE -->
-  <div class="border-y border-line bg-white overflow-hidden">
-    <div class="flex marquee w-max py-3.5">
-      <div class="flex items-center gap-10 px-5 text-[13px] font-semibold text-gray-400 whitespace-nowrap">
-        <span>✓ Physically verified properties</span><span>✓ Zero brokerage</span><span>✓ Refundable token</span><span>✓ Free property visits</span><span>✓ Digital rent agreement</span><span>✓ 24×7 tenant support</span><span>✓ Roommate compatibility score</span>
-      </div>
-      <div class="flex items-center gap-10 px-5 text-[13px] font-semibold text-gray-400 whitespace-nowrap" aria-hidden="true">
-        <span>✓ Physically verified properties</span><span>✓ Zero brokerage</span><span>✓ Refundable token</span><span>✓ Free property visits</span><span>✓ Digital rent agreement</span><span>✓ 24×7 tenant support</span><span>✓ Roommate compatibility score</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- CATEGORY CHIPS ROW -->
-  <section class="max-w-[1500px] mx-auto px-4 sm:px-6 pt-10">
-    <div class="flex items-end justify-between gap-4 mb-4">
-      <div>
-        <h2 class="text-[22px] sm:text-[26px] font-extrabold tracking-tight">Browse by stay type</h2>
-        <p class="text-[14px] text-gray-500 mt-1">Handpicked options for students & working professionals</p>
-      </div>
-    </div>
-    <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2" id="catRow"></div>
-  </section>
-
-  <!-- EXPLORE / MAIN APP LISTINGS GRID -->
+  <!-- MAIN LISTINGS -->
   <section id="explore" class="max-w-[1500px] mx-auto px-4 sm:px-6 py-8 lg:py-12">
     <div class="grid lg:grid-cols-[288px_1fr] gap-7">
-
       <aside class="hidden lg:block">
         <div class="sticky top-[92px] space-y-4">
           <div class="bg-white rounded-3xl border border-line shadow-soft p-5">
@@ -254,7 +227,6 @@ tailwind.config = {
               <h3 class="font-extrabold text-[17px]">Filters</h3>
               <button onclick="resetFilters()" class="text-[12.5px] font-bold text-coral hover:underline">Reset all</button>
             </div>
-
             <div class="space-y-6">
               <div>
                 <div class="flex items-center justify-between mb-1">
@@ -267,35 +239,12 @@ tailwind.config = {
                   <input type="range" id="sMax" min="3000" max="40000" step="500" value="40000">
                 </div>
               </div>
-
               <div class="h-px bg-line"></div>
-
               <div>
                 <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400 mb-3">Occupancy</p>
                 <div class="flex flex-wrap gap-2" id="occRow"></div>
               </div>
-
-              <div class="h-px bg-line"></div>
-
-              <div>
-                <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400 mb-3">Preferred for</p>
-                <div class="grid grid-cols-3 gap-2" id="genderRow"></div>
-              </div>
-
-              <div class="h-px bg-line"></div>
-
-              <div>
-                <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400 mb-3">Amenities</p>
-                <div class="space-y-2.5" id="amenRow"></div>
-              </div>
             </div>
-          </div>
-
-          <div class="rounded-3xl p-5 bg-gradient-to-br from-ink to-[#1f2937] text-white shadow-card">
-            <p class="text-[11px] font-bold uppercase tracking-[.18em] text-white/50">Roomzy Assist</p>
-            <p class="mt-2 font-extrabold text-[17px] leading-snug">Can't decide? Let us shortlist for you.</p>
-            <p class="mt-1.5 text-[13px] text-white/60 leading-relaxed">Share your budget & locality — our housing expert calls you in 10 mins.</p>
-            <button onclick="toast('Our housing expert will call you shortly 📞')" class="mt-4 w-full h-11 rounded-xl bg-coral hover:bg-coral-dark transition font-bold text-sm">Request a callback</button>
           </div>
         </div>
       </aside>
@@ -304,212 +253,16 @@ tailwind.config = {
         <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
           <div>
             <h2 class="text-[22px] sm:text-[27px] font-extrabold tracking-tight">PGs & Hostels in <span id="resCity">Jaipur</span></h2>
-            <p class="text-[13.5px] text-gray-500 mt-0.5"><span id="resCount">0</span> stays available · updated recently</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <div class="relative">
-              <select id="sortSel" onchange="render()" class="appearance-none h-11 pl-4 pr-9 rounded-xl border border-line bg-white font-bold text-sm outline-none focus:border-coral cursor-pointer">
-                <option value="rec">Recommended</option>
-                <option value="low">Price: Low to High</option>
-                <option value="high">Price: High to Low</option>
-                <option value="rating">Top rated</option>
-              </select>
-            </div>
+            <p class="text-[13.5px] text-gray-500 mt-0.5"><span id="resCount">0</span> stays available</p>
           </div>
         </div>
-
         <div id="cards" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
       </div>
-
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS SECTION -->
-  <section id="how" class="bg-white border-y border-line">
-    <div class="max-w-[1500px] mx-auto px-4 sm:px-6 py-16 lg:py-20">
-      <div class="text-center max-w-2xl mx-auto">
-        <span class="text-[12px] font-extrabold uppercase tracking-[.18em] text-coral">How Roomzy works</span>
-        <h2 class="mt-3 text-[30px] sm:text-[38px] font-extrabold tracking-tight">From search to shifting in, in 3 steps</h2>
-        <p class="mt-3 text-gray-500">No brokers, no hidden charges, no endless WhatsApp groups.</p>
-      </div>
-      <div class="mt-12 grid md:grid-cols-3 gap-5 lg:gap-7">
-        <div class="rounded-3xl border border-line p-7 hover:shadow-card transition bg-mist/50">
-          <span class="inline-grid h-12 w-12 place-items-center rounded-2xl bg-coral text-white font-extrabold text-lg shadow-redglow">1</span>
-          <h3 class="mt-5 text-xl font-extrabold">Search & shortlist</h3>
-          <p class="mt-2 text-[14.5px] text-gray-500 leading-relaxed">Filter by budget, locality, occupancy and amenities. Every listing is physically verified with real photos.</p>
-        </div>
-        <div class="rounded-3xl border border-line p-7 hover:shadow-card transition bg-mist/50">
-          <span class="inline-grid h-12 w-12 place-items-center rounded-2xl bg-coral text-white font-extrabold text-lg shadow-redglow">2</span>
-          <h3 class="mt-5 text-xl font-extrabold">Visit for free</h3>
-          <p class="mt-2 text-[14.5px] text-gray-500 leading-relaxed">Book same-day visits or take a live video tour. A Roomzy buddy accompanies you on request.</p>
-        </div>
-        <div class="rounded-3xl border border-line p-7 hover:shadow-card transition bg-mist/50">
-          <span class="inline-grid h-12 w-12 place-items-center rounded-2xl bg-coral text-white font-extrabold text-lg shadow-redglow">3</span>
-          <h3 class="mt-5 text-xl font-extrabold">Book & move in</h3>
-          <p class="mt-2 text-[14.5px] text-gray-500 leading-relaxed">Pay a refundable token, sign the digital agreement and get your keys. Zero brokerage, always.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ROOMMATE FINDER SECTION -->
-  <section id="roommates" class="max-w-[1500px] mx-auto px-4 sm:px-6 py-16 lg:py-20">
-    <div class="flex flex-wrap items-end justify-between gap-5 mb-9">
-      <div class="max-w-2xl">
-        <span class="text-[12px] font-extrabold uppercase tracking-[.18em] text-coral">Roommate Finder</span>
-        <h2 class="mt-3 text-[30px] sm:text-[38px] font-extrabold tracking-tight">Matched on lifestyle, not luck</h2>
-        <p class="mt-3 text-gray-500 text-[15.5px]">Our compatibility engine scores sleep schedule, cleanliness, food habits, work style and social energy — so you share space with someone who fits.</p>
-      </div>
-      <div class="flex gap-2">
-        <button onclick="toast('Profile creation opened! ✨')" class="h-12 px-6 rounded-2xl bg-coral text-white font-bold shadow-redglow hover:bg-coral-dark transition shine">Create my profile</button>
-      </div>
-    </div>
-    <div id="roommateGrid" class="grid sm:grid-cols-2 xl:grid-cols-4 gap-5"></div>
-  </section>
-
-  <!-- JAIPUR LOCALITIES SECTION -->
-  <section class="bg-white border-y border-line">
-    <div class="max-w-[1500px] mx-auto px-4 sm:px-6 py-16">
-      <h2 class="text-[26px] sm:text-[32px] font-extrabold tracking-tight">Top localities in Jaipur</h2>
-      <p class="text-gray-500 mt-2">Where students and techies are moving this month</p>
-      <div class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5" id="localityGrid"></div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS SECTION -->
-  <section class="bg-white border-t border-line">
-    <div class="max-w-[1500px] mx-auto px-4 sm:px-6 py-16 lg:py-20">
-      <h2 class="text-[26px] sm:text-[34px] font-extrabold tracking-tight text-center">Loved by 38,000+ tenants</h2>
-      <div class="mt-10 grid md:grid-cols-3 gap-5" id="testiGrid"></div>
     </div>
   </section>
 </div>
 
-<!-- PROTECTED OWNER DASHBOARD -->
-<div id="ownerView" class="hidden max-w-[1500px] mx-auto px-4 sm:px-6 py-10">
-  <div class="flex items-center justify-between border-b border-line pb-5 mb-8">
-    <div>
-      <span class="text-xs font-bold text-coral uppercase tracking-wider">Owner Management Portal</span>
-      <h1 class="text-3xl font-extrabold mt-1">Landlord Control Panel</h1>
-    </div>
-    <div class="flex gap-3">
-      <button onclick="toast('Add property form opened! 🎉')" class="h-11 px-5 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow">
-        + Add New Listing
-      </button>
-      <button onclick="logoutOwner()" class="h-11 px-4 rounded-2xl border border-line bg-white font-extrabold text-sm hover:border-ink">
-        Logout & Exit Portal
-      </button>
-    </div>
-  </div>
-
-  <div class="grid sm:grid-cols-4 gap-5 mb-8">
-    <div class="bg-white rounded-3xl border border-line p-6 shadow-soft">
-      <p class="text-xs font-bold text-gray-400 uppercase">Total Listed Properties</p>
-      <p class="text-3xl font-extrabold mt-2">3 PGs</p>
-      <p class="text-xs text-green-600 font-bold mt-1">Active in Jaipur</p>
-    </div>
-    <div class="bg-white rounded-3xl border border-line p-6 shadow-soft">
-      <p class="text-xs font-bold text-gray-400 uppercase">Total Bed Capacity</p>
-      <p class="text-3xl font-extrabold mt-2">32 Beds</p>
-      <p class="text-xs text-gray-500 font-bold mt-1">26 Occupied (81%)</p>
-    </div>
-    <div class="bg-white rounded-3xl border border-line p-6 shadow-soft">
-      <p class="text-xs font-bold text-gray-400 uppercase">Available Beds</p>
-      <p class="text-3xl font-extrabold mt-2 text-coral">6 Beds</p>
-      <p class="text-xs text-coral font-bold mt-1">Ready for booking</p>
-    </div>
-    <div class="bg-white rounded-3xl border border-line p-6 shadow-soft">
-      <p class="text-xs font-bold text-gray-400 uppercase">Monthly Income</p>
-      <p class="text-3xl font-extrabold mt-2">₹2,21,000</p>
-      <p class="text-xs text-green-600 font-bold mt-1">Updated today</p>
-    </div>
-  </div>
-
-  <div class="bg-white rounded-3xl border border-line p-6 shadow-soft">
-    <h2 class="text-xl font-extrabold mb-4">Pending Jaipur Booking Enquiries</h2>
-    <div class="overflow-x-auto">
-      <table class="w-full text-left text-sm">
-        <thead class="bg-mist border-b border-line text-xs uppercase text-gray-400 font-bold">
-          <tr>
-            <th class="p-3">Tenant Name</th>
-            <th class="p-3">Property Name</th>
-            <th class="p-3">Move-in Date</th>
-            <th class="p-3">Sharing Type</th>
-            <th class="p-3">Status</th>
-            <th class="p-3">Action</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-line">
-          <tr>
-            <td class="p-3 font-extrabold">Rahul Sharma</td>
-            <td class="p-3">Shree Radhe Krishna PG Hostel</td>
-            <td class="p-3">1 Oct 2026</td>
-            <td class="p-3">Double Sharing</td>
-            <td class="p-3"><span class="bg-yellow-100 text-yellow-800 text-xs px-2.5 py-1 rounded-full font-bold">Pending Visit</span></td>
-            <td class="p-3"><button onclick="toast('Booking Approved!')" class="bg-coral text-white text-xs px-3 py-1.5 rounded-xl font-bold">Approve</button></td>
-          </tr>
-          <tr>
-            <td class="p-3 font-extrabold">Ananya Verma</td>
-            <td class="p-3">Skyline Girls PG</td>
-            <td class="p-3">25 Sept 2026</td>
-            <td class="p-3">Single Room</td>
-            <td class="p-3"><span class="bg-green-100 text-green-800 text-xs px-2.5 py-1 rounded-full font-bold">Approved</span></td>
-            <td class="p-3"><button onclick="toast('Opening contact phone...')" class="border border-line text-xs px-3 py-1.5 rounded-xl font-bold">Call Tenant</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer class="bg-ink text-white/70">
-  <div class="max-w-[1500px] mx-auto px-4 sm:px-6 py-14">
-    <div class="grid md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10">
-      <div>
-        <div class="flex items-center gap-2.5">
-          <span class="grid place-items-center h-10 w-10 rounded-2xl bg-gradient-to-br from-coral to-[#FF6B5A]">
-            <svg viewBox="0 0 24 24" class="h-[22px] w-[22px] text-white" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.8"/><path d="M9.5 21v-6h5v6"/></svg>
-          </span>
-          <span class="text-[22px] font-extrabold tracking-tight text-white">Room<span class="text-coral">zy</span></span>
-        </div>
-        <p class="mt-4 text-[14px] leading-relaxed max-w-sm">India's friendliest rental platform for PGs, hostels, co-living spaces and roommates. Verified homes, zero brokerage.</p>
-      </div>
-      <div>
-        <h4 class="text-white font-extrabold text-[15px] mb-4">Explore</h4>
-        <ul class="space-y-2.5 text-[14px]">
-          <li><a href="#explore" class="hover:text-coral transition">PGs in Jaipur</a></li>
-          <li><a href="#explore" class="hover:text-coral transition">Co-living spaces</a></li>
-          <li><a href="#explore" class="hover:text-coral transition">Girls hostels</a></li>
-          <li><a href="#roommates" class="hover:text-coral transition">Roommate finder</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="text-white font-extrabold text-[15px] mb-4">Company</h4>
-        <ul class="space-y-2.5 text-[14px]">
-          <li><a href="#" class="hover:text-coral transition">About us</a></li>
-          <li><a href="#" class="hover:text-coral transition">Careers</a></li>
-          <li><a href="#" class="hover:text-coral transition">Blog</a></li>
-          <li><a href="#" onclick="handleOwnerAction()" class="hover:text-coral transition">List your property</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="text-white font-extrabold text-[15px] mb-4">Stay in the loop</h4>
-        <p class="text-[14px]">New listings in your locality, every week.</p>
-        <form onsubmit="event.preventDefault();toast('Subscribed! Check your inbox ✉️');this.reset()" class="mt-4 flex rounded-xl overflow-hidden border border-white/15 bg-white/5">
-          <input required type="email" placeholder="you@email.com" class="flex-1 min-w-0 bg-transparent px-4 h-11 text-[14px] text-white placeholder-white/35 outline-none">
-          <button class="px-4 bg-coral text-white font-bold text-sm hover:bg-coral-dark transition">Join</button>
-        </form>
-      </div>
-    </div>
-    <div class="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 items-center justify-between text-[13px]">
-      <p>© 2026 Roomzy Technologies Pvt. Ltd. All rights reserved.</p>
-      <div class="flex gap-6"><a href="#" class="hover:text-white transition">Privacy</a><a href="#" class="hover:text-white transition">Terms</a><a href="#" class="hover:text-white transition">Cookies</a></div>
-    </div>
-  </div>
-</footer>
-
-<!-- PROPERTY DETAIL MODAL WITH PHOTOS & 360 DEGREE TOUR -->
+<!-- PROPERTY DETAIL MODAL WITH 360 INTERACTIVE WALKTHROUGH -->
 <div id="propModal" class="hidden fixed inset-0 z-[70]">
   <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeProp()"></div>
   <div class="absolute inset-x-0 bottom-0 top-auto sm:inset-0 sm:m-auto sm:h-[90vh] sm:max-w-[1040px] bg-white sm:rounded-3xl rounded-t-3xl overflow-hidden shadow-pop flex flex-col max-h-[95vh]">
@@ -521,56 +274,16 @@ tailwind.config = {
   </div>
 </div>
 
-<!-- OWNER LOGIN MODAL -->
-<div id="ownerAuthModal" class="hidden fixed inset-0 z-[80]">
-  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeOwnerAuthModal()"></div>
-  <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[440px] bg-white rounded-3xl shadow-pop p-7">
-    <button onclick="closeOwnerAuthModal()" class="absolute right-4 top-4 h-9 w-9 grid place-items-center rounded-xl hover:bg-mist">✕</button>
-    <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral flex items-center justify-center font-bold mb-3">🏠</div>
-    <h3 class="text-2xl font-extrabold tracking-tight">Property Owner Login</h3>
-    <p class="text-gray-500 text-[14px] mt-1">Access your landlord dashboard & manage PG listings.</p>
-    
-    <form class="mt-6 space-y-4" onsubmit="submitOwnerLogin(event)">
-      <div>
-        <label class="text-[12.5px] font-bold text-gray-500">Mobile Number or Email</label>
-        <input required type="text" id="ownerIdentifier" placeholder="e.g. +91 98XXX XXXXX or landlord@roomzy.com" class="mt-1.5 w-full h-12 px-4 rounded-xl border border-line bg-mist focus:bg-white focus:border-coral outline-none text-sm font-medium transition">
-      </div>
-      <div>
-        <label class="text-[12.5px] font-bold text-gray-500">Passcode / OTP</label>
-        <input required type="password" id="ownerPasscode" placeholder="••••••••" class="mt-1.5 w-full h-12 px-4 rounded-xl border border-line bg-mist focus:bg-white focus:border-coral outline-none text-sm font-medium transition">
-      </div>
-      <button class="shine w-full h-12 rounded-xl bg-coral text-white font-extrabold hover:bg-coral-dark transition shadow-redglow">Sign In as Owner</button>
-    </form>
-    <p class="text-[11.5px] text-gray-400 text-center mt-4">Students/Tenants do not require a login to explore stays.</p>
-  </div>
-</div>
-
-<!-- TOAST -->
 <div id="toast" class="fixed z-[90] bottom-8 left-1/2 -translate-x-1/2 px-5 py-3.5 rounded-2xl bg-ink text-white text-sm font-semibold shadow-pop opacity-0 translate-y-3 pointer-events-none transition-all duration-300"></div>
 
 <script>
-/* DATA & STATE */
-let isOwnerLoggedIn = false;
-let pannellumViewer = null;
+let currentAngleIndex = 0;
 
-const CITIES = ['Jaipur (All)','Sitapura','Malviya Nagar','Vaishali Nagar','Jagatpura','Raja Park','Gopalpura Bypass','Mansarovar'];
-
-const CATS = [
-  {t:'PG', d:'4,120 stays'},
-  {t:'Hostel', d:'1,860 stays'},
-  {t:'Co-living', d:'2,340 stays'},
-  {t:'Studio', d:'980 stays'},
-  {t:'Short stay', d:'640 stays'},
-  {t:'Couple friendly', d:'420 stays'}
-];
-
-const AMENITIES = [
-  {id:'wifi', label:'High-speed WiFi'},
-  {id:'ac', label:'Air conditioning'},
-  {id:'food', label:'3 Meals included'},
-  {id:'laundry', label:'Laundry service'},
-  {id:'gym', label:'Gym / Fitness'},
-  {id:'power', label:'Power backup'}
+// REAL PG PHOTOS ASSIGNED
+const REAL_PG_PHOTOS = [
+  { url: 'image_6a5ba1.jpg', title: 'Main Bedroom Angle (Double Bed)' },
+  { url: 'image_6a5bfd.jpg', title: 'Study Corner & Wardrobe Area' },
+  { url: 'image_6a5c41.jpg', title: 'Storage & Window View' }
 ];
 
 const LISTINGS = [
@@ -582,436 +295,109 @@ const LISTINGS = [
     price: 6500, 
     rating: 4.8, 
     reviews: 142, 
-    dist: 0.5, 
     gender: 'Unisex', 
     occ: ['Single','Double','Triple'], 
     amen: ['wifi','ac','food','power','laundry'], 
     tag: 'Near JECRC & Poornima', 
     phone: '090247 76588',
     landmarks: 'Near JECRC, Poornima, Mahatma Gandhi & Jagannath University',
-    img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', 
-    // Equirectangular 360 panorama URL
-    panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
-    gallery: [
-      'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', 
-      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', 
-      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=60'
-    ]
-  },
-  {id:1, name:'Urban Nest Co-living', type:'Co-living', area:'Malviya Nagar, Jaipur', price:13500, rating:4.8, reviews:216, dist:1.2, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','food','power'], tag:'Zero brokerage', img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=60']},
-  {id:2, name:'Aanchal Girls PG', type:'PG', area:'Malviya Nagar, Jaipur', price:8500, rating:4.7, reviews:112, dist:1.8, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Meals included', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60']},
-  {id:3, name:'Gurukul Boys Hostel', type:'Hostel', area:'Malviya Nagar, Jaipur', price:6500, rating:4.5, reviews:84, dist:2.1, gender:'Male', occ:['Triple','Shared'], amen:['wifi','food','power'], tag:'Student choice', img:'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60']},
-  {id:4, name:'Studio Metro Stays', type:'Studio', area:'Malviya Nagar, Jaipur', price:18000, rating:4.9, reviews:68, dist:0.8, gender:'Unisex', occ:['Single'], amen:['wifi','ac','gym','power'], tag:'Private Studio', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60']},
-  {id:5, name:'Skyline Girls PG', type:'PG', area:'Vaishali Nagar, Jaipur', price:9800, rating:4.6, reviews:142, dist:2.6, gender:'Female', occ:['Double','Triple'], amen:['wifi','food','laundry'], tag:'Top Rated', img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60']},
-  {id:6, name:'Sanskar Boys PG', type:'PG', area:'Vaishali Nagar, Jaipur', price:7800, rating:4.4, reviews:92, dist:3.0, gender:'Male', occ:['Single','Double','Triple'], amen:['wifi','power'], tag:'Budget Pick', img:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60']},
-  {id:7, name:'Imperial Co-living Suites', type:'Co-living', area:'Vaishali Nagar, Jaipur', price:15000, rating:4.8, reviews:175, dist:1.5, gender:'Unisex', occ:['Single','Double'], amen:['wifi','ac','gym','laundry'], tag:'Couple Friendly', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60', panorama:'https://pannellum.org/images/cerro-toco-0.jpg', gallery:['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60']}
-];
-
-const ROOMMATES = [
-  {n:'Ananya Sharma', a:24, job:'Product Designer @ Swiggy', loc:'Malviya Nagar', b:14000, m:94, img:'https://i.pravatar.cc/200?img=47', tags:['Non-smoker','Early riser','Vegetarian']},
-  {n:'Rohit Verma', a:26, job:'SDE-2 @ Razorpay', loc:'Vaishali Nagar', b:18000, m:89, img:'https://i.pravatar.cc/200?img=12', tags:['Gym buddy','Night owl','Pet friendly']},
-  {n:'Meera Iyer', a:22, job:'MBA Student, MNIT', loc:'Jagatpura', b:11000, m:91, img:'https://i.pravatar.cc/200?img=45', tags:['Studious','Vegetarian','Non-smoker']},
-  {n:'Karthik Nair', a:28, job:'Data Analyst @ Genpact', loc:'Raja Park', b:16000, m:86, img:'https://i.pravatar.cc/200?img=60', tags:['Cooks often','Weekend traveller']}
-];
-
-const LOCALITIES = [
-  {n:'Sitapura', c:185, img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=60'},
-  {n:'Malviya Nagar', c:412, img:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=60'},
-  {n:'Vaishali Nagar', c:368, img:'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=600&q=60'},
-  {n:'Jagatpura', c:295, img:'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=600&q=60'}
-];
-
-const TESTI = [
-  {n:'Nikhil P.', r:'Moved into a co-living in Sitapura within 4 days. Virtual tours saved me weeks!', img:'https://i.pravatar.cc/100?img=13', role:'Software Engineer'},
-  {n:'Ritika S.', r:'As a girl moving to Jaipur, the verified badge gave my parents real peace of mind.', img:'https://i.pravatar.cc/100?img=41', role:'MNIT Student'},
-  {n:'Arjun K.', r:'Roommate matching is scarily accurate. My match score was 91%!', img:'https://i.pravatar.cc/100?img=52', role:'Marketing Manager'}
+    img: 'image_6a5ba1.jpg',
+    gallery: ['image_6a5ba1.jpg', 'image_6a5bfd.jpg', 'image_6a5c41.jpg']
+  }
 ];
 
 const state = { city:'Jaipur (All)', min:3000, max:40000, gender:'Any', occ:[], amen:[], category:'All' };
-const saved = new Set();
-
 const $ = s => document.querySelector(s);
 const inr = n => '₹' + n.toLocaleString('en-IN');
 
-let toastT;
-function toast(msg){
-  const t = $('#toast'); t.textContent = msg;
-  t.classList.remove('opacity-0','translate-y-3');
-  clearTimeout(toastT);
-  toastT = setTimeout(()=>t.classList.add('opacity-0','translate-y-3'), 2600);
-}
-
-function handleOwnerAction(){
-  if(isOwnerLoggedIn){
-    showView('owner');
-  } else {
-    openOwnerAuthModal();
-  }
-}
-
-function openOwnerAuthModal(){ $('#ownerAuthModal').classList.remove('hidden'); }
-function closeOwnerAuthModal(){ $('#ownerAuthModal').classList.add('hidden'); }
-
-function submitOwnerLogin(e){
-  e.preventDefault();
-  isOwnerLoggedIn = true;
-  closeOwnerAuthModal();
-  $('#topBarStatus').innerHTML = '<strong>Owner Portal Active</strong> (Landlord Session)';
-  $('#ownerNavBtn').textContent = 'Owner Dashboard';
-  toast('Owner login successful! Welcome back 🎉');
-  showView('owner');
-}
-
-function logoutOwner(){
-  isOwnerLoggedIn = false;
-  $('#topBarStatus').innerHTML = 'Browsing Stays in <strong>Jaipur</strong> (Zero Brokerage)';
-  $('#ownerNavBtn').textContent = 'Owner Login Portal';
-  toast('Logged out from Owner Portal');
-  showView('tenant');
-}
-
-function showView(viewName){
-  if(viewName === 'owner' && !isOwnerLoggedIn){
-    openOwnerAuthModal();
-    return;
-  }
-  $('#tenantView').classList.toggle('hidden', viewName !== 'tenant');
-  $('#ownerView').classList.toggle('hidden', viewName !== 'owner');
-  $('#headerSearchPill').classList.toggle('hidden', viewName === 'owner');
-}
-
-function renderCats(){
-  $('#catRow').innerHTML = CATS.map(c=>`
-    <button onclick="setCategory('${c.t}')" class="shrink-0 flex items-center gap-3 pl-4 pr-5 py-3.5 rounded-2xl border ${state.category===c.t?'border-coral bg-coral-50 text-coral':'border-line bg-white'} hover:border-coral transition text-left">
-      <div><span class="block text-[14.5px] font-extrabold whitespace-nowrap">${c.t}</span><span class="block text-[12px] text-gray-400 font-semibold whitespace-nowrap">${c.d}</span></div>
-    </button>`).join('');
-}
-
-function setCategory(cat){
-  state.category = state.category === cat ? 'All' : cat;
-  renderCats();
-  render();
-}
-
-function renderCities(){
-  $('#cityGrid').innerHTML = CITIES.map(c=>`<button onclick="pickCity('${c}')" class="px-3 py-2 rounded-xl text-xs font-bold text-left border ${state.city===c?'border-coral bg-coral-50 text-coral':'border-line'} hover:border-coral">${c}</button>`).join('');
-}
-
-function pickCity(c){
-  state.city = c; $('#cityLabel').textContent = c; $('#resCity').textContent = c; $('#cityPop').classList.add('hidden'); renderCities(); render();
-}
-
-function renderFilterControls(){
-  const OCC = ['Single','Double','Triple','Shared'];
-  $('#occRow').innerHTML = OCC.map(o=>`<button onclick="toggleOcc('${o}')" class="px-3.5 py-2 rounded-xl text-xs font-bold border ${state.occ.includes(o)?'border-coral bg-coral text-white':'border-line bg-white'}">${o}</button>`).join('');
-
-  const GEN = ['Any','Male','Female'];
-  $('#genderRow').innerHTML = GEN.map(g=>`<button onclick="setGender('${g}')" class="py-2 rounded-xl text-xs font-bold border ${state.gender===g?'border-coral bg-coral text-white':'border-line bg-white'}">${g}</button>`).join('');
-
-  $('#amenRow').innerHTML = AMENITIES.map(a=>`
-    <label class="flex items-center gap-3 cursor-pointer">
-      <input type="checkbox" ${state.amen.includes(a.id)?'checked':''} onchange="toggleAmen('${a.id}')" class="accent-coral">
-      <span class="text-xs font-semibold text-gray-600">${a.label}</span>
-    </label>`).join('');
-}
-
-function toggleOcc(o){ state.occ.includes(o) ? state.occ.splice(state.occ.indexOf(o),1) : state.occ.push(o); render(); }
-function setGender(g){ state.gender = g; render(); }
-function toggleAmen(a){ state.amen.includes(a) ? state.amen.splice(state.amen.indexOf(a),1) : state.amen.push(a); render(); }
-
-function resetFilters(){
-  state.min=3000; state.max=40000; state.gender='Any'; state.occ=[]; state.amen=[]; state.category='All'; state.city='Jaipur (All)';
-  $('#sMin').value=3000; $('#sMax').value=40000; $('#hMin').value=3000; $('#hMax').value=40000;
-  $('#cityLabel').textContent = 'Jaipur (All)'; $('#resCity').textContent = 'Jaipur';
-  syncRanges(); renderCats(); renderCities(); render(); toast('Filters reset');
-}
-
-function bindRange(){
-  const sMin = $('#sMin'), sMax = $('#sMax');
-  const hMin = $('#hMin'), hMax = $('#hMax');
-
-  const updateRange = (minVal, maxVal) => {
-    state.min = minVal;
-    state.max = maxVal;
-    sMin.value = minVal;
-    sMax.value = maxVal;
-    hMin.value = minVal;
-    hMax.value = maxVal;
-    syncRanges();
-    render();
-  };
-
-  sMin.oninput = () => updateRange(+sMin.value, +sMax.value);
-  sMax.oninput = () => updateRange(+sMin.value, +sMax.value);
-  hMin.oninput = () => updateRange(+hMin.value, +hMax.value);
-  hMax.oninput = () => updateRange(+hMin.value, +hMax.value);
-}
-
-function syncRanges(){
-  const txt = `₹${state.min.toLocaleString('en-IN')} – ₹${state.max.toLocaleString('en-IN')}`;
-  $('#sideBudgetVal').textContent = txt;
-  $('#budgetLabel').textContent = txt;
-  $('#hdrBudgetVal').textContent = txt;
-
-  const total = 40000 - 3000;
-  const leftPerc = ((state.min - 3000) / total) * 100;
-  const widthPerc = ((state.max - state.min) / total) * 100;
-
-  ['sFill', 'hFill'].forEach(id => {
-    const fill = $('#' + id);
-    if(fill) {
-      fill.style.left = `${leftPerc}%`;
-      fill.style.width = `${widthPerc}%`;
-    }
-  });
-}
-
-function getFiltered(){
-  let list = LISTINGS.filter(l => {
-    if(l.price < state.min || l.price > state.max) return false;
-    if(state.gender!=='Any' && l.gender!==state.gender && l.gender!=='Unisex') return false;
-    if(state.occ.length && !state.occ.some(o=>l.occ.includes(o))) return false;
-    if(state.category!=='All' && l.type!==state.category && !(state.category==='Short stay' && l.tag.includes('Short Stay')) && !(state.category==='Couple friendly' && l.tag.includes('Couple Friendly'))) return false;
-    if(state.city!=='Jaipur (All)' && !l.area.includes(state.city)) return false;
-    if(state.amen.length && !state.amen.every(a=>l.amen && l.amen.includes(a))) return false;
-    return true;
-  });
-
-  const sortVal = $('#sortSel') ? $('#sortSel').value : 'rec';
-  if(sortVal === 'low') list.sort((a,b)=>a.price - b.price);
-  else if(sortVal === 'high') list.sort((a,b)=>b.price - a.price);
-  else if(sortVal === 'rating') list.sort((a,b)=>b.rating - a.rating);
-
-  return list;
-}
-
 function render(){
-  const list = getFiltered();
-  const cardsContainer = $('#cards');
-  
-  if(list.length === 0){
-    cardsContainer.innerHTML = `
-      <div class="col-span-full bg-white rounded-3xl border border-line p-10 text-center">
-        <p class="text-3xl mb-2">🔍</p>
-        <h3 class="font-extrabold text-lg">No properties found</h3>
-        <p class="text-sm text-gray-500 mt-1">Try relaxing your filters or choosing a different locality in Jaipur.</p>
-        <button onclick="resetFilters()" class="mt-4 px-4 py-2 rounded-xl bg-coral text-white font-bold text-xs shadow-redglow">Reset Filters</button>
-      </div>`;
-  } else {
-    cardsContainer.innerHTML = list.map(l => {
-      const isSaved = saved.has(l.id);
-      return `
-      <article class="card-hov bg-white rounded-3xl border border-line overflow-hidden hover:shadow-card">
-        <div class="relative">
-          <img src="${l.img}" alt="${l.name}" class="w-full h-52 object-cover">
-          <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-lg bg-white/95 text-[11px] font-extrabold shadow-soft">${l.tag}</span>
-          <button onclick="toggleSave(event, ${l.id})" class="absolute top-3.5 right-3.5 h-9 w-9 grid place-items-center rounded-full bg-white/95 shadow-soft hover:scale-110 transition">
-            <svg class="h-[17px] w-[17px] ${isSaved ? 'text-coral fill-coral' : 'text-gray-500'}" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21.2l7.7-7.7 1.1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
-          </button>
-        </div>
-        <div class="p-5">
-          <div class="flex items-start justify-between gap-3">
-            <div>
-              <h3 class="font-extrabold text-[16.5px] truncate">${l.name}</h3>
-              <p class="text-[13px] text-gray-500 font-medium mt-1">${l.area}</p>
-            </div>
-            <span class="px-2.5 py-1 rounded-lg bg-mist border border-line text-[11px] font-extrabold text-gray-600">${l.type}</span>
-          </div>
-          <div class="mt-3 flex items-center gap-2 text-xs text-gray-500 font-semibold">
-            <span>⭐ ${l.rating} (${l.reviews})</span>
-            <span>·</span>
-            <span>👤 ${l.gender}</span>
-          </div>
-          <div class="mt-4 pt-4 border-t border-line flex items-end justify-between gap-3">
-            <div>
-              <p class="text-[20px] font-extrabold leading-none">${inr(l.price)}<span class="text-[12.5px] font-bold text-gray-400">/mo</span></p>
-            </div>
-            <button onclick="openProp(${l.id})" class="h-10 px-4 rounded-xl bg-coral text-white text-[13.5px] font-extrabold shadow-redglow shine">View details</button>
-          </div>
-        </div>
-      </article>
-    `}).join('');
-  }
-  
-  $('#resCount').textContent = list.length;
-  renderFilterControls();
-}
-
-function toggleSave(e, id){
-  e.stopPropagation();
-  if(saved.has(id)) saved.delete(id);
-  else saved.add(id);
-  $('#savedBadge').textContent = saved.size;
-  $('#savedBadge').classList.toggle('hidden', saved.size === 0);
-  toast(saved.has(id) ? 'Stay saved to bookmarks ❤️' : 'Removed from bookmarks');
-  render();
-}
-
-function openSaved(){
-  toast(saved.size ? `You have ${saved.size} saved stay(s)` : 'No saved stays yet!');
-}
-
-function renderRoommates(){
-  $('#roommateGrid').innerHTML = ROOMMATES.map(r => `
-    <article class="card-hov bg-white rounded-3xl border border-line p-5 hover:shadow-card">
-      <div class="flex items-start gap-3.5">
-        <img src="${r.img}" class="h-14 w-14 rounded-2xl object-cover" alt="">
-        <div class="min-w-0 flex-1">
-          <div class="flex items-start justify-between gap-2">
-            <h3 class="font-extrabold text-[15.5px] truncate">${r.n}, ${r.a}</h3>
-            <span class="px-2 py-0.5 rounded-lg bg-coral-50 text-coral text-[11px] font-extrabold">${r.m}%</span>
-          </div>
-          <p class="text-[12.5px] text-gray-500 font-semibold truncate mt-0.5">${r.job}</p>
-          <p class="text-[12px] text-gray-400 font-semibold mt-0.5">📍 ${r.loc} · ${inr(r.b)}/mo</p>
+  $('#cards').innerHTML = LISTINGS.map(l => `
+    <article class="card-hov bg-white rounded-3xl border border-line overflow-hidden hover:shadow-card">
+      <img src="${l.img}" class="w-full h-52 object-cover">
+      <div class="p-5">
+        <h3 class="font-extrabold text-[16.5px] truncate">${l.name}</h3>
+        <p class="text-[13px] text-gray-500 font-medium mt-1">${l.area}</p>
+        <div class="mt-4 pt-4 border-t border-line flex items-end justify-between">
+          <p class="text-[20px] font-extrabold">${inr(l.price)}<span class="text-[12.5px] text-gray-400">/mo</span></p>
+          <button onclick="openProp(${l.id})" class="h-10 px-4 rounded-xl bg-coral text-white text-[13.5px] font-extrabold">View details</button>
         </div>
       </div>
-      <div class="mt-4 flex flex-wrap gap-1.5">
-        ${r.tags.map(t=>`<span class="px-2.5 py-1 rounded-lg bg-mist text-[11px] font-bold text-gray-600">${t}</span>`).join('')}
-      </div>
-      <div class="mt-4 grid grid-cols-2 gap-2">
-        <button onclick="toast('Profile of ${r.n} opened')" class="h-10 rounded-xl border border-line font-bold text-[13px]">View</button>
-        <button onclick="toast('Connection request sent to ${r.n.split(' ')[0]} 🤝')" class="h-10 rounded-xl bg-coral text-white font-bold text-[13px]">Connect</button>
-      </div>
-    </article>
-  `).join('');
-}
-
-function renderExtras(){
-  $('#localityGrid').innerHTML = LOCALITIES.map(l=>`
-    <a href="#explore" onclick="pickCity('${l.n}')" class="group relative rounded-3xl overflow-hidden h-44 lg:h-52 border border-line block">
-      <img src="${l.img}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="${l.n}">
-      <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent"></div>
-      <div class="absolute bottom-4 left-4 text-white">
-        <p class="font-extrabold text-[17px]">${l.n}</p>
-        <p class="text-[12.5px] text-white/75 font-semibold">${l.c} stays available</p>
-      </div>
-    </a>`).join('');
-
-  $('#testiGrid').innerHTML = TESTI.map(t=>`
-    <div class="rounded-3xl border border-line p-7 bg-mist/60">
-      <div class="flex gap-0.5 text-amber-400 mb-4">★★★★★</div>
-      <p class="text-[15px] leading-relaxed text-gray-700">"${t.r}"</p>
-      <div class="mt-5 flex items-center gap-3">
-        <img src="${t.img}" class="h-11 w-11 rounded-full object-cover" alt="">
-        <div><p class="font-extrabold text-[14.5px]">${t.n}</p><p class="text-[12.5px] text-gray-400 font-semibold">${t.role}</p></div>
-      </div>
-    </div>`).join('');
+    </article>`).join('');
+  $('#resCount').textContent = LISTINGS.length;
 }
 
 function openProp(id){
   const l = LISTINGS.find(x => x.id === id);
   $('#pmTitle').textContent = l.name;
   
-  const galleryPhotos = l.gallery || [l.img];
-  
   $('#pmBody').innerHTML = `
     <div class="p-6">
       <div class="flex items-center gap-3 mb-4 border-b border-line pb-3">
-        <button id="tabPhotosBtn" onclick="switchMediaTab('photos')" class="px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow flex items-center gap-2">
-          🖼️ Photos Gallery
-        </button>
-        <button id="tab360Btn" onclick="switchMediaTab('360', '${l.panorama}')" class="px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs hover:border-coral flex items-center gap-2">
-          🔄 360° Virtual Tour
-        </button>
+        <button id="tabPhotosBtn" onclick="switchMediaTab('photos')" class="px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs">🖼️ Standard Gallery</button>
+        <button id="tab360Btn" onclick="switchMediaTab('360')" class="px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs">🔄 Interactive 360° Walkthrough</button>
       </div>
 
       <div id="photosViewContainer" class="space-y-3">
-        <img src="${l.img}" class="w-full h-64 sm:h-80 object-cover rounded-2xl shadow-soft"/>
+        <img src="${l.img}" class="w-full h-72 object-cover rounded-2xl shadow-soft"/>
         <div class="grid grid-cols-3 gap-3">
-          ${galleryPhotos.map(p => `<img src="${p}" class="h-24 w-full object-cover rounded-xl border border-line"/>`).join('')}
+          ${l.gallery.map(p => `<img src="${p}" class="h-28 w-full object-cover rounded-xl border border-line"/>`).join('')}
         </div>
       </div>
 
-      <div id="panoramaViewContainer" class="hidden relative">
-        <div id="panoramaViewer" class="w-full h-72 sm:h-96 rounded-2xl overflow-hidden border border-line"></div>
-        <div class="absolute top-3 left-3 bg-ink/80 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg backdrop-blur-sm pointer-events-none">
-          👆 Drag left/right to rotate 360° room view
+      <div id="panoramaViewContainer" class="hidden">
+        <div class="relative w-full h-80 sm:h-[420px] rounded-2xl overflow-hidden border border-line bg-black flex items-center justify-center">
+          <img id="rotatorImg" src="${REAL_PG_PHOTOS[0].url}" class="w-full h-full object-contain transition-all duration-300"/>
+          
+          <div class="absolute top-3 left-3 bg-ink/80 text-white text-[11.5px] font-bold px-3 py-1.5 rounded-lg backdrop-blur-sm">
+            🔄 Angle: <span id="rotatorTitle" class="text-coral">${REAL_PG_PHOTOS[0].title}</span>
+          </div>
+
+          <button onclick="rotateAngle(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-white/90 text-ink font-extrabold shadow-pop hover:bg-white">&larr;</button>
+          <button onclick="rotateAngle(1)" class="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-white/90 text-ink font-extrabold shadow-pop hover:bg-white">&rarr;</button>
+
+          <div class="absolute bottom-4 flex gap-2">
+            ${REAL_PG_PHOTOS.map((_, idx) => `<span id="dot-${idx}" class="h-2.5 w-2.5 rounded-full ${idx===0?'bg-coral':'bg-white/50'}"></span>`).join('')}
+          </div>
         </div>
+        <p class="text-xs text-gray-500 font-semibold text-center mt-2">Click arrows to rotate around the PG room</p>
       </div>
 
-      <div class="mt-6 flex items-start justify-between gap-4">
-        <div>
-          <h2 class="text-2xl font-extrabold">${l.name}</h2>
-          <p class="text-sm text-gray-500 font-medium mt-0.5">📍 ${l.area}</p>
-          ${l.landmarks ? `<p class="text-xs text-coral font-bold mt-1">🏫 ${l.landmarks}</p>` : ''}
-          ${l.phone ? `<p class="text-xs text-gray-700 font-bold mt-1">📞 Contact: ${l.phone}</p>` : ''}
-        </div>
-        <span class="px-3 py-1 rounded-lg bg-green-50 text-green-600 font-extrabold text-xs shrink-0">✓ Physically Verified</span>
+      <div class="mt-6">
+        <h2 class="text-2xl font-extrabold">${l.name}</h2>
+        <p class="text-sm text-gray-500 font-medium mt-0.5">📍 ${l.area}</p>
+        <p class="text-xs text-coral font-bold mt-1">🏫 ${l.landmarks}</p>
+        <p class="text-xs text-gray-700 font-bold mt-1">📞 Contact: ${l.phone}</p>
       </div>
-
-      <div class="mt-6 border-t border-b border-line py-4 flex items-center justify-between">
-        <div>
-          <p class="text-xs text-gray-400 font-bold uppercase">Rent Starting At</p>
-          <p class="text-2xl font-extrabold text-coral">${inr(l.price)}<span class="text-xs text-gray-400">/mo</span></p>
-        </div>
-        <p class="text-xs text-gray-500 font-bold">Security Deposit: ${inr(l.price * 2)} (100% Refundable)</p>
-      </div>
-
-      <button onclick="closeProp();toast('Booking request submitted! Property manager will call you 📲')" class="mt-6 w-full h-12 rounded-xl bg-coral text-white font-extrabold shadow-redglow shine">Request Free Visit & Book</button>
-    </div>
-  `;
+    </div>`;
+  
   $('#propModal').classList.remove('hidden');
 }
 
-function switchMediaTab(tab, panoramaUrl){
-  const photosView = $('#photosViewContainer');
-  const panoView = $('#panoramaViewContainer');
-  const tabPhotosBtn = $('#tabPhotosBtn');
-  const tab360Btn = $('#tab360Btn');
-
+function switchMediaTab(tab){
   if(tab === '360'){
-    photosView.classList.add('hidden');
-    panoView.classList.remove('hidden');
-    
-    tab360Btn.className = "px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow flex items-center gap-2";
-    tabPhotosBtn.className = "px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs hover:border-coral flex items-center gap-2";
-
-    setTimeout(() => {
-      if(pannellumViewer){
-        try{ pannellumViewer.destroy(); }catch(e){}
-      }
-      pannellumViewer = pannellum.viewer('panoramaViewer', {
-        type: 'equirectangular',
-        panorama: panoramaUrl || 'https://pannellum.org/images/cerro-toco-0.jpg',
-        autoLoad: true,
-        compass: false,
-        showZoomCtrl: true
-      });
-    }, 100);
+    $('#photosViewContainer').classList.add('hidden');
+    $('#panoramaViewContainer').classList.remove('hidden');
+    $('#tab360Btn').className = "px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs";
+    $('#tabPhotosBtn').className = "px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs";
   } else {
-    panoView.classList.add('hidden');
-    photosView.classList.remove('hidden');
-
-    tabPhotosBtn.className = "px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow flex items-center gap-2";
-    tab360Btn.className = "px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs hover:border-coral flex items-center gap-2";
+    $('#panoramaViewContainer').classList.add('hidden');
+    $('#photosViewContainer').classList.remove('hidden');
+    $('#tabPhotosBtn').className = "px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs";
+    $('#tab360Btn').className = "px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs";
   }
 }
 
-function closeProp(){
-  if(pannellumViewer){
-    try{ pannellumViewer.destroy(); }catch(e){}
-    pannellumViewer = null;
-  }
-  $('#propModal').classList.add('hidden');
+function rotateAngle(dir){
+  currentAngleIndex = (currentAngleIndex + dir + REAL_PG_PHOTOS.length) % REAL_PG_PHOTOS.length;
+  $('#rotatorImg').src = REAL_PG_PHOTOS[currentAngleIndex].url;
+  $('#rotatorTitle').textContent = REAL_PG_PHOTOS[currentAngleIndex].title;
+  REAL_PG_PHOTOS.forEach((_, idx) => {
+    $(`#dot-${idx}`).className = `h-2.5 w-2.5 rounded-full ${idx===currentAngleIndex?'bg-coral':'bg-white/50'}`;
+  });
 }
 
-function togglePop(id){
-  ['cityPop','datePop','budgetPop'].forEach(p=>{ if(p!==id) $('#'+p).classList.add('hidden'); });
-  $('#'+id).classList.toggle('hidden');
-}
-$('#cityBtn').onclick = e => { e.stopPropagation(); togglePop('cityPop'); };
-$('#dateBtn').onclick = e => { e.stopPropagation(); togglePop('datePop'); };
-$('#budgetBtn').onclick = e => { e.stopPropagation(); togglePop('budgetPop'); };
-
-document.addEventListener('click', e => {
-  if(!e.target.closest('#cityPop, #datePop, #budgetPop, #cityBtn, #dateBtn, #budgetBtn')) {
-    ['cityPop','datePop','budgetPop'].forEach(p => $('#'+p).classList.add('hidden'));
-  }
-});
-
-function applyHeaderSearch(){ $('#explore').scrollIntoView({behavior:'smooth'}); toast(`Showing stays in ${state.city}`); }
-
-renderCats(); renderCities(); bindRange(); syncRanges(); render(); renderRoommates(); renderExtras();
+function closeProp(){ $('#propModal').classList.add('hidden'); }
+render();
 </script>
 </body>
 </html>
