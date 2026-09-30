@@ -55,9 +55,6 @@ tailwind.config = {
   .card-hov{transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s}
   .card-hov:hover{transform:translateY(-6px)}
 
-  .marquee{animation:scrollx 30s linear infinite}
-  @keyframes scrollx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
   .pulse-dot::after{content:'';position:absolute;inset:0;border-radius:99px;background:rgba(229,57,53,.45);animation:pulser 2s ease-out infinite}
   @keyframes pulser{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.6);opacity:0}}
 
@@ -490,7 +487,57 @@ function toggleAmen(a){ state.amen.includes(a) ? state.amen.splice(state.amen.in
 function resetFilters(){
   state.min=3000; state.max=40000; state.gender='Any'; state.occ=[]; state.amen=[]; state.category='All'; state.city='Jaipur (All)';
   $('#sMin').value=3000; $('#sMax').value=40000;
+  $('#hMin').value=3000; $('#hMax').value=40000;
+  updateSliders();
   renderCats(); renderCities(); render();
+}
+
+function updateSliders(){
+  let sMin = parseInt($('#sMin').value);
+  let sMax = parseInt($('#sMax').value);
+
+  if (sMin > sMax - 1000) {
+    sMin = sMax - 1000;
+    $('#sMin').value = sMin;
+  }
+
+  state.min = sMin;
+  state.max = sMax;
+
+  const minPercent = ((sMin - 3000) / (40000 - 3000)) * 100;
+  const maxPercent = ((sMax - 3000) / (40000 - 3000)) * 100;
+
+  if($('#sFill')) {
+    $('#sFill').style.left = minPercent + '%';
+    $('#sFill').style.width = (maxPercent - minPercent) + '%';
+  }
+
+  if($('#hFill')) {
+    $('#hFill').style.left = minPercent + '%';
+    $('#hFill').style.width = (maxPercent - minPercent) + '%';
+  }
+
+  const labelText = `₹${sMin.toLocaleString('en-IN')} – ₹${sMax.toLocaleString('en-IN')}`;
+  if($('#sideBudgetVal')) $('#sideBudgetVal').textContent = labelText;
+  if($('#hdrBudgetVal')) $('#hdrBudgetVal').textContent = labelText;
+  if($('#budgetLabel')) $('#budgetLabel').textContent = labelText;
+
+  render();
+}
+
+function setupSliderEvents(){
+  ['sMin','sMax'].forEach(id => {
+    const el = $('#' + id);
+    if(el) el.addEventListener('input', updateSliders);
+  });
+  ['hMin','hMax'].forEach(id => {
+    const el = $('#' + id);
+    if(el) el.addEventListener('input', (e) => {
+      if(e.target.id === 'hMin') $('#sMin').value = e.target.value;
+      if(e.target.id === 'hMax') $('#sMax').value = e.target.value;
+      updateSliders();
+    });
+  });
 }
 
 function render(){
@@ -616,7 +663,7 @@ document.addEventListener('click', e => {
   }
 });
 
-renderCats(); renderCities(); render();
+renderCats(); renderCities(); setupSliderEvents(); updateSliders(); render();
 </script>
 </body>
 </html>
