@@ -120,7 +120,7 @@ tailwind.config = {
             <svg class="h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h12M6 9h12M9 4c4 0 6 2 6 5s-2 5-6 5h-3l7 6"/></svg>
             <span class="text-left leading-none">
               <span class="block text-[10px] uppercase tracking-wide text-gray-400 font-semibold">Budget</span>
-              <span id="budgetLabel" class="block text-[13.5px] font-bold">₹3k – ₹40k</span>
+              <span id="budgetLabel" class="block text-[13.5px] font-bold">₹3,000 – ₹40,000</span>
             </span>
           </button>
           <div class="flex items-center pl-2 pr-1.5">
@@ -169,71 +169,10 @@ tailwind.config = {
 
 <!-- TENANT INTERFACE -->
 <div id="tenantView">
-  <!-- HERO SECTION -->
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-b from-coral-50 via-white to-mist"></div>
-    <div class="relative max-w-[1500px] mx-auto px-4 sm:px-6 pt-10 pb-12 lg:pt-16 lg:pb-16">
-      <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-10 lg:gap-14 items-center">
-        <div>
-          <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-line shadow-soft text-[12.5px] font-bold">
-            <span class="relative h-2 w-2 rounded-full bg-coral pulse-dot"></span>
-            4,283 verified beds live in Jaipur
-          </span>
-          <h1 class="mt-5 text-[38px] leading-[1.06] sm:text-[52px] lg:text-[60px] font-extrabold tracking-[-0.03em]">
-            Find your next<br><span class="gradtext">home & roommate</span><br>without brokerage.
-          </h1>
-          <p class="mt-5 text-[16px] sm:text-[17px] text-gray-500 max-w-xl leading-relaxed">
-            Roomzy brings together verified PGs, hostels and co-living spaces in Sitapura, Malviya Nagar & Jagatpura — plus a smart compatibility engine that matches you with flatmates you'll actually get along with.
-          </p>
-
-          <div class="mt-7 flex flex-wrap items-center gap-3">
-            <a href="#explore" class="shine inline-flex items-center gap-2 h-12 px-6 rounded-2xl bg-coral text-white font-bold shadow-redglow hover:bg-coral-dark transition">
-              Explore stays &rarr;
-            </a>
-            <a href="#roommates" class="inline-flex items-center gap-2 h-12 px-6 rounded-2xl bg-white border border-line font-bold hover:border-ink transition">
-              <svg class="h-4 w-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
-              Find a roommate
-            </a>
-          </div>
-
-          <div class="mt-9 flex flex-wrap gap-x-9 gap-y-4">
-            <div><p class="text-2xl font-extrabold">12k+</p><p class="text-[13px] text-gray-500 font-medium">Verified listings</p></div>
-            <div class="hidden sm:block w-px bg-line"></div>
-            <div><p class="text-2xl font-extrabold">38k+</p><p class="text-[13px] text-gray-500 font-medium">Happy tenants</p></div>
-            <div class="hidden sm:block w-px bg-line"></div>
-            <div><p class="text-2xl font-extrabold">4.8<span class="text-coral">★</span></p><p class="text-[13px] text-gray-500 font-medium">Avg. rating</p></div>
-          </div>
-        </div>
-
-        <div class="relative">
-          <div class="relative rounded-4xl overflow-hidden shadow-card border border-white/70 bg-white">
-            <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1000&q=70" alt="Shree Radhe Krishna PG Hostel" class="w-full h-[300px] sm:h-[400px] lg:h-[460px] object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent"></div>
-            <div class="absolute bottom-5 left-5 right-5 text-white">
-              <p class="text-[11px] font-bold uppercase tracking-[.16em] text-white/70">Featured Sitapura Stay</p>
-              <p class="text-xl font-extrabold mt-1">Shree Radhe Krishna PG Hostel</p>
-              <p class="text-sm text-white/80 font-medium">From ₹6,500/mo · Near JECRC, Poornima & Mahatma Gandhi · 3 beds left</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CATEGORY CHIPS ROW -->
-  <section class="max-w-[1500px] mx-auto px-4 sm:px-6 pt-10">
-    <div class="flex items-end justify-between gap-4 mb-4">
-      <div>
-        <h2 class="text-[22px] sm:text-[26px] font-extrabold tracking-tight">Browse by stay type</h2>
-        <p class="text-[14px] text-gray-500 mt-1">Handpicked options for students & working professionals</p>
-      </div>
-    </div>
-    <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2" id="catRow"></div>
-  </section>
-
-  <!-- MAIN LISTINGS -->
+  <!-- EXPLORE / MAIN APP LISTINGS GRID -->
   <section id="explore" class="max-w-[1500px] mx-auto px-4 sm:px-6 py-8 lg:py-12">
     <div class="grid lg:grid-cols-[288px_1fr] gap-7">
+
       <aside class="hidden lg:block">
         <div class="sticky top-[92px] space-y-4">
           <div class="bg-white rounded-3xl border border-line shadow-soft p-5">
@@ -241,11 +180,12 @@ tailwind.config = {
               <h3 class="font-extrabold text-[17px]">Filters</h3>
               <button onclick="resetFilters()" class="text-[12.5px] font-bold text-coral hover:underline">Reset all</button>
             </div>
+
             <div class="space-y-6">
               <div>
                 <div class="flex items-center justify-between mb-1">
                   <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400">Budget</p>
-                  <p class="text-[12.5px] font-extrabold text-coral" id="sideBudgetVal">₹3k – ₹40k</p>
+                  <p class="text-[12.5px] font-extrabold text-coral" id="sideBudgetVal">₹3,000 – ₹40,000</p>
                 </div>
                 <div class="range-wrap">
                   <div class="range-track"></div><div class="range-fill" id="sFill"></div>
@@ -253,10 +193,26 @@ tailwind.config = {
                   <input type="range" id="sMax" min="3000" max="40000" step="500" value="40000">
                 </div>
               </div>
+
               <div class="h-px bg-line"></div>
+
               <div>
                 <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400 mb-3">Occupancy</p>
                 <div class="flex flex-wrap gap-2" id="occRow"></div>
+              </div>
+
+              <div class="h-px bg-line"></div>
+
+              <div>
+                <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400 mb-3">Preferred for</p>
+                <div class="grid grid-cols-3 gap-2" id="genderRow"></div>
+              </div>
+
+              <div class="h-px bg-line"></div>
+
+              <div>
+                <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400 mb-3">Amenities</p>
+                <div class="space-y-2.5" id="amenRow"></div>
               </div>
             </div>
           </div>
@@ -267,16 +223,28 @@ tailwind.config = {
         <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
           <div>
             <h2 class="text-[22px] sm:text-[27px] font-extrabold tracking-tight">PGs & Hostels in <span id="resCity">Jaipur</span></h2>
-            <p class="text-[13.5px] text-gray-500 mt-0.5"><span id="resCount">0</span> stays available</p>
+            <p class="text-[13.5px] text-gray-500 mt-0.5"><span id="resCount">8</span> stays available · updated recently</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="relative">
+              <select id="sortSel" onchange="render()" class="appearance-none h-11 pl-4 pr-9 rounded-xl border border-line bg-white font-bold text-sm outline-none focus:border-coral cursor-pointer">
+                <option value="rec">Recommended</option>
+                <option value="low">Price: Low to High</option>
+                <option value="high">Price: High to Low</option>
+                <option value="rating">Top rated</option>
+              </select>
+            </div>
           </div>
         </div>
+
         <div id="cards" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
       </div>
+
     </div>
   </section>
 </div>
 
-<!-- PROPERTY DETAIL MODAL WITH 360 INTERACTIVE WALKTHROUGH -->
+<!-- PROPERTY DETAIL MODAL -->
 <div id="propModal" class="hidden fixed inset-0 z-[70]">
   <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeProp()"></div>
   <div class="absolute inset-x-0 bottom-0 top-auto sm:inset-0 sm:m-auto sm:h-[90vh] sm:max-w-[1040px] bg-white sm:rounded-3xl rounded-t-3xl overflow-hidden shadow-pop flex flex-col max-h-[95vh]">
@@ -288,34 +256,19 @@ tailwind.config = {
   </div>
 </div>
 
-<!-- OWNER LOGIN MODAL -->
-<div id="ownerAuthModal" class="hidden fixed inset-0 z-[80]">
-  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeOwnerAuthModal()"></div>
-  <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[440px] bg-white rounded-3xl shadow-pop p-7">
-    <button onclick="closeOwnerAuthModal()" class="absolute right-4 top-4 h-9 w-9 grid place-items-center rounded-xl hover:bg-mist">✕</button>
-    <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral flex items-center justify-center font-bold mb-3">🏠</div>
-    <h3 class="text-2xl font-extrabold tracking-tight">Property Owner Login</h3>
-    <form class="mt-6 space-y-4" onsubmit="submitOwnerLogin(event)">
-      <div>
-        <label class="text-[12.5px] font-bold text-gray-500">Mobile Number or Email</label>
-        <input required type="text" placeholder="landlord@roomzy.com" class="mt-1.5 w-full h-12 px-4 rounded-xl border border-line bg-mist outline-none text-sm font-medium">
-      </div>
-      <div>
-        <label class="text-[12.5px] font-bold text-gray-500">Passcode</label>
-        <input required type="password" placeholder="••••••••" class="mt-1.5 w-full h-12 px-4 rounded-xl border border-line bg-mist outline-none text-sm font-medium">
-      </div>
-      <button class="w-full h-12 rounded-xl bg-coral text-white font-extrabold hover:bg-coral-dark transition shadow-redglow">Sign In as Owner</button>
-    </form>
-  </div>
-</div>
-
 <div id="toast" class="fixed z-[90] bottom-8 left-1/2 -translate-x-1/2 px-5 py-3.5 rounded-2xl bg-ink text-white text-sm font-semibold shadow-pop opacity-0 translate-y-3 pointer-events-none transition-all duration-300"></div>
 
 <script>
 let pannellumViewer = null;
 
-const CITIES = ['Jaipur (All)','Sitapura','Malviya Nagar','Vaishali Nagar','Jagatpura'];
-const CATS = [{t:'All', d:'8,000+ stays'}, {t:'PG', d:'4,120 stays'}, {t:'Hostel', d:'1,860 stays'}, {t:'Co-living', d:'2,340 stays'}];
+const CITIES = ['Jaipur (All)','Sitapura','Malviya Nagar','Vaishali Nagar','Jagatpura','Raja Park','Gopalpura Bypass','Mansarovar'];
+
+const AMENITIES = [
+  {id:'wifi', label:'High-speed WiFi'},
+  {id:'ac', label:'Air conditioning'},
+  {id:'food', label:'3 Meals included'},
+  {id:'laundry', label:'Laundry service'}
+];
 
 const LISTINGS = [
   {
@@ -328,15 +281,15 @@ const LISTINGS = [
     reviews: 142, 
     gender: 'Unisex', 
     occ: ['Single','Double','Triple'], 
-    amen: ['wifi','ac','food','power','laundry'], 
+    amen: ['wifi','ac','food','laundry'], 
     tag: 'Near JECRC & Poornima', 
     phone: '090247 76588',
     landmarks: 'Near JECRC, Poornima, Mahatma Gandhi & Jagannath University',
-    img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60',
-    panorama: 'https://pannellum.org/images/cerro-toco-0.jpg',
+    img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', 
+    panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
     gallery: [
-      'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60',
-      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60',
+      'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', 
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', 
       'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=60'
     ]
   },
@@ -350,7 +303,7 @@ const LISTINGS = [
     reviews: 216, 
     gender: 'Unisex', 
     occ: ['Single','Double'], 
-    amen: ['wifi','ac','food','power'], 
+    amen: ['wifi','ac','food'], 
     tag: 'Zero brokerage', 
     img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', 
     panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
@@ -368,21 +321,21 @@ const LISTINGS = [
     occ: ['Double','Triple'], 
     amen: ['wifi','food','laundry'], 
     tag: 'Meals included', 
-    img: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60', 
+    img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', 
     panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
-    gallery: ['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60']
+    gallery: ['https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60']
   },
   {
     id: 3, 
     name: 'Gurukul Boys Hostel', 
     type: 'Hostel', 
     area: 'Jagatpura, Jaipur', 
-    price: 5500, 
+    price: 6500, 
     rating: 4.5, 
     reviews: 84, 
     gender: 'Male', 
     occ: ['Triple','Shared'], 
-    amen: ['wifi','food','power'], 
+    amen: ['wifi','food'], 
     tag: 'Student choice', 
     img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60', 
     panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
@@ -390,6 +343,22 @@ const LISTINGS = [
   },
   {
     id: 4, 
+    name: 'Studio Metro Stays', 
+    type: 'Studio', 
+    area: 'Malviya Nagar, Jaipur', 
+    price: 18000, 
+    rating: 4.9, 
+    reviews: 68, 
+    gender: 'Unisex', 
+    occ: ['Single'], 
+    amen: ['wifi','ac'], 
+    tag: 'Private Studio', 
+    img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60', 
+    panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
+    gallery: ['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60']
+  },
+  {
+    id: 5, 
     name: 'Skyline Girls PG', 
     type: 'PG', 
     area: 'Vaishali Nagar, Jaipur', 
@@ -400,26 +369,38 @@ const LISTINGS = [
     occ: ['Double','Triple'], 
     amen: ['wifi','food','laundry'], 
     tag: 'Top Rated', 
-    img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60', 
+    img: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60', 
     panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
-    gallery: ['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=60']
+    gallery: ['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60']
   }
 ];
 
-const state = { city:'Jaipur (All)', min:3000, max:40000, gender:'Any', occ:[], category:'All' };
+const state = { city:'Jaipur (All)', min:3000, max:40000, gender:'Any', occ:[], amen:[], category:'All' };
+const saved = new Set();
 const $ = s => document.querySelector(s);
 const inr = n => '₹' + n.toLocaleString('en-IN');
 
-function renderCats(){
-  $('#catRow').innerHTML = CATS.map(c=>`
-    <button onclick="setCategory('${c.t}')" class="shrink-0 flex items-center gap-3 pl-4 pr-5 py-3.5 rounded-2xl border ${state.category===c.t?'border-coral bg-coral-50 text-coral':'border-line bg-white'} hover:border-coral transition text-left">
-      <div><span class="block text-[14.5px] font-extrabold whitespace-nowrap">${c.t}</span><span class="block text-[12px] text-gray-400 font-semibold whitespace-nowrap">${c.d}</span></div>
-    </button>`).join('');
+function renderFilterControls(){
+  const OCC = ['Single','Double','Triple','Shared'];
+  $('#occRow').innerHTML = OCC.map(o=>`<button onclick="toggleOcc('${o}')" class="px-3.5 py-2 rounded-xl text-xs font-bold border ${state.occ.includes(o)?'border-coral bg-coral text-white':'border-line bg-white'}">${o}</button>`).join('');
+
+  const GEN = ['Any','Male','Female'];
+  $('#genderRow').innerHTML = GEN.map(g=>`<button onclick="setGender('${g}')" class="py-2 rounded-xl text-xs font-bold border ${state.gender===g?'border-coral bg-coral text-white':'border-line bg-white'}">${g}</button>`).join('');
+
+  $('#amenRow').innerHTML = AMENITIES.map(a=>`
+    <label class="flex items-center gap-3 cursor-pointer">
+      <input type="checkbox" ${state.amen.includes(a.id)?'checked':''} onchange="toggleAmen('${a.id}')" class="accent-coral">
+      <span class="text-xs font-semibold text-gray-600">${a.label}</span>
+    </label>`).join('');
 }
 
-function setCategory(cat){
-  state.category = state.category === cat ? 'All' : cat;
-  renderCats();
+function toggleOcc(o){ state.occ.includes(o) ? state.occ.splice(state.occ.indexOf(o),1) : state.occ.push(o); render(); }
+function setGender(g){ state.gender = g; render(); }
+function toggleAmen(a){ state.amen.includes(a) ? state.amen.splice(state.amen.indexOf(a),1) : state.amen.push(a); render(); }
+
+function resetFilters(){
+  state.min=3000; state.max=40000; state.gender='Any'; state.occ=[]; state.amen=[]; state.category='All'; state.city='Jaipur (All)';
+  $('#sMin').value=3000; $('#sMax').value=40000;
   render();
 }
 
@@ -433,24 +414,53 @@ function pickCity(c){
 
 function render(){
   const list = LISTINGS.filter(l => {
-    if(state.category!=='All' && l.type!==state.category) return false;
+    if(l.price < state.min || l.price > state.max) return false;
+    if(state.gender!=='Any' && l.gender!==state.gender && l.gender!=='Unisex') return false;
+    if(state.occ.length && !state.occ.some(o=>l.occ.includes(o))) return false;
     if(state.city!=='Jaipur (All)' && !l.area.includes(state.city)) return false;
     return true;
   });
 
   $('#cards').innerHTML = list.map(l => `
     <article class="card-hov bg-white rounded-3xl border border-line overflow-hidden hover:shadow-card">
-      <img src="${l.img}" class="w-full h-52 object-cover" alt="${l.name}">
+      <div class="relative">
+        <img src="${l.img}" alt="${l.name}" class="w-full h-52 object-cover">
+        <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-lg bg-white/95 text-[11px] font-extrabold shadow-soft">${l.tag}</span>
+        <button onclick="toggleSave(event, ${l.id})" class="absolute top-3.5 right-3.5 h-9 w-9 grid place-items-center rounded-full bg-white/95 shadow-soft hover:scale-110 transition">
+          <svg class="h-[17px] w-[17px] ${saved.has(l.id) ? 'text-coral fill-coral' : 'text-gray-500'}" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21.2l7.7-7.7 1.1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+        </button>
+      </div>
       <div class="p-5">
-        <h3 class="font-extrabold text-[16.5px] truncate">${l.name}</h3>
-        <p class="text-[13px] text-gray-500 font-medium mt-1">${l.area}</p>
-        <div class="mt-4 pt-4 border-t border-line flex items-end justify-between">
-          <p class="text-[20px] font-extrabold">${inr(l.price)}<span class="text-[12.5px] text-gray-400">/mo</span></p>
-          <button onclick="openProp(${l.id})" class="h-10 px-4 rounded-xl bg-coral text-white text-[13.5px] font-extrabold">View details</button>
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <h3 class="font-extrabold text-[16.5px] truncate">${l.name}</h3>
+            <p class="text-[13px] text-gray-500 font-medium mt-1">${l.area}</p>
+          </div>
+          <span class="px-2.5 py-1 rounded-lg bg-mist border border-line text-[11px] font-extrabold text-gray-600">${l.type}</span>
+        </div>
+        <div class="mt-3 flex items-center gap-2 text-xs text-gray-500 font-semibold">
+          <span>⭐ ${l.rating} (${l.reviews})</span>
+          <span>·</span>
+          <span>👤 ${l.gender}</span>
+        </div>
+        <div class="mt-4 pt-4 border-t border-line flex items-end justify-between gap-3">
+          <div>
+            <p class="text-[20px] font-extrabold leading-none">${inr(l.price)}<span class="text-[12.5px] font-bold text-gray-400">/mo</span></p>
+          </div>
+          <button onclick="openProp(${l.id})" class="h-10 px-4 rounded-xl bg-coral text-white text-[13.5px] font-extrabold shadow-redglow shine">View details</button>
         </div>
       </div>
-    </article>`).join('');
+    </article>
+  `).join('');
+
   $('#resCount').textContent = list.length;
+  renderFilterControls();
+}
+
+function toggleSave(e, id){
+  e.stopPropagation();
+  if(saved.has(id)) saved.delete(id); else saved.add(id);
+  render();
 }
 
 function openProp(id){
@@ -460,7 +470,7 @@ function openProp(id){
   $('#pmBody').innerHTML = `
     <div class="p-6">
       <div class="flex items-center gap-3 mb-4 border-b border-line pb-3">
-        <button id="tabPhotosBtn" onclick="switchMediaTab('photos')" class="px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs">🖼️ Photos Gallery</button>
+        <button id="tabPhotosBtn" onclick="switchMediaTab('photos')" class="px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs">🖼️️ Photos Gallery</button>
         <button id="tab360Btn" onclick="switchMediaTab('360', '${l.panorama}')" class="px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs">🔄 360° Virtual Tour</button>
       </div>
 
@@ -473,16 +483,11 @@ function openProp(id){
 
       <div id="panoramaViewContainer" class="hidden relative">
         <div id="panoramaViewer" class="w-full h-80 sm:h-96 rounded-2xl overflow-hidden border border-line"></div>
-        <div class="absolute top-3 left-3 bg-ink/80 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg backdrop-blur-sm pointer-events-none">
-          👆 Drag left/right to rotate 360° room view
-        </div>
       </div>
 
       <div class="mt-6">
         <h2 class="text-2xl font-extrabold">${l.name}</h2>
         <p class="text-sm text-gray-500 font-medium mt-0.5">📍 ${l.area}</p>
-        ${l.landmarks ? `<p class="text-xs text-coral font-bold mt-1">🏫 ${l.landmarks}</p>` : ''}
-        ${l.phone ? `<p class="text-xs text-gray-700 font-bold mt-1">📞 Contact: ${l.phone}</p>` : ''}
       </div>
     </div>`;
   
@@ -496,34 +501,22 @@ function switchMediaTab(tab, panoramaUrl){
   if(tab === '360'){
     photosView.classList.add('hidden');
     panoView.classList.remove('hidden');
-    $('#tab360Btn').className = "px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs";
-    $('#tabPhotosBtn').className = "px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs";
-
     setTimeout(() => {
-      if(pannellumViewer){
-        try{ pannellumViewer.destroy(); }catch(e){}
-      }
+      if(pannellumViewer){ try{ pannellumViewer.destroy(); }catch(e){} }
       pannellumViewer = pannellum.viewer('panoramaViewer', {
         type: 'equirectangular',
         panorama: panoramaUrl || 'https://pannellum.org/images/cerro-toco-0.jpg',
-        autoLoad: true,
-        compass: false,
-        showZoomCtrl: true
+        autoLoad: true
       });
     }, 100);
   } else {
     panoView.classList.add('hidden');
     photosView.classList.remove('hidden');
-    $('#tabPhotosBtn').className = "px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs";
-    $('#tab360Btn').className = "px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs";
   }
 }
 
 function closeProp(){ 
-  if(pannellumViewer){
-    try{ pannellumViewer.destroy(); }catch(e){}
-    pannellumViewer = null;
-  }
+  if(pannellumViewer){ try{ pannellumViewer.destroy(); }catch(e){} pannellumViewer = null; }
   $('#propModal').classList.add('hidden'); 
 }
 
@@ -541,9 +534,7 @@ document.addEventListener('click', e => {
   }
 });
 
-function applyHeaderSearch(){ $('#explore').scrollIntoView({behavior:'smooth'}); }
-
-renderCats(); renderCities(); render();
+renderCities(); render();
 </script>
 </body>
 </html>
