@@ -370,6 +370,8 @@ const LISTINGS = [
     occ: ['Single','Double'], 
     amen: ['wifi','ac','food'], 
     tag: 'Zero brokerage', 
+    phone: '098290 12345',
+    landmarks: 'Near GT Central Mall & MNIT Campus',
     img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', 
     panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
     gallery: ['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60']
@@ -386,6 +388,8 @@ const LISTINGS = [
     occ: ['Double','Triple'], 
     amen: ['wifi','food','laundry'], 
     tag: 'Meals included', 
+    phone: '094140 98765',
+    landmarks: 'Near World Trade Park (WTP) & Apex Hospital',
     img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', 
     panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
     gallery: ['https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60']
@@ -402,6 +406,8 @@ const LISTINGS = [
     occ: ['Triple','Shared'], 
     amen: ['wifi','food'], 
     tag: 'Student choice', 
+    phone: '097830 55443',
+    landmarks: 'Near SKIT College & Vivacity Mall',
     img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60', 
     panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
     gallery: ['https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60']
@@ -418,6 +424,8 @@ const LISTINGS = [
     occ: ['Single'], 
     amen: ['wifi','ac'], 
     tag: 'Private Studio', 
+    phone: '091160 88221',
+    landmarks: '2 mins walk from Malviya Nagar Metro Station',
     img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60', 
     panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
     gallery: ['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=60']
@@ -434,6 +442,8 @@ const LISTINGS = [
     occ: ['Double','Triple'], 
     amen: ['wifi','food','laundry'], 
     tag: 'Top Rated', 
+    phone: '098281 44332',
+    landmarks: 'Near Queens Road & National Handloom',
     img: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60', 
     panorama: 'https://pannellum.org/images/cerro-toco-0.jpg', 
     gallery: ['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60']
@@ -614,9 +624,60 @@ function openProp(id){
         <div id="panoramaViewer" class="w-full h-80 sm:h-96 rounded-2xl overflow-hidden border border-line"></div>
       </div>
 
-      <div class="mt-6">
-        <h2 class="text-2xl font-extrabold">${l.name}</h2>
-        <p class="text-sm text-gray-500 font-medium mt-0.5">📍 ${l.area}</p>
+      <!-- COMPLETE PROPERTY DETAILS & AMENITIES SECTION -->
+      <div class="mt-6 space-y-5">
+        <div class="flex flex-wrap items-start justify-between gap-4 border-b border-line pb-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full bg-coral-50 text-coral text-xs font-extrabold">${l.type}</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-mist border border-line text-xs font-bold text-gray-600">Preferred for: ${l.gender}</span>
+            </div>
+            <h2 class="text-2xl font-extrabold mt-2">${l.name}</h2>
+            <p class="text-sm text-gray-500 font-medium mt-1">📍 ${l.area}</p>
+          </div>
+          <div class="text-right">
+            <p class="text-xs text-gray-400 font-bold uppercase tracking-wider">Rent starts at</p>
+            <p class="text-2xl font-extrabold text-coral">${inr(l.price)}<span class="text-xs text-gray-400 font-semibold"> / month</span></p>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="p-4 rounded-2xl bg-mist border border-line">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">🎓 Nearby Colleges & Landmarks</p>
+            <p class="text-sm font-semibold text-ink">${l.landmarks || 'Near main market and public transport routes.'}</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-mist border border-line">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">🛏 Available Occupancies</p>
+            <div class="flex flex-wrap gap-2 mt-1">
+              ${l.occ.map(o => `<span class="px-3 py-1 rounded-xl bg-white border border-line text-xs font-extrabold">${o} Room</span>`).join('')}
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">✨ Included Amenities</p>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="flex items-center gap-2.5 p-3 rounded-xl border border-line bg-white text-xs font-bold">📶 High-Speed WiFi</div>
+            <div class="flex items-center gap-2.5 p-3 rounded-xl border border-line bg-white text-xs font-bold">❄️ Air Conditioner</div>
+            <div class="flex items-center gap-2.5 p-3 rounded-xl border border-line bg-white text-xs font-bold">🍲 3 Home Meals</div>
+            <div class="flex items-center gap-2.5 p-3 rounded-xl border border-line bg-white text-xs font-bold">🧺 Laundry Service</div>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-line flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <p class="text-xs text-gray-400 font-bold">Owner Contact</p>
+            <p class="text-base font-extrabold text-ink">${l.phone || '090247 76588'}</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <a href="tel:${l.phone || '09024776588'}" class="h-12 px-6 rounded-2xl bg-mist border border-line text-ink font-extrabold text-sm flex items-center gap-2 hover:border-ink transition">
+              📞 Call Owner
+            </a>
+            <button onclick="alert('Visit Request sent to owner!')" class="h-12 px-6 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow shine">
+              Schedule Free Visit
+            </button>
+          </div>
+        </div>
       </div>
     </div>`;
   
