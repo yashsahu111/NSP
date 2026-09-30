@@ -3,16 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roomzy Jaipur — Real PG Listings & Owner Auth</title>
+<title>Roomzy Jaipur — Find PGs, Hostels, Co-living & Roommates</title>
+<meta name="description" content="Roomzy helps students & professionals find verified PGs, hostels, co-living spaces and compatible roommates in Jaipur.">
+
+<!-- ROOMZY FAVICON LOGO -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E53935' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 10.5 12 3l9 7.5'/><path d='M5 9.8V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.8'/><path d='M9.5 21v-6h5v6'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Pannellum 360 Viewer CSS & JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <!-- SUPABASE CLIENT SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  tailwind.config = {
-    theme: { extend: { colors: { coral: { DEFAULT: '#E53935', dark:'#C62828', 50:'#FFF1F1' }, ink: '#111827', mist: '#F9FAFB', line: '#E5E7EB' } } }
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        coral: { DEFAULT: '#E53935', bright: '#FF3B30', dark:'#C62828', 50:'#FFF1F1', 100:'#FFE1E0', 200:'#FFC9C7' },
+        ink: '#111827',
+        mist: '#F9FAFB',
+        line: '#E5E7EB'
+      },
+      fontFamily: { sans: ['"Plus Jakarta Sans"','Inter','system-ui','sans-serif'] },
+      boxShadow: {
+        soft: '0 2px 8px -2px rgba(17,24,39,.06), 0 8px 24px -8px rgba(17,24,39,.08)',
+        card: '0 4px 12px -4px rgba(17,24,39,.08), 0 16px 40px -16px rgba(17,24,39,.18)',
+        pop:  '0 10px 40px -8px rgba(17,24,39,.22)',
+        redglow: '0 8px 24px -8px rgba(229,57,53,.55)'
+      },
+      borderRadius: { '4xl':'2rem' }
+    }
   }
+}
 </script>
+<style>
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',Inter,system-ui,sans-serif;background:#F9FAFB;color:#111827;-webkit-font-smoothing:antialiased}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-track{background:#F3F4F6}
+  ::-webkit-scrollbar-thumb{background:#D8DCE3;border-radius:99px;border:2px solid #F3F4F6}
+  ::-webkit-scrollbar-thumb:hover{background:#c2c7d0}
+
+  .range-wrap{position:relative;height:34px}
+  .range-track{position:absolute;top:15px;left:0;right:0;height:4px;background:#E5E7EB;border-radius:99px}
+  .range-fill{position:absolute;top:15px;height:4px;background:linear-gradient(90deg,#FF3B30,#E53935);border-radius:99px}
+  .range-wrap input[type=range]{position:absolute;top:0;left:0;width:100%;height:34px;margin:0;background:transparent;pointer-events:none;-webkit-appearance:none;appearance:none}
+  .range-wrap input[type=range]:focus{outline:none}
+  .range-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;pointer-events:auto;height:20px;width:20px;border-radius:50%;background:#fff;border:4px solid #E53935;box-shadow:0 2px 8px rgba(17,24,39,.25);cursor:grab;margin-top:0}
+
+  .card-hov{transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s}
+  .card-hov:hover{transform:translateY(-6px)}
+
+  .pulse-dot::after{content:'';position:absolute;inset:0;border-radius:99px;background:rgba(229,57,53,.45);animation:pulser 2s ease-out infinite}
+  @keyframes pulser{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.6);opacity:0}}
+
+  .gradtext{background:linear-gradient(95deg,#E53935,#FF6B5A 55%,#FF3B30);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .glass{backdrop-filter:blur(14px) saturate(160%);background:rgba(255,255,255,.82)}
+  .shine{position:relative;overflow:hidden}
+  .shine::after{content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg)}
+  .shine:hover::after{animation:sh .8s ease}
+  @keyframes sh{to{left:140%}}
+</style>
 </head>
 <body class="bg-mist text-ink">
 
@@ -23,193 +78,706 @@
   const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 </script>
 
+<!-- TOP UTILITY BAR -->
+<div class="bg-ink text-white text-[12.5px] border-b border-gray-800">
+  <div class="max-w-[1500px] mx-auto px-6 h-9 flex items-center justify-between">
+    <p class="flex items-center gap-2">
+      <span class="inline-flex h-2 w-2 rounded-full bg-green-400"></span> 
+      <span id="topBarStatus">Browsing Stays in <strong>Jaipur</strong> (Zero Brokerage)</span>
+    </p>
+    <div class="flex items-center gap-6 text-white/70">
+      <button onclick="openOwnerPortal()" class="hover:text-white transition font-bold text-coral">List Your Property</button>
+      <button onclick="openOwnerPortal()" class="hover:text-white transition">Owner Login Portal</button>
+    </div>
+  </div>
+</div>
+
 <!-- HEADER -->
-<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-line">
-  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-    <a href="#" onclick="showSection('tenant')" class="font-extrabold text-2xl tracking-tight">Room<span class="text-coral">zy</span> <span class="text-xs px-2 py-0.5 rounded-full bg-coral-50 text-coral font-bold ml-1">Jaipur</span></a>
-    <button onclick="showSection('owner')" class="px-4 py-2 rounded-xl bg-coral text-white font-bold text-sm shadow-md">List Property (Owner)</button>
+<header id="siteHeader" class="sticky top-0 z-50 glass border-b border-line">
+  <div class="max-w-[1500px] mx-auto px-4 sm:px-6">
+    <div class="h-[68px] flex items-center gap-4">
+
+      <a href="#" onclick="showTenantView()" class="flex items-center gap-2.5 shrink-0 group">
+        <span class="relative grid place-items-center h-10 w-10 rounded-2xl bg-gradient-to-br from-coral to-[#FF6B5A] shadow-redglow group-hover:scale-105 transition">
+          <svg viewBox="0 0 24 24" class="h-[22px] w-[22px] text-white" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.8"/><path d="M9.5 21v-6h5v6"/>
+          </svg>
+        </span>
+        <span class="text-[22px] font-extrabold tracking-tight">Room<span class="text-coral">zy</span> <span class="text-xs px-2 py-0.5 rounded-full bg-coral-50 text-coral font-bold ml-1">Jaipur</span></span>
+      </a>
+
+      <div id="headerSearchPill" class="hidden lg:flex flex-1 justify-center">
+        <div class="relative flex items-stretch h-12 rounded-full border border-line bg-white shadow-soft hover:shadow-card transition divide-x divide-line">
+          <button id="cityBtn" class="group flex items-center gap-2 pl-5 pr-4 rounded-l-full hover:bg-mist transition">
+            <svg class="h-4 w-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span class="text-left leading-none">
+              <span class="block text-[10px] uppercase tracking-wide text-gray-400 font-semibold">Jaipur Area</span>
+              <span id="cityLabel" class="block text-[13.5px] font-bold">Jaipur (All)</span>
+            </span>
+            <svg class="h-3.5 w-3.5 text-gray-400 group-hover:text-ink transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <button id="dateBtn" class="flex items-center gap-2 px-4 hover:bg-mist transition">
+            <svg class="h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            <span class="text-left leading-none">
+              <span class="block text-[10px] uppercase tracking-wide text-gray-400 font-semibold">Move-in</span>
+              <span id="dateLabel" class="block text-[13.5px] font-bold">Immediate</span>
+            </span>
+          </button>
+          <button id="budgetBtn" class="flex items-center gap-2 px-4 hover:bg-mist transition">
+            <svg class="h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h12M6 9h12M9 4c4 0 6 2 6 5s-2 5-6 5h-3l7 6"/></svg>
+            <span class="text-left leading-none">
+              <span class="block text-[10px] uppercase tracking-wide text-gray-400 font-semibold">Budget</span>
+              <span id="budgetLabel" class="block text-[13.5px] font-bold">₹3,000 – ₹40,000</span>
+            </span>
+          </button>
+          <div class="flex items-center pl-2 pr-1.5">
+            <button onclick="applyHeaderSearch()" class="shine h-9 w-9 grid place-items-center rounded-full bg-coral text-white hover:bg-coral-dark transition shadow-redglow">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+            </button>
+          </div>
+
+          <div id="cityPop" class="hidden absolute top-[58px] left-0 w-[330px] bg-white rounded-2xl shadow-pop border border-line p-4 z-50">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Jaipur Localities</p>
+            <div id="cityGrid" class="grid grid-cols-2 gap-2"></div>
+          </div>
+          <div id="datePop" class="hidden absolute top-[58px] left-1/3 w-[300px] bg-white rounded-2xl shadow-pop border border-line p-4 z-50">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Preferred move-in date</p>
+            <input type="date" id="moveInInput" class="w-full rounded-xl border border-line px-3 py-2.5 text-sm font-semibold focus:border-coral focus:ring-2 focus:ring-coral/20 outline-none">
+          </div>
+          <div id="budgetPop" class="hidden absolute top-[58px] right-0 w-[340px] bg-white rounded-2xl shadow-pop border border-line p-5 z-50">
+            <div class="flex items-center justify-between mb-1">
+              <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Monthly rent</p>
+              <p class="text-sm font-extrabold text-coral" id="hdrBudgetVal">₹3,000 – ₹40,000</p>
+            </div>
+            <div class="range-wrap mt-3">
+              <div class="range-track"></div><div class="range-fill" id="hFill"></div>
+              <input type="range" id="hMin" min="3000" max="40000" step="500" value="3000">
+              <input type="range" id="hMax" min="3000" max="40000" step="500" value="40000">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="hidden xl:flex items-center gap-1 ml-auto">
+        <a href="#explore" onclick="showTenantView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Explore PGs</a>
+        <a href="#roommates" onclick="showTenantView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Roommate Finder</a>
+        <button onclick="openAboutModal()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">About Us</button>
+        <button onclick="openOwnerPortal()" class="ml-1 px-4 py-2 rounded-xl border-[1.5px] border-coral text-coral text-[14px] font-bold hover:bg-coral hover:text-white transition">List Your Property</button>
+      </nav>
+    </div>
   </div>
 </header>
 
-<!-- TENANT VIEW: LIVE FEED FROM DATABASE -->
-<main id="tenantSection" class="max-w-6xl mx-auto px-4 py-8">
-  <h1 class="text-3xl font-extrabold mb-2">Verified PGs in Jaipur</h1>
-  <p class="text-sm text-gray-500 mb-6">Real-time listings submitted directly by owners to Supabase.</p>
-  <div id="propertyFeed" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <p class="text-sm text-gray-400">Loading live properties from database...</p>
-  </div>
-</main>
+<!-- TENANT MAIN VIEW -->
+<div id="tenantView">
+  <!-- HERO BANNER SECTION -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-coral-50/50 via-white to-mist border-b border-line">
+    <div class="max-w-[1500px] mx-auto px-4 sm:px-6 pt-10 pb-12 lg:pt-14 lg:pb-16">
+      <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-10 lg:gap-14 items-center">
+        <div>
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-line shadow-soft text-[12.5px] font-bold">
+            <span class="relative h-2 w-2 rounded-full bg-coral pulse-dot"></span>
+            4,283 verified beds live in Jaipur
+          </span>
+          <h1 class="mt-5 text-[38px] leading-[1.06] sm:text-[52px] lg:text-[58px] font-extrabold tracking-[-0.03em]">
+            Find your next<br><span class="gradtext">home & roommate</span><br>without brokerage.
+          </h1>
+          <p class="mt-5 text-[15.5px] sm:text-[16.5px] text-gray-500 max-w-xl leading-relaxed">
+            Roomzy brings together verified PGs, hostels and co-living spaces in Sitapura, Malviya Nagar & Jagatpura — plus a smart compatibility engine that matches you with flatmates you'll actually get along with.
+          </p>
 
-<!-- OWNER VIEW: OTP & LISTING FORM -->
-<main id="ownerSection" class="hidden max-w-xl mx-auto px-4 py-12">
-  <!-- OTP STEP 1 & 2 -->
-  <div id="authBox" class="bg-white p-8 rounded-3xl border border-line shadow-lg text-center">
-    <h2 class="text-2xl font-extrabold mb-1">Owner Portal Login</h2>
-    <p class="text-xs text-gray-500 mb-6">Enter your mobile number to receive an SMS OTP.</p>
+          <div class="mt-7 flex flex-wrap items-center gap-3">
+            <a href="#explore" class="shine inline-flex items-center gap-2 h-12 px-6 rounded-2xl bg-coral text-white font-bold shadow-redglow hover:bg-coral-dark transition">
+              Explore stays &rarr;
+            </a>
+            <a href="#roommates" class="inline-flex items-center gap-2 h-12 px-6 rounded-2xl bg-white border border-line font-bold hover:border-ink transition">
+              <svg class="h-4 w-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 3-3.87"/></svg>
+              Find a roommate
+            </a>
+          </div>
 
-    <!-- PHONE FORM -->
-    <div id="phoneForm" class="space-y-4">
-      <input type="tel" id="mobileNum" placeholder="+91 9876543210" class="w-full h-12 px-4 rounded-xl border border-line text-center text-sm font-bold outline-none focus:border-coral">
-      <button onclick="requestRealOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-md">Send OTP SMS</button>
+          <div class="mt-9 flex flex-wrap gap-x-9 gap-y-4">
+            <div><p class="text-2xl font-extrabold">12k+</p><p class="text-[13px] text-gray-500 font-medium">Verified listings</p></div>
+            <div class="hidden sm:block w-px bg-line"></div>
+            <div><p class="text-2xl font-extrabold">38k+</p><p class="text-[13px] text-gray-500 font-medium">Happy tenants</p></div>
+            <div class="hidden sm:block w-px bg-line"></div>
+            <div><p class="text-2xl font-extrabold">4.8<span class="text-coral">★</span></p><p class="text-[13px] text-gray-500 font-medium">Avg. rating</p></div>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="relative rounded-4xl overflow-hidden shadow-card border border-white/70 bg-white">
+            <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1000&q=70" alt="Shree Radhe Krishna PG Hostel" class="w-full h-[300px] sm:h-[400px] lg:h-[450px] object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-transparent to-transparent"></div>
+            <div class="absolute bottom-5 left-5 right-5 text-white">
+              <p class="text-[11px] font-bold uppercase tracking-[.16em] text-white/70">FEATURED SITAPURA STAY</p>
+              <p class="text-xl sm:text-2xl font-extrabold mt-1">Shree Radhe Krishna PG Hostel</p>
+              <p class="text-sm text-white/80 font-medium mt-0.5">From ₹6,500/mo · Near JECRC, Poornima & Mahatma Gandhi · 3 beds left</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- OTP FORM -->
-    <div id="otpForm" class="hidden space-y-4">
-      <input type="text" id="otpCode" placeholder="Enter Received OTP" class="w-full h-12 px-4 rounded-xl border border-line text-center text-sm font-bold tracking-widest outline-none focus:border-coral">
-      <button onclick="verifyRealOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-md">Verify OTP & Login</button>
-    </div>
-  </div>
+  <!-- MAIN LISTINGS SECTION -->
+  <section id="explore" class="max-w-[1500px] mx-auto px-4 sm:px-6 py-8 lg:py-12">
+    <div class="grid lg:grid-cols-[288px_1fr] gap-7">
 
-  <!-- REAL PROPERTY SUBMISSION FORM -->
-  <div id="listingBox" class="hidden bg-white p-8 rounded-3xl border border-line shadow-lg">
-    <h2 class="text-2xl font-extrabold mb-1">Add Your PG Details</h2>
-    <p class="text-xs text-gray-500 mb-6">This listing will save directly to your live PostgreSQL database.</p>
-    
-    <form onsubmit="submitRealPG(event)" class="space-y-4">
+      <aside class="hidden lg:block">
+        <div class="sticky top-[92px] space-y-4">
+          <div class="bg-white rounded-3xl border border-line shadow-soft p-5">
+            <div class="flex items-center justify-between mb-5">
+              <h3 class="font-extrabold text-[17px]">Filters</h3>
+              <button onclick="resetFilters()" class="text-[12.5px] font-bold text-coral hover:underline">Reset all</button>
+            </div>
+
+            <div class="space-y-6">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400">Budget</p>
+                  <p class="text-[12.5px] font-extrabold text-coral" id="sideBudgetVal">₹3,000 – ₹40,000</p>
+                </div>
+                <div class="range-wrap">
+                  <div class="range-track"></div><div class="range-fill" id="sFill"></div>
+                  <input type="range" id="sMin" min="3000" max="40000" step="500" value="3000">
+                  <input type="range" id="sMax" min="3000" max="40000" step="500" value="40000">
+                </div>
+              </div>
+
+              <div class="h-px bg-line"></div>
+
+              <div>
+                <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400 mb-3">Occupancy</p>
+                <div class="flex flex-wrap gap-2" id="occRow"></div>
+              </div>
+
+              <div class="h-px bg-line"></div>
+
+              <div>
+                <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400 mb-3">Preferred for</p>
+                <div class="grid grid-cols-3 gap-2" id="genderRow"></div>
+              </div>
+
+              <div class="h-px bg-line"></div>
+
+              <div>
+                <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400 mb-3">Amenities</p>
+                <div class="space-y-2.5" id="amenRow"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
       <div>
-        <label class="block text-xs font-bold text-gray-600 mb-1">PG NAME *</label>
-        <input type="text" id="pName" required placeholder="e.g. Sunshine Boys PG" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-xs font-bold text-gray-600 mb-1">LOCALITY *</label>
-          <input type="text" id="pArea" required placeholder="e.g. Sitapura" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+          <div>
+            <h2 class="text-[22px] sm:text-[27px] font-extrabold tracking-tight">PGs & Hostels in <span id="resCity">Jaipur</span></h2>
+            <p class="text-[13.5px] text-gray-500 mt-0.5"><span id="resCount">0</span> stays available · live from Supabase</p>
+          </div>
         </div>
-        <div>
-          <label class="block text-xs font-bold text-gray-600 mb-1">RENT (₹/MO) *</label>
-          <input type="number" id="pPrice" required placeholder="7500" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+
+        <div id="cards" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
+          <p class="text-sm text-gray-400">Loading live PGs from Supabase...</p>
         </div>
       </div>
-      <div class="grid grid-cols-2 gap-4">
+
+    </div>
+  </section>
+
+  <!-- HOW ROOMZY WORKS -->
+  <section class="max-w-[1500px] mx-auto px-4 sm:px-6 py-12 border-t border-line">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <p class="text-xs font-bold uppercase tracking-widest text-coral mb-1">HOW ROOMZY WORKS</p>
+      <h2 class="text-[28px] sm:text-[34px] font-extrabold tracking-tight">From search to shifting in, in 3 steps</h2>
+      <p class="text-sm text-gray-500 font-medium mt-2">No brokers, no hidden charges, no endless WhatsApp groups.</p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="p-7 rounded-3xl bg-white border border-line shadow-soft">
+        <div class="h-10 w-10 rounded-xl bg-coral text-white font-extrabold grid place-items-center mb-5">1</div>
+        <h3 class="text-lg font-extrabold mb-2">Search & shortlist</h3>
+        <p class="text-xs text-gray-500 leading-relaxed font-medium">Filter by budget, locality, occupancy and amenities. Every listing is physically verified with real photos.</p>
+      </div>
+      <div class="p-7 rounded-3xl bg-white border border-line shadow-soft">
+        <div class="h-10 w-10 rounded-xl bg-coral text-white font-extrabold grid place-items-center mb-5">2</div>
+        <h3 class="text-lg font-extrabold mb-2">Visit for free</h3>
+        <p class="text-xs text-gray-500 leading-relaxed font-medium">Book same-day visits or take a live video tour. A Roomzy buddy accompanies you on request.</p>
+      </div>
+      <div class="p-7 rounded-3xl bg-white border border-line shadow-soft">
+        <div class="h-10 w-10 rounded-xl bg-coral text-white font-extrabold grid place-items-center mb-5">3</div>
+        <h3 class="text-lg font-extrabold mb-2">Book & move in</h3>
+        <p class="text-xs text-gray-500 leading-relaxed font-medium">Pay a refundable token, sign the digital agreement and get your keys. Zero brokerage, always.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROOMMATE FINDER SECTION -->
+  <section id="roommates" class="max-w-[1500px] mx-auto px-4 sm:px-6 py-12 border-t border-line">
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-widest text-coral mb-1">ROOMMATE FINDER</p>
+        <h2 class="text-[28px] sm:text-[34px] font-extrabold tracking-tight">Matched on lifestyle, not luck</h2>
+        <p class="text-sm text-gray-500 font-medium mt-1">Our compatibility engine scores sleep schedule, cleanliness, food habits, work style and social energy.</p>
+      </div>
+      <button onclick="showToast('Profile Builder Modal Opened!')" class="h-11 px-6 rounded-2xl bg-coral text-white font-extrabold text-xs shadow-redglow">Create my profile</button>
+    </div>
+
+    <div id="roommateGrid" class="grid sm:grid-cols-2 xl:grid-cols-4 gap-5"></div>
+  </section>
+
+  <!-- TOP LOCALITIES IN JAIPUR -->
+  <section class="max-w-[1500px] mx-auto px-4 sm:px-6 py-12 border-t border-line">
+    <h2 class="text-[28px] sm:text-[34px] font-extrabold tracking-tight mb-8">Top localities in Jaipur</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div onclick="pickCity('Sitapura'); applyHeaderSearch();" class="card-hov relative rounded-3xl overflow-hidden h-56 cursor-pointer border border-line">
+        <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=60" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent"></div>
+        <div class="absolute bottom-4 left-4 text-white">
+          <h3 class="text-lg font-extrabold">Sitapura</h3>
+          <p class="text-xs text-white/80 font-medium">185 stays available</p>
+        </div>
+      </div>
+      <div onclick="pickCity('Malviya Nagar'); applyHeaderSearch();" class="card-hov relative rounded-3xl overflow-hidden h-56 cursor-pointer border border-line">
+        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=60" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent"></div>
+        <div class="absolute bottom-4 left-4 text-white">
+          <h3 class="text-lg font-extrabold">Malviya Nagar</h3>
+          <p class="text-xs text-white/80 font-medium">412 stays available</p>
+        </div>
+      </div>
+      <div onclick="pickCity('Vaishali Nagar'); applyHeaderSearch();" class="card-hov relative rounded-3xl overflow-hidden h-56 cursor-pointer border border-line">
+        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=60" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent"></div>
+        <div class="absolute bottom-4 left-4 text-white">
+          <h3 class="text-lg font-extrabold">Vaishali Nagar</h3>
+          <p class="text-xs text-white/80 font-medium">368 stays available</p>
+        </div>
+      </div>
+      <div onclick="pickCity('Jagatpura'); applyHeaderSearch();" class="card-hov relative rounded-3xl overflow-hidden h-56 cursor-pointer border border-line">
+        <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=600&q=60" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent"></div>
+        <div class="absolute bottom-4 left-4 text-white">
+          <h3 class="text-lg font-extrabold">Jagatpura</h3>
+          <p class="text-xs text-white/80 font-medium">295 stays available</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="max-w-[1500px] mx-auto px-4 sm:px-6 py-12 border-t border-line">
+    <h2 class="text-[28px] sm:text-[34px] font-extrabold tracking-tight mb-8">Loved by 38,000+ tenants</h2>
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="p-6 rounded-3xl bg-white border border-line shadow-soft">
+        <p class="text-coral text-sm mb-3">⭐⭐⭐⭐⭐</p>
+        <p class="text-xs text-gray-600 font-semibold leading-relaxed mb-4">"Moved into a co-living in Sitapura within 4 days. Virtual tours saved me weeks!"</p>
+        <div class="flex items-center gap-3">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" class="h-9 w-9 rounded-full object-cover">
+          <div><p class="text-xs font-extrabold">Nikhil P.</p><p class="text-[11px] text-gray-400">Software Engineer</p></div>
+        </div>
+      </div>
+      <div class="p-6 rounded-3xl bg-white border border-line shadow-soft">
+        <p class="text-coral text-sm mb-3">⭐⭐⭐⭐⭐</p>
+        <p class="text-xs text-gray-600 font-semibold leading-relaxed mb-4">"As a girl moving to Jaipur, the verified badge gave my parents real peace of mind."</p>
+        <div class="flex items-center gap-3">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" class="h-9 w-9 rounded-full object-cover">
+          <div><p class="text-xs font-extrabold">Ritika S.</p><p class="text-[11px] text-gray-400">MNIT Student</p></div>
+        </div>
+      </div>
+      <div class="p-6 rounded-3xl bg-white border border-line shadow-soft">
+        <p class="text-coral text-sm mb-3">⭐⭐⭐⭐⭐</p>
+        <p class="text-xs text-gray-600 font-semibold leading-relaxed mb-4">"Roommate matching is scarily accurate. My match score was 91%!"</p>
+        <div class="flex items-center gap-3">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" class="h-9 w-9 rounded-full object-cover">
+          <div><p class="text-xs font-extrabold">Arjun K.</p><p class="text-[11px] text-gray-400">Marketing Manager</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- OWNER PORTAL / ADD REAL PG VIEW -->
+<div id="ownerView" class="hidden max-w-3xl mx-auto px-4 py-12">
+  <!-- OTP LOGIN BOX -->
+  <div id="ownerLoginBox" class="bg-white rounded-3xl border border-line shadow-card p-8 text-center">
+    <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center mx-auto mb-4 font-bold text-xl">📱</div>
+    <h2 class="text-2xl font-extrabold">PG Owner Portal</h2>
+    <p class="text-xs text-gray-500 mt-1 mb-6">Log in with your mobile number to list your property live on Roomzy Jaipur.</p>
+
+    <div id="phoneStep" class="space-y-4 max-w-sm mx-auto">
+      <input type="tel" id="ownerPhone" placeholder="Enter mobile (+91 9876543210)" class="w-full h-12 px-4 rounded-xl border border-line text-sm font-semibold text-center outline-none focus:border-coral">
+      <button onclick="sendOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Send SMS OTP</button>
+    </div>
+
+    <div id="otpStep" class="hidden space-y-4 max-w-sm mx-auto mt-4">
+      <p class="text-xs text-green-600 font-bold">OTP sent via SMS!</p>
+      <input type="text" id="ownerOTP" placeholder="Enter received OTP" class="w-full h-12 px-4 rounded-xl border border-line text-sm font-semibold text-center tracking-widest outline-none focus:border-coral">
+      <button onclick="verifyOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Verify & Login</button>
+    </div>
+  </div>
+
+  <!-- ADD PROPERTY FORM (HIDDEN UNTIL VERIFIED) -->
+  <div id="ownerAddForm" class="hidden bg-white rounded-3xl border border-line shadow-card p-8">
+    <div class="flex items-center justify-between border-b border-line pb-4 mb-6">
+      <div>
+        <h2 class="text-2xl font-extrabold">List Your Real PG / Hostel</h2>
+        <p class="text-xs text-gray-500 mt-0.5">Your listing will save directly to Supabase PostgreSQL.</p>
+      </div>
+      <button onclick="showTenantView()" class="text-xs font-extrabold text-coral">✕ Cancel</button>
+    </div>
+
+    <form onsubmit="handlePublishPG(event)" class="space-y-5">
+      <div>
+        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">PG / Property Name *</label>
+        <input type="text" id="pgName" required placeholder="e.g. Royal Heritage PG Hostel" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs font-bold text-gray-600 mb-1">GENDER *</label>
-          <select id="pGender" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
-            <option value="Unisex">Unisex</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
+          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Locality / Area *</label>
+          <select id="pgArea" required class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+            <option value="Sitapura">Sitapura</option>
+            <option value="Malviya Nagar">Malviya Nagar</option>
+            <option value="Vaishali Nagar">Vaishali Nagar</option>
+            <option value="Jagatpura">Jagatpura</option>
+            <option value="Raja Park">Raja Park</option>
+            <option value="Mansarovar">Mansarovar</option>
+            <option value="Gopalpura Bypass">Gopalpura Bypass</option>
           </select>
         </div>
         <div>
-          <label class="block text-xs font-bold text-gray-600 mb-1">CONTACT PHONE *</label>
-          <input type="tel" id="pPhone" required placeholder="9876543210" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Monthly Rent (₹) *</label>
+          <input type="number" id="pgPrice" required placeholder="e.g. 7500" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
         </div>
       </div>
-      <div>
-        <label class="block text-xs font-bold text-gray-600 mb-1">NEARBY LANDMARKS</label>
-        <input type="text" id="pLandmarks" placeholder="e.g. Near JECRC College" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Preferred Gender *</label>
+          <select id="pgGender" required class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+            <option value="Unisex">Unisex (Male/Female)</option>
+            <option value="Male">Male only</option>
+            <option value="Female">Female only</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Owner Contact Phone *</label>
+          <input type="tel" id="pgPhone" required placeholder="e.g. 098280 11223" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+        </div>
       </div>
+
       <div>
-        <label class="block text-xs font-bold text-gray-600 mb-1">IMAGE URL *</label>
-        <input type="url" id="pImg" required value="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Nearby Landmarks / Colleges *</label>
+        <input type="text" id="pgLandmarks" required placeholder="e.g. 2 mins from JECRC College & Metro" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
       </div>
-      <button type="submit" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-md mt-4">Publish PG to Live Database</button>
+
+      <div>
+        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Property Image URL *</label>
+        <input type="url" id="pgImage" required placeholder="https://images.unsplash.com/photo-..." value="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+      </div>
+
+      <button type="submit" class="w-full h-12 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow mt-4">Publish PG Listing to Database</button>
     </form>
   </div>
-</main>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-ink text-white pt-12 pb-8 border-t border-gray-800">
+  <div class="max-w-[1500px] mx-auto px-4 sm:px-6">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pb-10 border-b border-gray-800">
+      <div>
+        <span class="text-2xl font-extrabold">Room<span class="text-coral">zy</span></span>
+        <p class="text-xs text-gray-400 mt-3 leading-relaxed">India's friendliest rental platform for PGs, hostels, co-living spaces and roommates. Verified homes, zero brokerage.</p>
+      </div>
+      <div>
+        <p class="text-xs font-extrabold uppercase tracking-wider text-gray-400 mb-3">Explore</p>
+        <ul class="space-y-2 text-xs font-medium text-gray-300">
+          <li><a href="#explore" onclick="showTenantView()" class="hover:text-coral">PGs in Jaipur</a></li>
+          <li><a href="#roommates" onclick="showTenantView()" class="hover:text-coral">Roommate finder</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs font-extrabold uppercase tracking-wider text-gray-400 mb-3">Company</p>
+        <ul class="space-y-2 text-xs font-medium text-gray-300">
+          <li><button onclick="openAboutModal()" class="hover:text-coral text-left">About us</button></li>
+          <li><button onclick="openOwnerPortal()" class="hover:text-coral text-left">List your property</button></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs font-extrabold uppercase tracking-wider text-gray-400 mb-3">Stay in the loop</p>
+        <div class="flex gap-2">
+          <input type="email" placeholder="you@email.com" class="h-10 px-3 rounded-xl bg-gray-900 border border-gray-800 text-xs text-white outline-none focus:border-coral flex-1">
+          <button onclick="showToast('Subscribed!')" class="h-10 px-4 rounded-xl bg-coral text-white text-xs font-extrabold">Join</button>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 text-center text-xs text-gray-500 font-medium">&copy; 2026 Roomzy Technologies Pvt. Ltd. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- MODALS -->
+<div id="propModal" class="hidden fixed inset-0 z-[70]">
+  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeProp()"></div>
+  <div class="absolute inset-x-0 bottom-0 top-auto sm:inset-0 sm:m-auto sm:h-[90vh] sm:max-w-[1040px] bg-white sm:rounded-3xl rounded-t-3xl overflow-hidden shadow-pop flex flex-col max-h-[95vh]">
+    <div class="flex items-center justify-between px-5 sm:px-7 h-16 border-b border-line shrink-0 bg-white">
+      <p class="font-extrabold text-[17px] truncate" id="pmTitle">Property Details</p>
+      <button onclick="closeProp()" class="h-9 w-9 grid place-items-center rounded-xl hover:bg-mist border border-line">✕</button>
+    </div>
+    <div class="flex-1 overflow-y-auto" id="pmBody"></div>
+  </div>
+</div>
+
+<div id="aboutModal" class="hidden fixed inset-0 z-[80]">
+  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeAboutModal()"></div>
+  <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[540px] bg-white rounded-3xl shadow-pop p-6 sm:p-8">
+    <button onclick="closeAboutModal()" class="absolute right-4 top-4 h-9 w-9 grid place-items-center rounded-xl hover:bg-mist border border-line">✕</button>
+    <div class="text-left space-y-4">
+      <span class="px-3 py-1 rounded-full bg-coral-50 text-coral font-bold text-xs">About Roomzy</span>
+      <h2 class="text-2xl font-extrabold">Redefining rentals in Jaipur.</h2>
+      <p class="text-xs text-gray-500 leading-relaxed font-medium">Roomzy eliminates high brokerage fees and safety concerns for students and professionals moving to Jaipur.</p>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="fixed z-[90] bottom-8 left-1/2 -translate-x-1/2 px-5 py-3.5 rounded-2xl bg-ink text-white text-sm font-semibold shadow-pop opacity-0 translate-y-3 pointer-events-none transition-all duration-300"></div>
 
 <script>
-  function showSection(type) {
-    if(type === 'owner'){
-      document.getElementById('tenantSection').classList.add('hidden');
-      document.getElementById('ownerSection').classList.remove('hidden');
-    } else {
-      document.getElementById('ownerSection').classList.add('hidden');
-      document.getElementById('tenantSection').classList.remove('hidden');
-      fetchPropertiesFromDatabase();
-    }
+const CITIES = ['Jaipur (All)','Sitapura','Malviya Nagar','Vaishali Nagar','Jagatpura','Raja Park','Gopalpura Bypass','Mansarovar'];
+const AMENITIES = [{id:'wifi', label:'High-speed WiFi'},{id:'ac', label:'Air conditioning'},{id:'food', label:'3 Meals included'},{id:'laundry', label:'Laundry service'}];
+
+const ROOMMATES = [
+  { id: 1, name: 'Ananya Sharma', age: 24, role: 'Product Designer @ Swiggy', area: 'Malviya Nagar', budget: '₹14,000/mo', score: '94%', img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80', tags: ['Non-smoker', 'Early riser'], bio: 'Looking for a clean flatmate in Malviya Nagar.', sleep: '10:30 PM - 6:30 AM' },
+  { id: 2, name: 'Rohit Verma', age: 26, role: 'SDE-2 @ Razorpay', area: 'Vaishali Nagar', budget: '₹18,000/mo', score: '89%', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80', tags: ['Gym buddy', 'Night owl'], bio: 'Looking for a co-living master bedroom.', sleep: '1:00 AM - 8:30 AM' },
+  { id: 3, name: 'Meera Iyer', age: 22, role: 'MBA Student @ MNIT', area: 'Jagatpura', budget: '₹11,000/mo', score: '91%', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80', tags: ['Studious', 'Vegetarian'], bio: 'Quiet postgraduate student looking for a study-friendly roommate.', sleep: '11:00 PM - 7:00 AM' },
+  { id: 4, name: 'Karthik Nair', age: 28, role: 'Data Analyst @ Genpact', area: 'Raja Park', budget: '₹16,000/mo', score: '86%', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80', tags: ['Cooks often', 'Weekend traveller'], bio: 'Loves cooking weekend dinners and exploring road trips.', sleep: '12:00 AM - 7:30 AM' }
+];
+
+let liveProperties = [];
+const state = { city:'Jaipur (All)', min:3000, max:40000, gender:'Any', occ:[], amen:[] };
+const $ = s => document.querySelector(s);
+const inr = n => '₹' + n.toLocaleString('en-IN');
+
+function showToast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.remove('opacity-0', 'translate-y-3');
+  setTimeout(() => t.classList.add('opacity-0', 'translate-y-3'), 2500);
+}
+
+function openOwnerPortal(){ $('#tenantView').classList.add('hidden'); $('#ownerView').classList.remove('hidden'); window.scrollTo(0,0); }
+function showTenantView(){ $('#ownerView').classList.add('hidden'); $('#tenantView').classList.remove('hidden'); window.scrollTo(0,0); }
+function openAboutModal(){ $('#aboutModal').classList.remove('hidden'); }
+function closeAboutModal(){ $('#aboutModal').classList.add('hidden'); }
+
+// REAL SUPABASE SMS OTP
+async function sendOTP(){
+  const phone = $('#ownerPhone').value.trim();
+  if(!phone){ showToast('Enter your mobile number'); return; }
+  const { data, error } = await supabase.auth.signInWithOtp({ phone });
+  if (error) {
+    showToast('OTP Error: ' + error.message);
+  } else {
+    showToast('OTP Sent!');
+    $('#phoneStep').classList.add('hidden');
+    $('#otpStep').classList.remove('hidden');
+  }
+}
+
+async function verifyOTP(){
+  const phone = $('#ownerPhone').value.trim();
+  const token = $('#ownerOTP').value.trim();
+  const { data, error } = await supabase.auth.verifyOtp({ phone, token, type: 'sms' });
+  if (error) {
+    showToast('Invalid OTP');
+  } else {
+    showToast('Login Successful!');
+    $('#ownerLoginBox').classList.add('hidden');
+    $('#ownerAddForm').classList.remove('hidden');
+  }
+}
+
+// PUBLISH PG TO SUPABASE
+async function handlePublishPG(e){
+  e.preventDefault();
+  const newProperty = {
+    name: $('#pgName').value.trim(),
+    area: $('#pgArea').value + ', Jaipur',
+    price: parseInt($('#pgPrice').value),
+    gender: $('#pgGender').value,
+    phone: $('#pgPhone').value.trim(),
+    landmarks: $('#pgLandmarks').value.trim(),
+    img: $('#pgImage').value.trim()
+  };
+
+  const { data, error } = await supabase.from('properties').insert([newProperty]);
+
+  if(error) {
+    showToast('Error saving: ' + error.message);
+  } else {
+    showToast('🎉 PG Listed Successfully!');
+    fetchPropertiesFromDatabase();
+    showTenantView();
+  }
+}
+
+// FETCH REAL PROPERTIES
+async function fetchPropertiesFromDatabase(){
+  const { data, error } = await supabase.from('properties').select('*').order('id', { ascending: false });
+  if(error) {
+    console.error(error);
+    return;
+  }
+  liveProperties = data || [];
+  render();
+}
+
+function renderFilterControls(){
+  const OCC = ['Single','Double','Triple','Shared'];
+  $('#occRow').innerHTML = OCC.map(o=>`<button onclick="toggleOcc('${o}')" class="px-3.5 py-2 rounded-xl text-xs font-bold border ${state.occ.includes(o)?'border-coral bg-coral text-white':'border-line bg-white'}">${o}</button>`).join('');
+
+  const GEN = ['Any','Male','Female'];
+  $('#genderRow').innerHTML = GEN.map(g=>`<button onclick="setGender('${g}')" class="py-2 rounded-xl text-xs font-bold border ${state.gender===g?'border-coral bg-coral text-white':'border-line bg-white'}">${g}</button>`).join('');
+
+  $('#amenRow').innerHTML = AMENITIES.map(a=>`
+    <label class="flex items-center gap-3 cursor-pointer">
+      <input type="checkbox" ${state.amen.includes(a.id)?'checked':''} onchange="toggleAmen('${a.id}')" class="accent-coral h-4 w-4 rounded border-line">
+      <span class="text-xs font-semibold text-gray-600">${a.label}</span>
+    </label>`).join('');
+}
+
+function toggleOcc(o){ state.occ.includes(o) ? state.occ.splice(state.occ.indexOf(o),1) : state.occ.push(o); render(); }
+function setGender(g){ state.gender = g; render(); }
+function toggleAmen(a){ state.amen.includes(a) ? state.amen.splice(state.amen.indexOf(a),1) : state.amen.push(a); render(); }
+
+function resetFilters(){
+  state.min=3000; state.max=40000; state.gender='Any'; state.occ=[]; state.amen=[]; state.city='Jaipur (All)';
+  $('#sMin').value=3000; $('#sMax').value=40000;
+  updateSliders(); renderCities(); render();
+}
+
+function updateSliders(){
+  let sMin = parseInt($('#sMin').value);
+  let sMax = parseInt($('#sMax').value);
+  if (sMin > sMax - 1000) { sMin = sMax - 1000; $('#sMin').value = sMin; }
+  state.min = sMin; state.max = sMax;
+
+  const minPercent = ((sMin - 3000) / (40000 - 3000)) * 100;
+  const maxPercent = ((sMax - 3000) / (40000 - 3000)) * 100;
+  if($('#sFill')) { $('#sFill').style.left = minPercent + '\%'; $('#sFill').style.width = (maxPercent - minPercent) + '%'; }
+  if($('#sideBudgetVal')) $('#sideBudgetVal').textContent = `₹${sMin.toLocaleString('en-IN')} – ₹${sMax.toLocaleString('en-IN')}`;
+
+  render();
+}
+
+function setupSliderEvents(){
+  ['sMin','sMax'].forEach(id => {
+    const el = $('#' + id); if(el) el.addEventListener('input', updateSliders);
+  });
+}
+
+function renderCities(){
+  $('#cityGrid').innerHTML = CITIES.map(c=>`<button onclick="pickCity('${c}')" class="px-3 py-2 rounded-xl text-xs font-bold text-left border ${state.city===c?'border-coral bg-coral-50 text-coral':'border-line'} hover:border-coral">${c}</button>`).join('');
+}
+
+function pickCity(c){
+  state.city = c; $('#cityLabel').textContent = c; $('#resCity').textContent = c; $('#cityPop').classList.add('hidden'); renderCities(); render();
+}
+
+function render(){
+  const list = liveProperties.filter(l => {
+    if(l.price < state.min || l.price > state.max) return false;
+    if(state.gender!=='Any' && l.gender!==state.gender && l.gender!=='Unisex') return false;
+    if(state.city!=='Jaipur (All)' && !l.area.includes(state.city)) return false;
+    return true;
+  });
+
+  if(list.length === 0){
+    $('#cards').innerHTML = `<div class="col-span-full py-12 text-center text-gray-500 font-bold">No stays found. Click 'List Your Property' above to add one!</div>`;
+    $('#resCount').textContent = 0;
+    renderFilterControls();
+    return;
   }
 
-  // 1. REQUEST REAL SMS OTP VIA SUPABASE
-  async function requestRealOTP() {
-    const phone = document.getElementById('mobileNum').value.trim();
-    if (!phone) { alert("Please enter a mobile number"); return; }
-    
-    const { data, error } = await supabase.auth.signInWithOtp({ phone: phone });
-    
-    if (error) {
-      alert("Error sending OTP: " + error.message);
-    } else {
-      alert("OTP SMS sent to " + phone);
-      document.getElementById('phoneForm').classList.add('hidden');
-      document.getElementById('otpForm').classList.remove('hidden');
-    }
-  }
-
-  // 2. VERIFY OTP VIA SUPABASE
-  async function verifyRealOTP() {
-    const phone = document.getElementById('mobileNum').value.trim();
-    const token = document.getElementById('otpCode').value.trim();
-
-    const { data, error } = await supabase.auth.verifyOtp({ phone, token, type: 'sms' });
-
-    if (error) {
-      alert("Invalid OTP: " + error.message);
-    } else {
-      alert("Owner Verified Successfully!");
-      document.getElementById('authBox').classList.add('hidden');
-      document.getElementById('listingBox').classList.remove('hidden');
-    }
-  }
-
-  // 3. WRITE NEW PG DIRECTLY TO SUPABASE POSTGRES
-  async function submitRealPG(e) {
-    e.preventDefault();
-    const newProperty = {
-      name: document.getElementById('pName').value,
-      area: document.getElementById('pArea').value,
-      price: parseInt(document.getElementById('pPrice').value),
-      gender: document.getElementById('pGender').value,
-      phone: document.getElementById('pPhone').value,
-      landmarks: document.getElementById('pLandmarks').value,
-      img: document.getElementById('pImg').value
-    };
-
-    const { data, error } = await supabase.from('properties').insert([newProperty]);
-
-    if (error) {
-      alert("Database write error: " + error.message);
-    } else {
-      alert("🎉 Success! Your PG is now saved live in the database.");
-      showSection('tenant');
-    }
-  }
-
-  // 4. FETCH LIVE PROPERTIES FROM SUPABASE
-  async function fetchPropertiesFromDatabase() {
-    const feed = document.getElementById('propertyFeed');
-    const { data: properties, error } = await supabase.from('properties').select('*').order('id', { ascending: false });
-
-    if (error) {
-      feed.innerHTML = `<p class="text-sm text-red-500">Error fetching properties: ${error.message}</p>`;
-      return;
-    }
-
-    if (!properties || properties.length === 0) {
-      feed.innerHTML = `<p class="text-sm text-gray-500">No properties in database yet. Click 'List Property (Owner)' above to add the first real PG!</p>`;
-      return;
-    }
-
-    feed.innerHTML = properties.map(p => `
-      <div class="bg-white rounded-2xl border border-line overflow-hidden shadow-sm hover:shadow-md transition">
-        <img src="${p.img}" class="w-full h-48 object-cover">
-        <div class="p-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-extrabold text-lg truncate">${p.name}</h3>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-coral-50 text-coral">${p.gender}</span>
+  $('#cards').innerHTML = list.map(l => `
+    <article class="card-hov bg-white rounded-3xl border border-line overflow-hidden hover:shadow-card">
+      <div class="relative">
+        <img src="${l.img}" alt="${l.name}" class="w-full h-52 object-cover">
+        <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-lg bg-white/95 text-[11px] font-extrabold shadow-soft">Verified</span>
+      </div>
+      <div class="p-5">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <h3 class="font-extrabold text-[16.5px] truncate">${l.name}</h3>
+            <p class="text-[13px] text-gray-500 font-medium mt-1">📍 ${l.area}</p>
           </div>
-          <p class="text-xs text-gray-500 mt-1">📍 ${p.area}, Jaipur</p>
-          ${p.landmarks ? `<p class="text-xs text-gray-400 mt-1">🏫 ${p.landmarks}</p>` : ''}
-          <div class="mt-4 flex items-center justify-between border-t border-line pt-3">
-            <span class="font-extrabold text-coral text-lg">₹${p.price.toLocaleString('en-IN')}/mo</span>
-            <a href="tel:${p.phone}" class="text-xs font-bold text-gray-700 bg-mist px-3 py-1.5 rounded-lg border border-line hover:border-coral">📞 ${p.phone}</a>
+          <span class="px-2.5 py-1 rounded-lg bg-mist border border-line text-[11px] font-extrabold text-gray-600">${l.gender}</span>
+        </div>
+        <div class="mt-4 pt-4 border-t border-line flex items-end justify-between gap-3">
+          <div>
+            <p class="text-[20px] font-extrabold leading-none">${inr(l.price)}<span class="text-[12.5px] font-bold text-gray-400">/mo</span></p>
+          </div>
+          <button onclick="openProp(${l.id})" class="h-10 px-4 rounded-xl bg-coral text-white text-[13.5px] font-extrabold shadow-redglow shine">View details</button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+
+  $('#resCount').textContent = list.length;
+  renderFilterControls();
+}
+
+function renderRoommates(){
+  $('#roommateGrid').innerHTML = ROOMMATES.map(r => `
+    <div class="card-hov bg-white rounded-3xl border border-line p-5 flex flex-col justify-between">
+      <div>
+        <div class="flex items-start gap-3">
+          <img src="${r.img}" class="h-14 w-14 rounded-2xl object-cover shrink-0">
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-extrabold text-[15px]">${r.name}, ${r.age}</h3>
+              <span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-coral-50 text-coral">${r.score}</span>
+            </div>
+            <p class="text-[11.5px] text-gray-500 font-semibold mt-0.5">${r.role}</p>
+            <p class="text-[11px] text-coral font-bold mt-1">📍 ${r.area} · ${r.budget}</p>
           </div>
         </div>
       </div>
-    `).join('');
-  }
+      <div class="grid grid-cols-2 gap-2 mt-5 pt-4 border-t border-line">
+        <button onclick="showToast('Roommate profile view active')" class="h-10 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs">View</button>
+        <button onclick="showToast('Connection request sent!')" class="h-10 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow">Connect</button>
+      </div>
+    </div>
+  `).join('');
+}
 
-  // Load properties on initial page view
-  fetchPropertiesFromDatabase();
+function openProp(id){
+  const l = liveProperties.find(x => x.id === id);
+  if(!l) return;
+  $('#pmTitle').textContent = l.name;
+  $('#pmBody').innerHTML = `
+    <div class="p-6">
+      <h2 class="text-2xl font-extrabold">${l.name}</h2>
+      <p class="text-sm text-gray-500 font-medium mt-1">📍 ${l.area}</p>
+      ${l.landmarks ? `<p class="text-xs font-bold text-coral mt-2">🏫 ${l.landmarks}</p>` : ''}
+      <p class="text-xs font-bold text-ink mt-2">📞 Owner Contact: ${l.phone}</p>
+      <p class="text-xl font-extrabold text-coral mt-4">${inr(l.price)} / month</p>
+      <button onclick="showToast('Visit scheduled successfully!')" class="mt-4 h-11 px-6 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow">Schedule Free Visit</button>
+    </div>`;
+  $('#propModal').classList.remove('hidden');
+}
+
+function closeProp(){ $('#propModal').classList.add('hidden'); }
+
+function togglePop(id){
+  ['cityPop','datePop','budgetPop'].forEach(p=>{ if(p!==id) $('#'+p).classList.add('hidden'); });
+  $('#'+id).classList.toggle('hidden');
+}
+$('#cityBtn').onclick = e => { e.stopPropagation(); togglePop('cityPop'); };
+$('#dateBtn').onclick = e => { e.stopPropagation(); togglePop('datePop'); };
+$('#budgetBtn').onclick = e => { e.stopPropagation(); togglePop('budgetPop'); };
+
+function applyHeaderSearch(){ $('#explore').scrollIntoView({behavior:'smooth'}); }
+
+renderCities(); renderRoommates(); setupSliderEvents(); updateSliders(); fetchPropertiesFromDatabase();
 </script>
 </body>
 </html>
