@@ -169,7 +169,68 @@ tailwind.config = {
 
 <!-- TENANT INTERFACE -->
 <div id="tenantView">
-  <!-- EXPLORE / MAIN APP LISTINGS GRID -->
+  <!-- HERO BANNER SECTION -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-coral-50/50 via-white to-mist border-b border-line">
+    <div class="max-w-[1500px] mx-auto px-4 sm:px-6 pt-10 pb-12 lg:pt-14 lg:pb-16">
+      <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-10 lg:gap-14 items-center">
+        <div>
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-line shadow-soft text-[12.5px] font-bold">
+            <span class="relative h-2 w-2 rounded-full bg-coral pulse-dot"></span>
+            4,283 verified beds live in Jaipur
+          </span>
+          <h1 class="mt-5 text-[38px] leading-[1.06] sm:text-[52px] lg:text-[58px] font-extrabold tracking-[-0.03em]">
+            Find your next<br><span class="gradtext">home & roommate</span><br>without brokerage.
+          </h1>
+          <p class="mt-5 text-[15.5px] sm:text-[16.5px] text-gray-500 max-w-xl leading-relaxed">
+            Roomzy brings together verified PGs, hostels and co-living spaces in Sitapura, Malviya Nagar & Jagatpura — plus a smart compatibility engine that matches you with flatmates you'll actually get along with.
+          </p>
+
+          <div class="mt-7 flex flex-wrap items-center gap-3">
+            <a href="#explore" class="shine inline-flex items-center gap-2 h-12 px-6 rounded-2xl bg-coral text-white font-bold shadow-redglow hover:bg-coral-dark transition">
+              Explore stays &rarr;
+            </a>
+            <a href="#roommates" class="inline-flex items-center gap-2 h-12 px-6 rounded-2xl bg-white border border-line font-bold hover:border-ink transition">
+              <svg class="h-4 w-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
+              Find a roommate
+            </a>
+          </div>
+
+          <div class="mt-9 flex flex-wrap gap-x-9 gap-y-4">
+            <div><p class="text-2xl font-extrabold">12k+</p><p class="text-[13px] text-gray-500 font-medium">Verified listings</p></div>
+            <div class="hidden sm:block w-px bg-line"></div>
+            <div><p class="text-2xl font-extrabold">38k+</p><p class="text-[13px] text-gray-500 font-medium">Happy tenants</p></div>
+            <div class="hidden sm:block w-px bg-line"></div>
+            <div><p class="text-2xl font-extrabold">4.8<span class="text-coral">★</span></p><p class="text-[13px] text-gray-500 font-medium">Avg. rating</p></div>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="relative rounded-4xl overflow-hidden shadow-card border border-white/70 bg-white">
+            <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1000&q=70" alt="Shree Radhe Krishna PG Hostel" class="w-full h-[300px] sm:h-[400px] lg:h-[450px] object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-transparent to-transparent"></div>
+            <div class="absolute bottom-5 left-5 right-5 text-white">
+              <p class="text-[11px] font-bold uppercase tracking-[.16em] text-white/70">FEATURED SITAPURA STAY</p>
+              <p class="text-xl sm:text-2xl font-extrabold mt-1">Shree Radhe Krishna PG Hostel</p>
+              <p class="text-sm text-white/80 font-medium mt-0.5">From ₹6,500/mo · Near JECRC, Poornima & Mahatma Gandhi · 3 beds left</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORY CHIPS ROW -->
+  <section class="max-w-[1500px] mx-auto px-4 sm:px-6 pt-8">
+    <div class="flex items-end justify-between gap-4 mb-4">
+      <div>
+        <h2 class="text-[22px] sm:text-[26px] font-extrabold tracking-tight">Browse by stay type</h2>
+        <p class="text-[14px] text-gray-500 mt-0.5">Handpicked options for students & working professionals</p>
+      </div>
+    </div>
+    <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2" id="catRow"></div>
+  </section>
+
+  <!-- MAIN LISTINGS -->
   <section id="explore" class="max-w-[1500px] mx-auto px-4 sm:px-6 py-8 lg:py-12">
     <div class="grid lg:grid-cols-[288px_1fr] gap-7">
 
@@ -262,6 +323,13 @@ tailwind.config = {
 let pannellumViewer = null;
 
 const CITIES = ['Jaipur (All)','Sitapura','Malviya Nagar','Vaishali Nagar','Jagatpura','Raja Park','Gopalpura Bypass','Mansarovar'];
+
+const CATS = [
+  {t:'All', d:'8,000+ stays'},
+  {t:'PG', d:'4,120 stays'},
+  {t:'Hostel', d:'1,860 stays'},
+  {t:'Co-living', d:'2,340 stays'}
+];
 
 const AMENITIES = [
   {id:'wifi', label:'High-speed WiFi'},
@@ -380,6 +448,27 @@ const saved = new Set();
 const $ = s => document.querySelector(s);
 const inr = n => '₹' + n.toLocaleString('en-IN');
 
+function renderCats(){
+  $('#catRow').innerHTML = CATS.map(c=>`
+    <button onclick="setCategory('${c.t}')" class="shrink-0 flex items-center gap-3 pl-4 pr-5 py-3.5 rounded-2xl border ${state.category===c.t?'border-coral bg-coral-50 text-coral':'border-line bg-white'} hover:border-coral transition text-left">
+      <div><span class="block text-[14.5px] font-extrabold whitespace-nowrap">${c.t}</span><span class="block text-[12px] text-gray-400 font-semibold whitespace-nowrap">${c.d}</span></div>
+    </button>`).join('');
+}
+
+function setCategory(cat){
+  state.category = state.category === cat ? 'All' : cat;
+  renderCats();
+  render();
+}
+
+function renderCities(){
+  $('#cityGrid').innerHTML = CITIES.map(c=>`<button onclick="pickCity('${c}')" class="px-3 py-2 rounded-xl text-xs font-bold text-left border ${state.city===c?'border-coral bg-coral-50 text-coral':'border-line'} hover:border-coral">${c}</button>`).join('');
+}
+
+function pickCity(c){
+  state.city = c; $('#cityLabel').textContent = c; $('#resCity').textContent = c; $('#cityPop').classList.add('hidden'); renderCities(); render();
+}
+
 function renderFilterControls(){
   const OCC = ['Single','Double','Triple','Shared'];
   $('#occRow').innerHTML = OCC.map(o=>`<button onclick="toggleOcc('${o}')" class="px-3.5 py-2 rounded-xl text-xs font-bold border ${state.occ.includes(o)?'border-coral bg-coral text-white':'border-line bg-white'}">${o}</button>`).join('');
@@ -401,15 +490,7 @@ function toggleAmen(a){ state.amen.includes(a) ? state.amen.splice(state.amen.in
 function resetFilters(){
   state.min=3000; state.max=40000; state.gender='Any'; state.occ=[]; state.amen=[]; state.category='All'; state.city='Jaipur (All)';
   $('#sMin').value=3000; $('#sMax').value=40000;
-  render();
-}
-
-function renderCities(){
-  $('#cityGrid').innerHTML = CITIES.map(c=>`<button onclick="pickCity('${c}')" class="px-3 py-2 rounded-xl text-xs font-bold text-left border ${state.city===c?'border-coral bg-coral-50 text-coral':'border-line'} hover:border-coral">${c}</button>`).join('');
-}
-
-function pickCity(c){
-  state.city = c; $('#cityLabel').textContent = c; $('#resCity').textContent = c; $('#cityPop').classList.add('hidden'); renderCities(); render();
+  renderCats(); renderCities(); render();
 }
 
 function render(){
@@ -417,6 +498,7 @@ function render(){
     if(l.price < state.min || l.price > state.max) return false;
     if(state.gender!=='Any' && l.gender!==state.gender && l.gender!=='Unisex') return false;
     if(state.occ.length && !state.occ.some(o=>l.occ.includes(o))) return false;
+    if(state.category!=='All' && l.type!==state.category) return false;
     if(state.city!=='Jaipur (All)' && !l.area.includes(state.city)) return false;
     return true;
   });
@@ -470,7 +552,7 @@ function openProp(id){
   $('#pmBody').innerHTML = `
     <div class="p-6">
       <div class="flex items-center gap-3 mb-4 border-b border-line pb-3">
-        <button id="tabPhotosBtn" onclick="switchMediaTab('photos')" class="px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs">🖼️️ Photos Gallery</button>
+        <button id="tabPhotosBtn" onclick="switchMediaTab('photos')" class="px-4 py-2 rounded-xl bg-coral text-white font-extrabold text-xs">🖼 Photos Gallery</button>
         <button id="tab360Btn" onclick="switchMediaTab('360', '${l.panorama}')" class="px-4 py-2 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs">🔄 360° Virtual Tour</button>
       </div>
 
@@ -534,7 +616,7 @@ document.addEventListener('click', e => {
   }
 });
 
-renderCities(); render();
+renderCats(); renderCities(); render();
 </script>
 </body>
 </html>
