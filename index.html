@@ -495,7 +495,6 @@ async function handlePublishPG(e){
     imageUrl = URL.createObjectURL(fileInput.files[0]);
   }
 
-  const selectedAmen = amen;
   const newProperty = {
     id: Date.now(),
     name: $('#pgName').value.trim(),
@@ -505,36 +504,36 @@ async function handlePublishPG(e){
     rating: 5.0,
     gender: $('#pgGender').value,
     occ: $('#pgOcc').value,
-    amen: selectedAmen,
+    amen: amen,
     nearby: $('#pgNearby').value.trim(),
     phone: $('#pgPhone').value.trim(),
     img: imageUrl,
     tag: 'Newly Listed'
   };
 
+  // Save to persistent browser storage so it never disappears on refresh/reload
+  let savedCustomPgs = [];
   try {
-    await supabase.from('properties').insert([{
-      name: newProperty.name,
-      area: newProperty.area,
-      price: newProperty.price,
-      gender: newProperty.gender,
-      phone: newProperty.phone,
-      img: newProperty.img
-    }]);
-  } catch(err) {
-    console.log("Supabase sync note:", err);
-  }
+    savedCustomPgs = JSON.parse(localStorage.getItem('roomzy_custom_pgs') || '[]');
+  } catch(e) {}
+  
+  savedCustomPgs.unshift(newProperty);
+  localStorage.setItem('roomzy_custom_pgs', JSON.stringify(savedCustomPgs));
 
-  liveProperties.unshift(newProperty);
   showToast('🎉 PG Listed Successfully Live!');
   showTenantView();
 }
 
 async function fetchPropertiesFromDatabase(){
+  let customPgs = [];
+  try {
+    customPgs = JSON.parse(localStorage.getItem('roomzy_custom_pgs') || '[]');
+  } catch(e) {}
+
   try {
     const { data, error } = await supabase.from('properties').select('*').order('id', { ascending: false });
     if(error || !data || data.length === 0){
-      liveProperties = [...INITIAL_MOCK_PGS];
+      liveProperties = [...customPgs, ...INITIAL_MOCK_PGS];
     } else {
       const dbFormatted = data.map(d => ({
         ...d,
@@ -542,10 +541,10 @@ async function fetchPropertiesFromDatabase(){
         amen: ['wifi', 'washing', 'food'],
         tag: 'Verified'
       }));
-      liveProperties = [...dbFormatted, ...INITIAL_MOCK_PGS];
+      liveProperties = [...customPgs, ...dbFormatted, ...INITIAL_MOCK_PGS];
     }
   } catch(e) {
-    liveProperties = [...INITIAL_MOCK_PGS];
+    liveProperties = [...customPgs, ...INITIAL_MOCK_PGS];
   }
   render();
 }
