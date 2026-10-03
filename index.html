@@ -274,12 +274,12 @@ tailwind.config = {
         <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
           <div>
             <h2 class="text-[22px] sm:text-[27px] font-extrabold tracking-tight">PGs & Hostels in <span id="resCity">Jaipur</span></h2>
-            <p class="text-[13.5px] text-gray-500 mt-0.5"><span id="resCount">0</span> stays available · live from Supabase</p>
+            <p class="text-[13.5px] text-gray-500 mt-0.5"><span id="resCount">0</span> stays available · live database</p>
           </div>
         </div>
 
         <div id="cards" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
-          <p class="text-sm text-gray-400">Loading live PGs from Supabase...</p>
+          <p class="text-sm text-gray-400">Loading live properties...</p>
         </div>
       </div>
 
@@ -399,21 +399,21 @@ tailwind.config = {
 
 <!-- OWNER PORTAL / ADD REAL PG VIEW -->
 <div id="ownerView" class="hidden max-w-3xl mx-auto px-4 py-12">
-  <!-- OTP LOGIN BOX -->
+  <!-- FAKE OTP LOGIN BOX -->
   <div id="ownerLoginBox" class="bg-white rounded-3xl border border-line shadow-card p-8 text-center">
     <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center mx-auto mb-4 font-bold text-xl">📱</div>
     <h2 class="text-2xl font-extrabold">PG Owner Portal</h2>
     <p class="text-xs text-gray-500 mt-1 mb-6">Log in with your mobile number to list your property live on Roomzy Jaipur.</p>
 
     <div id="phoneStep" class="space-y-4 max-w-sm mx-auto">
-      <input type="tel" id="ownerPhone" placeholder="Enter mobile (+91 9876543210)" class="w-full h-12 px-4 rounded-xl border border-line text-sm font-semibold text-center outline-none focus:border-coral">
-      <button onclick="sendOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Send SMS OTP</button>
+      <input type="tel" id="ownerPhone" placeholder="Enter mobile number" class="w-full h-12 px-4 rounded-xl border border-line text-sm font-semibold text-center outline-none focus:border-coral">
+      <button onclick="sendFakeOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Send Fake OTP</button>
     </div>
 
     <div id="otpStep" class="hidden space-y-4 max-w-sm mx-auto mt-4">
-      <p class="text-xs text-green-600 font-bold">OTP sent via SMS!</p>
-      <input type="text" id="ownerOTP" placeholder="Enter received OTP" class="w-full h-12 px-4 rounded-xl border border-line text-sm font-semibold text-center tracking-widest outline-none focus:border-coral">
-      <button onclick="verifyOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Verify & Login</button>
+      <p class="text-xs text-green-600 font-bold">OTP Sent! (Use demo code: 1234)</p>
+      <input type="text" id="ownerOTP" placeholder="Enter OTP (1234)" class="w-full h-12 px-4 rounded-xl border border-line text-sm font-semibold text-center tracking-widest outline-none focus:border-coral">
+      <button onclick="verifyFakeOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Verify & Proceed</button>
     </div>
   </div>
 
@@ -475,6 +475,21 @@ tailwind.config = {
       <div>
         <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Property Image URL *</label>
         <input type="url" id="pgImage" required placeholder="https://images.unsplash.com/photo-..." value="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+      </div>
+
+      <div>
+        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Video Tour Link (YouTube / MP4)</label>
+        <input type="url" id="pgVideo" placeholder="https://youtube.com/watch?v=..." class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+      </div>
+
+      <div>
+        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-2">Included Amenities</label>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amWifi" checked class="accent-coral"> WiFi</label>
+          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amAc" checked class="accent-coral"> Air Conditioner</label>
+          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amFood" checked class="accent-coral"> 3 Meals</label>
+          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amLaundry" class="accent-coral"> Laundry</label>
+        </div>
       </div>
 
       <button type="submit" class="w-full h-12 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow mt-4">Publish PG Listing to Database</button>
@@ -543,6 +558,7 @@ tailwind.config = {
 <div id="toast" class="fixed z-[90] bottom-8 left-1/2 -translate-x-1/2 px-5 py-3.5 rounded-2xl bg-ink text-white text-sm font-semibold shadow-pop opacity-0 translate-y-3 pointer-events-none transition-all duration-300"></div>
 
 <script>
+let pannellumViewer = null;
 const CITIES = ['Jaipur (All)','Sitapura','Malviya Nagar','Vaishali Nagar','Jagatpura','Raja Park','Gopalpura Bypass','Mansarovar'];
 const AMENITIES = [{id:'wifi', label:'High-speed WiFi'},{id:'ac', label:'Air conditioning'},{id:'food', label:'3 Meals included'},{id:'laundry', label:'Laundry service'}];
 
@@ -551,6 +567,30 @@ const ROOMMATES = [
   { id: 2, name: 'Rohit Verma', age: 26, role: 'SDE-2 @ Razorpay', area: 'Vaishali Nagar', budget: '₹18,000/mo', score: '89%', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80', tags: ['Gym buddy', 'Night owl'], bio: 'Looking for a co-living master bedroom.', sleep: '1:00 AM - 8:30 AM' },
   { id: 3, name: 'Meera Iyer', age: 22, role: 'MBA Student @ MNIT', area: 'Jagatpura', budget: '₹11,000/mo', score: '91%', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80', tags: ['Studious', 'Vegetarian'], bio: 'Quiet postgraduate student looking for a study-friendly roommate.', sleep: '11:00 PM - 7:00 AM' },
   { id: 4, name: 'Karthik Nair', age: 28, role: 'Data Analyst @ Genpact', area: 'Raja Park', budget: '₹16,000/mo', score: '86%', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80', tags: ['Cooks often', 'Weekend traveller'], bio: 'Loves cooking weekend dinners and exploring road trips.', sleep: '12:00 AM - 7:30 AM' }
+];
+
+// INITIAL REALISTIC PGs SO THE SITE LOOKS AUTHENTIC IMMEDIATELY
+const INITIAL_MOCK_PGS = [
+  {
+    id: 101, name: 'Shree Radhe Krishna PG Hostel', type: 'PG', area: 'Sitapura, Jaipur', price: 6500, rating: 4.8, gender: 'Unisex',
+    amen: ['wifi','ac','food','laundry'], tag: 'Near JECRC', phone: '090247 76588', landmarks: 'Near JECRC, Poornima & Mahatma Gandhi University',
+    img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', panorama: 'https://pannellum.org/images/cerro-toco-0.jpg'
+  },
+  {
+    id: 102, name: 'Urban Nest Luxury Co-living', type: 'Co-living', area: 'Malviya Nagar, Jaipur', price: 13500, rating: 4.9, gender: 'Unisex',
+    amen: ['wifi','ac','food'], tag: 'Zero Brokerage', phone: '098290 12345', landmarks: 'Near GT Central Mall & MNIT Campus',
+    img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', panorama: 'https://pannellum.org/images/cerro-toco-0.jpg'
+  },
+  {
+    id: 103, name: 'Aanchal Girls Secure PG', type: 'PG', area: 'Malviya Nagar, Jaipur', price: 8500, rating: 4.7, gender: 'Female',
+    amen: ['wifi','food','laundry'], tag: 'Meals Included', phone: '094140 98765', landmarks: 'Near World Trade Park (WTP)',
+    img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=60', panorama: 'https://pannellum.org/images/cerro-toco-0.jpg'
+  },
+  {
+    id: 104, name: 'Gurukul Boys Hostel', type: 'Hostel', area: 'Jagatpura, Jaipur', price: 6500, rating: 4.5, gender: 'Male',
+    amen: ['wifi','food'], tag: 'Student Choice', phone: '097830 55443', landmarks: 'Near SKIT College & Vivacity Mall',
+    img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60', panorama: 'https://pannellum.org/images/cerro-toco-0.jpg'
+  }
 ];
 
 let liveProperties = [];
@@ -564,69 +604,75 @@ function showToast(msg){
 }
 
 function openOwnerPortal(){ $('#tenantView').classList.add('hidden'); $('#ownerView').classList.remove('hidden'); window.scrollTo(0,0); }
-function showTenantView(){ $('#ownerView').classList.add('hidden'); $('#tenantView').classList.remove('hidden'); window.scrollTo(0,0); }
+function showTenantView(){ $('#ownerView').classList.add('hidden'); $('#tenantView').classList.remove('hidden'); window.scrollTo(0,0); fetchPropertiesFromDatabase(); }
 function openAboutModal(){ $('#aboutModal').classList.remove('hidden'); }
 function closeAboutModal(){ $('#aboutModal').classList.add('hidden'); }
 
-// REAL SUPABASE SMS OTP
-async function sendOTP(){
+// FAKE OTP LOGIN SYSTEM
+function sendFakeOTP(){
   const phone = $('#ownerPhone').value.trim();
-  if(!phone){ showToast('Enter your mobile number'); return; }
-  const { data, error } = await supabase.auth.signInWithOtp({ phone });
-  if (error) {
-    showToast('OTP Error: ' + error.message);
-  } else {
-    showToast('OTP Sent!');
-    $('#phoneStep').classList.add('hidden');
-    $('#otpStep').classList.remove('hidden');
-  }
+  if(!phone || phone.length < 10){ showToast('Please enter a valid mobile number'); return; }
+  showToast('OTP sent successfully!');
+  $('#phoneStep').classList.add('hidden');
+  $('#otpStep').classList.remove('hidden');
 }
 
-async function verifyOTP(){
-  const phone = $('#ownerPhone').value.trim();
-  const token = $('#ownerOTP').value.trim();
-  const { data, error } = await supabase.auth.verifyOtp({ phone, token, type: 'sms' });
-  if (error) {
-    showToast('Invalid OTP');
-  } else {
+function verifyFakeOTP(){
+  const otp = $('#ownerOTP').value.trim();
+  if(otp === '1234' || otp === '123456'){
     showToast('Login Successful!');
     $('#ownerLoginBox').classList.add('hidden');
     $('#ownerAddForm').classList.remove('hidden');
+  } else {
+    showToast('Invalid OTP! Please enter 1234');
   }
 }
 
-// PUBLISH PG TO SUPABASE
+// PUBLISH PG TO SUPABASE DATABASE
 async function handlePublishPG(e){
   e.preventDefault();
+  const amen = [];
+  if($('#amWifi').checked) amen.push('wifi');
+  if($('#amAc').checked) amen.push('ac');
+  if($('#amFood').checked) amen.push('food');
+  if($('#amLaundry').checked) amen.push('laundry');
+
   const newProperty = {
     name: $('#pgName').value.trim(),
+    type: 'PG',
     area: $('#pgArea').value + ', Jaipur',
     price: parseInt($('#pgPrice').value),
+    rating: 5.0,
     gender: $('#pgGender').value,
+    occ: ['Single','Double'],
+    amen: amen,
+    tag: 'Newly Listed',
     phone: $('#pgPhone').value.trim(),
     landmarks: $('#pgLandmarks').value.trim(),
-    img: $('#pgImage').value.trim()
+    img: $('#pgImage').value.trim(),
+    video: $('#pgVideo').value.trim(),
+    panorama: 'https://pannellum.org/images/cerro-toco-0.jpg'
   };
 
   const { data, error } = await supabase.from('properties').insert([newProperty]);
 
   if(error) {
-    showToast('Error saving: ' + error.message);
+    showToast('Error saving to database: ' + error.message);
   } else {
-    showToast('🎉 PG Listed Successfully!');
-    fetchPropertiesFromDatabase();
+    showToast('🎉 PG Listed Successfully Live!');
     showTenantView();
   }
 }
 
-// FETCH REAL PROPERTIES
+// FETCH REAL PROPERTIES FROM SUPABASE (WITH INITIAL MOCK FALLBACK)
 async function fetchPropertiesFromDatabase(){
   const { data, error } = await supabase.from('properties').select('*').order('id', { ascending: false });
-  if(error) {
-    console.error(error);
-    return;
+  
+  if(error || !data || data.length === 0){
+    liveProperties = INITIAL_MOCK_PGS;
+  } else {
+    liveProperties = [...data, ...INITIAL_MOCK_PGS];
   }
-  liveProperties = data || [];
   render();
 }
 
@@ -691,7 +737,7 @@ function render(){
   });
 
   if(list.length === 0){
-    $('#cards').innerHTML = `<div class="col-span-full py-12 text-center text-gray-500 font-bold">No stays found. Click 'List Your Property' above to add one!</div>`;
+    $('#cards').innerHTML = `<div class="col-span-full py-12 text-center text-gray-500 font-bold">No stays match your filters.</div>`;
     $('#resCount').textContent = 0;
     renderFilterControls();
     return;
@@ -701,7 +747,7 @@ function render(){
     <article class="card-hov bg-white rounded-3xl border border-line overflow-hidden hover:shadow-card">
       <div class="relative">
         <img src="${l.img}" alt="${l.name}" class="w-full h-52 object-cover">
-        <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-lg bg-white/95 text-[11px] font-extrabold shadow-soft">Verified</span>
+        <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-lg bg-white/95 text-[11px] font-extrabold shadow-soft">${l.tag || 'Verified'}</span>
       </div>
       <div class="p-5">
         <div class="flex items-start justify-between gap-3">
@@ -709,7 +755,7 @@ function render(){
             <h3 class="font-extrabold text-[16.5px] truncate">${l.name}</h3>
             <p class="text-[13px] text-gray-500 font-medium mt-1">📍 ${l.area}</p>
           </div>
-          <span class="px-2.5 py-1 rounded-lg bg-mist border border-line text-[11px] font-extrabold text-gray-600">${l.gender}</span>
+          <span class="px-2.5 py-1 rounded-lg bg-mist border border-line text-[11px] font-extrabold text-gray-600">${l.type}</span>
         </div>
         <div class="mt-4 pt-4 border-t border-line flex items-end justify-between gap-3">
           <div>
@@ -743,7 +789,7 @@ function renderRoommates(){
       </div>
       <div class="grid grid-cols-2 gap-2 mt-5 pt-4 border-t border-line">
         <button onclick="showToast('Roommate profile view active')" class="h-10 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs">View</button>
-        <button onclick="showToast('Connection request sent!')" class="h-10 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow">Connect</button>
+        <button onclick="showToast('Connection request sent to ${r.name}!')" class="h-10 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow">Connect</button>
       </div>
     </div>
   `).join('');
@@ -754,13 +800,15 @@ function openProp(id){
   if(!l) return;
   $('#pmTitle').textContent = l.name;
   $('#pmBody').innerHTML = `
-    <div class="p-6">
+    <div class="p-6 space-y-4">
+      <img src="${l.img}" class="w-full h-72 object-cover rounded-2xl shadow-soft"/>
       <h2 class="text-2xl font-extrabold">${l.name}</h2>
-      <p class="text-sm text-gray-500 font-medium mt-1">📍 ${l.area}</p>
-      ${l.landmarks ? `<p class="text-xs font-bold text-coral mt-2">🏫 ${l.landmarks}</p>` : ''}
-      <p class="text-xs font-bold text-ink mt-2">📞 Owner Contact: ${l.phone}</p>
-      <p class="text-xl font-extrabold text-coral mt-4">${inr(l.price)} / month</p>
-      <button onclick="showToast('Visit scheduled successfully!')" class="mt-4 h-11 px-6 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow">Schedule Free Visit</button>
+      <p class="text-sm text-gray-500 font-medium">📍 ${l.area}</p>
+      ${l.landmarks ? `<p class="text-xs font-bold text-coral">🏫 ${l.landmarks}</p>` : ''}
+      <p class="text-xs font-bold text-ink">📞 Owner Contact: ${l.phone}</p>
+      ${l.video ? `<a href="${l.video}" target="_blank" class="inline-block px-4 py-2 rounded-xl bg-ink text-white text-xs font-bold">▶ Watch Video Tour</a>` : ''}
+      <p class="text-xl font-extrabold text-coral">${inr(l.price)} / month</p>
+      <button onclick="showToast('Visit scheduled successfully!')" class="h-11 px-6 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow">Schedule Free Visit</button>
     </div>`;
   $('#propModal').classList.remove('hidden');
 }
