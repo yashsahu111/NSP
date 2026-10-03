@@ -440,7 +440,7 @@ tailwind.config = {
           RoomZy is Jaipur's leading student and professional rental platform providing verified zero-brokerage PGs, hostels, and co-living spaces with complete appliance transparency and 360° virtual tours.
         </p>
         <div class="flex items-center gap-3 pt-2">
-          <span class="px-3 py-1.5 rounded-xl bg-gray-800 text-xs font-bold text-gray-300">🛡️ 100% Verified Listings</span>
+          <span class="px-3 py-1.5 rounded-xl bg-gray-800 text-xs font-bold text-gray-300">🛡️️ 100% Verified Listings</span>
           <span class="px-3 py-1.5 rounded-xl bg-gray-800 text-xs font-bold text-gray-300">⚡ Zero Brokerage</span>
         </div>
       </div>
@@ -501,6 +501,36 @@ tailwind.config = {
       <button onclick="closeProp()" class="h-9 w-9 grid place-items-center rounded-xl hover:bg-mist border border-line">✕</button>
     </div>
     <div class="flex-1 overflow-y-auto" id="pmBody"></div>
+  </div>
+</div>
+
+<!-- DIGITAL KYC & BOOKING MODAL -->
+<div id="kycModal" class="hidden fixed inset-0 z-[85]">
+  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeKycModal()"></div>
+  <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[500px] bg-white rounded-3xl shadow-pop p-6 sm:p-8">
+    <button onclick="closeKycModal()" class="absolute right-4 top-4 h-9 w-9 grid place-items-center rounded-xl hover:bg-mist border border-line">✕</button>
+    <div class="text-left space-y-4">
+      <span class="px-3 py-1 rounded-full bg-coral-50 text-coral font-bold text-xs">Zero Brokerage Booking</span>
+      <h2 class="text-xl font-extrabold" id="kycModalTitle">Digital Tenant KYC & Bed Reservation</h2>
+      <p class="text-xs text-gray-500 leading-relaxed font-medium">Since you have spoken with the owner and finalized your stay, submit your details below to generate your digital agreement and hold your bed with a ₹500 token.</p>
+      
+      <div class="space-y-3 pt-2">
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Full Student / Professional Name *</label>
+          <input type="text" id="kycFullName" placeholder="e.g. Rahul Sharma" class="w-full h-11 px-3 rounded-xl border border-line text-xs font-semibold outline-none focus:border-coral">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Mobile Number *</label>
+          <input type="tel" id="kycPhone" placeholder="e.g. 9828011223" class="w-full h-11 px-3 rounded-xl border border-line text-xs font-semibold outline-none focus:border-coral">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase mb-1">College / Office ID Number *</label>
+          <input type="text" id="kycIdNum" placeholder="e.g. 24BCSE1022 or Employee ID" class="w-full h-11 px-3 rounded-xl border border-line text-xs font-semibold outline-none focus:border-coral">
+        </div>
+      </div>
+
+      <button onclick="submitKycBooking()" class="w-full h-12 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow mt-2">Submit KYC & Pay ₹500 Token</button>
+    </div>
   </div>
 </div>
 
@@ -579,6 +609,7 @@ const INITIAL_MOCK_PGS = [
 
 let liveProperties = [];
 let currentModalTab = 'photos';
+let selectedPgName = '';
 const state = { city:'Jaipur (All)', min:7000, max:20000, gender:'Any', occ:[], amen:[] };
 const $ = s => document.querySelector(s);
 const inr = n => '₹' + n.toLocaleString('en-IN');
@@ -879,7 +910,7 @@ function renderModalContent(l){
         <p class="text-sm text-gray-500 font-medium mt-1">📍 ${l.area}</p>
       </div>
 
-      <!-- FEATURE 1: PARENT TRUST & SAFETY SCORE -->
+      <!-- PARENT TRUST & SAFETY SCORE -->
       <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-100 space-y-2">
         <p class="text-xs font-extrabold uppercase tracking-wider text-indigo-700">🛡️ Parent Trust & Safety Score (${trust.safety})</p>
         <div class="grid sm:grid-cols-3 gap-3 pt-1">
@@ -898,7 +929,7 @@ function renderModalContent(l){
         </div>
       </div>
 
-      <!-- FEATURE 3: TRANSPARENT HOUSE RULES & CURFEW -->
+      <!-- TRANSPARENT HOUSE RULES & CURFEW -->
       <div class="p-4 rounded-2xl bg-mist border border-line space-y-2">
         <p class="text-xs font-extrabold uppercase tracking-wider text-gray-400">📋 Transparent House Rules & Agreement Info</p>
         <div class="grid sm:grid-cols-2 gap-2 text-xs font-semibold text-gray-700 pt-1">
@@ -922,7 +953,7 @@ function renderModalContent(l){
         <p class="text-xs font-semibold text-green-900 mt-1">${l.nearby}</p>
       </div>` : ''}
 
-      <!-- FEATURE 5: VERIFIED RESIDENT REVIEWS -->
+      <!-- VERIFIED RESIDENT REVIEWS -->
       <div class="space-y-3 pt-2">
         <p class="text-xs font-extrabold uppercase tracking-wider text-gray-400">⭐ Verified Resident & Student Reviews</p>
         <div class="space-y-2">
@@ -930,37 +961,41 @@ function renderModalContent(l){
         </div>
       </div>
 
-      <!-- FEATURE 4: DIGITAL TENANT KYC & RESERVATION -->
-      <div class="p-5 rounded-3xl bg-coral-50 border border-coral-200 space-y-4">
+      <!-- CONTACT OWNER & DECISION ACTION BAR -->
+      <div class="p-5 rounded-3xl bg-coral-50 border border-coral-200 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          <h4 class="text-sm font-extrabold text-coral-dark">📝 Digital KYC & Bed Reservation Form</h4>
-          <p class="text-xs text-gray-600 mt-0.5">Submit your student/professional ID to instantly lock your bed with a fully-refundable ₹500 UPI token.</p>
+          <p class="text-xs text-gray-500 font-bold uppercase">Monthly Rent: <strong class="text-coral text-base">${inr(l.price)} / mo</strong></p>
+          <p class="text-xs text-gray-600 mt-0.5">Spoken with the owner? Ready to finalize your room?</p>
         </div>
-        <div class="grid sm:grid-cols-2 gap-3">
-          <input type="text" id="tenantName" placeholder="Full Student/Pro Name" class="h-10 px-3 rounded-xl border border-line text-xs font-semibold bg-white outline-none focus:border-coral">
-          <input type="tel" id="tenantPhone" placeholder="Mobile Number" class="h-10 px-3 rounded-xl border border-line text-xs font-semibold bg-white outline-none focus:border-coral">
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <a href="tel:${l.phone}" class="flex-1 sm:flex-none h-11 px-5 rounded-2xl bg-white border border-coral text-coral font-extrabold text-xs grid place-items-center hover:bg-coral-50">📞 Call Owner (${l.phone})</a>
+          <button onclick="openKycModal('${l.name}')" class="flex-1 sm:flex-none h-11 px-6 rounded-2xl bg-coral text-white font-extrabold text-xs shadow-redglow">Proceed to Digital KYC & Book</button>
         </div>
-        <button onclick="submitTenantKYC('${l.name}')" class="w-full h-11 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow">Complete Digital KYC & Hold Bed (₹500)</button>
-      </div>
-
-      <div class="flex items-center justify-between pt-2">
-        <div>
-          <p class="text-xs text-gray-400 font-bold uppercase">Monthly Rent</p>
-          <p class="text-2xl font-extrabold text-coral">${inr(l.price)} / mo</p>
-        </div>
-        <a href="tel:${l.phone}" class="h-12 px-6 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow grid place-items-center">📞 Contact Owner (${l.phone})</a>
       </div>
     </div>`;
 }
 
-function submitTenantKYC(pgName){
-  const name = $('#tenantName').value.trim();
-  const phone = $('#tenantPhone').value.trim();
-  if(!name || !phone || phone.length < 10){
-    showToast('Please enter valid name and mobile number for KYC');
+function openKycModal(pgName){
+  selectedPgName = pgName;
+  $('#kycModalTitle').textContent = `Digital KYC & Booking for ${pgName}`;
+  $('#kycModal').classList.remove('hidden');
+}
+
+function closeKycModal(){
+  $('#kycModal').classList.add('hidden');
+}
+
+function submitKycBooking(){
+  const name = $('#kycFullName').value.trim();
+  const phone = $('#kycPhone').value.trim();
+  const idNum = $('#kycIdNum').value.trim();
+  
+  if(!name || !phone || phone.length < 10 || !idNum){
+    showToast('Please fill out all KYC details and ID number');
     return;
   }
-  showToast('🎉 Bed Reserved Successfully! KYC & Agreement generated.');
+  showToast('🎉 Digital KYC Verified & Bed Reserved Successfully!');
+  closeKycModal();
   closeProp();
 }
 
