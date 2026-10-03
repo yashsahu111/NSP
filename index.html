@@ -207,6 +207,43 @@ tailwind.config = {
     </div>
   </section>
 
+  <!-- WHY ROOMZY SECTION -->
+  <section id="perks" class="py-16 bg-white border-b border-line">
+    <div class="max-w-[1500px] mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="px-3.5 py-1.5 rounded-full bg-coral-50 text-coral font-extrabold text-xs">The RoomZy Advantage</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-3">Why Students & Professionals Choose RoomZy</h2>
+        <p class="text-sm text-gray-500 mt-2 font-medium">We make finding student housing in Jaipur transparent, secure, and completely free of brokerage fees.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="p-6 rounded-3xl bg-mist border border-line space-y-3 card-hov">
+          <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center text-xl font-bold">⚡</div>
+          <h3 class="text-lg font-extrabold">Zero Brokerage</h3>
+          <p class="text-xs text-gray-500 leading-relaxed font-medium">Connect directly with verified property owners without paying any hidden middleman broker fees.</p>
+        </div>
+
+        <div class="p-6 rounded-3xl bg-mist border border-line space-y-3 card-hov">
+          <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center text-xl font-bold">🛡️</div>
+          <h3 class="text-lg font-extrabold">100% Verified PGs</h3>
+          <p class="text-xs text-gray-500 leading-relaxed font-medium">Every hostel and co-living space is physically inspected for safety, food hygiene, and student friendliness.</p>
+        </div>
+
+        <div class="p-6 rounded-3xl bg-mist border border-line space-y-3 card-hov">
+          <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center text-xl font-bold">🔄</div>
+          <h3 class="text-lg font-extrabold">360° Virtual Tours</h3>
+          <p class="text-xs text-gray-500 leading-relaxed font-medium">Explore rooms remotely with immersive 360-degree panoramic views uploaded directly by owners.</p>
+        </div>
+
+        <div class="p-6 rounded-3xl bg-mist border border-line space-y-3 card-hov">
+          <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center text-xl font-bold">🧺</div>
+          <h3 class="text-lg font-extrabold">Appliance Clarity</h3>
+          <p class="text-xs text-gray-500 leading-relaxed font-medium">Know exactly what's included—from high-speed WiFi and washing machines to 3 meals a day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- MAIN LISTINGS SECTION -->
   <section id="explore" class="max-w-[1500px] mx-auto px-4 sm:px-6 py-8 lg:py-12">
     <div class="grid lg:grid-cols-[288px_1fr] gap-7">
@@ -375,7 +412,7 @@ tailwind.config = {
           <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amWater" checked class="accent-coral"> Water Cooler</label>
           <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amFridge" checked class="accent-coral"> Refrigerator</label>
           <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amOven" class="accent-coral"> Microwave / Oven</label>
-          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amFood" checked class="accent-coral"> 5 Meals Included</label>
+          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amFood" checked class="accent-coral"> 3 Meals Included</label>
         </div>
       </div>
 
@@ -425,10 +462,10 @@ tailwind.config = {
         <p class="text-xs font-extrabold uppercase tracking-widest text-coral">Quick Links</p>
         <ul class="space-y-2 text-sm text-gray-400 font-medium">
           <li><a href="#explore" onclick="showTenantView()" class="hover:text-white transition">Explore All PGs</a></li>
+          <li><a href="#perks" onclick="showTenantView()" class="hover:text-white transition">Why RoomZy</a></li>
           <li><button onclick="openOwnerPortal()" class="hover:text-white transition text-left">List Your Property</button></li>
           <li><button onclick="openOwnerPortal()" class="hover:text-white transition text-left">Owner Login Portal</button></li>
           <li><button onclick="openAboutModal()" class="hover:text-white transition text-left">About RoomZy</button></li>
-          <li><a href="tel:09828011223" class="hover:text-white transition">24/7 Helpline Support</a></li>
         </ul>
       </div>
 
@@ -489,7 +526,7 @@ const AMENITIES_LIST = [
   {id:'water', label:'Water Cooler'},
   {id:'fridge', label:'Refrigerator'},
   {id:'oven', label:'Microwave / Oven'},
-  {id:'food', label:'5 Meals Included'}
+  {id:'food', label:'3 Meals Included'}
 ];
 
 const INITIAL_MOCK_PGS = [
@@ -539,10 +576,6 @@ function showTenantView(){
   $('#ownerView').classList.add('hidden'); 
   $('#tenantView').classList.remove('hidden'); 
   fetchPropertiesFromDatabase();
-  setTimeout(() => {
-    const exploreSection = document.getElementById('explore');
-    if(exploreSection) exploreSection.scrollIntoView({behavior:'smooth'});
-  }, 100);
 }
 function openAboutModal(){ $('#aboutModal').classList.remove('hidden'); }
 function closeAboutModal(){ $('#aboutModal').classList.add('hidden'); }
@@ -774,7 +807,7 @@ function renderModalContent(l){
     water: '🚰 Water Cooler',
     fridge: '🧊 Refrigerator',
     oven: '🔥 Microwave / Oven',
-    food: '🍲 5 Meals Included'
+    food: '🍲 3 Meals Included'
   };
 
   const amenitiesHtml = l.amen ? l.amen.map(a => `<span class="px-3 py-1.5 rounded-xl bg-coral-50 text-coral text-xs font-bold">${amenLabels[a] || a}</span>`).join('') : '<span class="text-xs text-gray-400">Standard amenities</span>';
