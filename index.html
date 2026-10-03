@@ -384,10 +384,74 @@ tailwind.config = {
   </div>
 </div>
 
-<!-- FOOTER -->
-<footer class="bg-ink text-white pt-12 pb-8 border-t border-gray-800">
+<!-- RICH FOOTER SECTION -->
+<footer class="bg-ink text-white pt-16 pb-10 border-t border-gray-800">
   <div class="max-w-[1500px] mx-auto px-4 sm:px-6">
-    <div class="mt-6 text-center text-xs text-gray-500 font-medium">&copy; 2026 RoomZy Technologies Pvt. Ltd. All rights reserved.</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-gray-800">
+      
+      <!-- Col 1: Brand -->
+      <div class="lg:col-span-2 space-y-4">
+        <a href="#" onclick="showTenantView()" class="flex items-center gap-2.5">
+          <span class="grid place-items-center h-10 w-10 rounded-2xl bg-gradient-to-br from-coral to-[#FF6B5A] shadow-redglow">
+            <svg viewBox="0 0 24 24" class="h-[22px] w-[22px] text-white" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.8"/><path d="M9.5 21v-6h5v6"/>
+            </svg>
+          </span>
+          <span class="text-[22px] font-extrabold tracking-tight">Room<span class="text-coral">Zy</span> <span class="text-xs px-2 py-0.5 rounded-full bg-coral-50/20 text-coral font-bold ml-1">Jaipur</span></span>
+        </a>
+        <p class="text-sm text-gray-400 max-w-sm leading-relaxed">
+          RoomZy is Jaipur's leading student and professional rental platform providing verified zero-brokerage PGs, hostels, and co-living spaces with complete appliance transparency and 360° virtual tours.
+        </p>
+        <div class="flex items-center gap-3 pt-2">
+          <span class="px-3 py-1.5 rounded-xl bg-gray-800 text-xs font-bold text-gray-300">🛡️ 100% Verified Listings</span>
+          <span class="px-3 py-1.5 rounded-xl bg-gray-800 text-xs font-bold text-gray-300">⚡ Zero Brokerage</span>
+        </div>
+      </div>
+
+      <!-- Col 2: Top Locations -->
+      <div class="space-y-3">
+        <p class="text-xs font-extrabold uppercase tracking-widest text-coral">Top Localities</p>
+        <ul class="space-y-2 text-sm text-gray-400 font-medium">
+          <li><a href="#explore" onclick="pickCity('Sitapura')" class="hover:text-white transition">Sitapura PGs</a></li>
+          <li><a href="#explore" onclick="pickCity('Malviya Nagar')" class="hover:text-white transition">Malviya Nagar Hostels</a></li>
+          <li><a href="#explore" onclick="pickCity('Vaishali Nagar')" class="hover:text-white transition">Vaishali Nagar Co-living</a></li>
+          <li><a href="#explore" onclick="pickCity('Jagatpura')" class="hover:text-white transition">Jagatpura Student Rooms</a></li>
+          <li><a href="#explore" onclick="pickCity('Raja Park')" class="hover:text-white transition">Raja Park Stays</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Quick Links -->
+      <div class="space-y-3">
+        <p class="text-xs font-extrabold uppercase tracking-widest text-coral">Quick Links</p>
+        <ul class="space-y-2 text-sm text-gray-400 font-medium">
+          <li><a href="#explore" onclick="showTenantView()" class="hover:text-white transition">Explore All PGs</a></li>
+          <li><button onclick="openOwnerPortal()" class="hover:text-white transition text-left">List Your Property</button></li>
+          <li><button onclick="openOwnerPortal()" class="hover:text-white transition text-left">Owner Login Portal</button></li>
+          <li><button onclick="openAboutModal()" class="hover:text-white transition text-left">About RoomZy</button></li>
+          <li><a href="tel:09828011223" class="hover:text-white transition">24/7 Helpline Support</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Contact & Office -->
+      <div class="space-y-3">
+        <p class="text-xs font-extrabold uppercase tracking-widest text-coral">Jaipur Office</p>
+        <p class="text-sm text-gray-400 leading-relaxed font-medium">
+          Plot 14, Near Apex Circle, JLN Marg, Malviya Nagar, Jaipur, Rajasthan 302017
+        </p>
+        <p class="text-xs text-gray-400 pt-2 font-bold">Email: support@roomzy.in</p>
+        <p class="text-xs text-gray-400 font-bold">Helpline: +91 98280 11223</p>
+      </div>
+
+    </div>
+
+    <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500 font-medium">
+      <p>&copy; 2026 RoomZy Technologies Pvt. Ltd. All rights reserved.</p>
+      <div class="flex items-center gap-6">
+        <a href="#" class="hover:text-white transition">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition">Terms of Service</a>
+        <a href="#" class="hover:text-white transition">Security & Trust</a>
+      </div>
+    </div>
   </div>
 </footer>
 
@@ -434,14 +498,28 @@ const INITIAL_MOCK_PGS = [
     occ: 'Single', amen: ['wifi','washing','water','fridge','food'], nearby: 'Apollo Pharmacy (100m), Central Library (300m), Gold Gym (600m)',
     phone: '090247 76588', img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60',
     view360: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1200&q=80',
-    videos: []
+    videos: [], tag: 'Verified'
   },
   {
     id: 102, name: 'Urban Nest Luxury Co-living', type: 'Co-living', area: 'Malviya Nagar, Jaipur', price: 14500, rating: 4.9, gender: 'Unisex',
     occ: 'Single', amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Fortis Hospital (400m), WTP Library (200m), Anytime Fitness (500m)',
     phone: '098290 12345', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60',
     view360: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80',
-    videos: []
+    videos: [], tag: 'Bestseller'
+  },
+  {
+    id: 103, name: 'Royal Heritage Student Hostel', type: 'Hostel', area: 'Vaishali Nagar, Jaipur', price: 9200, rating: 4.7, gender: 'Male',
+    occ: 'Double', amen: ['wifi','washing','water','fridge','food'], nearby: 'Manipal Hospital (500m),Vaishali Library (200m)',
+    phone: '098281 99887', img: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=60',
+    view360: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80',
+    videos: [], tag: 'Verified'
+  },
+  {
+    id: 104, name: 'Greenwood Girls Luxury PG', type: 'PG', area: 'Mansarovar, Jaipur', price: 11000, rating: 4.9, gender: 'Female',
+    occ: 'Single', amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Metro Station (300m), Apex Hospital (600m)',
+    phone: '094140 55667', img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60',
+    view360: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80',
+    videos: [], tag: 'Top Rated'
   }
 ];
 
@@ -706,7 +784,7 @@ function renderModalContent(l){
     if(l.videos && l.videos.length > 0){
       mediaContainer = `<video controls class="w-full h-72 object-cover rounded-2xl shadow-soft"><source src="${l.videos[0]}" type="video/mp4">Your browser does not support video.</video>`;
     } else {
-      mediaContainer = `<div class="w-full h-72 bg-gray-100 rounded-2xl flex flex-col items-center justify-center text-gray-400 text-xs font-bold"><span>📹 No video uploaded by owner</span></div>`;
+      mediaContainer = `<div class="w-full h-72 bg-gray-100 rounded-2xl flex flex-col items-center justify-center text-gray-400 text-xs font-bold"><span>📹 Walkthrough video tour available on site visit</span></div>`;
     }
   } else if(currentModalTab === '360'){
     mediaContainer = `
