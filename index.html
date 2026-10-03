@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roomzy Jaipur — Find PGs, Hostels, Co-living & Roommates</title>
-<meta name="description" content="Roomzy helps students & professionals find verified PGs, hostels, co-living spaces and compatible roommates in Jaipur.">
+<title>RoomZy Jaipur — Find Verified PGs, Hostels & Co-living</title>
+<meta name="description" content="RoomZy helps students & professionals find verified PGs, hostels and co-living spaces in Jaipur with zero brokerage.">
 
 <!-- ROOMZY FAVICON LOGO -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E53935' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 10.5 12 3l9 7.5'/><path d='M5 9.8V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.8'/><path d='M9.5 21v-6h5v6'/></svg>">
@@ -12,9 +12,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<!-- Pannellum 360 Viewer CSS & JS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
-<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <!-- SUPABASE CLIENT SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -83,7 +80,7 @@ tailwind.config = {
   <div class="max-w-[1500px] mx-auto px-6 h-9 flex items-center justify-between">
     <p class="flex items-center gap-2">
       <span class="inline-flex h-2 w-2 rounded-full bg-green-400"></span> 
-      <span id="topBarStatus">Browsing Stays in <strong>Jaipur</strong> (Zero Brokerage)</span>
+      <span>Browsing Stays in <strong>Jaipur</strong> (Zero Brokerage)</span>
     </p>
     <div class="flex items-center gap-6 text-white/70">
       <button onclick="openOwnerPortal()" class="hover:text-white transition font-bold text-coral">List Your Property</button>
@@ -103,7 +100,7 @@ tailwind.config = {
             <path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.8"/><path d="M9.5 21v-6h5v6"/>
           </svg>
         </span>
-        <span class="text-[22px] font-extrabold tracking-tight">Room<span class="text-coral">zy</span> <span class="text-xs px-2 py-0.5 rounded-full bg-coral-50 text-coral font-bold ml-1">Jaipur</span></span>
+        <span class="text-[22px] font-extrabold tracking-tight">Room<span class="text-coral">Zy</span> <span class="text-xs px-2 py-0.5 rounded-full bg-coral-50 text-coral font-bold ml-1">Jaipur</span></span>
       </a>
 
       <div id="headerSearchPill" class="hidden lg:flex flex-1 justify-center">
@@ -127,7 +124,7 @@ tailwind.config = {
             <svg class="h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h12M6 9h12M9 4c4 0 6 2 6 5s-2 5-6 5h-3l7 6"/></svg>
             <span class="text-left leading-none">
               <span class="block text-[10px] uppercase tracking-wide text-gray-400 font-semibold">Budget</span>
-              <span id="budgetLabel" class="block text-[13.5px] font-bold">₹3,000 – ₹40,000</span>
+              <span id="budgetLabel" class="block text-[13.5px] font-bold">₹7,000 – ₹20,000</span>
             </span>
           </button>
           <div class="flex items-center pl-2 pr-1.5">
@@ -147,12 +144,12 @@ tailwind.config = {
           <div id="budgetPop" class="hidden absolute top-[58px] right-0 w-[340px] bg-white rounded-2xl shadow-pop border border-line p-5 z-50">
             <div class="flex items-center justify-between mb-1">
               <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Monthly rent</p>
-              <p class="text-sm font-extrabold text-coral" id="hdrBudgetVal">₹3,000 – ₹40,000</p>
+              <p class="text-sm font-extrabold text-coral" id="hdrBudgetVal">₹7,000 – ₹20,000</p>
             </div>
             <div class="range-wrap mt-3">
               <div class="range-track"></div><div class="range-fill" id="hFill"></div>
-              <input type="range" id="hMin" min="3000" max="40000" step="500" value="3000">
-              <input type="range" id="hMax" min="3000" max="40000" step="500" value="40000">
+              <input type="range" id="hMin" min="7000" max="20000" step="500" value="7000">
+              <input type="range" id="hMax" min="7000" max="20000" step="500" value="20000">
             </div>
           </div>
         </div>
@@ -160,7 +157,7 @@ tailwind.config = {
 
       <nav class="hidden xl:flex items-center gap-1 ml-auto">
         <a href="#explore" onclick="showTenantView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Explore PGs</a>
-        <a href="#roommates" onclick="showTenantView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Roommate Finder</a>
+        <a href="#perks" onclick="showTenantView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Why RoomZy</a>
         <button onclick="openAboutModal()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">About Us</button>
         <button onclick="openOwnerPortal()" class="ml-1 px-4 py-2 rounded-xl border-[1.5px] border-coral text-coral text-[14px] font-bold hover:bg-coral hover:text-white transition">List Your Property</button>
       </nav>
@@ -177,29 +174,28 @@ tailwind.config = {
         <div>
           <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-line shadow-soft text-[12.5px] font-bold">
             <span class="relative h-2 w-2 rounded-full bg-coral pulse-dot"></span>
-            4,283 verified beds live in Jaipur
+            Verified student PGs & co-living in Jaipur
           </span>
           <h1 class="mt-5 text-[38px] leading-[1.06] sm:text-[52px] lg:text-[58px] font-extrabold tracking-[-0.03em]">
-            Find your next<br><span class="gradtext">home & roommate</span><br>without brokerage.
+            Find your next<br><span class="gradtext">student home</span><br>without brokerage.
           </h1>
           <p class="mt-5 text-[15.5px] sm:text-[16.5px] text-gray-500 max-w-xl leading-relaxed">
-            Roomzy brings together verified PGs, hostels and co-living spaces in Sitapura, Malviya Nagar & Jagatpura — plus a smart compatibility engine that matches you with flatmates you'll actually get along with.
+            RoomZy brings together verified PGs, hostels and co-living spaces in Sitapura, Malviya Nagar & Jagatpura equipped with high-speed WiFi, modern appliances, and nearby libraries or medical stores.
           </p>
 
           <div class="mt-7 flex flex-wrap items-center gap-3">
             <a href="#explore" class="shine inline-flex items-center gap-2 h-12 px-6 rounded-2xl bg-coral text-white font-bold shadow-redglow hover:bg-coral-dark transition">
               Explore stays &rarr;
             </a>
-            <a href="#roommates" class="inline-flex items-center gap-2 h-12 px-6 rounded-2xl bg-white border border-line font-bold hover:border-ink transition">
-              <svg class="h-4 w-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 3-3.87"/></svg>
-              Find a roommate
-            </a>
+            <button onclick="openOwnerPortal()" class="inline-flex items-center gap-2 h-12 px-6 rounded-2xl bg-white border border-line font-bold hover:border-ink transition">
+              List Your PG
+            </button>
           </div>
 
           <div class="mt-9 flex flex-wrap gap-x-9 gap-y-4">
-            <div><p class="text-2xl font-extrabold">12k+</p><p class="text-[13px] text-gray-500 font-medium">Verified listings</p></div>
+            <div><p class="text-2xl font-extrabold">12k+</p><p class="text-[13px] text-gray-500 font-medium">Verified beds</p></div>
             <div class="hidden sm:block w-px bg-line"></div>
-            <div><p class="text-2xl font-extrabold">38k+</p><p class="text-[13px] text-gray-500 font-medium">Happy tenants</p></div>
+            <div><p class="text-2xl font-extrabold">38k+</p><p class="text-[13px] text-gray-500 font-medium">Happy students</p></div>
             <div class="hidden sm:block w-px bg-line"></div>
             <div><p class="text-2xl font-extrabold">4.8<span class="text-coral">★</span></p><p class="text-[13px] text-gray-500 font-medium">Avg. rating</p></div>
           </div>
@@ -212,7 +208,7 @@ tailwind.config = {
             <div class="absolute bottom-5 left-5 right-5 text-white">
               <p class="text-[11px] font-bold uppercase tracking-[.16em] text-white/70">FEATURED SITAPURA STAY</p>
               <p class="text-xl sm:text-2xl font-extrabold mt-1">Shree Radhe Krishna PG Hostel</p>
-              <p class="text-sm text-white/80 font-medium mt-0.5">From ₹6,500/mo · Near JECRC, Poornima & Mahatma Gandhi · 3 beds left</p>
+              <p class="text-sm text-white/80 font-medium mt-0.5">₹8,500/mo · WiFi, Washing Machine & Water Cooler included</p>
             </div>
           </div>
         </div>
@@ -235,13 +231,13 @@ tailwind.config = {
             <div class="space-y-6">
               <div>
                 <div class="flex items-center justify-between mb-1">
-                  <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400">Budget</p>
-                  <p class="text-[12.5px] font-extrabold text-coral" id="sideBudgetVal">₹3,000 – ₹40,000</p>
+                  <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400">Budget (₹7k - ₹20k)</p>
+                  <p class="text-[12.5px] font-extrabold text-coral" id="sideBudgetVal">₹7,000 – ₹20,000</p>
                 </div>
                 <div class="range-wrap">
                   <div class="range-track"></div><div class="range-fill" id="sFill"></div>
-                  <input type="range" id="sMin" min="3000" max="40000" step="500" value="3000">
-                  <input type="range" id="sMax" min="3000" max="40000" step="500" value="40000">
+                  <input type="range" id="sMin" min="7000" max="20000" step="500" value="7000">
+                  <input type="range" id="sMax" min="7000" max="20000" step="500" value="20000">
                 </div>
               </div>
 
@@ -262,7 +258,7 @@ tailwind.config = {
               <div class="h-px bg-line"></div>
 
               <div>
-                <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400 mb-3">Amenities</p>
+                <p class="text-[13px] font-extrabold uppercase tracking-wider text-gray-400 mb-3">Amenities & Appliances</p>
                 <div class="space-y-2.5" id="amenRow"></div>
               </div>
             </div>
@@ -274,7 +270,7 @@ tailwind.config = {
         <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
           <div>
             <h2 class="text-[22px] sm:text-[27px] font-extrabold tracking-tight">PGs & Hostels in <span id="resCity">Jaipur</span></h2>
-            <p class="text-[13.5px] text-gray-500 mt-0.5"><span id="resCount">0</span> stays available · live database</p>
+            <p class="text-[13.5px] text-gray-500 mt-0.5"><span id="resCount">0</span> stays available</p>
           </div>
         </div>
 
@@ -286,44 +282,30 @@ tailwind.config = {
     </div>
   </section>
 
-  <!-- HOW ROOMZY WORKS -->
-  <section class="max-w-[1500px] mx-auto px-4 sm:px-6 py-12 border-t border-line">
+  <!-- WHY ROOMZY SECTION (REPLACED ROOMMATE FINDER) -->
+  <section id="perks" class="max-w-[1500px] mx-auto px-4 sm:px-6 py-12 border-t border-line">
     <div class="text-center max-w-2xl mx-auto mb-10">
-      <p class="text-xs font-bold uppercase tracking-widest text-coral mb-1">HOW ROOMZY WORKS</p>
-      <h2 class="text-[28px] sm:text-[34px] font-extrabold tracking-tight">From search to shifting in, in 3 steps</h2>
-      <p class="text-sm text-gray-500 font-medium mt-2">No brokers, no hidden charges, no endless WhatsApp groups.</p>
+      <p class="text-xs font-bold uppercase tracking-widest text-coral mb-1">WHY CHOOSE ROOMZY</p>
+      <h2 class="text-[28px] sm:text-[34px] font-extrabold tracking-tight">Built specifically for students & working professionals</h2>
+      <p class="text-sm text-gray-500 font-medium mt-2">Every property guarantees top-grade amenities, verified safety, and appliance transparency.</p>
     </div>
     <div class="grid sm:grid-cols-3 gap-6">
       <div class="p-7 rounded-3xl bg-white border border-line shadow-soft">
-        <div class="h-10 w-10 rounded-xl bg-coral text-white font-extrabold grid place-items-center mb-5">1</div>
-        <h3 class="text-lg font-extrabold mb-2">Search & shortlist</h3>
-        <p class="text-xs text-gray-500 leading-relaxed font-medium">Filter by budget, locality, occupancy and amenities. Every listing is physically verified with real photos.</p>
+        <div class="h-10 w-10 rounded-xl bg-coral-50 text-coral font-extrabold grid place-items-center mb-5 text-xl">📶</div>
+        <h3 class="text-lg font-extrabold mb-2">High-Speed WiFi & Appliances</h3>
+        <p class="text-xs text-gray-500 leading-relaxed font-medium">Know exactly which PGs provide high-speed WiFi, washing machines, water coolers, refrigerators and ovens before booking.</p>
       </div>
       <div class="p-7 rounded-3xl bg-white border border-line shadow-soft">
-        <div class="h-10 w-10 rounded-xl bg-coral text-white font-extrabold grid place-items-center mb-5">2</div>
-        <h3 class="text-lg font-extrabold mb-2">Visit for free</h3>
-        <p class="text-xs text-gray-500 leading-relaxed font-medium">Book same-day visits or take a live video tour. A Roomzy buddy accompanies you on request.</p>
+        <div class="h-10 w-10 rounded-xl bg-coral-50 text-coral font-extrabold grid place-items-center mb-5 text-xl">🏥</div>
+        <h3 class="text-lg font-extrabold mb-2">Nearby Libraries & Medical Stores</h3>
+        <p class="text-xs text-gray-500 leading-relaxed font-medium">Check student-friendly infrastructure around your PG like 24/7 medical stores, study libraries and gyms right in the property details.</p>
       </div>
       <div class="p-7 rounded-3xl bg-white border border-line shadow-soft">
-        <div class="h-10 w-10 rounded-xl bg-coral text-white font-extrabold grid place-items-center mb-5">3</div>
-        <h3 class="text-lg font-extrabold mb-2">Book & move in</h3>
-        <p class="text-xs text-gray-500 leading-relaxed font-medium">Pay a refundable token, sign the digital agreement and get your keys. Zero brokerage, always.</p>
+        <div class="h-10 w-10 rounded-xl bg-coral-50 text-coral font-extrabold grid place-items-center mb-5 text-xl">🛡️</div>
+        <h3 class="text-lg font-extrabold mb-2">Zero Brokerage Guarantee</h3>
+        <p class="text-xs text-gray-500 leading-relaxed font-medium">Connect directly with verified property owners via phone calls with zero intermediary commissions or hidden charges.</p>
       </div>
     </div>
-  </section>
-
-  <!-- ROOMMATE FINDER SECTION -->
-  <section id="roommates" class="max-w-[1500px] mx-auto px-4 sm:px-6 py-12 border-t border-line">
-    <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
-      <div>
-        <p class="text-xs font-bold uppercase tracking-widest text-coral mb-1">ROOMMATE FINDER</p>
-        <h2 class="text-[28px] sm:text-[34px] font-extrabold tracking-tight">Matched on lifestyle, not luck</h2>
-        <p class="text-sm text-gray-500 font-medium mt-1">Our compatibility engine scores sleep schedule, cleanliness, food habits, work style and social energy.</p>
-      </div>
-      <button onclick="showToast('Profile Builder Modal Opened!')" class="h-11 px-6 rounded-2xl bg-coral text-white font-extrabold text-xs shadow-redglow">Create my profile</button>
-    </div>
-
-    <div id="roommateGrid" class="grid sm:grid-cols-2 xl:grid-cols-4 gap-5"></div>
   </section>
 
   <!-- TOP LOCALITIES IN JAIPUR -->
@@ -335,7 +317,7 @@ tailwind.config = {
         <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent"></div>
         <div class="absolute bottom-4 left-4 text-white">
           <h3 class="text-lg font-extrabold">Sitapura</h3>
-          <p class="text-xs text-white/80 font-medium">185 stays available</p>
+          <p class="text-xs text-white/80 font-medium">Near JECRC & Poornima</p>
         </div>
       </div>
       <div onclick="pickCity('Malviya Nagar'); applyHeaderSearch();" class="card-hov relative rounded-3xl overflow-hidden h-56 cursor-pointer border border-line">
@@ -343,7 +325,7 @@ tailwind.config = {
         <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent"></div>
         <div class="absolute bottom-4 left-4 text-white">
           <h3 class="text-lg font-extrabold">Malviya Nagar</h3>
-          <p class="text-xs text-white/80 font-medium">412 stays available</p>
+          <p class="text-xs text-white/80 font-medium">Near MNIT & WTP</p>
         </div>
       </div>
       <div onclick="pickCity('Vaishali Nagar'); applyHeaderSearch();" class="card-hov relative rounded-3xl overflow-hidden h-56 cursor-pointer border border-line">
@@ -351,7 +333,7 @@ tailwind.config = {
         <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent"></div>
         <div class="absolute bottom-4 left-4 text-white">
           <h3 class="text-lg font-extrabold">Vaishali Nagar</h3>
-          <p class="text-xs text-white/80 font-medium">368 stays available</p>
+          <p class="text-xs text-white/80 font-medium">Co-living hubs</p>
         </div>
       </div>
       <div onclick="pickCity('Jagatpura'); applyHeaderSearch();" class="card-hov relative rounded-3xl overflow-hidden h-56 cursor-pointer border border-line">
@@ -359,38 +341,7 @@ tailwind.config = {
         <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent"></div>
         <div class="absolute bottom-4 left-4 text-white">
           <h3 class="text-lg font-extrabold">Jagatpura</h3>
-          <p class="text-xs text-white/80 font-medium">295 stays available</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="max-w-[1500px] mx-auto px-4 sm:px-6 py-12 border-t border-line">
-    <h2 class="text-[28px] sm:text-[34px] font-extrabold tracking-tight mb-8">Loved by 38,000+ tenants</h2>
-    <div class="grid sm:grid-cols-3 gap-6">
-      <div class="p-6 rounded-3xl bg-white border border-line shadow-soft">
-        <p class="text-coral text-sm mb-3">⭐⭐⭐⭐⭐</p>
-        <p class="text-xs text-gray-600 font-semibold leading-relaxed mb-4">"Moved into a co-living in Sitapura within 4 days. Virtual tours saved me weeks!"</p>
-        <div class="flex items-center gap-3">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" class="h-9 w-9 rounded-full object-cover">
-          <div><p class="text-xs font-extrabold">Nikhil P.</p><p class="text-[11px] text-gray-400">Software Engineer</p></div>
-        </div>
-      </div>
-      <div class="p-6 rounded-3xl bg-white border border-line shadow-soft">
-        <p class="text-coral text-sm mb-3">⭐⭐⭐⭐⭐</p>
-        <p class="text-xs text-gray-600 font-semibold leading-relaxed mb-4">"As a girl moving to Jaipur, the verified badge gave my parents real peace of mind."</p>
-        <div class="flex items-center gap-3">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" class="h-9 w-9 rounded-full object-cover">
-          <div><p class="text-xs font-extrabold">Ritika S.</p><p class="text-[11px] text-gray-400">MNIT Student</p></div>
-        </div>
-      </div>
-      <div class="p-6 rounded-3xl bg-white border border-line shadow-soft">
-        <p class="text-coral text-sm mb-3">⭐⭐⭐⭐⭐</p>
-        <p class="text-xs text-gray-600 font-semibold leading-relaxed mb-4">"Roommate matching is scarily accurate. My match score was 91%!"</p>
-        <div class="flex items-center gap-3">
-          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" class="h-9 w-9 rounded-full object-cover">
-          <div><p class="text-xs font-extrabold">Arjun K.</p><p class="text-[11px] text-gray-400">Marketing Manager</p></div>
+          <p class="text-xs text-white/80 font-medium">Near SKIT College</p>
         </div>
       </div>
     </div>
@@ -403,7 +354,7 @@ tailwind.config = {
   <div id="ownerLoginBox" class="bg-white rounded-3xl border border-line shadow-card p-8 text-center">
     <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center mx-auto mb-4 font-bold text-xl">📱</div>
     <h2 class="text-2xl font-extrabold">PG Owner Portal</h2>
-    <p class="text-xs text-gray-500 mt-1 mb-6">Log in with your mobile number to list your property live on Roomzy Jaipur.</p>
+    <p class="text-xs text-gray-500 mt-1 mb-6">Log in with your mobile number to list your property live on RoomZy Jaipur.</p>
 
     <div id="phoneStep" class="space-y-4 max-w-sm mx-auto">
       <input type="tel" id="ownerPhone" placeholder="Enter mobile number" class="w-full h-12 px-4 rounded-xl border border-line text-sm font-semibold text-center outline-none focus:border-coral">
@@ -421,7 +372,7 @@ tailwind.config = {
   <div id="ownerAddForm" class="hidden bg-white rounded-3xl border border-line shadow-card p-8">
     <div class="flex items-center justify-between border-b border-line pb-4 mb-6">
       <div>
-        <h2 class="text-2xl font-extrabold">List Your Real PG / Hostel</h2>
+        <h2 class="text-2xl font-extrabold">List Your PG / Hostel</h2>
         <p class="text-xs text-gray-500 mt-0.5">Your listing will save directly to Supabase PostgreSQL.</p>
       </div>
       <button onclick="showTenantView()" class="text-xs font-extrabold text-coral">✕ Cancel</button>
@@ -447,8 +398,8 @@ tailwind.config = {
           </select>
         </div>
         <div>
-          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Monthly Rent (₹) *</label>
-          <input type="number" id="pgPrice" required placeholder="e.g. 7500" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Monthly Rent (₹7k - ₹20k) *</label>
+          <input type="number" id="pgPrice" min="7000" max="20000" required placeholder="e.g. 8500" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
         </div>
       </div>
 
@@ -467,32 +418,38 @@ tailwind.config = {
         </div>
       </div>
 
-      <div>
-        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Nearby Landmarks / Colleges *</label>
-        <input type="text" id="pgLandmarks" required placeholder="e.g. 2 mins from JECRC College & Metro" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
-      </div>
-
-      <div>
-        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Property Image URL *</label>
-        <input type="url" id="pgImage" required placeholder="https://images.unsplash.com/photo-..." value="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
-      </div>
-
-      <div>
-        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Video Tour Link (YouTube / MP4)</label>
-        <input type="url" id="pgVideo" placeholder="https://youtube.com/watch?v=..." class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
-      </div>
-
-      <div>
-        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-2">Included Amenities</label>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amWifi" checked class="accent-coral"> WiFi</label>
-          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amAc" checked class="accent-coral"> Air Conditioner</label>
-          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amFood" checked class="accent-coral"> 3 Meals</label>
-          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amLaundry" class="accent-coral"> Laundry</label>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Occupancy Available *</label>
+          <select id="pgOcc" required class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+            <option value="Single">Single Room</option>
+            <option value="Double">Double Sharing</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Property Image URL *</label>
+          <input type="url" id="pgImage" required placeholder="https://images.unsplash.com/photo-..." value="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
         </div>
       </div>
 
-      <button type="submit" class="w-full h-12 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow mt-4">Publish PG Listing to Database</button>
+      <div>
+        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Nearby Places (Medical, Libraries, Gym, etc.) *</label>
+        <input type="text" id="pgNearby" required placeholder="e.g. 24/7 Apollo Pharmacy (200m), Central Library (500m), Gold's Gym (1km)" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+      </div>
+
+      <div>
+        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-2">WiFi & Appliances Included</label>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amWifi" checked class="accent-coral"> High-Speed WiFi</label>
+          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amWashing" checked class="accent-coral"> Washing Machine</label>
+          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amWater" checked class="accent-coral"> Water Cooler</label>
+          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amFridge" checked class="accent-coral"> Refrigerator</label>
+          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amOven" class="accent-coral"> Microwave / Oven</label>
+          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amFood" checked class="accent-coral"> 3 Meals Included</label>
+        </div>
+      </div>
+
+      <button type="submit" class="w-full h-12 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow mt-4">Publish PG Listing Live</button>
     </form>
   </div>
 </div>
@@ -502,14 +459,14 @@ tailwind.config = {
   <div class="max-w-[1500px] mx-auto px-4 sm:px-6">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pb-10 border-b border-gray-800">
       <div>
-        <span class="text-2xl font-extrabold">Room<span class="text-coral">zy</span></span>
-        <p class="text-xs text-gray-400 mt-3 leading-relaxed">India's friendliest rental platform for PGs, hostels, co-living spaces and roommates. Verified homes, zero brokerage.</p>
+        <span class="text-2xl font-extrabold">Room<span class="text-coral">Zy</span></span>
+        <p class="text-xs text-gray-400 mt-3 leading-relaxed">Jaipur's premier student rental platform for verified PGs and hostels. Zero brokerage.</p>
       </div>
       <div>
         <p class="text-xs font-extrabold uppercase tracking-wider text-gray-400 mb-3">Explore</p>
         <ul class="space-y-2 text-xs font-medium text-gray-300">
           <li><a href="#explore" onclick="showTenantView()" class="hover:text-coral">PGs in Jaipur</a></li>
-          <li><a href="#roommates" onclick="showTenantView()" class="hover:text-coral">Roommate finder</a></li>
+          <li><a href="#perks" onclick="showTenantView()" class="hover:text-coral">Why RoomZy</a></li>
         </ul>
       </div>
       <div>
@@ -527,7 +484,7 @@ tailwind.config = {
         </div>
       </div>
     </div>
-    <div class="mt-6 text-center text-xs text-gray-500 font-medium">&copy; 2026 Roomzy Technologies Pvt. Ltd. All rights reserved.</div>
+    <div class="mt-6 text-center text-xs text-gray-500 font-medium">&copy; 2026 RoomZy Technologies Pvt. Ltd. All rights reserved.</div>
   </div>
 </footer>
 
@@ -548,9 +505,9 @@ tailwind.config = {
   <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[540px] bg-white rounded-3xl shadow-pop p-6 sm:p-8">
     <button onclick="closeAboutModal()" class="absolute right-4 top-4 h-9 w-9 grid place-items-center rounded-xl hover:bg-mist border border-line">✕</button>
     <div class="text-left space-y-4">
-      <span class="px-3 py-1 rounded-full bg-coral-50 text-coral font-bold text-xs">About Roomzy</span>
-      <h2 class="text-2xl font-extrabold">Redefining rentals in Jaipur.</h2>
-      <p class="text-xs text-gray-500 leading-relaxed font-medium">Roomzy eliminates high brokerage fees and safety concerns for students and professionals moving to Jaipur.</p>
+      <span class="px-3 py-1 rounded-full bg-coral-50 text-coral font-bold text-xs">About RoomZy</span>
+      <h2 class="text-2xl font-extrabold">Redefining student rentals in Jaipur.</h2>
+      <p class="text-xs text-gray-500 leading-relaxed font-medium">RoomZy eliminates high brokerage fees and provides appliance & infrastructure transparency for students and professionals.</p>
     </div>
   </div>
 </div>
@@ -558,43 +515,42 @@ tailwind.config = {
 <div id="toast" class="fixed z-[90] bottom-8 left-1/2 -translate-x-1/2 px-5 py-3.5 rounded-2xl bg-ink text-white text-sm font-semibold shadow-pop opacity-0 translate-y-3 pointer-events-none transition-all duration-300"></div>
 
 <script>
-let pannellumViewer = null;
 const CITIES = ['Jaipur (All)','Sitapura','Malviya Nagar','Vaishali Nagar','Jagatpura','Raja Park','Gopalpura Bypass','Mansarovar'];
-const AMENITIES = [{id:'wifi', label:'High-speed WiFi'},{id:'ac', label:'Air conditioning'},{id:'food', label:'3 Meals included'},{id:'laundry', label:'Laundry service'}];
-
-const ROOMMATES = [
-  { id: 1, name: 'Ananya Sharma', age: 24, role: 'Product Designer @ Swiggy', area: 'Malviya Nagar', budget: '₹14,000/mo', score: '94%', img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80', tags: ['Non-smoker', 'Early riser'], bio: 'Looking for a clean flatmate in Malviya Nagar.', sleep: '10:30 PM - 6:30 AM' },
-  { id: 2, name: 'Rohit Verma', age: 26, role: 'SDE-2 @ Razorpay', area: 'Vaishali Nagar', budget: '₹18,000/mo', score: '89%', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80', tags: ['Gym buddy', 'Night owl'], bio: 'Looking for a co-living master bedroom.', sleep: '1:00 AM - 8:30 AM' },
-  { id: 3, name: 'Meera Iyer', age: 22, role: 'MBA Student @ MNIT', area: 'Jagatpura', budget: '₹11,000/mo', score: '91%', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80', tags: ['Studious', 'Vegetarian'], bio: 'Quiet postgraduate student looking for a study-friendly roommate.', sleep: '11:00 PM - 7:00 AM' },
-  { id: 4, name: 'Karthik Nair', age: 28, role: 'Data Analyst @ Genpact', area: 'Raja Park', budget: '₹16,000/mo', score: '86%', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80', tags: ['Cooks often', 'Weekend traveller'], bio: 'Loves cooking weekend dinners and exploring road trips.', sleep: '12:00 AM - 7:30 AM' }
+const AMENITIES_LIST = [
+  {id:'wifi', label:'High-Speed WiFi'},
+  {id:'washing', label:'Washing Machine'},
+  {id:'water', label:'Water Cooler'},
+  {id:'fridge', label:'Refrigerator'},
+  {id:'oven', label:'Microwave / Oven'},
+  {id:'food', label:'3 Meals Included'}
 ];
 
-// INITIAL REALISTIC PGs SO THE SITE LOOKS AUTHENTIC IMMEDIATELY
+// MOCK PGs WITH APPLIANCES & NEARBY INFRASTRUCTURE
 const INITIAL_MOCK_PGS = [
   {
-    id: 101, name: 'Shree Radhe Krishna PG Hostel', type: 'PG', area: 'Sitapura, Jaipur', price: 6500, rating: 4.8, gender: 'Unisex',
-    amen: ['wifi','ac','food','laundry'], tag: 'Near JECRC', phone: '090247 76588', landmarks: 'Near JECRC, Poornima & Mahatma Gandhi University',
-    img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60', panorama: 'https://pannellum.org/images/cerro-toco-0.jpg'
+    id: 101, name: 'Shree Radhe Krishna PG Hostel', type: 'PG', area: 'Sitapura, Jaipur', price: 8500, rating: 4.8, gender: 'Unisex',
+    occ: 'Single', amen: ['wifi','washing','water','fridge','food'], nearby: 'Apollo Pharmacy (100m), Central Library (300m), Gold Gym (600m)',
+    phone: '090247 76588', img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60'
   },
   {
-    id: 102, name: 'Urban Nest Luxury Co-living', type: 'Co-living', area: 'Malviya Nagar, Jaipur', price: 13500, rating: 4.9, gender: 'Unisex',
-    amen: ['wifi','ac','food'], tag: 'Zero Brokerage', phone: '098290 12345', landmarks: 'Near GT Central Mall & MNIT Campus',
-    img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60', panorama: 'https://pannellum.org/images/cerro-toco-0.jpg'
+    id: 102, name: 'Urban Nest Luxury Co-living', type: 'Co-living', area: 'Malviya Nagar, Jaipur', price: 14500, rating: 4.9, gender: 'Unisex',
+    occ: 'Single', amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Fortis Hospital (400m), WTP Library (200m), Anytime Fitness (500m)',
+    phone: '098290 12345', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60'
   },
   {
-    id: 103, name: 'Aanchal Girls Secure PG', type: 'PG', area: 'Malviya Nagar, Jaipur', price: 8500, rating: 4.7, gender: 'Female',
-    amen: ['wifi','food','laundry'], tag: 'Meals Included', phone: '094140 98765', landmarks: 'Near World Trade Park (WTP)',
-    img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=60', panorama: 'https://pannellum.org/images/cerro-toco-0.jpg'
+    id: 103, name: 'Aanchal Girls Secure PG', type: 'PG', area: 'Malviya Nagar, Jaipur', price: 9500, rating: 4.7, gender: 'Female',
+    occ: 'Double', amen: ['wifi','washing','water','food'], nearby: 'Mahatma Gandhi Hospital (500m), Study Zone Library (300m)',
+    phone: '094140 98765', img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=60'
   },
   {
-    id: 104, name: 'Gurukul Boys Hostel', type: 'Hostel', area: 'Jagatpura, Jaipur', price: 6500, rating: 4.5, gender: 'Male',
-    amen: ['wifi','food'], tag: 'Student Choice', phone: '097830 55443', landmarks: 'Near SKIT College & Vivacity Mall',
-    img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60', panorama: 'https://pannellum.org/images/cerro-toco-0.jpg'
+    id: 104, name: 'Gurukul Boys Hostel', type: 'Hostel', area: 'Jagatpura, Jaipur', price: 7500, rating: 4.5, gender: 'Male',
+    occ: 'Double', amen: ['wifi','water','food'], nearby: 'SKIT Campus Medical (200m), Jagatpura Public Library (400m)',
+    phone: '097830 55443', img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=60'
   }
 ];
 
 let liveProperties = [];
-const state = { city:'Jaipur (All)', min:3000, max:40000, gender:'Any', occ:[], amen:[] };
+const state = { city:'Jaipur (All)', min:7000, max:20000, gender:'Any', occ:[], amen:[] };
 const $ = s => document.querySelector(s);
 const inr = n => '₹' + n.toLocaleString('en-IN');
 
@@ -633,9 +589,11 @@ async function handlePublishPG(e){
   e.preventDefault();
   const amen = [];
   if($('#amWifi').checked) amen.push('wifi');
-  if($('#amAc').checked) amen.push('ac');
+  if($('#amWashing').checked) amen.push('washing');
+  if($('#amWater').checked) amen.push('water');
+  if($('#amFridge').checked) amen.push('fridge');
+  if($('#amOven').checked) amen.push('oven');
   if($('#amFood').checked) amen.push('food');
-  if($('#amLaundry').checked) amen.push('laundry');
 
   const newProperty = {
     name: $('#pgName').value.trim(),
@@ -644,14 +602,12 @@ async function handlePublishPG(e){
     price: parseInt($('#pgPrice').value),
     rating: 5.0,
     gender: $('#pgGender').value,
-    occ: ['Single','Double'],
+    occ: $('#pgOcc').value,
     amen: amen,
-    tag: 'Newly Listed',
+    nearby: $('#pgNearby').value.trim(),
     phone: $('#pgPhone').value.trim(),
-    landmarks: $('#pgLandmarks').value.trim(),
     img: $('#pgImage').value.trim(),
-    video: $('#pgVideo').value.trim(),
-    panorama: 'https://pannellum.org/images/cerro-toco-0.jpg'
+    tag: 'Newly Listed'
   };
 
   const { data, error } = await supabase.from('properties').insert([newProperty]);
@@ -664,7 +620,7 @@ async function handlePublishPG(e){
   }
 }
 
-// FETCH REAL PROPERTIES FROM SUPABASE (WITH INITIAL MOCK FALLBACK)
+// FETCH PROPERTIES FROM SUPABASE
 async function fetchPropertiesFromDatabase(){
   const { data, error } = await supabase.from('properties').select('*').order('id', { ascending: false });
   
@@ -677,13 +633,13 @@ async function fetchPropertiesFromDatabase(){
 }
 
 function renderFilterControls(){
-  const OCC = ['Single','Double','Triple','Shared'];
-  $('#occRow').innerHTML = OCC.map(o=>`<button onclick="toggleOcc('${o}')" class="px-3.5 py-2 rounded-xl text-xs font-bold border ${state.occ.includes(o)?'border-coral bg-coral text-white':'border-line bg-white'}">${o}</button>`).join('');
+  const OCC = ['Single','Double'];
+  $('#occRow').innerHTML = OCC.map(o=>`<button onclick="toggleOcc('${o}')" class="px-3.5 py-2 rounded-xl text-xs font-bold border ${state.occ.includes(o)?'border-coral bg-coral text-white':'border-line bg-white'}">${o} Room</button>`).join('');
 
   const GEN = ['Any','Male','Female'];
   $('#genderRow').innerHTML = GEN.map(g=>`<button onclick="setGender('${g}')" class="py-2 rounded-xl text-xs font-bold border ${state.gender===g?'border-coral bg-coral text-white':'border-line bg-white'}">${g}</button>`).join('');
 
-  $('#amenRow').innerHTML = AMENITIES.map(a=>`
+  $('#amenRow').innerHTML = AMENITIES_LIST.map(a=>`
     <label class="flex items-center gap-3 cursor-pointer">
       <input type="checkbox" ${state.amen.includes(a.id)?'checked':''} onchange="toggleAmen('${a.id}')" class="accent-coral h-4 w-4 rounded border-line">
       <span class="text-xs font-semibold text-gray-600">${a.label}</span>
@@ -695,19 +651,19 @@ function setGender(g){ state.gender = g; render(); }
 function toggleAmen(a){ state.amen.includes(a) ? state.amen.splice(state.amen.indexOf(a),1) : state.amen.push(a); render(); }
 
 function resetFilters(){
-  state.min=3000; state.max=40000; state.gender='Any'; state.occ=[]; state.amen=[]; state.city='Jaipur (All)';
-  $('#sMin').value=3000; $('#sMax').value=40000;
+  state.min=7000; state.max=20000; state.gender='Any'; state.occ=[]; state.amen=[]; state.city='Jaipur (All)';
+  $('#sMin').value=7000; $('#sMax').value=20000;
   updateSliders(); renderCities(); render();
 }
 
 function updateSliders(){
   let sMin = parseInt($('#sMin').value);
   let sMax = parseInt($('#sMax').value);
-  if (sMin > sMax - 1000) { sMin = sMax - 1000; $('#sMin').value = sMin; }
+  if (sMin > sMax - 500) { sMin = sMax - 500; $('#sMin').value = sMin; }
   state.min = sMin; state.max = sMax;
 
-  const minPercent = ((sMin - 3000) / (40000 - 3000)) * 100;
-  const maxPercent = ((sMax - 3000) / (40000 - 3000)) * 100;
+  const minPercent = ((sMin - 7000) / (20000 - 7000)) * 100;
+  const maxPercent = ((sMax - 7000) / (20000 - 7000)) * 100;
   if($('#sFill')) { $('#sFill').style.left = minPercent + '\%'; $('#sFill').style.width = (maxPercent - minPercent) + '%'; }
   if($('#sideBudgetVal')) $('#sideBudgetVal').textContent = `₹${sMin.toLocaleString('en-IN')} – ₹${sMax.toLocaleString('en-IN')}`;
 
@@ -732,12 +688,14 @@ function render(){
   const list = liveProperties.filter(l => {
     if(l.price < state.min || l.price > state.max) return false;
     if(state.gender!=='Any' && l.gender!==state.gender && l.gender!=='Unisex') return false;
+    if(state.occ.length && !state.occ.includes(l.occ)) return false;
+    if(state.amen.length && !state.amen.every(a => l.amen && l.amen.includes(a))) return false;
     if(state.city!=='Jaipur (All)' && !l.area.includes(state.city)) return false;
     return true;
   });
 
   if(list.length === 0){
-    $('#cards').innerHTML = `<div class="col-span-full py-12 text-center text-gray-500 font-bold">No stays match your filters.</div>`;
+    $('#cards').innerHTML = `<div class="col-span-full py-12 text-center text-gray-500 font-bold">No stays match your filters within ₹7,000 – ₹20,000.</div>`;
     $('#resCount').textContent = 0;
     renderFilterControls();
     return;
@@ -748,6 +706,7 @@ function render(){
       <div class="relative">
         <img src="${l.img}" alt="${l.name}" class="w-full h-52 object-cover">
         <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-lg bg-white/95 text-[11px] font-extrabold shadow-soft">${l.tag || 'Verified'}</span>
+        ${l.amen && l.amen.includes('wifi') ? `<span class="absolute top-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-green-500 text-white text-[10px] font-extrabold shadow-soft">📶 WiFi Available</span>` : ''}
       </div>
       <div class="p-5">
         <div class="flex items-start justify-between gap-3">
@@ -755,7 +714,7 @@ function render(){
             <h3 class="font-extrabold text-[16.5px] truncate">${l.name}</h3>
             <p class="text-[13px] text-gray-500 font-medium mt-1">📍 ${l.area}</p>
           </div>
-          <span class="px-2.5 py-1 rounded-lg bg-mist border border-line text-[11px] font-extrabold text-gray-600">${l.type}</span>
+          <span class="px-2.5 py-1 rounded-lg bg-mist border border-line text-[11px] font-extrabold text-gray-600">${l.occ || 'Single/Double'}</span>
         </div>
         <div class="mt-4 pt-4 border-t border-line flex items-end justify-between gap-3">
           <div>
@@ -771,44 +730,50 @@ function render(){
   renderFilterControls();
 }
 
-function renderRoommates(){
-  $('#roommateGrid').innerHTML = ROOMMATES.map(r => `
-    <div class="card-hov bg-white rounded-3xl border border-line p-5 flex flex-col justify-between">
-      <div>
-        <div class="flex items-start gap-3">
-          <img src="${r.img}" class="h-14 w-14 rounded-2xl object-cover shrink-0">
-          <div>
-            <div class="flex items-center gap-2">
-              <h3 class="font-extrabold text-[15px]">${r.name}, ${r.age}</h3>
-              <span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-coral-50 text-coral">${r.score}</span>
-            </div>
-            <p class="text-[11.5px] text-gray-500 font-semibold mt-0.5">${r.role}</p>
-            <p class="text-[11px] text-coral font-bold mt-1">📍 ${r.area} · ${r.budget}</p>
-          </div>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-2 mt-5 pt-4 border-t border-line">
-        <button onclick="showToast('Roommate profile view active')" class="h-10 rounded-xl bg-mist border border-line text-ink font-extrabold text-xs">View</button>
-        <button onclick="showToast('Connection request sent to ${r.name}!')" class="h-10 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow">Connect</button>
-      </div>
-    </div>
-  `).join('');
-}
-
 function openProp(id){
   const l = liveProperties.find(x => x.id === id);
   if(!l) return;
+
+  const amenLabels = {
+    wifi: '📶 High-Speed WiFi',
+    washing: '🧺 Washing Machine',
+    water: '🚰 Water Cooler',
+    fridge: '🧊 Refrigerator',
+    oven: '🔥 Microwave / Oven',
+    food: '🍲 3 Meals Included'
+  };
+
+  const amenitiesHtml = l.amen ? l.amen.map(a => `<span class="px-3 py-1.5 rounded-xl bg-coral-50 text-coral text-xs font-bold">${amenLabels[a] || a}</span>`).join('') : '<span class="text-xs text-gray-400">Standard amenities</span>';
+
   $('#pmTitle').textContent = l.name;
   $('#pmBody').innerHTML = `
-    <div class="p-6 space-y-4">
+    <div class="p-6 space-y-5">
       <img src="${l.img}" class="w-full h-72 object-cover rounded-2xl shadow-soft"/>
-      <h2 class="text-2xl font-extrabold">${l.name}</h2>
-      <p class="text-sm text-gray-500 font-medium">📍 ${l.area}</p>
-      ${l.landmarks ? `<p class="text-xs font-bold text-coral">🏫 ${l.landmarks}</p>` : ''}
-      <p class="text-xs font-bold text-ink">📞 Owner Contact: ${l.phone}</p>
-      ${l.video ? `<a href="${l.video}" target="_blank" class="inline-block px-4 py-2 rounded-xl bg-ink text-white text-xs font-bold">▶ Watch Video Tour</a>` : ''}
-      <p class="text-xl font-extrabold text-coral">${inr(l.price)} / month</p>
-      <button onclick="showToast('Visit scheduled successfully!')" class="h-11 px-6 rounded-xl bg-coral text-white font-extrabold text-xs shadow-redglow">Schedule Free Visit</button>
+      <div>
+        <h2 class="text-2xl font-extrabold">${l.name}</h2>
+        <p class="text-sm text-gray-500 font-medium mt-1">📍 ${l.area}</p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-mist border border-line space-y-2">
+        <p class="text-xs font-extrabold uppercase tracking-wider text-gray-400">Included Amenities & Appliances</p>
+        <div class="flex flex-wrap gap-2 pt-1">
+          ${amenitiesHtml}
+        </div>
+      </div>
+
+      ${l.nearby ? `
+      <div class="p-4 rounded-2xl bg-green-50 border border-green-200 space-y-1">
+        <p class="text-xs font-extrabold uppercase tracking-wider text-green-700">🏥 Nearby Infrastructure (Medical, Libraries, Gym)</p>
+        <p class="text-xs font-semibold text-green-900 mt-1">${l.nearby}</p>
+      </div>` : ''}
+
+      <div class="flex items-center justify-between pt-2">
+        <div>
+          <p class="text-xs text-gray-400 font-bold uppercase">Monthly Rent</p>
+          <p class="text-2xl font-extrabold text-coral">${inr(l.price)} / mo</p>
+        </div>
+        <a href="tel:${l.phone}" class="h-12 px-6 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow grid place-items-center">📞 Contact Owner (${l.phone})</a>
+      </div>
     </div>`;
   $('#propModal').classList.remove('hidden');
 }
@@ -825,7 +790,7 @@ $('#budgetBtn').onclick = e => { e.stopPropagation(); togglePop('budgetPop'); };
 
 function applyHeaderSearch(){ $('#explore').scrollIntoView({behavior:'smooth'}); }
 
-renderCities(); renderRoommates(); setupSliderEvents(); updateSliders(); fetchPropertiesFromDatabase();
+renderCities(); setupSliderEvents(); updateSliders(); fetchPropertiesFromDatabase();
 </script>
 </body>
 </html>
