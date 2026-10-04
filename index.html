@@ -238,7 +238,7 @@ tailwind.config = {
         <div class="p-6 rounded-3xl bg-mist border border-line space-y-3 card-hov">
           <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center text-xl font-bold">🧺</div>
           <h3 class="text-lg font-extrabold">Appliance Clarity</h3>
-          <p class="text-xs text-gray-500 leading-relaxed font-medium">Know exactly what's included—from high-speed WiFi and washing machines to 3 meals a day.</p>
+          <p class="text-xs text-gray-500 leading-relaxed font-medium">Know exactly what's included—from high-speed WiFi and washing machines to 5 meals a day.</p>
         </div>
       </div>
     </div>
@@ -412,7 +412,7 @@ tailwind.config = {
           <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amWater" checked class="accent-coral"> Water Cooler</label>
           <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amFridge" checked class="accent-coral"> Refrigerator</label>
           <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amOven" class="accent-coral"> Microwave / Oven</label>
-          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amFood" checked class="accent-coral"> 3 Meals Included</label>
+          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amFood" checked class="accent-coral"> 5 Meals Included</label>
         </div>
       </div>
 
@@ -556,7 +556,7 @@ const AMENITIES_LIST = [
   {id:'water', label:'Water Cooler'},
   {id:'fridge', label:'Refrigerator'},
   {id:'oven', label:'Microwave / Oven'},
-  {id:'food', label:'3 Meals Included'}
+  {id:'food', label:'5 Meals Included'}
 ];
 
 const INITIAL_MOCK_PGS = [
@@ -859,7 +859,7 @@ function renderModalContent(l){
     water: '🚰 Water Cooler',
     fridge: '🧊 Refrigerator',
     oven: '🔥 Microwave / Oven',
-    food: '🍲 3 Meals Included'
+    food: '🍲 5 Meals Included'
   };
 
   const amenitiesHtml = l.amen ? l.amen.map(a => `<span class="px-3 py-1.5 rounded-xl bg-coral-50 text-coral text-xs font-bold">${amenLabels[a] || a}</span>`).join('') : '<span class="text-xs text-gray-400">Standard amenities</span>';
