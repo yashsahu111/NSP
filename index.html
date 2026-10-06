@@ -321,13 +321,13 @@ tailwind.config = {
 
     <div id="phoneStep" class="space-y-4 max-w-sm mx-auto">
       <input type="tel" id="ownerPhone" placeholder="Enter mobile number" class="w-full h-12 px-4 rounded-xl border border-line text-sm font-semibold text-center outline-none focus:border-coral">
-      <button onclick="sendFakeOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Send Fake OTP</button>
+      <button onclick="sendOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Send OTP</button>
     </div>
 
     <div id="otpStep" class="hidden space-y-4 max-w-sm mx-auto mt-4">
       <p class="text-xs text-green-600 font-bold">OTP Sent! (Use demo code: 1234)</p>
       <input type="text" id="ownerOTP" placeholder="Enter OTP (1234)" class="w-full h-12 px-4 rounded-xl border border-line text-sm font-semibold text-center tracking-widest outline-none focus:border-coral">
-      <button onclick="verifyFakeOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Verify & Proceed</button>
+      <button onclick="verifyOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Verify & Proceed</button>
     </div>
   </div>
 
@@ -628,7 +628,7 @@ function showTenantView(){
 function openAboutModal(){ $('#aboutModal').classList.remove('hidden'); }
 function closeAboutModal(){ $('#aboutModal').classList.add('hidden'); }
 
-function sendFakeOTP(){
+function sendOTP(){
   const phone = $('#ownerPhone').value.trim();
   if(!phone || phone.length < 10){ showToast('Please enter a valid mobile number'); return; }
   showToast('OTP sent successfully!');
@@ -636,7 +636,7 @@ function sendFakeOTP(){
   $('#otpStep').classList.remove('hidden');
 }
 
-function verifyFakeOTP(){
+function verifyOTP(){
   const otp = $('#ownerOTP').value.trim();
   if(otp === '1234' || otp === '123456'){
     showToast('Login Successful!');
