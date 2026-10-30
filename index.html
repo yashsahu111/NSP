@@ -74,13 +74,13 @@ tailwind.config = {
   const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 </script>
 
-<!-- TOP SECURITY BANNER & UTILITY BAR -->
+<!-- TOP UTILITY BAR -->
 <div class="bg-ink text-white text-[12.5px] border-b border-gray-800">
   <div class="max-w-[1500px] mx-auto px-6 h-9 flex items-center justify-between">
     <p class="flex items-center gap-2">
       <span class="inline-flex h-2 w-2 rounded-full bg-green-400"></span> 
       <span>Browsing Stays in <strong>Jaipur</strong> (Zero Brokerage)</span>
-      <span class="hidden sm:inline-block text-gray-400 text-[11px] ml-2"></span>
+      <span class="hidden sm:inline-block text-gray-400 text-[11px] ml-2">🛡️ Safe & Trusted Platform</span>
     </p>
     <div class="flex items-center gap-6 text-white/70">
       <button onclick="openOwnerPortal()" class="hover:text-white transition font-bold text-coral">Owner Portal</button>
@@ -214,7 +214,7 @@ tailwind.config = {
       <div class="text-center max-w-2xl mx-auto mb-12">
         <span class="px-3.5 py-1.5 rounded-full bg-coral-50 text-coral font-extrabold text-xs">The RoomZy Advantage</span>
         <h2 class="text-3xl sm:text-4xl font-extrabold mt-3">Why Students & Professionals Choose RoomZy</h2>
-        <p class="text-sm text-gray-500 mt-2 font-medium">Transparent student housing with robust anti-fraud protection and dual online-offline booking sync.</p>
+        <p class="text-sm text-gray-500 mt-2 font-medium">Transparent student housing with complete safety and easy online-offline booking sync.</p>
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -226,14 +226,14 @@ tailwind.config = {
 
         <div class="p-6 rounded-3xl bg-mist border border-line space-y-3 card-hov">
           <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center text-xl font-bold">🛡️</div>
-          <h3 class="text-lg font-extrabold">Verified & Secure</h3>
-          <p class="text-xs text-gray-500 leading-relaxed font-medium">Protected with enterprise-grade XSS input sanitization and strict owner identification vetting.</p>
+          <h3 class="text-lg font-extrabold">Safe & Trusted</h3>
+          <p class="text-xs text-gray-500 leading-relaxed font-medium">Protected against spam and fake information, with strict owner identity checks before listing.</p>
         </div>
 
         <div class="p-6 rounded-3xl bg-mist border border-line space-y-3 card-hov">
           <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center text-xl font-bold">🔄</div>
           <h3 class="text-lg font-extrabold">Offline + Online Sync</h3>
-          <p class="text-xs text-gray-500 leading-relaxed font-medium">Real-time inventory counters automatically lock out listings when booked offline by owners.</p>
+          <p class="text-xs text-gray-500 leading-relaxed font-medium">Real-time room counters automatically update when beds are booked offline by owners.</p>
         </div>
 
         <div class="p-6 rounded-3xl bg-mist border border-line space-y-3 card-hov">
@@ -369,10 +369,6 @@ tailwind.config = {
   </div>
 </div>
 
-<!-- ==========================================
-     DEDICATED FOOTER PAGES (Privacy, Terms, Security)
-     ========================================== -->
-
 <!-- PRIVACY POLICY PAGE -->
 <div id="privacyView" class="hidden max-w-[1000px] mx-auto px-4 sm:px-6 py-12 lg:py-16 space-y-8 bg-white my-8 rounded-4xl border border-line shadow-soft">
   <div class="flex items-center justify-between border-b border-line pb-4">
@@ -381,27 +377,27 @@ tailwind.config = {
   </div>
   <div class="space-y-6 text-sm text-gray-600 leading-relaxed font-medium">
     <p><strong>Effective Date:</strong> January 1, 2026</p>
-    <p>At <strong>RoomZy Jaipur</strong>, accessible from our platform, we prioritize the privacy of our students, parents, and property owners. This Privacy Policy document outlines the types of information collected and recorded by RoomZy and how we use it.</p>
+    <p>At <strong>RoomZy Jaipur</strong>, we care deeply about your privacy. This policy explains what information we collect and how we keep it safe for students, parents, and property owners.</p>
     
     <h3 class="text-lg font-extrabold text-ink pt-2">1. Information We Collect</h3>
-    <p>We collect personal information that you voluntarily provide to us when registering on the portal, listing a property, or inquiring about a PG hostel:</p>
+    <p>We collect basic details when you sign up or list a property:</p>
     <ul class="list-disc pl-5 space-y-1">
-      <li>Mobile numbers and OTP verification records for account safety.</li>
-      <li>Email addresses and full names for owner identification.</li>
-      <li>Government ID proofs (Aadhaar/PAN) required for owner listing authentication.</li>
-      <li>Property location details, room pricing, and appliance availability checklists.</li>
+      <li>Mobile numbers for secure OTP verification.</li>
+      <li>Your name and email address.</li>
+      <li>Government ID proof (such as Aadhaar or PAN) to confirm property owner identity.</li>
+      <li>Property details like rent prices, addresses, and available facilities.</li>
     </ul>
 
-    <h3 class="text-lg font-extrabold text-ink pt-2">2. How We Use Your Information</h3>
-    <p>We use the collected information strictly for operational transparency:</p>
+    <h3 class="text-lg font-extrabold text-ink pt-2">2. How We Use Your Details</h3>
+    <p>Your details are used only to:</p>
     <ul class="list-disc pl-5 space-y-1">
-      <li>To connect students directly with verified property owners without intermediaries.</li>
-      <li>To maintain real-time bed inventory sync across online and offline walk-in bookings.</li>
-      <li>To send critical security alerts, verification OTPs, and booking updates.</li>
+      <li>Connect students directly with verified property owners.</li>
+      <li>Keep available room counts updated in real-time.</li>
+      <li>Send important booking updates or security alerts.</li>
     </ul>
 
-    <h3 class="text-lg font-extrabold text-ink pt-2">3. Data Security</h3>
-    <p>We implement enterprise-grade client-side XSS input sanitization, secure hashing, and encrypted session tokens to ensure your personal data is protected against unauthorized access.</p>
+    <h3 class="text-lg font-extrabold text-ink pt-2">3. Keeping Data Safe</h3>
+    <p>We use strong data protection standards and safe sign-in methods to ensure your personal details are always secure from unauthorized access.</p>
   </div>
 </div>
 
@@ -413,21 +409,21 @@ tailwind.config = {
   </div>
   <div class="space-y-6 text-sm text-gray-600 leading-relaxed font-medium">
     <p><strong>Effective Date:</strong> January 1, 2026</p>
-    <p>Welcome to <strong>RoomZy Jaipur</strong>. By accessing our website or listing properties, you agree to comply with and be bound by the following terms and conditions.</p>
+    <p>Welcome to <strong>RoomZy Jaipur</strong>. By using our website, you agree to follow these simple community rules.</p>
 
-    <h3 class="text-lg font-extrabold text-ink pt-2">1. Zero Brokerage Policy</h3>
-    <p>RoomZy is strictly a <strong>zero-brokerage platform</strong>. Property owners and students interact directly. Owners are strictly prohibited from charging brokerage commissions to students through our platform.</p>
+    <h3 class="text-lg font-extrabold text-ink pt-2">1. Zero Brokerage Rule</h3>
+    <p>RoomZy is completely free of middleman broker fees for students. Owners are not allowed to charge any brokerage commissions through our platform.</p>
 
-    <h3 class="text-lg font-extrabold text-ink pt-2">2. Property Owner Responsibilities</h3>
-    <p>Owners registering on RoomZy warrant that:</p>
+    <h3 class="text-lg font-extrabold text-ink pt-2">2. Property Owner Guidelines</h3>
+    <p>Property owners agree that:</p>
     <ul class="list-disc pl-5 space-y-1">
-      <li>All uploaded property photos, 360° tours, and pricing details are authentic.</li>
-      <li>They will maintain accurate real-time bed inventory counters to prevent double-booking between offline walk-in tenants and online student requests.</li>
-      <li>Submitted government ID proofs belong to the authorized property manager.</li>
+      <li>All photos, room tours, and rent prices posted are accurate and genuine.</li>
+      <li>They will update available room counts when beds are booked offline to prevent double bookings.</li>
+      <li>All provided identification documents are valid and belong to the property owner.</li>
     </ul>
 
-    <h3 class="text-lg font-extrabold text-ink pt-2">3. Student Site Visits</h3>
-    <p>All site visits coordinated through RoomZy are 100% free of charge. Students are advised to verify safety guidelines, curfew rules, and mess menus during their physical visit before signing any lease agreement.</p>
+    <h3 class="text-lg font-extrabold text-ink pt-2">3. Free Site Visits</h3>
+    <p>All property visits arranged through RoomZy are 100% free. Students and parents are encouraged to visit properties in person and check safety rules before signing any agreement.</p>
   </div>
 </div>
 
@@ -439,16 +435,16 @@ tailwind.config = {
   </div>
   <div class="space-y-6 text-sm text-gray-600 leading-relaxed font-medium">
     <p><strong>Last Updated:</strong> October 2026</p>
-    <p>At <strong>RoomZy Jaipur</strong>, student safety and platform security are our highest priorities. We have built robust multi-layered security measures into our infrastructure.</p>
+    <p>At <strong>RoomZy Jaipur</strong>, your safety and trust are our top priorities. Here is how we keep the platform safe for everyone:</p>
 
-    <h3 class="text-lg font-extrabold text-ink pt-2">1. Anti-XSS & Input Hardening</h3>
-    <p>To prevent malicious script injections and cross-site scripting (XSS), every text input field, property name, description, and review is dynamically passed through an HTML entity sanitization engine prior to rendering in the DOM.</p>
+    <h3 class="text-lg font-extrabold text-ink pt-2">1. Safe & Clean Content</h3>
+    <p>We automatically clean and check all text inputs, reviews, and property descriptions submitted by users to protect the website from harmful scripts or spam.</p>
 
-    <h3 class="text-lg font-extrabold text-ink pt-2">2. Owner Identity Vetting</h3>
-    <p>Every PG owner must provide verified mobile numbers via OTP verification and government identification proof (Aadhaar/PAN) before gaining access to publish listings on the RoomZy portal.</p>
+    <h3 class="text-lg font-extrabold text-ink pt-2">2. Trusted Property Owners</h3>
+    <p>Every property owner goes through a verification process—including mobile OTP sign-in and government ID checking—before they can publish any listing.</p>
 
-    <h3 class="text-lg font-extrabold text-ink pt-2">3. Dual-Channel Inventory Sync</h3>
-    <p>To resolve the challenge of offline walk-in bookings versus online requests, our real-time bed inventory manager allows owners to instantly decrement available bed counts. When available beds hit zero, listings automatically lock into a "Sold Out" state across all connected browsers.</p>
+    <h3 class="text-lg font-extrabold text-ink pt-2">3. Live Room Availability Sync</h3>
+    <p>Our real-time system lets owners instantly update available bed numbers. If a room is rented out to a walk-in guest, it automatically shows as "Sold Out" online so students never face double-booking confusion.</p>
   </div>
 </div>
 
@@ -458,7 +454,7 @@ tailwind.config = {
     <div class="text-center max-w-md mx-auto mb-6">
       <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center mx-auto mb-3 font-bold text-xl">🛡️</div>
       <h2 class="text-2xl font-extrabold">Owner Registration & Verification</h2>
-      <p class="text-xs text-gray-500 mt-1">Register with your verified contact details and property address to list properties on RoomZy Jaipur.</p>
+      <p class="text-xs text-gray-500 mt-1">Register with your contact details and property address to list properties safely on RoomZy Jaipur.</p>
     </div>
 
     <form onsubmit="handleOwnerRegistration(event)" class="space-y-4 max-w-lg mx-auto">
@@ -477,7 +473,7 @@ tailwind.config = {
         </div>
       </div>
       <div>
-        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Complete Residential / Property Address *</label>
+        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Complete Property Address *</label>
         <textarea id="regAddress" required rows="2" placeholder="e.g. Plot 14, Near Apex Circle, JLN Marg, Jaipur" class="w-full p-3 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral"></textarea>
       </div>
       <div class="grid sm:grid-cols-2 gap-4">
@@ -505,7 +501,7 @@ tailwind.config = {
   <div id="ownerLoginBox" class="hidden bg-white rounded-3xl border border-line shadow-card p-8 text-center max-w-md mx-auto">
     <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center mx-auto mb-4 font-bold text-xl">📱</div>
     <h2 class="text-2xl font-extrabold">Owner Login Portal</h2>
-    <p class="text-xs text-gray-500 mt-1 mb-6">Enter your registered mobile number to access your dashboard.</p>
+    <p class="text-xs text-gray-500 mt-1 mb-6">Enter your mobile number to access your dashboard.</p>
 
     <div id="phoneStep" class="space-y-4">
       <input type="tel" id="ownerPhone" placeholder="Enter 10-digit mobile number" class="w-full h-12 px-4 rounded-xl border border-line text-sm font-semibold text-center outline-none focus:border-coral">
@@ -533,8 +529,8 @@ tailwind.config = {
     </div>
 
     <div class="mb-8 p-5 rounded-2xl bg-mist border border-line">
-      <h3 class="text-sm font-extrabold uppercase text-gray-500 mb-3">🔄 Real-Time Inventory Sync (Online vs Offline Bookings)</h3>
-      <p class="text-xs text-gray-500 mb-4">If you rented out a bed offline to a walk-in tenant, update your available beds below so online students instantly see updated availability and cannot double-book!</p>
+      <h3 class="text-sm font-extrabold uppercase text-gray-500 mb-3">🔄 Real-Time Room Availability Sync</h3>
+      <p class="text-xs text-gray-500 mb-4">If you rented a bed to someone directly in person, update your available bed count below so online students instantly see correct availability!</p>
       <div id="ownerPropertiesList" class="space-y-3"></div>
     </div>
 
@@ -646,10 +642,10 @@ tailwind.config = {
           <span class="text-[22px] font-extrabold tracking-tight">Room<span class="text-coral">Zy</span> <span class="text-xs px-2 py-0.5 rounded-full bg-coral-50/20 text-coral font-bold ml-1">Jaipur</span></span>
         </a>
         <p class="text-sm text-gray-400 max-w-sm leading-relaxed">
-          RoomZy is Jaipur's leading student rental platform providing verified zero-brokerage PGs, hostels, and co-living spaces with real-time inventory sync and enterprise-grade security.
+          RoomZy is Jaipur's leading student rental platform providing verified zero-brokerage PGs, hostels, and co-living spaces with real-time room sync and total safety.
         </p>
         <div class="flex items-center gap-3 pt-2">
-          <span class="px-3 py-1.5 rounded-xl bg-gray-800 text-xs font-bold text-gray-300">🛡️ Hardened & Secure</span>
+          <span class="px-3 py-1.5 rounded-xl bg-gray-800 text-xs font-bold text-gray-300">🛡️ Safe & Trusted</span>
           <span class="px-3 py-1.5 rounded-xl bg-gray-800 text-xs font-bold text-gray-300">⚡ Zero Brokerage</span>
         </div>
       </div>
@@ -687,9 +683,8 @@ tailwind.config = {
 
     </div>
 
-    <!-- FOOTER LINKS WITH FUNCTIONAL WORKING CLICKS -->
     <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400 font-medium">
-      <p>&copy; 2026 RoomZy Technologies Pvt. Ltd. All rights reserved. Hardened against XSS & Injection attacks.</p>
+      <p>&copy; 2026 RoomZy Technologies Pvt. Ltd. All rights reserved. Protected and secure platform.</p>
       <div class="flex items-center gap-6">
         <button onclick="showPrivacyView()" class="hover:text-white transition text-left">Privacy Policy</button>
         <button onclick="showTermsView()" class="hover:text-white transition text-left">Terms of Service</button>
@@ -714,9 +709,6 @@ tailwind.config = {
 <div id="toast" class="fixed z-[90] bottom-8 left-1/2 -translate-x-1/2 px-5 py-3.5 rounded-2xl bg-ink text-white text-sm font-semibold shadow-pop opacity-0 translate-y-3 pointer-events-none transition-all duration-300"></div>
 
 <script>
-/* ==========================================================
-   SECURITY HARDENING SUITE (XSS & Vulnerability Prevention)
-   ========================================================== */
 function sanitizeHTML(str) {
   if (typeof str !== 'string') return str;
   return str.replace(/[&<>'"]/g, 
@@ -749,7 +741,7 @@ const INITIAL_MOCK_PGS = [
     id: 101, name: 'Shree Radhe Krishna PG Hostel', type: 'PG', area: 'Sitapura, Jaipur', price: 8500, rating: 4.8, gender: 'Unisex',
     occ: 'Single', totalBeds: 15, availableBeds: 3, amen: ['wifi','washing','water','fridge','food'], nearby: 'Apollo Pharmacy (100m), Central Library (300m), Gold Gym (600m)',
     phone: '09024776588', ownerEmail: 'radhepg@gmail.com', img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60',
-    view360: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1200&q=80',
+    view360: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1200&q=60',
     videos: [], tag: 'Verified',
     trustScore: { safety: '9.8/10', curfew: '10:30 PM Gate Close', foodHygiene: '4.9/5 Star Mess', cctv: '24/7 CCTV & Biometric' },
     reviews: [
@@ -881,11 +873,11 @@ function handleOwnerRegistration(e){
   const idType = $('#regIdType').value;
 
   if(!validatePhoneNumber(phone)){
-    showToast('⚠️ Security Error: Enter a valid 10-digit mobile number.');
+    showToast('⚠️ Please enter a valid 10-digit mobile number.');
     return;
   }
   if(!validateEmail(email)){
-    showToast('⚠️ Security Error: Enter a valid email address.');
+    showToast('⚠️ Please enter a valid email address.');
     return;
   }
 
@@ -910,7 +902,7 @@ function handleOwnerRegistration(e){
 function sendOTP(){
   const phone = $('#ownerPhone').value.trim();
   if(!validatePhoneNumber(phone)){ showToast('Please enter a valid 10-digit mobile number'); return; }
-  showToast('OTP sent securely! (Demo code: 1234)');
+  showToast('OTP sent successfully! (Demo code: 1234)');
   $('#phoneStep').classList.add('hidden');
   $('#otpStep').classList.remove('hidden');
 }
@@ -939,7 +931,7 @@ function verifyOTP(){
 
 function ownerLogout(){
   localStorage.removeItem('roomzy_active_owner');
-  showToast('Logged out securely.');
+  showToast('Logged out successfully.');
   openOwnerPortal();
 }
 
@@ -1053,7 +1045,7 @@ async function handlePublishPG(e){
   savedCustomPgs.unshift(newProperty);
   localStorage.setItem('roomzy_custom_pgs', JSON.stringify(savedCustomPgs));
 
-  showToast('🎉 PG Listed Successfully Live with Real-Time Inventory Sync!');
+  showToast('🎉 PG Listed Successfully Live with Real-Time Room Sync!');
   renderOwnerInventoryManager();
   e.target.reset();
 }
@@ -1344,7 +1336,7 @@ function renderModalContent(l){
       <div class="p-5 rounded-3xl bg-coral-50 border border-coral-200 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
           <p class="text-xs text-gray-500 font-bold uppercase">Monthly Rent: <strong class="text-coral text-base">${inr(l.price)} / mo</strong></p>
-          <p class="text-xs ${isSoldOut ? 'text-red-600' : 'text-green-700'} font-bold mt-0.5">${isSoldOut ? '⚠️ This property is currently fully booked offline/online.' : '✨ Site visits are 100% Free! Call owner directly.'}</p>
+          <p class="text-xs ${isSoldOut ? 'text-red-600' : 'text-green-700'} font-bold mt-0.5">${isSoldOut ? '⚠️ This property is currently fully booked.' : '✨ Site visits are 100% Free! Call owner directly.'}</p>
         </div>
         <div class="w-full sm:w-auto">
           ${isSoldOut 
