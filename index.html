@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RoomZy Jaipur — Find Verified PGs, Hostels & Co-living</title>
+<title>RoomZy— Find Verified PGs, Hostels & Co-living</title>
 <meta name="description" content="RoomZy helps students & professionals find verified PGs, hostels and co-living spaces in Jaipur with zero brokerage.">
 
 <!-- ROOMZY FAVICON LOGO -->
@@ -144,7 +144,8 @@ tailwind.config = {
         <a href="#explore" onclick="showTenantView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Explore PGs</a>
         <a href="#perks" onclick="showTenantView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Why RoomZy</a>
         <button onclick="showAboutView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">About Us</button>
-        <button onclick="openOwnerPortal()" class="ml-1 px-4 py-2 rounded-xl border-[1.5px] border-coral text-coral text-[14px] font-bold hover:bg-coral hover:text-white transition">Owner Portal</button>
+        <button onclick="openStudentLogin()" class="ml-1 px-4 py-2 rounded-xl border-[1.5px] border-coral text-coral text-[14px] font-bold hover:bg-coral hover:text-white transition">Student Login</button>
+        <button onclick="openOwnerPortal()" class="px-4 py-2 rounded-xl bg-ink text-white text-[14px] font-bold hover:bg-gray-800 transition">Owner Portal</button>
       </nav>
     </div>
   </div>
@@ -172,8 +173,8 @@ tailwind.config = {
             <a href="#explore" class="shine inline-flex items-center gap-2 h-12 px-6 rounded-2xl bg-coral text-white font-bold shadow-redglow hover:bg-coral-dark transition">
               Explore stays &rarr;
             </a>
-            <button onclick="openOwnerPortal()" class="inline-flex items-center gap-2 h-12 px-6 rounded-2xl bg-white border border-line font-bold hover:border-ink transition">
-              Register as Owner
+            <button onclick="openStudentLogin()" class="inline-flex items-center gap-2 h-12 px-6 rounded-2xl bg-white border border-line font-bold hover:border-ink transition">
+              Student Login
             </button>
           </div>
         </div>
@@ -222,9 +223,9 @@ tailwind.config = {
         </div>
 
         <div class="p-6 rounded-3xl bg-mist border border-line space-y-3 card-hov">
-          <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center text-xl font-bold">🧺</div>
-          <h3 class="text-lg font-extrabold">Appliance Clarity</h3>
-          <p class="text-xs text-gray-500 leading-relaxed font-medium">Know exactly what's included—from high-speed WiFi and washing machines to 5 meals a day.</p>
+          <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center text-xl font-bold">🎸</div>
+          <h3 class="text-lg font-extrabold">Events & Concert Alerts</h3>
+          <p class="text-xs text-gray-500 leading-relaxed font-medium">Get customized notifications for concerts, sports, and parties once you log in and book.</p>
         </div>
       </div>
     </div>
@@ -295,6 +296,56 @@ tailwind.config = {
 
     </div>
   </section>
+</div>
+
+<!-- STUDENT LOGIN VIEW WITH INTERESTS DROPDOWN MENU -->
+<div id="studentLoginView" class="hidden max-w-lg mx-auto px-4 py-16">
+  <div class="bg-white rounded-3xl border border-line shadow-card p-8">
+    <div class="text-center max-w-md mx-auto mb-6">
+      <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center mx-auto mb-3 font-bold text-xl">🎓</div>
+      <h2 class="text-2xl font-extrabold">Student Login & Event Preferences</h2>
+      <p class="text-xs text-gray-500 mt-1">Sign in with your credentials and choose your event interests from the dropdown menu for tailored notifications.</p>
+    </div>
+
+    <form onsubmit="handleStudentLoginSubmit(event)" class="space-y-4">
+      <div>
+        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Full Student Name *</label>
+        <input type="text" id="stuName" required placeholder="e.g. Aman Sharma" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Mobile Number *</label>
+          <input type="tel" id="stuPhone" required placeholder="e.g. 9828011223" pattern="[0-9]{10}" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+        </div>
+        <div>
+          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">College Name *</label>
+          <input type="text" id="stuCollege" required placeholder="e.g. SKIT / JECRC" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+        </div>
+      </div>
+
+      <!-- INTERESTS DROPDOWN MENU ON LOGIN PAGE -->
+      <div>
+        <label class="block text-xs font-extrabold text-coral uppercase mb-1">🎸 Select Interest (For Event Notifications)</label>
+        <select id="stuInterestDropdown" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral bg-white">
+          <option value="">No interests (Zero notifications)</option>
+          <option value="Live Concerts & Music Fests">🎸 Live Concerts & Music Fests</option>
+          <option value="Weekend Parties & Social Mixers">🎉 Weekend Parties & Social Mixers</option>
+          <option value="Sports Tournaments & Fitness Clubs">🏃‍♂️ Sports Tournaments & Fitness Clubs</option>
+          <option value="Libraries & 24/7 Study Hubs">📚 Libraries & 24/7 Study Hubs</option>
+          <option value="Shopping Malls & Cafes">🛍️ Shopping Malls & Cafes</option>
+          <option value="Metro & Transit Access">🚇 Metro & Transit Access</option>
+        </select>
+        <p class="text-[11px] text-gray-400 mt-1">Notifications are triggered after booking based on this selection.</p>
+      </div>
+
+      <div class="pt-3">
+        <button type="submit" class="w-full h-12 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow">Sign In & Explore PGs</button>
+      </div>
+      <div class="text-center pt-2">
+        <button type="button" onclick="showTenantView()" class="text-xs font-bold text-gray-400 hover:text-ink">← Back to Home</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <!-- ABOUT US DEDICATED PAGE VIEW -->
@@ -369,6 +420,7 @@ tailwind.config = {
     <ul class="list-disc pl-5 space-y-1">
       <li>Mobile numbers for secure OTP verification.</li>
       <li>Your name and email address.</li>
+      <li>Selected interest category from login dropdown (if opted in for event notifications).</li>
       <li>Government ID proof (such as Aadhaar or PAN) to confirm property owner identity.</li>
       <li>Property details like rent prices, addresses, and available facilities.</li>
     </ul>
@@ -377,8 +429,8 @@ tailwind.config = {
     <p>Your details are used only to:</p>
     <ul class="list-disc pl-5 space-y-1">
       <li>Connect students directly with verified property owners.</li>
+      <li>Send interest-based event notifications after a booking is confirmed.</li>
       <li>Keep available room counts updated in real-time.</li>
-      <li>Send important booking updates or security alerts.</li>
     </ul>
 
     <h3 class="text-lg font-extrabold text-ink pt-2">3. Keeping Data Safe</h3>
@@ -450,7 +502,7 @@ tailwind.config = {
       <div class="grid sm:grid-cols-2 gap-4">
         <div>
           <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Mobile Number *</label>
-          <input type="tel" id="regPhone" required placeholder="e.g. 9828011223" pattern="[0-9]{10}" title="Enter 10 digit mobile number" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+          <input type="tel" id="regPhone" required placeholder="e.g. 9828011223" pattern="[0-9]{10}" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
         </div>
         <div>
           <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Email Address *</label>
@@ -652,8 +704,8 @@ tailwind.config = {
           <li><a href="#explore" onclick="showTenantView()" class="hover:text-white transition">Explore All PGs</a></li>
           <li><a href="#perks" onclick="showTenantView()" class="hover:text-white transition">Why RoomZy</a></li>
           <li><button onclick="showAboutView()" class="hover:text-white transition text-left">About Us</button></li>
-          <li><button onclick="openOwnerPortal()" class="hover:text-white transition text-left">Owner Registration</button></li>
-          <li><button onclick="openOwnerPortal()" class="hover:text-white transition text-left">Owner Login Portal</button></li>
+          <li><button onclick="openStudentLogin()" class="hover:text-white transition text-left">Student Login</button></li>
+          <li><button onclick="openOwnerPortal()" class="hover:text-white transition text-left">Owner Portal</button></li>
         </ul>
       </div>
 
@@ -706,11 +758,6 @@ function validatePhoneNumber(phone) {
   return phoneRegex.test(phone);
 }
 
-function validateEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
-
 const CITIES = ['Jaipur (All)','Sitapura','Malviya Nagar','Vaishali Nagar','Jagatpura','Raja Park','Gopalpura Bypass','Mansarovar'];
 const AMENITIES_LIST = [
   {id:'wifi', label:'High-Speed WiFi'},
@@ -738,7 +785,7 @@ const INITIAL_MOCK_PGS = [
     id: 102, name: 'Urban Nest Luxury Co-living', type: 'Co-living', area: 'Malviya Nagar, Jaipur', price: 14500, rating: 4.9, gender: 'Unisex',
     occ: 'Single', totalBeds: 20, availableBeds: 5, amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Fortis Hospital (400m), WTP Library (200m), Anytime Fitness (500m)',
     phone: '09829012345', ownerEmail: 'urbannest@gmail.com', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60',
-    view360: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80',
+    view360: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=60',
     videos: [], tag: 'Bestseller',
     trustScore: { safety: '10/10', curfew: 'No Curfew (24/7 Access)', foodHygiene: '5.0/5 Star Mess', cctv: 'Gated Security + CCTV' },
     reviews: [
@@ -749,7 +796,7 @@ const INITIAL_MOCK_PGS = [
     id: 103, name: 'Royal Heritage Student Hostel', type: 'Hostel', area: 'Vaishali Nagar, Jaipur', price: 9200, rating: 4.7, gender: 'Male',
     occ: 'Double', totalBeds: 12, availableBeds: 0, amen: ['wifi','washing','water','fridge','food'], nearby: 'Manipal Hospital (500m), Vaishali Library (200m)',
     phone: '09828199887', ownerEmail: 'royalheritage@gmail.com', img: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=60',
-    view360: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80',
+    view360: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=60',
     videos: [], tag: 'Verified',
     trustScore: { safety: '9.5/10', curfew: '11:00 PM Gate Close', foodHygiene: '4.7/5 Star Mess', cctv: 'CCTV Monitored' },
     reviews: [
@@ -760,7 +807,7 @@ const INITIAL_MOCK_PGS = [
     id: 104, name: 'Greenwood Girls Luxury PG', type: 'PG', area: 'Mansarovar, Jaipur', price: 11000, rating: 4.9, gender: 'Female',
     occ: 'Single', totalBeds: 10, availableBeds: 2, amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Metro Station (300m), Apex Hospital (600m)',
     phone: '09414055667', ownerEmail: 'greenwood@gmail.com', img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60',
-    view360: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80',
+    view360: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=60',
     videos: [], tag: 'Top Rated',
     trustScore: { safety: '10/10', curfew: '9:30 PM Secure Gate', foodHygiene: '4.9/5 Star Mess', cctv: 'Dedicated Female Warden & CCTV' },
     reviews: [
@@ -784,9 +831,40 @@ function hideAllViews(){
   $('#tenantView').classList.add('hidden');
   $('#aboutView').classList.add('hidden');
   $('#ownerView').classList.add('hidden');
+  $('#studentLoginView').classList.add('hidden');
   $('#privacyView').classList.add('hidden');
   $('#termsView').classList.add('hidden');
   $('#securityView').classList.add('hidden');
+}
+
+function openStudentLogin(){
+  hideAllViews();
+  $('#studentLoginView').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+function handleStudentLoginSubmit(e){
+  e.preventDefault();
+  const name = sanitizeHTML($('#stuName').value.trim());
+  const phone = $('#stuPhone').value.trim();
+  const college = sanitizeHTML($('#stuCollege').value.trim());
+  const selectedInterest = $('#stuInterestDropdown').value;
+
+  if(!validatePhoneNumber(phone)){
+    showToast('⚠️ Please enter a valid 10-digit mobile number.');
+    return;
+  }
+
+  const studentProfile = {
+    name, phone, college,
+    interest: selectedInterest,
+    isBooked: false, 
+    loggedInAt: new Date().toISOString()
+  };
+
+  localStorage.setItem('roomzy_active_student', JSON.stringify(studentProfile));
+  showToast(`🎉 Welcome ${name}! Logged in successfully.`);
+  showTenantView();
 }
 
 function openOwnerPortal(){ 
@@ -861,17 +939,10 @@ function handleOwnerRegistration(e){
     showToast('⚠️ Please enter a valid 10-digit mobile number.');
     return;
   }
-  if(!validateEmail(email)){
-    showToast('⚠️ Please enter a valid email address.');
-    return;
-  }
 
   const ownerProfile = { name, phone, email, address, idType, registeredAt: new Date().toISOString() };
-  
   let registeredOwners = [];
-  try {
-    registeredOwners = JSON.parse(localStorage.getItem('roomzy_owners') || '[]');
-  } catch(err){}
+  try { registeredOwners = JSON.parse(localStorage.getItem('roomzy_owners') || '[]'); } catch(err){}
 
   registeredOwners.push(ownerProfile);
   localStorage.setItem('roomzy_owners', JSON.stringify(registeredOwners));
@@ -900,9 +971,7 @@ function verifyOTP(){
     try { registeredOwners = JSON.parse(localStorage.getItem('roomzy_owners') || '[]'); } catch(e){}
     
     let owner = registeredOwners.find(o => o.phone === phone);
-    if(!owner){
-      owner = { name: 'Verified Owner', phone: phone, email: 'owner@roomzy.in', address: 'Jaipur' };
-    }
+    if(!owner){ owner = { name: 'Verified Owner', phone: phone, email: 'owner@roomzy.in', address: 'Jaipur' }; }
     localStorage.setItem('roomzy_active_owner', JSON.stringify(owner));
     showToast('Login Successful!');
     $('#ownerLoginBox').classList.add('hidden');
@@ -924,14 +993,12 @@ function renderOwnerInventoryManager(){
   let customPgs = [];
   try { customPgs = JSON.parse(localStorage.getItem('roomzy_custom_pgs') || '[]'); } catch(e){}
   
-  const myPgs = customPgs; 
-
-  if(myPgs.length === 0){
+  if(customPgs.length === 0){
     $('#ownerPropertiesList').innerHTML = `<p class="text-xs text-gray-400">No properties listed yet. Fill the form below to publish your first property.</p>`;
     return;
   }
 
-  $('#ownerPropertiesList').innerHTML = myPgs.map(p => `
+  $('#ownerPropertiesList').innerHTML = customPgs.map(p => `
     <div class="flex flex-col sm:flex-row items-center justify-between gap-3 p-3.5 bg-white rounded-2xl border border-line">
       <div>
         <p class="text-sm font-extrabold text-ink">${sanitizeHTML(p.name)}</p>
@@ -943,8 +1010,8 @@ function renderOwnerInventoryManager(){
           <span class="text-xs font-extrabold px-2 py-0.5 rounded bg-green-100 text-green-700">${p.availableBeds} / ${p.totalBeds || 15}</span>
         </div>
         <div class="flex items-center gap-1">
-          <button onclick="adjustBed(${p.id}, -1)" class="h-8 w-8 rounded-lg bg-red-50 text-red-600 font-extrabold text-sm hover:bg-red-100" title="Rented offline (-1 bed)">-</button>
-          <button onclick="adjustBed(${p.id}, 1)" class="h-8 w-8 rounded-lg bg-green-50 text-green-600 font-extrabold text-sm hover:bg-green-100" title="Vacated (+1 bed)">+</button>
+          <button onclick="adjustBed(${p.id}, -1)" class="h-8 w-8 rounded-lg bg-red-50 text-red-600 font-extrabold text-sm hover:bg-red-100">-</button>
+          <button onclick="adjustBed(${p.id}, 1)" class="h-8 w-8 rounded-lg bg-green-50 text-green-600 font-extrabold text-sm hover:bg-green-100">+</button>
         </div>
       </div>
     </div>
@@ -979,25 +1046,11 @@ async function handlePublishPG(e){
 
   const fileInput = $('#pgMedia');
   let imageUrl = 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60';
-  let videoUrls = [];
-
-  if(fileInput.files && fileInput.files.length > 0){
-    for(let i=0; i<fileInput.files.length; i++){
-      const file = fileInput.files[i];
-      const url = URL.createObjectURL(file);
-      if(file.type.includes('video')){
-        videoUrls.push(url);
-      } else if(i === 0) {
-        imageUrl = url;
-      }
-    }
-  }
+  if(fileInput.files && fileInput.files[0]){ imageUrl = URL.createObjectURL(fileInput.files[0]); }
 
   const view360Input = $('#pg360');
   let view360Url = imageUrl;
-  if(view360Input.files && view360Input.files[0]){
-    view360Url = URL.createObjectURL(view360Input.files[0]);
-  }
+  if(view360Input.files && view360Input.files[0]){ view360Url = URL.createObjectURL(view360Input.files[0]); }
 
   const newProperty = {
     id: Date.now(),
@@ -1016,16 +1069,14 @@ async function handlePublishPG(e){
     ownerEmail: activeOwner.email,
     img: imageUrl,
     view360: view360Url,
-    videos: videoUrls,
+    videos: [],
     tag: 'Verified Owner',
     trustScore: { safety: '9.8/10', curfew: '10:00 PM Gate Close', foodHygiene: '4.9/5 Star Mess', cctv: '24/7 CCTV' },
     reviews: [{ name: 'Verified Owner', role: 'Resident', comment: 'Newly listed verified property on RoomZy.', rating: 5 }]
   };
 
   let savedCustomPgs = [];
-  try {
-    savedCustomPgs = JSON.parse(localStorage.getItem('roomzy_custom_pgs') || '[]');
-  } catch(e) {}
+  try { savedCustomPgs = JSON.parse(localStorage.getItem('roomzy_custom_pgs') || '[]'); } catch(e) {}
   
   savedCustomPgs.unshift(newProperty);
   localStorage.setItem('roomzy_custom_pgs', JSON.stringify(savedCustomPgs));
@@ -1037,9 +1088,7 @@ async function handlePublishPG(e){
 
 async function fetchPropertiesFromDatabase(){
   let customPgs = [];
-  try {
-    customPgs = JSON.parse(localStorage.getItem('roomzy_custom_pgs') || '[]');
-  } catch(e) {}
+  try { customPgs = JSON.parse(localStorage.getItem('roomzy_custom_pgs') || '[]'); } catch(e) {}
 
   try {
     const { data, error } = await supabase.from('properties').select('*').order('id', { ascending: false });
@@ -1048,13 +1097,8 @@ async function fetchPropertiesFromDatabase(){
     } else {
       const dbFormatted = data.map(d => ({
         ...d,
-        occ: 'Single',
-        totalBeds: 12,
-        availableBeds: 4,
-        amen: ['wifi', 'washing', 'food'],
-        view360: d.img,
-        videos: [],
-        tag: 'Verified',
+        occ: 'Single', totalBeds: 12, availableBeds: 4, amen: ['wifi', 'washing', 'food'],
+        view360: d.img, videos: [], tag: 'Verified',
         trustScore: { safety: '9.5/10', curfew: '10:00 PM', foodHygiene: '4.8/5 Star', cctv: 'CCTV Active' },
         reviews: [{ name: 'Verified Tenant', role: 'Student', comment: 'Great place to stay.', rating: 4.8 }]
       }));
@@ -1221,11 +1265,7 @@ function renderModalContent(l){
 
   let mediaContainer = `<img src="${l.img}" class="w-full h-72 object-cover rounded-2xl shadow-soft"/>`;
   if(currentModalTab === 'videos'){
-    if(l.videos && l.videos.length > 0){
-      mediaContainer = `<video controls class="w-full h-72 object-cover rounded-2xl shadow-soft"><source src="${l.videos[0]}" type="video/mp4">Your browser does not support video.</video>`;
-    } else {
-      mediaContainer = `<div class="w-full h-72 bg-gray-100 rounded-2xl flex flex-col items-center justify-center text-gray-400 text-xs font-bold"><span>📹 Walkthrough video tour available on site visit</span></div>`;
-    }
+    mediaContainer = `<div class="w-full h-72 bg-gray-100 rounded-2xl flex flex-col items-center justify-center text-gray-400 text-xs font-bold"><span>📹 Walkthrough video tour available on site visit</span></div>`;
   } else if(currentModalTab === '360'){
     mediaContainer = `
       <div class="relative w-full h-72 rounded-2xl overflow-hidden shadow-soft bg-black">
