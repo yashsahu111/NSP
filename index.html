@@ -68,18 +68,12 @@ tailwind.config = {
 </head>
 <body class="bg-mist text-ink">
 
-<script>
-  const SUPABASE_URL = 'https://aglqsqqrjshzckqsadud.supabase.co';
-  const SUPABASE_ANON_KEY = 'sb_publishable_CKE3m9UtMNnWEI8jboc0HA_Gly1CMjL';
-  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-</script>
-
 <!-- HEADER -->
 <header id="siteHeader" class="sticky top-0 z-50 glass border-b border-line">
   <div class="max-w-[1500px] mx-auto px-4 sm:px-6">
     <div class="h-[68px] flex items-center gap-4">
 
-      <a href="#" onclick="showTenantView()" class="flex items-center gap-2.5 shrink-0 group">
+      <a href="#" onclick="showTenantView(); return false;" class="flex items-center gap-2.5 shrink-0 group">
         <span class="relative grid place-items-center h-10 w-10 rounded-2xl bg-gradient-to-br from-coral to-[#FF6B5A] shadow-redglow group-hover:scale-105 transition">
           <svg viewBox="0 0 24 24" class="h-[22px] w-[22px] text-white" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.8"/><path d="M9.5 21v-6h5v6"/>
@@ -90,7 +84,7 @@ tailwind.config = {
 
       <div id="headerSearchPill" class="hidden lg:flex flex-1 justify-center">
         <div class="relative flex items-stretch h-12 rounded-full border border-line bg-white shadow-soft hover:shadow-card transition divide-x divide-line">
-          <button id="cityBtn" class="group flex items-center gap-2 pl-5 pr-4 rounded-l-full hover:bg-mist transition">
+          <button id="cityBtn" type="button" class="group flex items-center gap-2 pl-5 pr-4 rounded-l-full hover:bg-mist transition">
             <svg class="h-4 w-4 text-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
             <span class="text-left leading-none">
               <span class="block text-[10px] uppercase tracking-wide text-gray-400 font-semibold">Jaipur Area</span>
@@ -98,14 +92,14 @@ tailwind.config = {
             </span>
             <svg class="h-3.5 w-3.5 text-gray-400 group-hover:text-ink transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg>
           </button>
-          <button id="dateBtn" class="flex items-center gap-2 px-4 hover:bg-mist transition">
+          <button id="dateBtn" type="button" class="flex items-center gap-2 px-4 hover:bg-mist transition">
             <svg class="h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
             <span class="text-left leading-none">
               <span class="block text-[10px] uppercase tracking-wide text-gray-400 font-semibold">Move-in</span>
               <span id="dateLabel" class="block text-[13.5px] font-bold">Immediate</span>
             </span>
           </button>
-          <button id="budgetBtn" class="flex items-center gap-2 px-4 hover:bg-mist transition">
+          <button id="budgetBtn" type="button" class="flex items-center gap-2 px-4 hover:bg-mist transition">
             <svg class="h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h12M6 9h12M9 4c4 0 6 2 6 5s-2 5-6 5h-3l7 6"/></svg>
             <span class="text-left leading-none">
               <span class="block text-[10px] uppercase tracking-wide text-gray-400 font-semibold">Budget</span>
@@ -113,7 +107,7 @@ tailwind.config = {
             </span>
           </button>
           <div class="flex items-center pl-2 pr-1.5">
-            <button onclick="applyHeaderSearch()" class="shine h-9 w-9 grid place-items-center rounded-full bg-coral text-white hover:bg-coral-dark transition shadow-redglow">
+            <button onclick="applyHeaderSearch()" type="button" class="shine h-9 w-9 grid place-items-center rounded-full bg-coral text-white hover:bg-coral-dark transition shadow-redglow">
               <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
             </button>
           </div>
@@ -143,11 +137,11 @@ tailwind.config = {
       <nav class="hidden xl:flex items-center gap-1 ml-auto">
         <a href="#explore" onclick="showTenantView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Explore PGs</a>
         <a href="#perks" onclick="showTenantView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Why RoomZy</a>
-        <button onclick="showAboutView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">About Us</button>
+        <button onclick="showAboutView()" type="button" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">About Us</button>
         
         <!-- DYNAMIC AUTH SLOT -->
         <div id="authNavSlot" class="ml-1">
-          <button onclick="openStudentLogin()" class="px-4 py-2 rounded-xl border-[1.5px] border-coral text-coral text-[14px] font-bold hover:bg-coral hover:text-white transition">Student Login</button>
+          <button onclick="openStudentLogin()" type="button" class="px-4 py-2 rounded-xl border-[1.5px] border-coral text-coral text-[14px] font-bold hover:bg-coral hover:text-white transition">Student Login</button>
         </div>
       </nav>
     </div>
@@ -176,7 +170,7 @@ tailwind.config = {
             <a href="#explore" class="shine inline-flex items-center gap-2 h-12 px-6 rounded-2xl bg-coral text-white font-bold shadow-redglow hover:bg-coral-dark transition">
               Explore stays &rarr;
             </a>
-            <button onclick="openStudentLogin()" class="inline-flex items-center gap-2 h-12 px-6 rounded-2xl bg-white border border-line font-bold hover:border-ink transition">
+            <button onclick="openStudentLogin()" type="button" class="inline-flex items-center gap-2 h-12 px-6 rounded-2xl bg-white border border-line font-bold hover:border-ink transition">
               Student Login
             </button>
           </div>
@@ -243,7 +237,7 @@ tailwind.config = {
           <div class="bg-white rounded-3xl border border-line shadow-soft p-5">
             <div class="flex items-center justify-between mb-5">
               <h3 class="font-extrabold text-[17px]">Filters</h3>
-              <button onclick="resetFilters()" class="text-[12.5px] font-bold text-coral hover:underline">Reset all</button>
+              <button onclick="resetFilters()" type="button" class="text-[12.5px] font-bold text-coral hover:underline">Reset all</button>
             </div>
 
             <div class="space-y-6">
@@ -301,7 +295,7 @@ tailwind.config = {
   </section>
 </div>
 
-<!-- STUDENT LOGIN VIEW WITH INTERESTS DROPDOWN MENU -->
+<!-- STUDENT LOGIN VIEW -->
 <div id="studentLoginView" class="hidden max-w-lg mx-auto px-4 py-16">
   <div class="bg-white rounded-3xl border border-line shadow-card p-8">
     <div class="text-center max-w-md mx-auto mb-6">
@@ -326,7 +320,6 @@ tailwind.config = {
         </div>
       </div>
 
-      <!-- INTERESTS DROPDOWN MENU ON LOGIN PAGE -->
       <div>
         <label class="block text-xs font-extrabold text-coral uppercase mb-1">🎸 Select Your Interests</label>
         <select id="stuInterestDropdown" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral bg-white">
@@ -350,7 +343,7 @@ tailwind.config = {
   </div>
 </div>
 
-<!-- ABOUT US DEDICATED PAGE VIEW -->
+<!-- ABOUT US VIEW -->
 <div id="aboutView" class="hidden max-w-[1200px] mx-auto px-4 sm:px-6 py-12 lg:py-16 space-y-16">
   <div class="grid lg:grid-cols-2 gap-10 items-center">
     <div class="space-y-6">
@@ -362,40 +355,22 @@ tailwind.config = {
         RoomZy was founded with a singular mission: to eliminate the opaque middleman broker system and give outstation students and parents total peace of mind when securing PGs, hostels, and co-living spaces across Jaipur.
       </p>
       <div class="flex items-center gap-4 pt-2">
-        <button onclick="showTenantView()" class="h-12 px-7 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow">Explore Available PGs</button>
+        <button onclick="showTenantView()" type="button" class="h-12 px-7 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow">Explore Available PGs</button>
       </div>
     </div>
     <div class="relative">
       <div class="relative rounded-4xl overflow-hidden shadow-card border border-white">
-        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1000&q=80" alt="RoomZy Jaipur Office & Team" class="w-full h-[360px] sm:h-[420px] object-cover">
+        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1000&q=80" alt="RoomZy Office" class="w-full h-[360px] sm:h-[420px] object-cover">
       </div>
-    </div>
-  </div>
-
-  <div class="grid sm:grid-cols-3 gap-6">
-    <div class="p-8 rounded-3xl bg-white border border-line shadow-soft text-center space-y-2">
-      <p class="text-4xl font-extrabold text-coral">100%</p>
-      <p class="text-sm font-bold text-gray-700">Zero Brokerage Fees</p>
-      <p class="text-xs text-gray-400 font-medium">Direct connection between verified owners and students.</p>
-    </div>
-    <div class="p-8 rounded-3xl bg-white border border-line shadow-soft text-center space-y-2">
-      <p class="text-4xl font-extrabold text-indigo-600">500+</p>
-      <p class="text-sm font-bold text-gray-700">Verified Jaipur PGs</p>
-      <p class="text-xs text-gray-400 font-medium">Inspected across Sitapura, Malviya Nagar & Jagatpura.</p>
-    </div>
-    <div class="p-8 rounded-3xl bg-white border border-line shadow-soft text-center space-y-2">
-      <p class="text-4xl font-extrabold text-green-600">360°</p>
-      <p class="text-sm font-bold text-gray-700">Virtual Room Tours</p>
-      <p class="text-xs text-gray-400 font-medium">Explore rooms remotely before making a visit.</p>
     </div>
   </div>
 </div>
 
-<!-- PRIVACY POLICY PAGE -->
+<!-- PRIVACY POLICY -->
 <div id="privacyView" class="hidden max-w-[1000px] mx-auto px-4 sm:px-6 py-12 lg:py-16 space-y-8 bg-white my-8 rounded-4xl border border-line shadow-soft">
   <div class="flex items-center justify-between border-b border-line pb-4">
     <h1 class="text-3xl font-extrabold tracking-tight">Privacy Policy</h1>
-    <button onclick="showTenantView()" class="px-4 py-2 rounded-xl bg-coral-50 text-coral font-extrabold text-xs">← Back to Home</button>
+    <button onclick="showTenantView()" type="button" class="px-4 py-2 rounded-xl bg-coral-50 text-coral font-extrabold text-xs">← Back to Home</button>
   </div>
   <div class="space-y-6 text-sm text-gray-600 leading-relaxed font-medium">
     <p><strong>Effective Date:</strong> January 1, 2026</p>
@@ -403,11 +378,11 @@ tailwind.config = {
   </div>
 </div>
 
-<!-- TERMS OF SERVICE PAGE -->
+<!-- TERMS OF SERVICE -->
 <div id="termsView" class="hidden max-w-[1000px] mx-auto px-4 sm:px-6 py-12 lg:py-16 space-y-8 bg-white my-8 rounded-4xl border border-line shadow-soft">
   <div class="flex items-center justify-between border-b border-line pb-4">
     <h1 class="text-3xl font-extrabold tracking-tight">Terms of Service</h1>
-    <button onclick="showTenantView()" class="px-4 py-2 rounded-xl bg-coral-50 text-coral font-extrabold text-xs">← Back to Home</button>
+    <button onclick="showTenantView()" type="button" class="px-4 py-2 rounded-xl bg-coral-50 text-coral font-extrabold text-xs">← Back to Home</button>
   </div>
   <div class="space-y-6 text-sm text-gray-600 leading-relaxed font-medium">
     <p><strong>Effective Date:</strong> January 1, 2026</p>
@@ -456,12 +431,12 @@ tailwind.config = {
     <p class="text-xs text-gray-500 mt-1 mb-6">Enter your mobile number to access your dashboard.</p>
     <div id="phoneStep" class="space-y-4">
       <input type="tel" id="ownerPhone" placeholder="Enter 10-digit mobile number" class="w-full h-12 px-4 rounded-xl border border-line text-sm font-semibold text-center outline-none focus:border-coral">
-      <button onclick="sendOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Send Verification OTP</button>
+      <button onclick="sendOTP()" type="button" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Send Verification OTP</button>
     </div>
     <div id="otpStep" class="hidden space-y-4 mt-4">
       <p class="text-xs text-green-600 font-bold">OTP Sent! (Use demo code: 1234)</p>
       <input type="text" id="ownerOTP" placeholder="Enter OTP (1234)" class="w-full h-12 px-4 rounded-xl border border-line text-sm font-semibold text-center tracking-widest outline-none focus:border-coral">
-      <button onclick="verifyOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Verify & Open Dashboard</button>
+      <button onclick="verifyOTP()" type="button" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Verify & Open Dashboard</button>
     </div>
   </div>
 
@@ -471,7 +446,7 @@ tailwind.config = {
         <h2 class="text-2xl font-extrabold">Owner Dashboard</h2>
         <p class="text-xs text-green-600 font-bold mt-0.5">✅ Active Owner: <span id="activeOwnerName">Owner</span></p>
       </div>
-      <button onclick="ownerLogout()" class="text-xs font-bold text-red-600">Logout</button>
+      <button onclick="ownerLogout()" type="button" class="text-xs font-bold text-red-600">Logout</button>
     </div>
     
     <div class="mb-6 p-4 rounded-xl bg-mist border border-line">
@@ -504,7 +479,7 @@ tailwind.config = {
       <button type="submit" class="w-full h-12 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow">Publish Listing Live</button>
     </form>
     <div class="mt-4">
-      <button onclick="showTenantView()" class="w-full h-11 rounded-xl bg-ink text-white text-xs font-bold">Return to Home</button>
+      <button onclick="showTenantView()" type="button" class="w-full h-11 rounded-xl bg-ink text-white text-xs font-bold">Return to Home</button>
     </div>
   </div>
 </div>
@@ -521,7 +496,7 @@ tailwind.config = {
           <p id="pfCollege" class="text-xs text-gray-500 font-medium">College Name</p>
         </div>
       </div>
-      <button onclick="closeProfileModal()" class="h-8 w-8 grid place-items-center rounded-xl bg-mist border border-line text-xs font-bold">✕</button>
+      <button onclick="closeProfileModal()" type="button" class="h-8 w-8 grid place-items-center rounded-xl bg-mist border border-line text-xs font-bold">✕</button>
     </div>
 
     <div class="space-y-4 text-xs font-semibold text-gray-700">
@@ -540,18 +515,18 @@ tailwind.config = {
     </div>
 
     <div class="pt-2">
-      <button onclick="studentLogout()" class="w-full h-11 rounded-2xl bg-red-50 text-red-600 font-extrabold text-xs hover:bg-red-100">Sign Out / Logout</button>
+      <button onclick="studentLogout()" type="button" class="w-full h-11 rounded-2xl bg-red-50 text-red-600 font-extrabold text-xs hover:bg-red-100">Sign Out / Logout</button>
     </div>
   </div>
 </div>
 
-<!-- RICH FOOTER SECTION -->
+<!-- FOOTER -->
 <footer class="bg-ink text-white pt-16 pb-10 border-t border-gray-800">
   <div class="max-w-[1500px] mx-auto px-4 sm:px-6">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-gray-800">
       
       <div class="lg:col-span-2 space-y-4">
-        <a href="#" onclick="showTenantView()" class="flex items-center gap-2.5">
+        <a href="#" onclick="showTenantView(); return false;" class="flex items-center gap-2.5">
           <span class="grid place-items-center h-10 w-10 rounded-2xl bg-gradient-to-br from-coral to-[#FF6B5A] shadow-redglow">
             <svg viewBox="0 0 24 24" class="h-[22px] w-[22px] text-white" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.8"/><path d="M9.5 21v-6h5v6"/>
@@ -577,9 +552,9 @@ tailwind.config = {
         <p class="text-xs font-extrabold uppercase tracking-widest text-coral">Quick Links</p>
         <ul class="space-y-2 text-sm text-gray-400 font-medium">
           <li><a href="#explore" onclick="showTenantView()" class="hover:text-white transition">Explore All PGs</a></li>
-          <li><button onclick="showAboutView()" class="hover:text-white transition text-left">About Us</button></li>
-          <li><button onclick="openStudentLogin()" class="hover:text-white transition text-left">Student Login</button></li>
-          <li><button onclick="openOwnerPortal()" class="hover:text-white transition text-left text-coral font-bold">Owner Portal</button></li>
+          <li><button onclick="showAboutView()" type="button" class="hover:text-white transition text-left">About Us</button></li>
+          <li><button onclick="openStudentLogin()" type="button" class="hover:text-white transition text-left">Student Login</button></li>
+          <li><button onclick="openOwnerPortal()" type="button" class="hover:text-white transition text-left text-coral font-bold">Owner Portal</button></li>
         </ul>
       </div>
 
@@ -595,8 +570,8 @@ tailwind.config = {
     <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400 font-medium">
       <p>&copy; 2026 RoomZy Technologies Pvt. Ltd. All rights reserved.</p>
       <div class="flex items-center gap-6">
-        <button onclick="showPrivacyView()" class="hover:text-white transition">Privacy Policy</button>
-        <button onclick="showTermsView()" class="hover:text-white transition">Terms of Service</button>
+        <button onclick="showPrivacyView()" type="button" class="hover:text-white transition">Privacy Policy</button>
+        <button onclick="showTermsView()" type="button" class="hover:text-white transition">Terms of Service</button>
       </div>
     </div>
   </div>
@@ -608,7 +583,7 @@ tailwind.config = {
   <div class="absolute inset-x-0 bottom-0 top-auto sm:inset-0 sm:m-auto sm:h-[90vh] sm:max-w-[1040px] bg-white sm:rounded-3xl rounded-t-3xl overflow-hidden shadow-pop flex flex-col max-h-[95vh]">
     <div class="flex items-center justify-between px-5 sm:px-7 h-16 border-b border-line shrink-0 bg-white">
       <p class="font-extrabold text-[17px] truncate" id="pmTitle">Property Details</p>
-      <button onclick="closeProp()" class="h-9 w-9 grid place-items-center rounded-xl hover:bg-mist border border-line">✕</button>
+      <button onclick="closeProp()" type="button" class="h-9 w-9 grid place-items-center rounded-xl hover:bg-mist border border-line">✕</button>
     </div>
     <div class="flex-1 overflow-y-auto" id="pmBody"></div>
   </div>
@@ -641,48 +616,21 @@ const AMENITIES_LIST = [
 const INITIAL_MOCK_PGS = [
   {
     id: 101, name: 'Shree Radhe Krishna PG Hostel', type: 'PG', area: 'Sitapura, Jaipur', price: 8500, rating: 4.8, gender: 'Unisex',
-    occ: 'Single', totalBeds: 15, availableBeds: 3, amen: ['wifi','washing','water','fridge','food'], nearby: 'Apollo Pharmacy (100m), Central Library (300m), Gold Gym (600m)',
+    occ: 'Single', totalBeds: 15, availableBeds: 3, amen: ['wifi','washing','water','fridge','food'], nearby: 'Apollo Pharmacy (100m), Central Library (300m)',
     phone: '09024776588', ownerEmail: 'radhepg@gmail.com', img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60',
     view360: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1200&q=60',
     videos: [], tag: 'Verified',
     trustScore: { safety: '9.8/10', curfew: '10:30 PM Gate Close', foodHygiene: '4.9/5 Star Mess', cctv: '24/7 CCTV & Biometric' },
-    reviews: [
-      { name: 'Rahul Sharma', role: 'Engineering Student', comment: 'Best PG near Sitapura industrial area. Food quality is just like home!', rating: 5 },
-      { name: 'Amit Verma', role: 'College Student', comment: 'Very secure with biometric entry and helpful owner.', rating: 4.5 }
-    ]
+    reviews: [{ name: 'Rahul Sharma', role: 'Engineering Student', comment: 'Best PG near Sitapura industrial area.', rating: 5 }]
   },
   {
     id: 102, name: 'Urban Nest Luxury Co-living', type: 'Co-living', area: 'Malviya Nagar, Jaipur', price: 14500, rating: 4.9, gender: 'Unisex',
-    occ: 'Single', totalBeds: 20, availableBeds: 5, amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Fortis Hospital (400m), WTP Library (200m), Anytime Fitness (500m)',
+    occ: 'Single', totalBeds: 20, availableBeds: 5, amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Fortis Hospital (400m)',
     phone: '09829012345', ownerEmail: 'urbannest@gmail.com', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60',
     view360: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=60',
     videos: [], tag: 'Bestseller',
-    trustScore: { safety: '10/10', curfew: 'No Curfew (24/7 Access)', foodHygiene: '5.0/5 Star Mess', cctv: 'Gated Security + CCTV' },
-    reviews: [
-      { name: 'Priya Jain', role: 'IT Professional', comment: 'Super luxurious co-living space near World Trade Park. Highly recommended!', rating: 5 }
-    ]
-  },
-  {
-    id: 103, name: 'Royal Heritage Student Hostel', type: 'Hostel', area: 'Vaishali Nagar, Jaipur', price: 9200, rating: 4.7, gender: 'Male',
-    occ: 'Double', totalBeds: 12, availableBeds: 0, amen: ['wifi','washing','water','fridge','food'], nearby: 'Manipal Hospital (500m), Vaishali Library (200m)',
-    phone: '09828199887', ownerEmail: 'royalheritage@gmail.com', img: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=60',
-    view360: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=60',
-    videos: [], tag: 'Verified',
-    trustScore: { safety: '9.5/10', curfew: '11:00 PM Gate Close', foodHygiene: '4.7/5 Star Mess', cctv: 'CCTV Monitored' },
-    reviews: [
-      { name: 'Kunal Singh', role: 'Medical Aspirant', comment: 'Quiet study environment and great proximity to libraries.', rating: 4.8 }
-    ]
-  },
-  {
-    id: 104, name: 'Greenwood Girls Luxury PG', type: 'PG', area: 'Mansarovar, Jaipur', price: 11000, rating: 4.9, gender: 'Female',
-    occ: 'Single', totalBeds: 10, availableBeds: 2, amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Metro Station (300m), Apex Hospital (600m)',
-    phone: '09414055667', ownerEmail: 'greenwood@gmail.com', img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60',
-    view360: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=60',
-    videos: [], tag: 'Top Rated',
-    trustScore: { safety: '10/10', curfew: '9:30 PM Secure Gate', foodHygiene: '4.9/5 Star Mess', cctv: 'Dedicated Female Warden & CCTV' },
-    reviews: [
-      { name: 'Neha Sharma', role: 'College Student', comment: 'Very safe for girls studying in Mansarovar. Extremely clean rooms.', rating: 5 }
-    ]
+    trustScore: { safety: '10/10', curfew: 'No Curfew', foodHygiene: '5.0/5 Star', cctv: 'Gated Security' },
+    reviews: [{ name: 'Priya Jain', role: 'IT Professional', comment: 'Super luxurious co-living.', rating: 5 }]
   }
 ];
 
@@ -704,7 +652,6 @@ function hideAllViews(){
   $('#studentLoginView').classList.add('hidden');
   $('#privacyView').classList.add('hidden');
   $('#termsView').classList.add('hidden');
-  $('#securityView').classList.add('hidden');
 }
 
 function updateAuthNavSlot(){
@@ -714,12 +661,12 @@ function updateAuthNavSlot(){
     const stu = JSON.parse(activeStudent);
     const initial = stu.name ? stu.name.charAt(0).toUpperCase() : 'U';
     slot.innerHTML = `
-      <button onclick="openProfileModal()" class="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-coral-50 border border-coral/30 hover:bg-coral-100 transition">
+      <button onclick="openProfileModal()" type="button" class="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-coral-50 border border-coral/30 hover:bg-coral-100 transition">
         <span class="h-8 w-8 rounded-xl bg-coral text-white font-extrabold text-xs grid place-items-center shadow-soft">${initial}</span>
         <span class="text-xs font-extrabold text-ink max-w-[100px] truncate">${sanitizeHTML(stu.name)}</span>
       </button>`;
   } else {
-    slot.innerHTML = `<button onclick="openStudentLogin()" class="px-4 py-2 rounded-xl border-[1.5px] border-coral text-coral text-[14px] font-bold hover:bg-coral hover:text-white transition">Student Login</button>`;
+    slot.innerHTML = `<button onclick="openStudentLogin()" type="button" class="px-4 py-2 rounded-xl border-[1.5px] border-coral text-coral text-[14px] font-bold hover:bg-coral hover:text-white transition">Student Login</button>`;
   }
 }
 
@@ -741,13 +688,7 @@ function handleStudentLoginSubmit(e){
     return;
   }
 
-  const studentProfile = {
-    name, phone, college,
-    interest: selectedInterest,
-    isBooked: false, 
-    loggedInAt: new Date().toISOString()
-  };
-
+  const studentProfile = { name, phone, college, interest: selectedInterest, isBooked: false, loggedInAt: new Date().toISOString() };
   localStorage.setItem('roomzy_active_student', JSON.stringify(studentProfile));
   showToast(`🎉 Welcome ${name}! Logged in successfully.`);
   updateAuthNavSlot();
@@ -801,6 +742,14 @@ function openOwnerPortal(){
     $('#ownerAddForm').classList.add('hidden');
   }
   window.scrollTo(0,0); 
+}
+
+function handleOwnerRegistration(e){
+  e.preventDefault();
+  const owner = { name: sanitizeHTML($('#regName').value.trim()), phone: $('#regPhone').value.trim() };
+  localStorage.setItem('roomzy_active_owner', JSON.stringify(owner));
+  showToast('Registered successfully!');
+  openOwnerPortal();
 }
 
 function switchToLogin(){ $('#ownerRegBox').classList.add('hidden'); $('#ownerLoginBox').classList.remove('hidden'); }
@@ -879,9 +828,9 @@ async function fetchPropertiesFromDatabase(){
 
 function renderFilterControls(){
   const OCC = ['Single','Double'];
-  $('#occRow').innerHTML = OCC.map(o=>`<button onclick="toggleOcc('${o}')" class="px-3.5 py-2 rounded-xl text-xs font-bold border ${state.occ.includes(o)?'border-coral bg-coral text-white':'border-line bg-white'}">${o} Room</button>`).join('');
+  $('#occRow').innerHTML = OCC.map(o=>`<button onclick="toggleOcc('${o}')" type="button" class="px-3.5 py-2 rounded-xl text-xs font-bold border ${state.occ.includes(o)?'border-coral bg-coral text-white':'border-line bg-white'}">${o} Room</button>`).join('');
   const GEN = ['Any','Male','Female'];
-  $('#genderRow').innerHTML = GEN.map(g=>`<button onclick="setGender('${g}')" class="py-2 rounded-xl text-xs font-bold border ${state.gender===g?'border-coral bg-coral text-white':'border-line bg-white'}">${g}</button>`).join('');
+  $('#genderRow').innerHTML = GEN.map(g=>`<button onclick="setGender('${g}')" type="button" class="py-2 rounded-xl text-xs font-bold border ${state.gender===g?'border-coral bg-coral text-white':'border-line bg-white'}">${g}</button>`).join('');
   $('#amenRow').innerHTML = AMENITIES_LIST.map(a=>`
     <label class="flex items-center gap-3 cursor-pointer">
       <input type="checkbox" ${state.amen.includes(a.id)?'checked':''} onchange="toggleAmen('${a.id}')" class="accent-coral h-4 w-4 rounded border-line">
@@ -914,7 +863,7 @@ function setupSliderEvents(){
 }
 
 function renderCities(){
-  $('#cityGrid').innerHTML = CITIES.map(c=>`<button onclick="pickCity('${c}')" class="px-3 py-2 rounded-xl text-xs font-bold text-left border ${state.city===c?'border-coral bg-coral-50 text-coral':'border-line'} hover:border-coral">${sanitizeHTML(c)}</button>`).join('');
+  $('#cityGrid').innerHTML = CITIES.map(c=>`<button onclick="pickCity('${c}')" type="button" class="px-3 py-2 rounded-xl text-xs font-bold text-left border ${state.city===c?'border-coral bg-coral-50 text-coral':'border-line'} hover:border-coral">${sanitizeHTML(c)}</button>`).join('');
 }
 
 function pickCity(c){ state.city = c; $('#cityLabel').textContent = c; $('#resCity').textContent = c; $('#cityPop').classList.add('hidden'); renderCities(); render(); }
@@ -943,7 +892,7 @@ function render(){
         <p class="text-[13px] text-gray-500 font-medium mt-1">📍 ${sanitizeHTML(l.area)}</p>
         <div class="mt-4 pt-4 border-t border-line flex items-end justify-between">
           <p class="text-[20px] font-extrabold">${inr(l.price)}<span class="text-xs text-gray-400">/mo</span></p>
-          <button onclick="openProp(${l.id})" class="h-10 px-4 rounded-xl bg-coral hover:bg-coral-dark text-white text-xs font-extrabold shadow-redglow">View details</button>
+          <button onclick="openProp(${l.id})" type="button" class="h-10 px-4 rounded-xl bg-coral hover:bg-coral-dark text-white text-xs font-extrabold shadow-redglow">View details</button>
         </div>
       </div>
     </article>
@@ -992,8 +941,8 @@ function renderModalContent(l){
   $('#pmBody').innerHTML = `
     <div class="p-6 space-y-6">
       <div class="flex items-center gap-2 p-1.5 bg-mist rounded-2xl border border-line w-max">
-        <button onclick="setModalTab(${l.id}, 'photos')" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${currentModalTab==='photos'?'bg-coral text-white':'text-gray-600'}">📷 Photos</button>
-        <button onclick="setModalTab(${l.id}, '360')" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${currentModalTab==='360'?'bg-indigo-600 text-white':'text-gray-600'}">🔄 360° View</button>
+        <button onclick="setModalTab(${l.id}, 'photos')" type="button" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${currentModalTab==='photos'?'bg-coral text-white':'text-gray-600'}">📷 Photos</button>
+        <button onclick="setModalTab(${l.id}, '360')" type="button" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${currentModalTab==='360'?'bg-indigo-600 text-white':'text-gray-600'}">🔄 360° View</button>
       </div>
 
       ${mediaContainer}
