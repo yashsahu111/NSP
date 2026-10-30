@@ -440,7 +440,7 @@ tailwind.config = {
         </div>
       </div>
 
-      <div class="grid sm:grid-cols-2 gap-4">
+      <div class="grid sm:grid-cols-3 gap-4">
         <div>
           <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Occupancy Available *</label>
           <select id="pgOcc" required class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
@@ -449,9 +449,18 @@ tailwind.config = {
           </select>
         </div>
         <div>
-          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Upload Property Photos & Videos</label>
-          <input type="file" id="pgMedia" accept="image/*,video/*" multiple class="w-full pt-2 text-xs font-semibold text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-coral-50 file:text-coral hover:file:bg-coral-100">
+          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Total Beds *</label>
+          <input type="number" id="pgTotalBeds" min="1" value="10" required class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
         </div>
+        <div>
+          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Available Beds *</label>
+          <input type="number" id="pgAvailBeds" min="0" value="4" required class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Upload Property Photos & Videos</label>
+        <input type="file" id="pgMedia" accept="image/*,video/*" multiple class="w-full pt-2 text-xs font-semibold text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-coral-50 file:text-coral hover:file:bg-coral-100">
       </div>
 
       <div>
@@ -580,7 +589,7 @@ const AMENITIES_LIST = [
 const INITIAL_MOCK_PGS = [
   {
     id: 101, name: 'Shree Radhe Krishna PG Hostel', type: 'PG', area: 'Sitapura, Jaipur', price: 8500, rating: 4.8, gender: 'Unisex',
-    occ: 'Single', amen: ['wifi','washing','water','fridge','food'], nearby: 'Apollo Pharmacy (100m), Central Library (300m), Gold Gym (600m)',
+    occ: 'Single', totalBeds: 15, availableBeds: 3, amen: ['wifi','washing','water','fridge','food'], nearby: 'Apollo Pharmacy (100m), Central Library (300m), Gold Gym (600m)',
     phone: '090247 76588', img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60',
     view360: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1200&q=80',
     videos: [], tag: 'Verified',
@@ -592,7 +601,7 @@ const INITIAL_MOCK_PGS = [
   },
   {
     id: 102, name: 'Urban Nest Luxury Co-living', type: 'Co-living', area: 'Malviya Nagar, Jaipur', price: 14500, rating: 4.9, gender: 'Unisex',
-    occ: 'Single', amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Fortis Hospital (400m), WTP Library (200m), Anytime Fitness (500m)',
+    occ: 'Single', totalBeds: 20, availableBeds: 5, amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Fortis Hospital (400m), WTP Library (200m), Anytime Fitness (500m)',
     phone: '098290 12345', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60',
     view360: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80',
     videos: [], tag: 'Bestseller',
@@ -603,7 +612,7 @@ const INITIAL_MOCK_PGS = [
   },
   {
     id: 103, name: 'Royal Heritage Student Hostel', type: 'Hostel', area: 'Vaishali Nagar, Jaipur', price: 9200, rating: 4.7, gender: 'Male',
-    occ: 'Double', amen: ['wifi','washing','water','fridge','food'], nearby: 'Manipal Hospital (500m), Vaishali Library (200m)',
+    occ: 'Double', totalBeds: 12, availableBeds: 0, amen: ['wifi','washing','water','fridge','food'], nearby: 'Manipal Hospital (500m), Vaishali Library (200m)',
     phone: '098281 99887', img: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=60',
     view360: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80',
     videos: [], tag: 'Verified',
@@ -614,7 +623,7 @@ const INITIAL_MOCK_PGS = [
   },
   {
     id: 104, name: 'Greenwood Girls Luxury PG', type: 'PG', area: 'Mansarovar, Jaipur', price: 11000, rating: 4.9, gender: 'Female',
-    occ: 'Single', amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Metro Station (300m), Apex Hospital (600m)',
+    occ: 'Single', totalBeds: 10, availableBeds: 2, amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Metro Station (300m), Apex Hospital (600m)',
     phone: '094140 55667', img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60',
     view360: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80',
     videos: [], tag: 'Top Rated',
@@ -718,6 +727,8 @@ async function handlePublishPG(e){
     rating: 5.0,
     gender: $('#pgGender').value,
     occ: $('#pgOcc').value,
+    totalBeds: parseInt($('#pgTotalBeds').value) || 10,
+    availableBeds: parseInt($('#pgAvailBeds').value) || 4,
     amen: amen,
     nearby: $('#pgNearby').value.trim(),
     phone: $('#pgPhone').value.trim(),
@@ -737,7 +748,7 @@ async function handlePublishPG(e){
   savedCustomPgs.unshift(newProperty);
   localStorage.setItem('roomzy_custom_pgs', JSON.stringify(savedCustomPgs));
 
-  showToast('🎉 PG Listed Successfully Live!');
+  showToast('🎉 PG Listed Successfully Live with Inventory Tracking!');
   showTenantView();
 }
 
@@ -755,6 +766,8 @@ async function fetchPropertiesFromDatabase(){
       const dbFormatted = data.map(d => ({
         ...d,
         occ: 'Single',
+        totalBeds: 12,
+        availableBeds: 4,
         amen: ['wifi', 'washing', 'food'],
         view360: d.img,
         videos: [],
@@ -863,12 +876,17 @@ function render(){
     return;
   }
 
-  $('#cards').innerHTML = list.map(l => `
+  $('#cards').innerHTML = list.map(l => {
+    const isSoldOut = (l.availableBeds !== undefined && l.availableBeds <= 0);
+    const badgeText = isSoldOut ? '🔴 House Full / Sold Out' : `🟢 ${l.availableBeds} Beds Available`;
+    const badgeColor = isSoldOut ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700';
+
+    return `
     <article class="card-hov bg-white rounded-3xl border border-line overflow-hidden hover:shadow-card">
       <div class="relative">
         <img src="${l.img}" alt="${l.name}" class="w-full h-52 object-cover">
         <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-lg bg-white/95 text-[11px] font-extrabold shadow-soft">${l.tag || 'Verified'}</span>
-        <span class="absolute top-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-indigo-600 text-white text-[10px] font-extrabold shadow-soft">🛡️ Parent Trust Score: ${l.trustScore ? l.trustScore.safety : '9.8/10'}</span>
+        <span class="absolute top-3.5 right-3.5 px-2.5 py-1 rounded-lg ${badgeColor} text-[11px] font-extrabold shadow-soft">${badgeText}</span>
       </div>
       <div class="p-5">
         <div class="flex items-start justify-between gap-3">
@@ -882,11 +900,11 @@ function render(){
           <div>
             <p class="text-[20px] font-extrabold leading-none">${inr(l.price)}<span class="text-[12.5px] font-bold text-gray-400">/mo</span></p>
           </div>
-          <button onclick="openProp(${l.id})" class="h-10 px-4 rounded-xl bg-coral text-white text-[13.5px] font-extrabold shadow-redglow shine">View details</button>
+          <button onclick="openProp(${l.id})" class="h-10 px-4 rounded-xl ${isSoldOut ? 'bg-gray-400 cursor-not-allowed' : 'bg-coral hover:bg-coral-dark'} text-white text-[13.5px] font-extrabold shadow-redglow shine">${isSoldOut ? 'Sold Out' : 'View details'}</button>
         </div>
       </div>
     </article>
-  `).join('');
+  `;}).join('');
 
   $('#resCount').textContent = list.length;
   renderFilterControls();
@@ -937,6 +955,7 @@ function renderModalContent(l){
   }
 
   const trust = l.trustScore || { safety: '9.8/10', curfew: '10:00 PM Gate Close', foodHygiene: '4.9/5 Star', cctv: '24/7 CCTV' };
+  const isSoldOut = (l.availableBeds !== undefined && l.availableBeds <= 0);
   const reviewsHtml = l.reviews ? l.reviews.map(r => `
     <div class="p-3 rounded-xl bg-white border border-line space-y-1">
       <div class="flex items-center justify-between">
@@ -959,9 +978,14 @@ function renderModalContent(l){
 
       ${mediaContainer}
 
-      <div>
-        <h2 class="text-2xl font-extrabold">${l.name}</h2>
-        <p class="text-sm text-gray-500 font-medium mt-1">📍 ${l.area}</p>
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-2xl font-extrabold">${l.name}</h2>
+          <p class="text-sm text-gray-500 font-medium mt-1">📍 ${l.area}</p>
+        </div>
+        <span class="px-3 py-1 rounded-xl ${isSoldOut ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'} font-extrabold text-xs">
+          ${isSoldOut ? '🔴 House Full (0 Beds Left)' : `🟢 ${l.availableBeds} of ${l.totalBeds || 15} Beds Available`}
+        </span>
       </div>
 
       <!-- PARENT TRUST & SAFETY SCORE -->
@@ -1019,10 +1043,13 @@ function renderModalContent(l){
       <div class="p-5 rounded-3xl bg-coral-50 border border-coral-200 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
           <p class="text-xs text-gray-500 font-bold uppercase">Monthly Rent: <strong class="text-coral text-base">${inr(l.price)} / mo</strong></p>
-          <p class="text-xs text-green-700 font-bold mt-0.5">✨ Site visits are 100% Free! Call owner directly.</p>
+          <p class="text-xs ${isSoldOut ? 'text-red-600' : 'text-green-700'} font-bold mt-0.5">${isSoldOut ? '⚠️ This property is currently fully booked offline/online.' : '✨ Site visits are 100% Free! Call owner directly.'}</p>
         </div>
         <div class="w-full sm:w-auto">
-          <a href="tel:${l.phone}" class="flex h-11 px-8 rounded-2xl bg-coral text-white font-extrabold text-xs shadow-redglow grid place-items-center">📞 Call Owner (${l.phone})</a>
+          ${isSoldOut 
+            ? `<button disabled class="flex h-11 px-8 rounded-2xl bg-gray-400 text-white font-extrabold text-xs cursor-not-allowed">House Full (Sold Out)</button>`
+            : `<a href="tel:${l.phone}" class="flex h-11 px-8 rounded-2xl bg-coral text-white font-extrabold text-xs shadow-redglow grid place-items-center">📞 Call Owner (${l.phone})</a>`
+          }
         </div>
       </div>
     </div>`;
