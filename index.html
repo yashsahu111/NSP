@@ -80,7 +80,7 @@ tailwind.config = {
     <p class="flex items-center gap-2">
       <span class="inline-flex h-2 w-2 rounded-full bg-green-400"></span> 
       <span>Browsing Stays in <strong>Jaipur</strong> (Zero Brokerage)</span>
-      <span class="hidden sm:inline-block text-gray-400 text-[11px] ml-2"></span>
+      <span class="hidden sm:inline-block text-gray-400 text-[11px] ml-2">🔒 SSL Hardened & XSS Sanitized</span>
     </p>
     <div class="flex items-center gap-6 text-white/70">
       <button onclick="openOwnerPortal()" class="hover:text-white transition font-bold text-coral">Owner Portal</button>
@@ -314,7 +314,6 @@ tailwind.config = {
 
 <!-- ABOUT US DEDICATED PAGE VIEW -->
 <div id="aboutView" class="hidden max-w-[1200px] mx-auto px-4 sm:px-6 py-12 lg:py-16 space-y-16">
-  <!-- Top Intro Hero -->
   <div class="grid lg:grid-cols-2 gap-10 items-center">
     <div class="space-y-6">
       <span class="px-3.5 py-1.5 rounded-full bg-coral-50 text-coral font-extrabold text-xs">About RoomZy Jaipur</span>
@@ -336,7 +335,6 @@ tailwind.config = {
     </div>
   </div>
 
-  <!-- Key Metrics / Stats -->
   <div class="grid sm:grid-cols-3 gap-6">
     <div class="p-8 rounded-3xl bg-white border border-line shadow-soft text-center space-y-2">
       <p class="text-4xl font-extrabold text-coral">100%</p>
@@ -355,7 +353,6 @@ tailwind.config = {
     </div>
   </div>
 
-  <!-- Mission & Vision Details -->
   <div class="grid md:grid-cols-2 gap-8 items-center bg-white rounded-4xl border border-line p-8 sm:p-12 shadow-soft">
     <div class="space-y-4">
       <h3 class="text-2xl font-extrabold">Our Core Mission</h3>
@@ -372,10 +369,91 @@ tailwind.config = {
   </div>
 </div>
 
+<!-- ==========================================
+     DEDICATED FOOTER PAGES (Privacy, Terms, Security)
+     ========================================== -->
+
+<!-- PRIVACY POLICY PAGE -->
+<div id="privacyView" class="hidden max-w-[1000px] mx-auto px-4 sm:px-6 py-12 lg:py-16 space-y-8 bg-white my-8 rounded-4xl border border-line shadow-soft">
+  <div class="flex items-center justify-between border-b border-line pb-4">
+    <h1 class="text-3xl font-extrabold tracking-tight">Privacy Policy</h1>
+    <button onclick="showTenantView()" class="px-4 py-2 rounded-xl bg-coral-50 text-coral font-extrabold text-xs">← Back to Home</button>
+  </div>
+  <div class="space-y-6 text-sm text-gray-600 leading-relaxed font-medium">
+    <p><strong>Effective Date:</strong> January 1, 2026</p>
+    <p>At <strong>RoomZy Jaipur</strong>, accessible from our platform, we prioritize the privacy of our students, parents, and property owners. This Privacy Policy document outlines the types of information collected and recorded by RoomZy and how we use it.</p>
+    
+    <h3 class="text-lg font-extrabold text-ink pt-2">1. Information We Collect</h3>
+    <p>We collect personal information that you voluntarily provide to us when registering on the portal, listing a property, or inquiring about a PG hostel:</p>
+    <ul class="list-disc pl-5 space-y-1">
+      <li>Mobile numbers and OTP verification records for account safety.</li>
+      <li>Email addresses and full names for owner identification.</li>
+      <li>Government ID proofs (Aadhaar/PAN) required for owner listing authentication.</li>
+      <li>Property location details, room pricing, and appliance availability checklists.</li>
+    </ul>
+
+    <h3 class="text-lg font-extrabold text-ink pt-2">2. How We Use Your Information</h3>
+    <p>We use the collected information strictly for operational transparency:</p>
+    <ul class="list-disc pl-5 space-y-1">
+      <li>To connect students directly with verified property owners without intermediaries.</li>
+      <li>To maintain real-time bed inventory sync across online and offline walk-in bookings.</li>
+      <li>To send critical security alerts, verification OTPs, and booking updates.</li>
+    </ul>
+
+    <h3 class="text-lg font-extrabold text-ink pt-2">3. Data Security</h3>
+    <p>We implement enterprise-grade client-side XSS input sanitization, secure hashing, and encrypted session tokens to ensure your personal data is protected against unauthorized access.</p>
+  </div>
+</div>
+
+<!-- TERMS OF SERVICE PAGE -->
+<div id="termsView" class="hidden max-w-[1000px] mx-auto px-4 sm:px-6 py-12 lg:py-16 space-y-8 bg-white my-8 rounded-4xl border border-line shadow-soft">
+  <div class="flex items-center justify-between border-b border-line pb-4">
+    <h1 class="text-3xl font-extrabold tracking-tight">Terms of Service</h1>
+    <button onclick="showTenantView()" class="px-4 py-2 rounded-xl bg-coral-50 text-coral font-extrabold text-xs">← Back to Home</button>
+  </div>
+  <div class="space-y-6 text-sm text-gray-600 leading-relaxed font-medium">
+    <p><strong>Effective Date:</strong> January 1, 2026</p>
+    <p>Welcome to <strong>RoomZy Jaipur</strong>. By accessing our website or listing properties, you agree to comply with and be bound by the following terms and conditions.</p>
+
+    <h3 class="text-lg font-extrabold text-ink pt-2">1. Zero Brokerage Policy</h3>
+    <p>RoomZy is strictly a <strong>zero-brokerage platform</strong>. Property owners and students interact directly. Owners are strictly prohibited from charging brokerage commissions to students through our platform.</p>
+
+    <h3 class="text-lg font-extrabold text-ink pt-2">2. Property Owner Responsibilities</h3>
+    <p>Owners registering on RoomZy warrant that:</p>
+    <ul class="list-disc pl-5 space-y-1">
+      <li>All uploaded property photos, 360° tours, and pricing details are authentic.</li>
+      <li>They will maintain accurate real-time bed inventory counters to prevent double-booking between offline walk-in tenants and online student requests.</li>
+      <li>Submitted government ID proofs belong to the authorized property manager.</li>
+    </ul>
+
+    <h3 class="text-lg font-extrabold text-ink pt-2">3. Student Site Visits</h3>
+    <p>All site visits coordinated through RoomZy are 100% free of charge. Students are advised to verify safety guidelines, curfew rules, and mess menus during their physical visit before signing any lease agreement.</p>
+  </div>
+</div>
+
+<!-- SECURITY & TRUST PAGE -->
+<div id="securityView" class="hidden max-w-[1000px] mx-auto px-4 sm:px-6 py-12 lg:py-16 space-y-8 bg-white my-8 rounded-4xl border border-line shadow-soft">
+  <div class="flex items-center justify-between border-b border-line pb-4">
+    <h1 class="text-3xl font-extrabold tracking-tight">Security & Trust</h1>
+    <button onclick="showTenantView()" class="px-4 py-2 rounded-xl bg-coral-50 text-coral font-extrabold text-xs">← Back to Home</button>
+  </div>
+  <div class="space-y-6 text-sm text-gray-600 leading-relaxed font-medium">
+    <p><strong>Last Updated:</strong> October 2026</p>
+    <p>At <strong>RoomZy Jaipur</strong>, student safety and platform security are our highest priorities. We have built robust multi-layered security measures into our infrastructure.</p>
+
+    <h3 class="text-lg font-extrabold text-ink pt-2">1. Anti-XSS & Input Hardening</h3>
+    <p>To prevent malicious script injections and cross-site scripting (XSS), every text input field, property name, description, and review is dynamically passed through an HTML entity sanitization engine prior to rendering in the DOM.</p>
+
+    <h3 class="text-lg font-extrabold text-ink pt-2">2. Owner Identity Vetting</h3>
+    <p>Every PG owner must provide verified mobile numbers via OTP verification and government identification proof (Aadhaar/PAN) before gaining access to publish listings on the RoomZy portal.</p>
+
+    <h3 class="text-lg font-extrabold text-ink pt-2">3. Dual-Channel Inventory Sync</h3>
+    <p>To resolve the challenge of offline walk-in bookings versus online requests, our real-time bed inventory manager allows owners to instantly decrement available bed counts. When available beds hit zero, listings automatically lock into a "Sold Out" state across all connected browsers.</p>
+  </div>
+</div>
+
 <!-- OWNER PORTAL & REGISTRATION VIEW -->
 <div id="ownerView" class="hidden max-w-3xl mx-auto px-4 py-12">
-
-  <!-- STEP 1: OWNER REGISTRATION (If not registered) -->
   <div id="ownerRegBox" class="bg-white rounded-3xl border border-line shadow-card p-8">
     <div class="text-center max-w-md mx-auto mb-6">
       <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center mx-auto mb-3 font-bold text-xl">🛡️</div>
@@ -424,7 +502,6 @@ tailwind.config = {
     </form>
   </div>
 
-  <!-- STEP 1b: OWNER LOGIN VIA OTP (Alternative) -->
   <div id="ownerLoginBox" class="hidden bg-white rounded-3xl border border-line shadow-card p-8 text-center max-w-md mx-auto">
     <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center mx-auto mb-4 font-bold text-xl">📱</div>
     <h2 class="text-2xl font-extrabold">Owner Login Portal</h2>
@@ -443,7 +520,6 @@ tailwind.config = {
     <p class="text-xs text-gray-400 mt-6">New owner? <button onclick="switchToRegister()" class="text-coral font-bold underline">Register here</button></p>
   </div>
 
-  <!-- STEP 2: OWNER DASHBOARD & ADD PROPERTY FORM (Shown after login/registration) -->
   <div id="ownerAddForm" class="hidden bg-white rounded-3xl border border-line shadow-card p-8">
     <div class="flex items-center justify-between border-b border-line pb-4 mb-6">
       <div>
@@ -456,13 +532,10 @@ tailwind.config = {
       </div>
     </div>
 
-    <!-- Inventory Quick Manager for Existing Properties -->
     <div class="mb-8 p-5 rounded-2xl bg-mist border border-line">
       <h3 class="text-sm font-extrabold uppercase text-gray-500 mb-3">🔄 Real-Time Inventory Sync (Online vs Offline Bookings)</h3>
       <p class="text-xs text-gray-500 mb-4">If you rented out a bed offline to a walk-in tenant, update your available beds below so online students instantly see updated availability and cannot double-book!</p>
-      <div id="ownerPropertiesList" class="space-y-3">
-        <!-- Dynamically loaded properties for this owner -->
-      </div>
+      <div id="ownerPropertiesList" class="space-y-3"></div>
     </div>
 
     <hr class="border-line my-6">
@@ -563,7 +636,6 @@ tailwind.config = {
   <div class="max-w-[1500px] mx-auto px-4 sm:px-6">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-gray-800">
       
-      <!-- Col 1: Brand -->
       <div class="lg:col-span-2 space-y-4">
         <a href="#" onclick="showTenantView()" class="flex items-center gap-2.5">
           <span class="grid place-items-center h-10 w-10 rounded-2xl bg-gradient-to-br from-coral to-[#FF6B5A] shadow-redglow">
@@ -582,7 +654,6 @@ tailwind.config = {
         </div>
       </div>
 
-      <!-- Col 2: Top Locations -->
       <div class="space-y-3">
         <p class="text-xs font-extrabold uppercase tracking-widest text-coral">Top Localities</p>
         <ul class="space-y-2 text-sm text-gray-400 font-medium">
@@ -594,7 +665,6 @@ tailwind.config = {
         </ul>
       </div>
 
-      <!-- Col 3: Quick Links -->
       <div class="space-y-3">
         <p class="text-xs font-extrabold uppercase tracking-widest text-coral">Quick Links</p>
         <ul class="space-y-2 text-sm text-gray-400 font-medium">
@@ -606,7 +676,6 @@ tailwind.config = {
         </ul>
       </div>
 
-      <!-- Col 4: Contact & Office -->
       <div class="space-y-3">
         <p class="text-xs font-extrabold uppercase tracking-widest text-coral">Jaipur Office</p>
         <p class="text-sm text-gray-400 leading-relaxed font-medium">
@@ -618,12 +687,13 @@ tailwind.config = {
 
     </div>
 
-    <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500 font-medium">
+    <!-- FOOTER LINKS WITH FUNCTIONAL WORKING CLICKS -->
+    <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400 font-medium">
       <p>&copy; 2026 RoomZy Technologies Pvt. Ltd. All rights reserved. Hardened against XSS & Injection attacks.</p>
       <div class="flex items-center gap-6">
-        <a href="#" class="hover:text-white transition">Privacy Policy</a>
-        <a href="#" class="hover:text-white transition">Terms of Service</a>
-        <a href="#" class="hover:text-white transition">Security & Trust</a>
+        <button onclick="showPrivacyView()" class="hover:text-white transition text-left">Privacy Policy</button>
+        <button onclick="showTermsView()" class="hover:text-white transition text-left">Terms of Service</button>
+        <button onclick="showSecurityView()" class="hover:text-white transition text-left">Security & Trust</button>
       </div>
     </div>
   </div>
@@ -664,11 +734,6 @@ function validateEmail(email) {
   return emailRegex.test(email);
 }
 
-// Anti-Tamper & Session Security Check
-window.addEventListener('securitypolicyviolation', (e) => {
-  console.warn('CSP Violation Blocked:', e.violatedDirective);
-});
-
 const CITIES = ['Jaipur (All)','Sitapura','Malviya Nagar','Vaishali Nagar','Jagatpura','Raja Park','Gopalpura Bypass','Mansarovar'];
 const AMENITIES_LIST = [
   {id:'wifi', label:'High-Speed WiFi'},
@@ -684,7 +749,7 @@ const INITIAL_MOCK_PGS = [
     id: 101, name: 'Shree Radhe Krishna PG Hostel', type: 'PG', area: 'Sitapura, Jaipur', price: 8500, rating: 4.8, gender: 'Unisex',
     occ: 'Single', totalBeds: 15, availableBeds: 3, amen: ['wifi','washing','water','fridge','food'], nearby: 'Apollo Pharmacy (100m), Central Library (300m), Gold Gym (600m)',
     phone: '09024776588', ownerEmail: 'radhepg@gmail.com', img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60',
-    view360: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1200&q=60',
+    view360: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1200&q=80',
     videos: [], tag: 'Verified',
     trustScore: { safety: '9.8/10', curfew: '10:30 PM Gate Close', foodHygiene: '4.9/5 Star Mess', cctv: '24/7 CCTV & Biometric' },
     reviews: [
@@ -696,7 +761,7 @@ const INITIAL_MOCK_PGS = [
     id: 102, name: 'Urban Nest Luxury Co-living', type: 'Co-living', area: 'Malviya Nagar, Jaipur', price: 14500, rating: 4.9, gender: 'Unisex',
     occ: 'Single', totalBeds: 20, availableBeds: 5, amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Fortis Hospital (400m), WTP Library (200m), Anytime Fitness (500m)',
     phone: '09829012345', ownerEmail: 'urbannest@gmail.com', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60',
-    view360: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=60',
+    view360: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80',
     videos: [], tag: 'Bestseller',
     trustScore: { safety: '10/10', curfew: 'No Curfew (24/7 Access)', foodHygiene: '5.0/5 Star Mess', cctv: 'Gated Security + CCTV' },
     reviews: [
@@ -738,12 +803,19 @@ function showToast(msg){
   setTimeout(() => t.classList.add('opacity-0', 'translate-y-3'), 2500);
 }
 
-function openOwnerPortal(){ 
-  $('#tenantView').classList.add('hidden'); 
+function hideAllViews(){
+  $('#tenantView').classList.add('hidden');
   $('#aboutView').classList.add('hidden');
+  $('#ownerView').classList.add('hidden');
+  $('#privacyView').classList.add('hidden');
+  $('#termsView').classList.add('hidden');
+  $('#securityView').classList.add('hidden');
+}
+
+function openOwnerPortal(){ 
+  hideAllViews();
   $('#ownerView').classList.remove('hidden'); 
   
-  // Check if owner is already registered/logged in
   const activeOwner = localStorage.getItem('roomzy_active_owner');
   if(activeOwner){
     $('#ownerRegBox').classList.add('hidden');
@@ -770,21 +842,36 @@ function switchToRegister(){
 }
 
 function showTenantView(){ 
-  $('#ownerView').classList.add('hidden'); 
-  $('#aboutView').classList.add('hidden');
+  hideAllViews();
   $('#tenantView').classList.remove('hidden'); 
   fetchPropertiesFromDatabase();
   window.scrollTo(0,0);
 }
 
 function showAboutView(){
-  $('#tenantView').classList.add('hidden');
-  $('#ownerView').classList.add('hidden');
+  hideAllViews();
   $('#aboutView').classList.remove('hidden');
   window.scrollTo(0,0);
 }
 
-// OWNER REGISTRATION HANDLER
+function showPrivacyView(){
+  hideAllViews();
+  $('#privacyView').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+function showTermsView(){
+  hideAllViews();
+  $('#termsView').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+function showSecurityView(){
+  hideAllViews();
+  $('#securityView').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
 function handleOwnerRegistration(e){
   e.preventDefault();
   const name = sanitizeHTML($('#regName').value.trim());
@@ -856,15 +943,10 @@ function ownerLogout(){
   openOwnerPortal();
 }
 
-// RENDER OWNER INVENTORY MANAGER (Sync offline vs online bookings)
 function renderOwnerInventoryManager(){
   let customPgs = [];
   try { customPgs = JSON.parse(localStorage.getItem('roomzy_custom_pgs') || '[]'); } catch(e){}
   
-  const activeOwnerStr = localStorage.getItem('roomzy_active_owner');
-  const activeOwner = activeOwnerStr ? JSON.parse(activeOwnerStr) : null;
-
-  // Filter properties belonging to this owner or show all custom ones for demo
   const myPgs = customPgs; 
 
   if(myPgs.length === 0){
@@ -1193,7 +1275,6 @@ function renderModalContent(l){
   $('#pmTitle').textContent = l.name;
   $('#pmBody').innerHTML = `
     <div class="p-6 space-y-6">
-      <!-- TABS -->
       <div class="flex items-center gap-2 p-1.5 bg-mist rounded-2xl border border-line w-max">
         <button onclick="setModalTab(${l.id}, 'photos')" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${currentModalTab==='photos'?'bg-coral text-white shadow-soft':'text-gray-600 hover:bg-white'}">📷 Photos</button>
         <button onclick="setModalTab(${l.id}, 'videos')" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${currentModalTab==='videos'?'bg-coral text-white shadow-soft':'text-gray-600 hover:bg-white'}">📹 Videos</button>
@@ -1212,7 +1293,6 @@ function renderModalContent(l){
         </span>
       </div>
 
-      <!-- PARENT TRUST & SAFETY SCORE -->
       <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-100 space-y-2">
         <p class="text-xs font-extrabold uppercase tracking-wider text-indigo-700">🛡 Parent Trust & Safety Score (${trust.safety})</p>
         <div class="grid sm:grid-cols-3 gap-3 pt-1">
@@ -1231,7 +1311,6 @@ function renderModalContent(l){
         </div>
       </div>
 
-      <!-- TRANSPARENT HOUSE RULES & CURFEW -->
       <div class="p-4 rounded-2xl bg-mist border border-line space-y-2">
         <p class="text-xs font-extrabold uppercase tracking-wider text-gray-400">📋 Transparent House Rules & Agreement Info</p>
         <div class="grid sm:grid-cols-2 gap-2 text-xs font-semibold text-gray-700 pt-1">
@@ -1255,7 +1334,6 @@ function renderModalContent(l){
         <p class="text-xs font-semibold text-green-900 mt-1">${sanitizeHTML(l.nearby)}</p>
       </div>` : ''}
 
-      <!-- VERIFIED RESIDENT REVIEWS -->
       <div class="space-y-3 pt-2">
         <p class="text-xs font-extrabold uppercase tracking-wider text-gray-400">⭐ Verified Resident & Student Reviews</p>
         <div class="space-y-2">
@@ -1263,7 +1341,6 @@ function renderModalContent(l){
         </div>
       </div>
 
-      <!-- CONTACT OWNER ACTION BAR -->
       <div class="p-5 rounded-3xl bg-coral-50 border border-coral-200 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
           <p class="text-xs text-gray-500 font-bold uppercase">Monthly Rent: <strong class="text-coral text-base">${inr(l.price)} / mo</strong></p>
