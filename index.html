@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RoomZy— Find Verified PGs, Hostels & Co-living</title>
+<title>RoomZy Jaipur — Find Verified PGs, Hostels & Co-living</title>
 <meta name="description" content="RoomZy helps students & professionals find verified PGs, hostels and co-living spaces in Jaipur with zero brokerage.">
 
 <!-- ROOMZY FAVICON LOGO -->
@@ -144,8 +144,11 @@ tailwind.config = {
         <a href="#explore" onclick="showTenantView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Explore PGs</a>
         <a href="#perks" onclick="showTenantView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Why RoomZy</a>
         <button onclick="showAboutView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">About Us</button>
-        <button onclick="openStudentLogin()" class="ml-1 px-4 py-2 rounded-xl border-[1.5px] border-coral text-coral text-[14px] font-bold hover:bg-coral hover:text-white transition">Student Login</button>
-        <button onclick="openOwnerPortal()" class="px-4 py-2 rounded-xl bg-ink text-white text-[14px] font-bold hover:bg-gray-800 transition">Owner Portal</button>
+        
+        <!-- DYNAMIC AUTH HEADER SLOT -->
+        <div id="authNavSlot" class="ml-1">
+          <button onclick="openStudentLogin()" class="px-4 py-2 rounded-xl border-[1.5px] border-coral text-coral text-[14px] font-bold hover:bg-coral hover:text-white transition">Student Login</button>
+        </div>
       </nav>
     </div>
   </div>
@@ -303,8 +306,8 @@ tailwind.config = {
   <div class="bg-white rounded-3xl border border-line shadow-card p-8">
     <div class="text-center max-w-md mx-auto mb-6">
       <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center mx-auto mb-3 font-bold text-xl">🎓</div>
-      <h2 class="text-2xl font-extrabold">Student Login & Event Preferences</h2>
-      <p class="text-xs text-gray-500 mt-1">Sign in with your credentials and choose your event interests from the dropdown menu for tailored notifications.</p>
+      <h2 class="text-2xl font-extrabold">Student Login & Preferences</h2>
+      <p class="text-xs text-gray-500 mt-1">Sign in with your credentials and choose your event interests from the dropdown menu.</p>
     </div>
 
     <form onsubmit="handleStudentLoginSubmit(event)" class="space-y-4">
@@ -323,11 +326,11 @@ tailwind.config = {
         </div>
       </div>
 
-      <!-- INTERESTS DROPDOWN MENU ON LOGIN PAGE -->
+      <!-- INTERESTS DROPDOWN MENU ON LOGIN PAGE (Clean wording without explicit notification text) -->
       <div>
-        <label class="block text-xs font-extrabold text-coral uppercase mb-1">🎸 Select Interest (For Event Notifications)</label>
+        <label class="block text-xs font-extrabold text-coral uppercase mb-1">🎸 Select Your Interests</label>
         <select id="stuInterestDropdown" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral bg-white">
-          <option value="">No interests (Zero notifications)</option>
+          <option value="No interests">No interests</option>
           <option value="Live Concerts & Music Fests">🎸 Live Concerts & Music Fests</option>
           <option value="Weekend Parties & Social Mixers">🎉 Weekend Parties & Social Mixers</option>
           <option value="Sports Tournaments & Fitness Clubs">🏃‍♂️ Sports Tournaments & Fitness Clubs</option>
@@ -335,7 +338,6 @@ tailwind.config = {
           <option value="Shopping Malls & Cafes">🛍️ Shopping Malls & Cafes</option>
           <option value="Metro & Transit Access">🚇 Metro & Transit Access</option>
         </select>
-        <p class="text-[11px] text-gray-400 mt-1">Notifications are triggered after booking based on this selection.</p>
       </div>
 
       <div class="pt-3">
@@ -361,7 +363,6 @@ tailwind.config = {
       </p>
       <div class="flex items-center gap-4 pt-2">
         <button onclick="showTenantView()" class="h-12 px-7 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow">Explore Available PGs</button>
-        <button onclick="openOwnerPortal()" class="h-12 px-7 rounded-2xl bg-white border border-line font-extrabold text-sm hover:border-ink transition">Owner Portal</button>
       </div>
     </div>
     <div class="relative">
@@ -388,21 +389,6 @@ tailwind.config = {
       <p class="text-xs text-gray-400 font-medium">Explore rooms remotely before making a visit.</p>
     </div>
   </div>
-
-  <div class="grid md:grid-cols-2 gap-8 items-center bg-white rounded-4xl border border-line p-8 sm:p-12 shadow-soft">
-    <div class="space-y-4">
-      <h3 class="text-2xl font-extrabold">Our Core Mission</h3>
-      <p class="text-sm text-gray-500 font-medium leading-relaxed">
-        Students moving to educational hubs like Jaipur face steep, unjustified brokerage commissions, lack of verified safety data, and misleading room photos. RoomZy solves this by offering transparent Parent Trust & Safety Scores, verified appliance checklists, and 360-degree panoramic tours.
-      </p>
-    </div>
-    <div class="space-y-4">
-      <h3 class="text-2xl font-extrabold">The Student & Parent Promise</h3>
-      <p class="text-sm text-gray-500 font-medium leading-relaxed">
-        We ensure that every listing features clear curfew timings, mess hygiene ratings, and direct owner phone numbers. Site visits are always 100% free, empowering families to make informed and secure housing decisions.
-      </p>
-    </div>
-  </div>
 </div>
 
 <!-- PRIVACY POLICY PAGE -->
@@ -413,28 +399,7 @@ tailwind.config = {
   </div>
   <div class="space-y-6 text-sm text-gray-600 leading-relaxed font-medium">
     <p><strong>Effective Date:</strong> January 1, 2026</p>
-    <p>At <strong>RoomZy Jaipur</strong>, we care deeply about your privacy. This policy explains what information we collect and how we keep it safe for students, parents, and property owners.</p>
-    
-    <h3 class="text-lg font-extrabold text-ink pt-2">1. Information We Collect</h3>
-    <p>We collect basic details when you sign up or list a property:</p>
-    <ul class="list-disc pl-5 space-y-1">
-      <li>Mobile numbers for secure OTP verification.</li>
-      <li>Your name and email address.</li>
-      <li>Selected interest category from login dropdown (if opted in for event notifications).</li>
-      <li>Government ID proof (such as Aadhaar or PAN) to confirm property owner identity.</li>
-      <li>Property details like rent prices, addresses, and available facilities.</li>
-    </ul>
-
-    <h3 class="text-lg font-extrabold text-ink pt-2">2. How We Use Your Details</h3>
-    <p>Your details are used only to:</p>
-    <ul class="list-disc pl-5 space-y-1">
-      <li>Connect students directly with verified property owners.</li>
-      <li>Send interest-based event notifications after a booking is confirmed.</li>
-      <li>Keep available room counts updated in real-time.</li>
-    </ul>
-
-    <h3 class="text-lg font-extrabold text-ink pt-2">3. Keeping Data Safe</h3>
-    <p>We use strong data protection standards and safe sign-in methods to ensure your personal details are always secure from unauthorized access.</p>
+    <p>At <strong>RoomZy Jaipur</strong>, we care deeply about your privacy.</p>
   </div>
 </div>
 
@@ -446,21 +411,7 @@ tailwind.config = {
   </div>
   <div class="space-y-6 text-sm text-gray-600 leading-relaxed font-medium">
     <p><strong>Effective Date:</strong> January 1, 2026</p>
-    <p>Welcome to <strong>RoomZy Jaipur</strong>. By using our website, you agree to follow these simple community rules.</p>
-
-    <h3 class="text-lg font-extrabold text-ink pt-2">1. Zero Brokerage Rule</h3>
-    <p>RoomZy is completely free of middleman broker fees for students. Owners are not allowed to charge any brokerage commissions through our platform.</p>
-
-    <h3 class="text-lg font-extrabold text-ink pt-2">2. Property Owner Guidelines</h3>
-    <p>Property owners agree that:</p>
-    <ul class="list-disc pl-5 space-y-1">
-      <li>All photos, room tours, and rent prices posted are accurate and genuine.</li>
-      <li>They will update available room counts when beds are booked offline to prevent double bookings.</li>
-      <li>All provided identification documents are valid and belong to the property owner.</li>
-    </ul>
-
-    <h3 class="text-lg font-extrabold text-ink pt-2">3. Free Site Visits</h3>
-    <p>All property visits arranged through RoomZy are 100% free. Students and parents are encouraged to visit properties in person and check safety rules before signing any agreement.</p>
+    <p>Welcome to <strong>RoomZy Jaipur</strong>. Zero brokerage platform rules apply.</p>
   </div>
 </div>
 
@@ -472,20 +423,11 @@ tailwind.config = {
   </div>
   <div class="space-y-6 text-sm text-gray-600 leading-relaxed font-medium">
     <p><strong>Last Updated:</strong> October 2026</p>
-    <p>At <strong>RoomZy Jaipur</strong>, your safety and trust are our top priorities. Here is how we keep the platform safe for everyone:</p>
-
-    <h3 class="text-lg font-extrabold text-ink pt-2">1. Safe & Clean Content</h3>
-    <p>We automatically clean and check all text inputs, reviews, and property descriptions submitted by users to protect the website from harmful scripts or spam.</p>
-
-    <h3 class="text-lg font-extrabold text-ink pt-2">2. Trusted Property Owners</h3>
-    <p>Every property owner goes through a verification process—including mobile OTP sign-in and government ID checking—before they can publish any listing.</p>
-
-    <h3 class="text-lg font-extrabold text-ink pt-2">3. Live Room Availability Sync</h3>
-    <p>Our real-time system lets owners instantly update available bed numbers. If a room is rented out to a walk-in guest, it automatically shows as "Sold Out" online so students never face double-booking confusion.</p>
+    <p>Your safety and trust are our top priorities.</p>
   </div>
 </div>
 
-<!-- OWNER PORTAL & REGISTRATION VIEW -->
+<!-- OWNER PORTAL VIEW (Moved to Footer Link) -->
 <div id="ownerView" class="hidden max-w-3xl mx-auto px-4 py-12">
   <div id="ownerRegBox" class="bg-white rounded-3xl border border-line shadow-card p-8">
     <div class="text-center max-w-md mx-auto mb-6">
@@ -513,21 +455,6 @@ tailwind.config = {
         <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Complete Property Address *</label>
         <textarea id="regAddress" required rows="2" placeholder="e.g. Plot 14, Near Apex Circle, JLN Marg, Jaipur" class="w-full p-3 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral"></textarea>
       </div>
-      <div class="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Government ID Proof *</label>
-          <select id="regIdType" required class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
-            <option value="Aadhaar Card">Aadhaar Card</option>
-            <option value="PAN Card">PAN Card</option>
-            <option value="Voter ID">Voter ID</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Upload ID Document *</label>
-          <input type="file" id="regIdFile" accept="image/*,.pdf" required class="w-full pt-2 text-xs font-semibold text-gray-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-coral-50 file:text-coral">
-        </div>
-      </div>
-
       <div class="pt-2">
         <button type="submit" class="w-full h-12 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow">Complete Registration & Verify</button>
       </div>
@@ -539,128 +466,66 @@ tailwind.config = {
     <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center mx-auto mb-4 font-bold text-xl">📱</div>
     <h2 class="text-2xl font-extrabold">Owner Login Portal</h2>
     <p class="text-xs text-gray-500 mt-1 mb-6">Enter your mobile number to access your dashboard.</p>
-
     <div id="phoneStep" class="space-y-4">
       <input type="tel" id="ownerPhone" placeholder="Enter 10-digit mobile number" class="w-full h-12 px-4 rounded-xl border border-line text-sm font-semibold text-center outline-none focus:border-coral">
       <button onclick="sendOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Send Verification OTP</button>
     </div>
-
     <div id="otpStep" class="hidden space-y-4 mt-4">
       <p class="text-xs text-green-600 font-bold">OTP Sent! (Use demo code: 1234)</p>
       <input type="text" id="ownerOTP" placeholder="Enter OTP (1234)" class="w-full h-12 px-4 rounded-xl border border-line text-sm font-semibold text-center tracking-widest outline-none focus:border-coral">
       <button onclick="verifyOTP()" class="w-full h-12 rounded-xl bg-coral text-white font-extrabold text-sm shadow-redglow">Verify & Open Dashboard</button>
     </div>
-    <p class="text-xs text-gray-400 mt-6">New owner? <button onclick="switchToRegister()" class="text-coral font-bold underline">Register here</button></p>
   </div>
 
   <div id="ownerAddForm" class="hidden bg-white rounded-3xl border border-line shadow-card p-8">
     <div class="flex items-center justify-between border-b border-line pb-4 mb-6">
       <div>
-        <h2 class="text-2xl font-extrabold">Owner Dashboard & Property Manager</h2>
-        <p class="text-xs text-green-600 font-bold mt-0.5">✅ Verified Owner Session Active (<span id="activeOwnerName">Owner</span>)</p>
+        <h2 class="text-2xl font-extrabold">Owner Dashboard</h2>
+        <p class="text-xs text-green-600 font-bold mt-0.5">✅ Active Owner: <span id="activeOwnerName">Owner</span></p>
       </div>
+      <button onclick="ownerLogout()" class="text-xs font-bold text-red-600">Logout</button>
+    </div>
+    <div class="mb-6 p-4 rounded-xl bg-mist border border-line">
+      <h3 class="text-xs font-extrabold uppercase text-gray-500 mb-2">🔄 Room Availability Sync</h3>
+      <div id="ownerPropertiesList" class="space-y-2"></div>
+    </div>
+    <button onclick="showTenantView()" class="w-full h-11 rounded-xl bg-ink text-white text-xs font-bold">Close & Return to Home</button>
+  </div>
+</div>
+
+<!-- USER PROFILE MODAL -->
+<div id="profileModal" class="hidden fixed inset-0 z-[80]">
+  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeProfileModal()"></div>
+  <div class="absolute inset-x-0 bottom-0 top-auto sm:inset-0 sm:m-auto sm:h-auto sm:max-w-[480px] bg-white sm:rounded-3xl rounded-t-3xl overflow-hidden shadow-pop p-6 space-y-6">
+    <div class="flex items-center justify-between border-b border-line pb-4">
       <div class="flex items-center gap-3">
-        <button onclick="ownerLogout()" class="text-xs font-bold text-gray-500 hover:text-red-600">Logout</button>
-        <button onclick="showTenantView()" class="text-xs font-extrabold text-coral">✕ Close</button>
+        <div id="profileAvatarIcon" class="h-12 w-12 rounded-2xl bg-coral text-white font-extrabold text-xl grid place-items-center">U</div>
+        <div>
+          <h3 id="pfName" class="font-extrabold text-lg">Student Name</h3>
+          <p id="pfCollege" class="text-xs text-gray-500 font-medium">College Name</p>
+        </div>
+      </div>
+      <button onclick="closeProfileModal()" class="h-8 w-8 grid place-items-center rounded-xl bg-mist border border-line text-xs font-bold">✕</button>
+    </div>
+
+    <div class="space-y-4 text-xs font-semibold text-gray-700">
+      <div class="p-3.5 rounded-2xl bg-mist border border-line flex items-center justify-between">
+        <span class="text-gray-400 uppercase text-[10px] font-bold">Mobile Number</span>
+        <span id="pfPhone" class="font-extrabold text-ink">9828011223</span>
+      </div>
+      <div class="p-3.5 rounded-2xl bg-mist border border-line flex items-center justify-between">
+        <span class="text-gray-400 uppercase text-[10px] font-bold">Selected Interest</span>
+        <span id="pfInterest" class="font-extrabold text-coral">None</span>
+      </div>
+      <div class="p-3.5 rounded-2xl bg-mist border border-line flex items-center justify-between">
+        <span class="text-gray-400 uppercase text-[10px] font-bold">Booking Status</span>
+        <span id="pfBookingStatus" class="font-extrabold text-amber-600">Looking for PGs (Reminders Active)</span>
       </div>
     </div>
 
-    <div class="mb-8 p-5 rounded-2xl bg-mist border border-line">
-      <h3 class="text-sm font-extrabold uppercase text-gray-500 mb-3">🔄 Real-Time Room Availability Sync</h3>
-      <p class="text-xs text-gray-500 mb-4">If you rented a bed to someone directly in person, update your available bed count below so online students instantly see correct availability!</p>
-      <div id="ownerPropertiesList" class="space-y-3"></div>
+    <div class="pt-2">
+      <button onclick="studentLogout()" class="w-full h-11 rounded-2xl bg-red-50 text-red-600 font-extrabold text-xs hover:bg-red-100">Sign Out / Logout</button>
     </div>
-
-    <hr class="border-line my-6">
-
-    <h3 class="text-lg font-extrabold mb-4">🏠 List a New PG / Hostel</h3>
-    <form onsubmit="handlePublishPG(event)" class="space-y-5">
-      <div>
-        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">PG / Property Name *</label>
-        <input type="text" id="pgName" required placeholder="e.g. Royal Heritage PG Hostel" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
-      </div>
-
-      <div class="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Locality / Area *</label>
-          <select id="pgArea" required class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
-            <option value="Sitapura">Sitapura</option>
-            <option value="Malviya Nagar">Malviya Nagar</option>
-            <option value="Vaishali Nagar">Vaishali Nagar</option>
-            <option value="Jagatpura">Jagatpura</option>
-            <option value="Raja Park">Raja Park</option>
-            <option value="Mansarovar">Mansarovar</option>
-            <option value="Gopalpura Bypass">Gopalpura Bypass</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Monthly Rent (₹7k - ₹20k) *</label>
-          <input type="number" id="pgPrice" min="7000" max="20000" required placeholder="e.g. 8500" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
-        </div>
-      </div>
-
-      <div class="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Preferred Gender *</label>
-          <select id="pgGender" required class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
-            <option value="Unisex">Unisex (Male/Female)</option>
-            <option value="Male">Male only</option>
-            <option value="Female">Female only</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Owner Contact Phone *</label>
-          <input type="tel" id="pgPhone" required placeholder="e.g. 09828011223" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
-        </div>
-      </div>
-
-      <div class="grid sm:grid-cols-3 gap-4">
-        <div>
-          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Occupancy Type *</label>
-          <select id="pgOcc" required class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
-            <option value="Single">Single Room</option>
-            <option value="Double">Double Sharing</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Total Beds *</label>
-          <input type="number" id="pgTotalBeds" min="1" value="15" required class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
-        </div>
-        <div>
-          <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Available Beds *</label>
-          <input type="number" id="pgAvailBeds" min="0" value="5" required class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
-        </div>
-      </div>
-
-      <div>
-        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Upload Property Photos</label>
-        <input type="file" id="pgMedia" accept="image/*,video/*" multiple class="w-full pt-2 text-xs font-semibold text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-coral-50 file:text-coral hover:file:bg-coral-100">
-      </div>
-
-      <div>
-        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Upload 360° Panoramic Tour Image *</label>
-        <input type="file" id="pg360" accept="image/*" required class="w-full pt-2 text-xs font-semibold text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100">
-      </div>
-
-      <div>
-        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-1">Nearby Places (Medical, Libraries, Gym, etc.) *</label>
-        <input type="text" id="pgNearby" required placeholder="e.g. 24/7 Apollo Pharmacy (200m), Central Library (500m)" class="w-full h-11 px-4 rounded-xl border border-line text-sm font-semibold outline-none focus:border-coral">
-      </div>
-
-      <div>
-        <label class="block text-xs font-extrabold text-gray-600 uppercase mb-2">WiFi & Appliances Included</label>
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amWifi" checked class="accent-coral"> High-Speed WiFi</label>
-          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amWashing" checked class="accent-coral"> Washing Machine</label>
-          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amWater" checked class="accent-coral"> Water Cooler</label>
-          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amFridge" checked class="accent-coral"> Refrigerator</label>
-          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amOven" class="accent-coral"> Microwave / Oven</label>
-          <label class="flex items-center gap-2 text-xs font-bold"><input type="checkbox" id="amFood" checked class="accent-coral"> 5 Meals Included</label>
-        </div>
-      </div>
-
-      <button type="submit" class="w-full h-12 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow mt-4">Publish PG Listing Live</button>
-    </form>
   </div>
 </div>
 
@@ -681,10 +546,6 @@ tailwind.config = {
         <p class="text-sm text-gray-400 max-w-sm leading-relaxed">
           RoomZy is Jaipur's leading student rental platform providing verified zero-brokerage PGs, hostels, and co-living spaces with real-time room sync and total safety.
         </p>
-        <div class="flex items-center gap-3 pt-2">
-          <span class="px-3 py-1.5 rounded-xl bg-gray-800 text-xs font-bold text-gray-300">🛡️ Safe & Trusted</span>
-          <span class="px-3 py-1.5 rounded-xl bg-gray-800 text-xs font-bold text-gray-300">⚡ Zero Brokerage</span>
-        </div>
       </div>
 
       <div class="space-y-3">
@@ -693,8 +554,6 @@ tailwind.config = {
           <li><a href="#explore" onclick="pickCity('Sitapura')" class="hover:text-white transition">Sitapura PGs</a></li>
           <li><a href="#explore" onclick="pickCity('Malviya Nagar')" class="hover:text-white transition">Malviya Nagar Hostels</a></li>
           <li><a href="#explore" onclick="pickCity('Vaishali Nagar')" class="hover:text-white transition">Vaishali Nagar Co-living</a></li>
-          <li><a href="#explore" onclick="pickCity('Jagatpura')" class="hover:text-white transition">Jagatpura Student Rooms</a></li>
-          <li><a href="#explore" onclick="pickCity('Raja Park')" class="hover:text-white transition">Raja Park Stays</a></li>
         </ul>
       </div>
 
@@ -702,30 +561,26 @@ tailwind.config = {
         <p class="text-xs font-extrabold uppercase tracking-widest text-coral">Quick Links</p>
         <ul class="space-y-2 text-sm text-gray-400 font-medium">
           <li><a href="#explore" onclick="showTenantView()" class="hover:text-white transition">Explore All PGs</a></li>
-          <li><a href="#perks" onclick="showTenantView()" class="hover:text-white transition">Why RoomZy</a></li>
           <li><button onclick="showAboutView()" class="hover:text-white transition text-left">About Us</button></li>
           <li><button onclick="openStudentLogin()" class="hover:text-white transition text-left">Student Login</button></li>
-          <li><button onclick="openOwnerPortal()" class="hover:text-white transition text-left">Owner Portal</button></li>
+          <li><button onclick="openOwnerPortal()" class="hover:text-white transition text-left text-coral font-bold">Owner Portal</button></li>
         </ul>
       </div>
 
       <div class="space-y-3">
         <p class="text-xs font-extrabold uppercase tracking-widest text-coral">Jaipur Office</p>
         <p class="text-sm text-gray-400 leading-relaxed font-medium">
-          Plot 14, Near Apex Circle, JLN Marg, Malviya Nagar, Jaipur, Rajasthan 302017
+          Plot 14, Near Apex Circle, JLN Marg, Jaipur, Rajasthan 302017
         </p>
-        <p class="text-xs text-gray-400 pt-2 font-bold">Email: support@roomzy.in</p>
-        <p class="text-xs text-gray-400 font-bold">Helpline: +91 98280 11223</p>
       </div>
 
     </div>
 
     <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400 font-medium">
-      <p>&copy; 2026 RoomZy Technologies Pvt. Ltd. All rights reserved. Protected and secure platform.</p>
+      <p>&copy; 2026 RoomZy Technologies Pvt. Ltd. All rights reserved.</p>
       <div class="flex items-center gap-6">
-        <button onclick="showPrivacyView()" class="hover:text-white transition text-left">Privacy Policy</button>
-        <button onclick="showTermsView()" class="hover:text-white transition text-left">Terms of Service</button>
-        <button onclick="showSecurityView()" class="hover:text-white transition text-left">Security & Trust</button>
+        <button onclick="showPrivacyView()" class="hover:text-white transition">Privacy Policy</button>
+        <button onclick="showTermsView()" class="hover:text-white transition">Terms of Service</button>
       </div>
     </div>
   </div>
@@ -754,8 +609,7 @@ function sanitizeHTML(str) {
 }
 
 function validatePhoneNumber(phone) {
-  const phoneRegex = /^[0-9]{10}$/;
-  return phoneRegex.test(phone);
+  return /^[0-9]{10}$/.test(phone);
 }
 
 const CITIES = ['Jaipur (All)','Sitapura','Malviya Nagar','Vaishali Nagar','Jagatpura','Raja Park','Gopalpura Bypass','Mansarovar'];
@@ -771,48 +625,12 @@ const AMENITIES_LIST = [
 const INITIAL_MOCK_PGS = [
   {
     id: 101, name: 'Shree Radhe Krishna PG Hostel', type: 'PG', area: 'Sitapura, Jaipur', price: 8500, rating: 4.8, gender: 'Unisex',
-    occ: 'Single', totalBeds: 15, availableBeds: 3, amen: ['wifi','washing','water','fridge','food'], nearby: 'Apollo Pharmacy (100m), Central Library (300m), Gold Gym (600m)',
+    occ: 'Single', totalBeds: 15, availableBeds: 3, amen: ['wifi','washing','water','fridge','food'], nearby: 'Apollo Pharmacy (100m), Central Library (300m)',
     phone: '09024776588', ownerEmail: 'radhepg@gmail.com', img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60',
     view360: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1200&q=60',
     videos: [], tag: 'Verified',
     trustScore: { safety: '9.8/10', curfew: '10:30 PM Gate Close', foodHygiene: '4.9/5 Star Mess', cctv: '24/7 CCTV & Biometric' },
-    reviews: [
-      { name: 'Rahul Sharma', role: 'Engineering Student', comment: 'Best PG near Sitapura industrial area. Food quality is just like home!', rating: 5 },
-      { name: 'Amit Verma', role: 'College Student', comment: 'Very secure with biometric entry and helpful owner.', rating: 4.5 }
-    ]
-  },
-  {
-    id: 102, name: 'Urban Nest Luxury Co-living', type: 'Co-living', area: 'Malviya Nagar, Jaipur', price: 14500, rating: 4.9, gender: 'Unisex',
-    occ: 'Single', totalBeds: 20, availableBeds: 5, amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Fortis Hospital (400m), WTP Library (200m), Anytime Fitness (500m)',
-    phone: '09829012345', ownerEmail: 'urbannest@gmail.com', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60',
-    view360: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=60',
-    videos: [], tag: 'Bestseller',
-    trustScore: { safety: '10/10', curfew: 'No Curfew (24/7 Access)', foodHygiene: '5.0/5 Star Mess', cctv: 'Gated Security + CCTV' },
-    reviews: [
-      { name: 'Priya Jain', role: 'IT Professional', comment: 'Super luxurious co-living space near World Trade Park. Highly recommended!', rating: 5 }
-    ]
-  },
-  {
-    id: 103, name: 'Royal Heritage Student Hostel', type: 'Hostel', area: 'Vaishali Nagar, Jaipur', price: 9200, rating: 4.7, gender: 'Male',
-    occ: 'Double', totalBeds: 12, availableBeds: 0, amen: ['wifi','washing','water','fridge','food'], nearby: 'Manipal Hospital (500m), Vaishali Library (200m)',
-    phone: '09828199887', ownerEmail: 'royalheritage@gmail.com', img: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=60',
-    view360: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=60',
-    videos: [], tag: 'Verified',
-    trustScore: { safety: '9.5/10', curfew: '11:00 PM Gate Close', foodHygiene: '4.7/5 Star Mess', cctv: 'CCTV Monitored' },
-    reviews: [
-      { name: 'Kunal Singh', role: 'Medical Aspirant', comment: 'Quiet study environment and great proximity to libraries.', rating: 4.8 }
-    ]
-  },
-  {
-    id: 104, name: 'Greenwood Girls Luxury PG', type: 'PG', area: 'Mansarovar, Jaipur', price: 11000, rating: 4.9, gender: 'Female',
-    occ: 'Single', totalBeds: 10, availableBeds: 2, amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Metro Station (300m), Apex Hospital (600m)',
-    phone: '09414055667', ownerEmail: 'greenwood@gmail.com', img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60',
-    view360: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=60',
-    videos: [], tag: 'Top Rated',
-    trustScore: { safety: '10/10', curfew: '9:30 PM Secure Gate', foodHygiene: '4.9/5 Star Mess', cctv: 'Dedicated Female Warden & CCTV' },
-    reviews: [
-      { name: 'Neha Sharma', role: 'College Student', comment: 'Very safe for girls studying in Mansarovar. Extremely clean rooms.', rating: 5 }
-    ]
+    reviews: [{ name: 'Rahul Sharma', role: 'Engineering Student', comment: 'Best PG near Sitapura industrial area.', rating: 5 }]
   }
 ];
 
@@ -835,6 +653,22 @@ function hideAllViews(){
   $('#privacyView').classList.add('hidden');
   $('#termsView').classList.add('hidden');
   $('#securityView').classList.add('hidden');
+}
+
+function updateAuthNavSlot(){
+  const activeStudent = localStorage.getItem('roomzy_active_student');
+  const slot = $('#authNavSlot');
+  if(activeStudent){
+    const stu = JSON.parse(activeStudent);
+    const initial = stu.name ? stu.name.charAt(0).toUpperCase() : 'U';
+    slot.innerHTML = `
+      <button onclick="openProfileModal()" class="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-coral-50 border border-coral/30 hover:bg-coral-100 transition">
+        <span class="h-8 w-8 rounded-xl bg-coral text-white font-extrabold text-xs grid place-items-center shadow-soft">${initial}</span>
+        <span class="text-xs font-extrabold text-ink max-w-[100px] truncate">${sanitizeHTML(stu.name)}</span>
+      </button>`;
+  } else {
+    slot.innerHTML = `<button onclick="openStudentLogin()" class="px-4 py-2 rounded-xl border-[1.5px] border-coral text-coral text-[14px] font-bold hover:bg-coral hover:text-white transition">Student Login</button>`;
+  }
 }
 
 function openStudentLogin(){
@@ -864,13 +698,46 @@ function handleStudentLoginSubmit(e){
 
   localStorage.setItem('roomzy_active_student', JSON.stringify(studentProfile));
   showToast(`🎉 Welcome ${name}! Logged in successfully.`);
+  updateAuthNavSlot();
   showTenantView();
+}
+
+function openProfileModal(){
+  const activeStudent = localStorage.getItem('roomzy_active_student');
+  if(!activeStudent){ openStudentLogin(); return; }
+  const stu = JSON.parse(activeStudent);
+
+  $('#pfName').textContent = stu.name;
+  $('#pfCollege').textContent = stu.college;
+  $('#pfPhone').textContent = stu.phone;
+  $('#pfInterest').textContent = stu.interest || 'No interests';
+  $('#profileAvatarIcon').textContent = stu.name.charAt(0).toUpperCase();
+  
+  if(stu.isBooked){
+    $('#pfBookingStatus').textContent = `Booked (${stu.interest !== 'No interests' ? 'Receiving interest alerts' : 'No alerts'})`;
+    $('#pfBookingStatus').className = 'font-extrabold text-green-600';
+  } else {
+    $('#pfBookingStatus').textContent = 'Looking for PGs (Receiving availability reminders)';
+    $('#pfBookingStatus').className = 'font-extrabold text-amber-600';
+  }
+
+  $('#profileModal').classList.remove('hidden');
+}
+
+function closeProfileModal(){
+  $('#profileModal').classList.add('hidden');
+}
+
+function studentLogout(){
+  localStorage.removeItem('roomzy_active_student');
+  closeProfileModal();
+  updateAuthNavSlot();
+  showToast('Logged out successfully.');
 }
 
 function openOwnerPortal(){ 
   hideAllViews();
   $('#ownerView').classList.remove('hidden'); 
-  
   const activeOwner = localStorage.getItem('roomzy_active_owner');
   if(activeOwner){
     $('#ownerRegBox').classList.add('hidden');
@@ -886,237 +753,56 @@ function openOwnerPortal(){
   window.scrollTo(0,0); 
 }
 
-function switchToLogin(){
-  $('#ownerRegBox').classList.add('hidden');
-  $('#ownerLoginBox').classList.remove('hidden');
-}
-
-function switchToRegister(){
-  $('#ownerLoginBox').classList.add('hidden');
-  $('#ownerRegBox').classList.remove('hidden');
-}
-
-function showTenantView(){ 
-  hideAllViews();
-  $('#tenantView').classList.remove('hidden'); 
-  fetchPropertiesFromDatabase();
-  window.scrollTo(0,0);
-}
-
-function showAboutView(){
-  hideAllViews();
-  $('#aboutView').classList.remove('hidden');
-  window.scrollTo(0,0);
-}
-
-function showPrivacyView(){
-  hideAllViews();
-  $('#privacyView').classList.remove('hidden');
-  window.scrollTo(0,0);
-}
-
-function showTermsView(){
-  hideAllViews();
-  $('#termsView').classList.remove('hidden');
-  window.scrollTo(0,0);
-}
-
-function showSecurityView(){
-  hideAllViews();
-  $('#securityView').classList.remove('hidden');
-  window.scrollTo(0,0);
-}
-
-function handleOwnerRegistration(e){
-  e.preventDefault();
-  const name = sanitizeHTML($('#regName').value.trim());
-  const phone = $('#regPhone').value.trim();
-  const email = $('#regEmail').value.trim();
-  const address = sanitizeHTML($('#regAddress').value.trim());
-  const idType = $('#regIdType').value;
-
-  if(!validatePhoneNumber(phone)){
-    showToast('⚠️ Please enter a valid 10-digit mobile number.');
-    return;
-  }
-
-  const ownerProfile = { name, phone, email, address, idType, registeredAt: new Date().toISOString() };
-  let registeredOwners = [];
-  try { registeredOwners = JSON.parse(localStorage.getItem('roomzy_owners') || '[]'); } catch(err){}
-
-  registeredOwners.push(ownerProfile);
-  localStorage.setItem('roomzy_owners', JSON.stringify(registeredOwners));
-  localStorage.setItem('roomzy_active_owner', JSON.stringify(ownerProfile));
-
-  showToast('🎉 Owner Registration Successful! Welcome to Dashboard.');
-  $('#ownerRegBox').classList.add('hidden');
-  $('#ownerAddForm').classList.remove('hidden');
-  $('#activeOwnerName').textContent = name;
-  renderOwnerInventoryManager();
-}
-
-function sendOTP(){
-  const phone = $('#ownerPhone').value.trim();
-  if(!validatePhoneNumber(phone)){ showToast('Please enter a valid 10-digit mobile number'); return; }
-  showToast('OTP sent successfully! (Demo code: 1234)');
-  $('#phoneStep').classList.add('hidden');
-  $('#otpStep').classList.remove('hidden');
-}
-
-function verifyOTP(){
-  const otp = $('#ownerOTP').value.trim();
-  if(otp === '1234' || otp === '123456'){
-    const phone = $('#ownerPhone').value.trim();
-    let registeredOwners = [];
-    try { registeredOwners = JSON.parse(localStorage.getItem('roomzy_owners') || '[]'); } catch(e){}
-    
-    let owner = registeredOwners.find(o => o.phone === phone);
-    if(!owner){ owner = { name: 'Verified Owner', phone: phone, email: 'owner@roomzy.in', address: 'Jaipur' }; }
-    localStorage.setItem('roomzy_active_owner', JSON.stringify(owner));
-    showToast('Login Successful!');
-    $('#ownerLoginBox').classList.add('hidden');
-    $('#ownerAddForm').classList.remove('hidden');
-    $('#activeOwnerName').textContent = owner.name;
-    renderOwnerInventoryManager();
-  } else {
-    showToast('Invalid OTP! Please enter 1234');
-  }
-}
-
-function ownerLogout(){
-  localStorage.removeItem('roomzy_active_owner');
-  showToast('Logged out successfully.');
-  openOwnerPortal();
-}
+function switchToLogin(){ $('#ownerRegBox').classList.add('hidden'); $('#ownerLoginBox').classList.remove('hidden'); }
+function ownerLogout(){ localStorage.removeItem('roomzy_active_owner'); showToast('Logged out.'); openOwnerPortal(); }
 
 function renderOwnerInventoryManager(){
   let customPgs = [];
   try { customPgs = JSON.parse(localStorage.getItem('roomzy_custom_pgs') || '[]'); } catch(e){}
-  
-  if(customPgs.length === 0){
-    $('#ownerPropertiesList').innerHTML = `<p class="text-xs text-gray-400">No properties listed yet. Fill the form below to publish your first property.</p>`;
-    return;
-  }
-
+  if(customPgs.length === 0){ $('#ownerPropertiesList').innerHTML = `<p class="text-xs text-gray-400">No properties listed yet.</p>`; return; }
   $('#ownerPropertiesList').innerHTML = customPgs.map(p => `
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 p-3.5 bg-white rounded-2xl border border-line">
-      <div>
-        <p class="text-sm font-extrabold text-ink">${sanitizeHTML(p.name)}</p>
-        <p class="text-xs text-gray-500">📍 ${sanitizeHTML(p.area)} · <strong class="text-coral">${inr(p.price)}/mo</strong></p>
-      </div>
-      <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
-        <div class="text-right">
-          <span class="text-[10px] font-bold uppercase text-gray-400 block">Available Beds</span>
-          <span class="text-xs font-extrabold px-2 py-0.5 rounded bg-green-100 text-green-700">${p.availableBeds} / ${p.totalBeds || 15}</span>
-        </div>
-        <div class="flex items-center gap-1">
-          <button onclick="adjustBed(${p.id}, -1)" class="h-8 w-8 rounded-lg bg-red-50 text-red-600 font-extrabold text-sm hover:bg-red-100">-</button>
-          <button onclick="adjustBed(${p.id}, 1)" class="h-8 w-8 rounded-lg bg-green-50 text-green-600 font-extrabold text-sm hover:bg-green-100">+</button>
-        </div>
-      </div>
+    <div class="flex items-center justify-between p-2.5 bg-white rounded-xl border border-line">
+      <div><p class="text-xs font-bold">${sanitizeHTML(p.name)}</p><p class="text-[10px] text-gray-500">${inr(p.price)}/mo</p></div>
+      <span class="text-xs font-bold text-green-600">${p.availableBeds} beds available</span>
     </div>
   `).join('');
 }
 
-function adjustBed(id, change){
-  let customPgs = [];
-  try { customPgs = JSON.parse(localStorage.getItem('roomzy_custom_pgs') || '[]'); } catch(e){}
-  
-  const p = customPgs.find(x => x.id === id);
-  if(p){
-    p.availableBeds = Math.max(0, Math.min(p.totalBeds || 15, p.availableBeds + change));
-    localStorage.setItem('roomzy_custom_pgs', JSON.stringify(customPgs));
-    showToast(`Inventory updated! Available beds: ${p.availableBeds}`);
+function sendOTP(){
+  const phone = $('#ownerPhone').value.trim();
+  if(!validatePhoneNumber(phone)){ showToast('Enter 10-digit phone'); return; }
+  showToast('OTP sent (1234)');
+  $('#phoneStep').classList.add('hidden'); $('#otpStep').classList.remove('hidden');
+}
+
+function verifyOTP(){
+  if($('#ownerOTP').value.trim() === '1234'){
+    const owner = { name: 'Owner', phone: $('#ownerPhone').value.trim() };
+    localStorage.setItem('roomzy_active_owner', JSON.stringify(owner));
+    showToast('Login Successful!');
+    $('#ownerLoginBox').classList.add('hidden');
+    $('#ownerAddForm').classList.remove('hidden');
     renderOwnerInventoryManager();
-  }
+  } else { showToast('Invalid OTP (use 1234)'); }
 }
 
-async function handlePublishPG(e){
-  e.preventDefault();
-  const activeOwnerStr = localStorage.getItem('roomzy_active_owner');
-  const activeOwner = activeOwnerStr ? JSON.parse(activeOwnerStr) : { email: 'owner@roomzy.in', phone: '9828011223' };
-
-  const amen = [];
-  if($('#amWifi').checked) amen.push('wifi');
-  if($('#amWashing').checked) amen.push('washing');
-  if($('#amWater').checked) amen.push('water');
-  if($('#amFridge').checked) amen.push('fridge');
-  if($('#amOven').checked) amen.push('oven');
-  if($('#amFood').checked) amen.push('food');
-
-  const fileInput = $('#pgMedia');
-  let imageUrl = 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60';
-  if(fileInput.files && fileInput.files[0]){ imageUrl = URL.createObjectURL(fileInput.files[0]); }
-
-  const view360Input = $('#pg360');
-  let view360Url = imageUrl;
-  if(view360Input.files && view360Input.files[0]){ view360Url = URL.createObjectURL(view360Input.files[0]); }
-
-  const newProperty = {
-    id: Date.now(),
-    name: sanitizeHTML($('#pgName').value.trim()),
-    type: 'PG',
-    area: sanitizeHTML($('#pgArea').value) + ', Jaipur',
-    price: parseInt($('#pgPrice').value),
-    rating: 5.0,
-    gender: $('#pgGender').value,
-    occ: $('#pgOcc').value,
-    totalBeds: parseInt($('#pgTotalBeds').value) || 15,
-    availableBeds: parseInt($('#pgAvailBeds').value) || 5,
-    amen: amen,
-    nearby: sanitizeHTML($('#pgNearby').value.trim()),
-    phone: sanitizeHTML($('#pgPhone').value.trim()),
-    ownerEmail: activeOwner.email,
-    img: imageUrl,
-    view360: view360Url,
-    videos: [],
-    tag: 'Verified Owner',
-    trustScore: { safety: '9.8/10', curfew: '10:00 PM Gate Close', foodHygiene: '4.9/5 Star Mess', cctv: '24/7 CCTV' },
-    reviews: [{ name: 'Verified Owner', role: 'Resident', comment: 'Newly listed verified property on RoomZy.', rating: 5 }]
-  };
-
-  let savedCustomPgs = [];
-  try { savedCustomPgs = JSON.parse(localStorage.getItem('roomzy_custom_pgs') || '[]'); } catch(e) {}
-  
-  savedCustomPgs.unshift(newProperty);
-  localStorage.setItem('roomzy_custom_pgs', JSON.stringify(savedCustomPgs));
-
-  showToast('🎉 PG Listed Successfully Live with Real-Time Room Sync!');
-  renderOwnerInventoryManager();
-  e.target.reset();
-}
+function showTenantView(){ hideAllViews(); $('#tenantView').classList.remove('hidden'); fetchPropertiesFromDatabase(); window.scrollTo(0,0); }
+function showAboutView(){ hideAllViews(); $('#aboutView').classList.remove('hidden'); window.scrollTo(0,0); }
+function showPrivacyView(){ hideAllViews(); $('#privacyView').classList.remove('hidden'); window.scrollTo(0,0); }
+function showTermsView(){ hideAllViews(); $('#termsView').classList.remove('hidden'); window.scrollTo(0,0); }
 
 async function fetchPropertiesFromDatabase(){
   let customPgs = [];
   try { customPgs = JSON.parse(localStorage.getItem('roomzy_custom_pgs') || '[]'); } catch(e) {}
-
-  try {
-    const { data, error } = await supabase.from('properties').select('*').order('id', { ascending: false });
-    if(error || !data || data.length === 0){
-      liveProperties = [...customPgs, ...INITIAL_MOCK_PGS];
-    } else {
-      const dbFormatted = data.map(d => ({
-        ...d,
-        occ: 'Single', totalBeds: 12, availableBeds: 4, amen: ['wifi', 'washing', 'food'],
-        view360: d.img, videos: [], tag: 'Verified',
-        trustScore: { safety: '9.5/10', curfew: '10:00 PM', foodHygiene: '4.8/5 Star', cctv: 'CCTV Active' },
-        reviews: [{ name: 'Verified Tenant', role: 'Student', comment: 'Great place to stay.', rating: 4.8 }]
-      }));
-      liveProperties = [...customPgs, ...dbFormatted, ...INITIAL_MOCK_PGS];
-    }
-  } catch(e) {
-    liveProperties = [...customPgs, ...INITIAL_MOCK_PGS];
-  }
+  liveProperties = [...customPgs, ...INITIAL_MOCK_PGS];
   render();
 }
 
 function renderFilterControls(){
   const OCC = ['Single','Double'];
   $('#occRow').innerHTML = OCC.map(o=>`<button onclick="toggleOcc('${o}')" class="px-3.5 py-2 rounded-xl text-xs font-bold border ${state.occ.includes(o)?'border-coral bg-coral text-white':'border-line bg-white'}">${o} Room</button>`).join('');
-
   const GEN = ['Any','Male','Female'];
   $('#genderRow').innerHTML = GEN.map(g=>`<button onclick="setGender('${g}')" class="py-2 rounded-xl text-xs font-bold border ${state.gender===g?'border-coral bg-coral text-white':'border-line bg-white'}">${g}</button>`).join('');
-
   $('#amenRow').innerHTML = AMENITIES_LIST.map(a=>`
     <label class="flex items-center gap-3 cursor-pointer">
       <input type="checkbox" ${state.amen.includes(a.id)?'checked':''} onchange="toggleAmen('${a.id}')" class="accent-coral h-4 w-4 rounded border-line">
@@ -1127,54 +813,24 @@ function renderFilterControls(){
 function toggleOcc(o){ state.occ.includes(o) ? state.occ.splice(state.occ.indexOf(o),1) : state.occ.push(o); render(); }
 function setGender(g){ state.gender = g; render(); }
 function toggleAmen(a){ state.amen.includes(a) ? state.amen.splice(state.amen.indexOf(a),1) : state.amen.push(a); render(); }
-
-function resetFilters(){
-  state.min=7000; state.max=20000; state.gender='Any'; state.occ=[]; state.amen=[]; state.city='Jaipur (All)';
-  $('#sMin').value=7000; $('#sMax').value=20000;
-  $('#hMin').value=7000; $('#hMax').value=20000;
-  updateSliders(); renderCities(); render();
-}
+function resetFilters(){ state.min=7000; state.max=20000; state.gender='Any'; state.occ=[]; state.amen=[]; state.city='Jaipur (All)'; updateSliders(); render(); }
 
 function updateSliders(){
-  let hMin = parseInt($('#hMin').value);
-  let hMax = parseInt($('#hMax').value);
-  if (hMin > hMax - 500) { hMin = hMax - 500; $('#hMin').value = hMin; }
-  
-  let sMin = parseInt($('#sMin').value);
-  let sMax = parseInt($('#sMax').value);
+  let sMin = parseInt($('#sMin').value); let sMax = parseInt($('#sMax').value);
   if (sMin > sMax - 500) { sMin = sMax - 500; $('#sMin').value = sMin; }
-
   state.min = sMin; state.max = sMax;
-
   const minPercent = ((sMin - 7000) / (20000 - 7000)) * 100;
   const maxPercent = ((sMax - 7000) / (20000 - 7000)) * 100;
   if($('#sFill')) { $('#sFill').style.left = minPercent + '%'; $('#sFill').style.width = (maxPercent - minPercent) + '%'; }
   if($('#sideBudgetVal')) $('#sideBudgetVal').textContent = `₹${sMin.toLocaleString('en-IN')} – ₹${sMax.toLocaleString('en-IN')}`;
   if($('#budgetLabel')) $('#budgetLabel').textContent = `₹${sMin.toLocaleString('en-IN')} – ₹${sMax.toLocaleString('en-IN')}`;
-  if($('#hdrBudgetVal')) $('#hdrBudgetVal').textContent = `₹${sMin.toLocaleString('en-IN')} – ₹${sMax.toLocaleString('en-IN')}`;
-
-  const hMinPercent = ((hMin - 7000) / (20000 - 7000)) * 100;
-  const hMaxPercent = ((hMax - 7000) / (20000 - 7000)) * 100;
-  if($('#hFill')) { $('#hFill').style.left = hMinPercent + '%'; $('#hFill').style.width = (hMaxPercent - hMinPercent) + '%'; }
-
   render();
 }
 
 function setupSliderEvents(){
-  ['sMin','sMax','hMin','hMax'].forEach(id => {
+  ['sMin','sMax'].forEach(id => {
     const el = $('#' + id); 
-    if(el) {
-      el.addEventListener('input', () => {
-        if(id === 'hMin' || id === 'hMax') {
-          $('#sMin').value = $('#hMin').value;
-          $('#sMax').value = $('#hMax').value;
-        } else {
-          $('#hMin').value = $('#sMin').value;
-          $('#hMax').value = $('#sMax').value;
-        }
-        updateSliders();
-      });
-    }
+    if(el) { el.addEventListener('input', () => { updateSliders(); }); }
   });
 }
 
@@ -1182,57 +838,28 @@ function renderCities(){
   $('#cityGrid').innerHTML = CITIES.map(c=>`<button onclick="pickCity('${c}')" class="px-3 py-2 rounded-xl text-xs font-bold text-left border ${state.city===c?'border-coral bg-coral-50 text-coral':'border-line'} hover:border-coral">${sanitizeHTML(c)}</button>`).join('');
 }
 
-function pickCity(c){
-  state.city = c; $('#cityLabel').textContent = c; $('#resCity').textContent = c; $('#cityPop').classList.add('hidden'); renderCities(); render();
-}
+function pickCity(c){ state.city = c; $('#cityLabel').textContent = c; $('#resCity').textContent = c; $('#cityPop').classList.add('hidden'); renderCities(); render(); }
 
 function render(){
   const list = liveProperties.filter(l => {
     if(l.price < state.min || l.price > state.max) return false;
     if(state.gender!=='Any' && l.gender!==state.gender && l.gender!=='Unisex') return false;
-    if(state.occ.length && !state.occ.includes(l.occ)) return false;
-    if(state.amen.length && !state.amen.every(a => l.amen && l.amen.includes(a))) return false;
     if(state.city!=='Jaipur (All)' && !l.area.includes(state.city)) return false;
     return true;
   });
-
-  if(list.length === 0){
-    $('#cards').innerHTML = `<div class="col-span-full py-12 text-center text-gray-500 font-bold">No stays match your filters within ₹7,000 – ₹20,000. Try clicking 'Reset all' on the left.</div>`;
-    $('#resCount').textContent = 0;
-    renderFilterControls();
-    return;
-  }
-
-  $('#cards').innerHTML = list.map(l => {
-    const isSoldOut = (l.availableBeds !== undefined && l.availableBeds <= 0);
-    const badgeText = isSoldOut ? '🔴 House Full / Sold Out' : `🟢 ${l.availableBeds} Beds Available`;
-    const badgeColor = isSoldOut ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700';
-
-    return `
+  $('#cards').innerHTML = list.map(l => `
     <article class="card-hov bg-white rounded-3xl border border-line overflow-hidden hover:shadow-card">
-      <div class="relative">
-        <img src="${l.img}" alt="${sanitizeHTML(l.name)}" class="w-full h-52 object-cover">
-        <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-lg bg-white/95 text-[11px] font-extrabold shadow-soft">${sanitizeHTML(l.tag || 'Verified')}</span>
-        <span class="absolute top-3.5 right-3.5 px-2.5 py-1 rounded-lg ${badgeColor} text-[11px] font-extrabold shadow-soft">${badgeText}</span>
-      </div>
+      <div class="relative"><img src="${l.img}" class="w-full h-52 object-cover"></div>
       <div class="p-5">
-        <div class="flex items-start justify-between gap-3">
-          <div>
-            <h3 class="font-extrabold text-[16.5px] truncate">${sanitizeHTML(l.name)}</h3>
-            <p class="text-[13px] text-gray-500 font-medium mt-1">📍 ${sanitizeHTML(l.area)}</p>
-          </div>
-          <span class="px-2.5 py-1 rounded-lg bg-mist border border-line text-[11px] font-extrabold text-gray-600">${sanitizeHTML(l.occ || 'Single')}</span>
-        </div>
-        <div class="mt-4 pt-4 border-t border-line flex items-end justify-between gap-3">
-          <div>
-            <p class="text-[20px] font-extrabold leading-none">${inr(l.price)}<span class="text-[12.5px] font-bold text-gray-400">/mo</span></p>
-          </div>
-          <button onclick="openProp(${l.id})" class="h-10 px-4 rounded-xl ${isSoldOut ? 'bg-gray-400 cursor-not-allowed' : 'bg-coral hover:bg-coral-dark'} text-white text-[13.5px] font-extrabold shadow-redglow shine">${isSoldOut ? 'Sold Out' : 'View details'}</button>
+        <h3 class="font-extrabold text-[16.5px] truncate">${sanitizeHTML(l.name)}</h3>
+        <p class="text-[13px] text-gray-500 font-medium mt-1">📍 ${sanitizeHTML(l.area)}</p>
+        <div class="mt-4 pt-4 border-t border-line flex items-end justify-between">
+          <p class="text-[20px] font-extrabold">${inr(l.price)}<span class="text-xs text-gray-400">/mo</span></p>
+          <button onclick="openProp(${l.id})" class="h-10 px-4 rounded-xl bg-coral text-white text-xs font-extrabold">View details</button>
         </div>
       </div>
     </article>
-  `;}).join('');
-
+  `).join('');
   $('#resCount').textContent = list.length;
   renderFilterControls();
 }
@@ -1240,137 +867,16 @@ function render(){
 function openProp(id){
   const l = liveProperties.find(x => x.id === id);
   if(!l) return;
-  currentModalTab = 'photos';
-  renderModalContent(l);
-  $('#propModal').classList.remove('hidden');
-}
-
-function setModalTab(id, tab){
-  currentModalTab = tab;
-  const l = liveProperties.find(x => x.id === id);
-  if(l) renderModalContent(l);
-}
-
-function renderModalContent(l){
-  const amenLabels = {
-    wifi: '📶 High-Speed WiFi',
-    washing: '🧺 Washing Machine',
-    water: '🚰 Water Cooler',
-    fridge: '🧊 Refrigerator',
-    oven: '🔥 Microwave / Oven',
-    food: '🍲 5 Meals Included'
-  };
-
-  const amenitiesHtml = l.amen ? l.amen.map(a => `<span class="px-3 py-1.5 rounded-xl bg-coral-50 text-coral text-xs font-bold">${amenLabels[a] || a}</span>`).join('') : '<span class="text-xs text-gray-400">Standard amenities</span>';
-
-  let mediaContainer = `<img src="${l.img}" class="w-full h-72 object-cover rounded-2xl shadow-soft"/>`;
-  if(currentModalTab === 'videos'){
-    mediaContainer = `<div class="w-full h-72 bg-gray-100 rounded-2xl flex flex-col items-center justify-center text-gray-400 text-xs font-bold"><span>📹 Walkthrough video tour available on site visit</span></div>`;
-  } else if(currentModalTab === '360'){
-    mediaContainer = `
-      <div class="relative w-full h-72 rounded-2xl overflow-hidden shadow-soft bg-black">
-        <img src="${l.view360 || l.img}" class="w-full h-full object-cover opacity-90 animate-pulse"/>
-        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-5 text-white">
-          <span class="px-3 py-1 bg-indigo-600 text-white rounded-full text-[11px] font-extrabold w-max mb-1">🔄 360° Panoramic View Active</span>
-          <p class="text-xs text-white/80 font-medium">Immersive room view added by owner. Drag or rotate to explore.</p>
-        </div>
-      </div>`;
-  }
-
-  const trust = l.trustScore || { safety: '9.8/10', curfew: '10:00 PM Gate Close', foodHygiene: '4.9/5 Star', cctv: '24/7 CCTV' };
-  const isSoldOut = (l.availableBeds !== undefined && l.availableBeds <= 0);
-  const reviewsHtml = l.reviews ? l.reviews.map(r => `
-    <div class="p-3 rounded-xl bg-white border border-line space-y-1">
-      <div class="flex items-center justify-between">
-        <p class="text-xs font-extrabold text-ink">${sanitizeHTML(r.name)} <span class="text-[10px] text-gray-400 font-normal">(${sanitizeHTML(r.role)})</span></p>
-        <p class="text-xs font-bold text-amber-500">⭐ ${r.rating}/5</p>
-      </div>
-      <p class="text-xs text-gray-600 font-medium">"${sanitizeHTML(r.comment)}"</p>
-    </div>
-  `).join('') : '<p class="text-xs text-gray-400">No reviews yet.</p>';
-
   $('#pmTitle').textContent = l.name;
   $('#pmBody').innerHTML = `
-    <div class="p-6 space-y-6">
-      <div class="flex items-center gap-2 p-1.5 bg-mist rounded-2xl border border-line w-max">
-        <button onclick="setModalTab(${l.id}, 'photos')" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${currentModalTab==='photos'?'bg-coral text-white shadow-soft':'text-gray-600 hover:bg-white'}">📷 Photos</button>
-        <button onclick="setModalTab(${l.id}, 'videos')" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${currentModalTab==='videos'?'bg-coral text-white shadow-soft':'text-gray-600 hover:bg-white'}">📹 Videos</button>
-        <button onclick="setModalTab(${l.id}, '360')" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${currentModalTab==='360'?'bg-indigo-600 text-white shadow-soft':'text-gray-600 hover:bg-white'}">🔄 360° View</button>
-      </div>
-
-      ${mediaContainer}
-
-      <div class="flex items-center justify-between">
-        <div>
-          <h2 class="text-2xl font-extrabold">${sanitizeHTML(l.name)}</h2>
-          <p class="text-sm text-gray-500 font-medium mt-1">📍 ${sanitizeHTML(l.area)}</p>
-        </div>
-        <span class="px-3 py-1 rounded-xl ${isSoldOut ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'} font-extrabold text-xs">
-          ${isSoldOut ? '🔴 House Full (0 Beds Left)' : `🟢 ${l.availableBeds} of ${l.totalBeds || 15} Beds Available`}
-        </span>
-      </div>
-
-      <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-100 space-y-2">
-        <p class="text-xs font-extrabold uppercase tracking-wider text-indigo-700">🛡 Parent Trust & Safety Score (${trust.safety})</p>
-        <div class="grid sm:grid-cols-3 gap-3 pt-1">
-          <div class="p-2.5 bg-white rounded-xl border border-indigo-100">
-            <p class="text-[10px] text-gray-400 font-bold uppercase">Gate Curfew</p>
-            <p class="text-xs font-extrabold text-indigo-900 mt-0.5">${sanitizeHTML(trust.curfew)}</p>
-          </div>
-          <div class="p-2.5 bg-white rounded-xl border border-indigo-100">
-            <p class="text-[10px] text-gray-400 font-bold uppercase">Mess Hygiene</p>
-            <p class="text-xs font-extrabold text-indigo-900 mt-0.5">${sanitizeHTML(trust.foodHygiene)}</p>
-          </div>
-          <div class="p-2.5 bg-white rounded-xl border border-indigo-100">
-            <p class="text-[10px] text-gray-400 font-bold uppercase">Security & CCTV</p>
-            <p class="text-xs font-extrabold text-indigo-900 mt-0.5">${sanitizeHTML(trust.cctv)}</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="p-4 rounded-2xl bg-mist border border-line space-y-2">
-        <p class="text-xs font-extrabold uppercase tracking-wider text-gray-400">📋 Transparent House Rules & Agreement Info</p>
-        <div class="grid sm:grid-cols-2 gap-2 text-xs font-semibold text-gray-700 pt-1">
-          <p>🚪 <strong>Curfew:</strong> ${sanitizeHTML(trust.curfew)}</p>
-          <p>⚡ <strong>Electricity:</strong> Included in rent (Up to 150 units)</p>
-          <p>🍳 <strong>Kitchen Access:</strong> Provided for light snacks</p>
-          <p>👥 <strong>Visitor Policy:</strong> Parents allowed in lobby</p>
-        </div>
-      </div>
-
-      <div class="p-4 rounded-2xl bg-mist border border-line space-y-2">
-        <p class="text-xs font-extrabold uppercase tracking-wider text-gray-400">Included Amenities & Appliances</p>
-        <div class="flex flex-wrap gap-2 pt-1">
-          ${amenitiesHtml}
-        </div>
-      </div>
-
-      ${l.nearby ? `
-      <div class="p-4 rounded-2xl bg-green-50 border border-green-200 space-y-1">
-        <p class="text-xs font-extrabold uppercase tracking-wider text-green-700">🏥 Nearby Infrastructure (Medical, Libraries, Gym)</p>
-        <p class="text-xs font-semibold text-green-900 mt-1">${sanitizeHTML(l.nearby)}</p>
-      </div>` : ''}
-
-      <div class="space-y-3 pt-2">
-        <p class="text-xs font-extrabold uppercase tracking-wider text-gray-400">⭐ Verified Resident & Student Reviews</p>
-        <div class="space-y-2">
-          ${reviewsHtml}
-        </div>
-      </div>
-
-      <div class="p-5 rounded-3xl bg-coral-50 border border-coral-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div>
-          <p class="text-xs text-gray-500 font-bold uppercase">Monthly Rent: <strong class="text-coral text-base">${inr(l.price)} / mo</strong></p>
-          <p class="text-xs ${isSoldOut ? 'text-red-600' : 'text-green-700'} font-bold mt-0.5">${isSoldOut ? '⚠️ This property is currently fully booked.' : '✨ Site visits are 100% Free! Call owner directly.'}</p>
-        </div>
-        <div class="w-full sm:w-auto">
-          ${isSoldOut 
-            ? `<button disabled class="flex h-11 px-8 rounded-2xl bg-gray-400 text-white font-extrabold text-xs cursor-not-allowed">House Full (Sold Out)</button>`
-            : `<a href="tel:${sanitizeHTML(l.phone)}" class="flex h-11 px-8 rounded-2xl bg-coral text-white font-extrabold text-xs shadow-redglow grid place-items-center">📞 Call Owner (${sanitizeHTML(l.phone)})</a>`
-          }
-        </div>
-      </div>
+    <div class="p-6 space-y-4">
+      <img src="${l.img}" class="w-full h-64 object-cover rounded-2xl">
+      <h2 class="text-2xl font-extrabold">${sanitizeHTML(l.name)}</h2>
+      <p class="text-sm text-gray-500">${sanitizeHTML(l.area)}</p>
+      <p class="text-lg font-extrabold text-coral">${inr(l.price)} / month</p>
+      <a href="tel:${l.phone}" class="block w-full py-3 rounded-2xl bg-coral text-white text-center font-bold text-sm shadow-redglow">Call Owner (${l.phone})</a>
     </div>`;
+  $('#propModal').classList.remove('hidden');
 }
 
 function closeProp(){ $('#propModal').classList.add('hidden'); }
@@ -1382,10 +888,9 @@ function togglePop(id){
 $('#cityBtn').onclick = e => { e.stopPropagation(); togglePop('cityPop'); };
 $('#dateBtn').onclick = e => { e.stopPropagation(); togglePop('datePop'); };
 $('#budgetBtn').onclick = e => { e.stopPropagation(); togglePop('budgetPop'); };
-
 function applyHeaderSearch(){ $('#explore').scrollIntoView({behavior:'smooth'}); }
 
-renderCities(); setupSliderEvents(); updateSliders(); fetchPropertiesFromDatabase();
+renderCities(); setupSliderEvents(); updateSliders(); updateAuthNavSlot(); fetchPropertiesFromDatabase();
 </script>
 </body>
 </html>
