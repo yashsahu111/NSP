@@ -730,26 +730,53 @@ function toggleAmen(a){ state.amen.includes(a) ? state.amen.splice(state.amen.in
 function resetFilters(){
   state.min=7000; state.max=20000; state.gender='Any'; state.occ=[]; state.amen=[]; state.city='Jaipur (All)';
   $('#sMin').value=7000; $('#sMax').value=20000;
+  $('#hMin').value=7000; $('#hMax').value=20000;
   updateSliders(); renderCities(); render();
 }
 
 function updateSliders(){
+  // Sync header slider inputs to sidebar / state if needed, or handle both independently
+  let hMin = parseInt($('#hMin').value);
+  let hMax = parseInt($('#hMax').value);
+  if (hMin > hMax - 500) { hMin = hMax - 500; $('#hMin').value = hMin; }
+  
   let sMin = parseInt($('#sMin').value);
   let sMax = parseInt($('#sMax').value);
   if (sMin > sMax - 500) { sMin = sMax - 500; $('#sMin').value = sMin; }
+
+  // Use sidebar values as primary, or fallback to header if active
   state.min = sMin; state.max = sMax;
 
   const minPercent = ((sMin - 7000) / (20000 - 7000)) * 100;
   const maxPercent = ((sMax - 7000) / (20000 - 7000)) * 100;
   if($('#sFill')) { $('#sFill').style.left = minPercent + '%'; $('#sFill').style.width = (maxPercent - minPercent) + '%'; }
   if($('#sideBudgetVal')) $('#sideBudgetVal').textContent = `₹${sMin.toLocaleString('en-IN')} – ₹${sMax.toLocaleString('en-IN')}`;
+  if($('#budgetLabel')) $('#budgetLabel').textContent = `₹${sMin.toLocaleString('en-IN')} – ₹${sMax.toLocaleString('en-IN')}`;
+  if($('#hdrBudgetVal')) $('#hdrBudgetVal').textContent = `₹${sMin.toLocaleString('en-IN')} – ₹${sMax.toLocaleString('en-IN')}`;
+
+  const hMinPercent = ((hMin - 7000) / (20000 - 7000)) * 100;
+  const hMaxPercent = ((hMax - 7000) / (20000 - 7000)) * 100;
+  if($('#hFill')) { $('#hFill').style.left = hMinPercent + '%'; $('#hFill').style.width = (hMaxPercent - hMinPercent) + '%'; }
 
   render();
 }
 
 function setupSliderEvents(){
-  ['sMin','sMax'].forEach(id => {
-    const el = $('#' + id); if(el) el.addEventListener('input', updateSliders);
+  ['sMin','sMax','hMin','hMax'].forEach(id => {
+    const el = $('#' + id); 
+    if(el) {
+      el.addEventListener('input', () => {
+        // Sync header and sidebar sliders together smoothly
+        if(id === 'hMin' || id === 'hMax') {
+          $('#sMin').value = $('#hMin').value;
+          $('#sMax').value = $('#hMax').value;
+        } else {
+          $('#hMin').value = $('#sMin').value;
+          $('#hMax').value = $('#sMax').value;
+        }
+        updateSliders();
+      });
+    }
   });
 }
 
