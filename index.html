@@ -301,7 +301,7 @@ tailwind.config = {
     <div class="text-center max-w-md mx-auto mb-6">
       <div class="h-12 w-12 rounded-2xl bg-coral-50 text-coral grid place-items-center mx-auto mb-3 font-bold text-xl">🎓</div>
       <h2 class="text-2xl font-extrabold">Student Login & Preferences</h2>
-      <p class="text-xs text-gray-500 mt-1">Sign in with your credentials and choose your event interests from the dropdown menu.</p>
+      <p class="text-xs text-gray-500 mt-1">Sign in with your credentials to view owner contact numbers and unlock event interests.</p>
     </div>
 
     <form onsubmit="handleStudentLoginSubmit(event)" class="space-y-4">
@@ -334,7 +334,7 @@ tailwind.config = {
       </div>
 
       <div class="pt-3">
-        <button type="submit" class="w-full h-12 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow">Sign In & Explore PGs</button>
+        <button type="submit" class="w-full h-12 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow">Sign In & Unlock Owner Contacts</button>
       </div>
       <div class="text-center pt-2">
         <button type="button" onclick="showTenantView()" class="text-xs font-bold text-gray-400 hover:text-ink">← Back to Home</button>
@@ -469,6 +469,7 @@ tailwind.config = {
             <option value="Malviya Nagar">Malviya Nagar</option>
             <option value="Vaishali Nagar">Vaishali Nagar</option>
             <option value="Jagatpura">Jagatpura</option>
+            <option value="Mansarovar">Mansarovar</option>
           </select>
         </div>
         <div>
@@ -619,7 +620,7 @@ const INITIAL_MOCK_PGS = [
     occ: 'Single', totalBeds: 15, availableBeds: 3, amen: ['wifi','washing','water','fridge','food'], nearby: 'Apollo Pharmacy (100m), Central Library (300m)',
     phone: '09024776588', ownerEmail: 'radhepg@gmail.com', img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60',
     view360: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1200&q=60',
-    videos: [], tag: 'Verified',
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', tag: 'Verified',
     trustScore: { safety: '9.8/10', curfew: '10:30 PM Gate Close', foodHygiene: '4.9/5 Star Mess', cctv: '24/7 CCTV & Biometric' },
     reviews: [{ name: 'Rahul Sharma', role: 'Engineering Student', comment: 'Best PG near Sitapura industrial area.', rating: 5 }]
   },
@@ -628,9 +629,36 @@ const INITIAL_MOCK_PGS = [
     occ: 'Single', totalBeds: 20, availableBeds: 5, amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Fortis Hospital (400m)',
     phone: '09829012345', ownerEmail: 'urbannest@gmail.com', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=60',
     view360: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=60',
-    videos: [], tag: 'Bestseller',
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', tag: 'Bestseller',
     trustScore: { safety: '10/10', curfew: 'No Curfew', foodHygiene: '5.0/5 Star', cctv: 'Gated Security' },
     reviews: [{ name: 'Priya Jain', role: 'IT Professional', comment: 'Super luxurious co-living.', rating: 5 }]
+  },
+  {
+    id: 103, name: 'Royal Heritage Student Hostel', type: 'Hostel', area: 'Vaishali Nagar, Jaipur', price: 9200, rating: 4.7, gender: 'Male',
+    occ: 'Double', totalBeds: 12, availableBeds: 2, amen: ['wifi','washing','water','food'], nearby: 'Manipal Hospital (500m)',
+    phone: '09828199887', ownerEmail: 'royalheritage@gmail.com', img: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=60',
+    view360: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=60',
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', tag: 'Verified',
+    trustScore: { safety: '9.5/10', curfew: '11:00 PM', foodHygiene: '4.7/5 Star', cctv: 'CCTV Monitored' },
+    reviews: [{ name: 'Kunal Singh', role: 'Medical Aspirant', comment: 'Quiet study environment.', rating: 4.8 }]
+  },
+  {
+    id: 104, name: 'Greenwood Girls Luxury PG', type: 'PG', area: 'Mansarovar, Jaipur', price: 11000, rating: 4.9, gender: 'Female',
+    occ: 'Single', totalBeds: 10, availableBeds: 1, amen: ['wifi','washing','water','fridge','oven','food'], nearby: 'Metro Station (300m)',
+    phone: '09414055667', ownerEmail: 'greenwood@gmail.com', img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=60',
+    view360: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=60',
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', tag: 'Top Rated',
+    trustScore: { safety: '10/10', curfew: '9:30 PM', foodHygiene: '4.9/5 Star', cctv: 'Dedicated Female Warden' },
+    reviews: [{ name: 'Neha Sharma', role: 'College Student', comment: 'Very safe for girls.', rating: 5 }]
+  },
+  {
+    id: 105, name: 'Apex Scholars Hub & PG', type: 'PG', area: 'Jagatpura, Jaipur', price: 7800, rating: 4.6, gender: 'Unisex',
+    occ: 'Double', totalBeds: 18, availableBeds: 4, amen: ['wifi','washing','water','food'], nearby: 'JK Lakshmipat University (1km)',
+    phone: '09785544332', ownerEmail: 'apexpg@gmail.com', img: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=60',
+    view360: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=60',
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', tag: 'Student Pick',
+    trustScore: { safety: '9.2/10', curfew: '10:00 PM', foodHygiene: '4.6/5 Star', cctv: 'CCTV Security' },
+    reviews: [{ name: 'Vipin Kumar', role: 'B.Tech Student', comment: 'Affordable and close to campus.', rating: 4.6 }]
   }
 ];
 
@@ -690,7 +718,7 @@ function handleStudentLoginSubmit(e){
 
   const studentProfile = { name, phone, college, interest: selectedInterest, isBooked: false, loggedInAt: new Date().toISOString() };
   localStorage.setItem('roomzy_active_student', JSON.stringify(studentProfile));
-  showToast(`🎉 Welcome ${name}! Logged in successfully.`);
+  showToast(`🎉 Welcome ${name}! Owner numbers unlocked.`);
   updateAuthNavSlot();
   showTenantView();
 }
@@ -724,6 +752,17 @@ function studentLogout(){
   closeProfileModal();
   updateAuthNavSlot();
   showToast('Logged out successfully.');
+}
+
+function handleCallOwnerClick(phoneNum){
+  const activeStudent = localStorage.getItem('roomzy_active_student');
+  if(!activeStudent){
+    closeProp();
+    showToast('🔒 Please login first to view owner contact numbers.');
+    openStudentLogin();
+  } else {
+    window.location.href = `tel:${phoneNum}`;
+  }
 }
 
 function openOwnerPortal(){ 
@@ -801,6 +840,7 @@ async function handlePublishPG(e){
     phone: '9828011223',
     img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=60',
     view360: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1200&q=60',
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
     tag: 'Verified Owner',
     trustScore: { safety: '9.8/10', curfew: '10:00 PM', foodHygiene: '4.9/5 Star', cctv: '24/7 CCTV' },
     reviews: [{ name: 'Owner', role: 'Host', comment: 'Welcome!', rating: 5 }]
@@ -928,6 +968,11 @@ function renderModalContent(l){
           <span class="px-3 py-1 bg-indigo-600 text-white rounded-full text-[11px] font-extrabold w-max mb-1">🔄 360° Panoramic View Active</span>
         </div>
       </div>`;
+  } else if(currentModalTab === 'video'){
+    mediaContainer = `
+      <div class="relative w-full h-72 rounded-2xl overflow-hidden shadow-soft bg-black">
+        <iframe src="${l.videoUrl || 'https://www.youtube.com/embed/dQw4w9WgXcQ'}" class="w-full h-full" allowfullscreen></iframe>
+      </div>`;
   }
 
   const trust = l.trustScore || { safety: '9.8/10', curfew: '10:00 PM', foodHygiene: '4.9/5 Star', cctv: '24/7 CCTV' };
@@ -943,6 +988,7 @@ function renderModalContent(l){
       <div class="flex items-center gap-2 p-1.5 bg-mist rounded-2xl border border-line w-max">
         <button onclick="setModalTab(${l.id}, 'photos')" type="button" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${currentModalTab==='photos'?'bg-coral text-white':'text-gray-600'}">📷 Photos</button>
         <button onclick="setModalTab(${l.id}, '360')" type="button" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${currentModalTab==='360'?'bg-indigo-600 text-white':'text-gray-600'}">🔄 360° View</button>
+        <button onclick="setModalTab(${l.id}, 'video')" type="button" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${currentModalTab==='video'?'bg-red-600 text-white':'text-gray-600'}">🎥 Video Tour</button>
       </div>
 
       ${mediaContainer}
@@ -981,7 +1027,7 @@ function renderModalContent(l){
           <p class="text-xs text-gray-500 font-bold uppercase">Monthly Rent</p>
           <p class="text-xl font-extrabold text-coral">${inr(l.price)} / mo</p>
         </div>
-        <a href="tel:${sanitizeHTML(l.phone)}" class="h-11 px-8 rounded-2xl bg-coral text-white font-extrabold text-xs shadow-redglow grid place-items-center">📞 Call Owner (${sanitizeHTML(l.phone)})</a>
+        <button onclick="handleCallOwnerClick('${sanitizeHTML(l.phone)}')" type="button" class="h-11 px-8 rounded-2xl bg-coral hover:bg-coral-dark text-white font-extrabold text-xs shadow-redglow grid place-items-center">📞 Call Owner (Protected)</button>
       </div>
     </div>`;
 }
