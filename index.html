@@ -157,7 +157,7 @@ tailwind.config = {
       <nav class="hidden xl:flex items-center gap-1 ml-auto">
         <a href="#explore" onclick="showTenantView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Explore PGs</a>
         <a href="#perks" onclick="showTenantView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">Why RoomZy</a>
-        <button onclick="openAboutModal()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">About Us</button>
+        <button onclick="showAboutView()" class="px-3 py-2 rounded-lg text-[14px] font-semibold text-gray-600 hover:text-coral hover:bg-coral-50 transition">About Us</button>
         <button onclick="openOwnerPortal()" class="ml-1 px-4 py-2 rounded-xl border-[1.5px] border-coral text-coral text-[14px] font-bold hover:bg-coral hover:text-white transition">List Your Property</button>
       </nav>
     </div>
@@ -309,6 +309,66 @@ tailwind.config = {
 
     </div>
   </section>
+</div>
+
+<!-- ABOUT US DEDICATED PAGE VIEW -->
+<div id="aboutView" class="hidden max-w-[1200px] mx-auto px-4 sm:px-6 py-12 lg:py-16 space-y-16">
+  <!-- Top Intro Hero -->
+  <div class="grid lg:grid-cols-2 gap-10 items-center">
+    <div class="space-y-6">
+      <span class="px-3.5 py-1.5 rounded-full bg-coral-50 text-coral font-extrabold text-xs">About RoomZy Jaipur</span>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+        Reinventing how students find homes in <span class="gradtext">Jaipur</span>.
+      </h1>
+      <p class="text-gray-500 font-medium text-base sm:text-lg leading-relaxed">
+        RoomZy was founded with a singular mission: to eliminate the opaque middleman broker system and give outstation students and parents total peace of mind when securing PGs, hostels, and co-living spaces across Jaipur.
+      </p>
+      <div class="flex items-center gap-4 pt-2">
+        <button onclick="showTenantView()" class="h-12 px-7 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow">Explore Available PGs</button>
+        <button onclick="openOwnerPortal()" class="h-12 px-7 rounded-2xl bg-white border border-line font-extrabold text-sm hover:border-ink transition">List Your PG</button>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="relative rounded-4xl overflow-hidden shadow-card border border-white">
+        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1000&q=80" alt="RoomZy Jaipur Office & Team" class="w-full h-[360px] sm:h-[420px] object-cover">
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Metrics / Stats -->
+  <div class="grid sm:grid-cols-3 gap-6">
+    <div class="p-8 rounded-3xl bg-white border border-line shadow-soft text-center space-y-2">
+      <p class="text-4xl font-extrabold text-coral">100%</p>
+      <p class="text-sm font-bold text-gray-700">Zero Brokerage Fees</p>
+      <p class="text-xs text-gray-400 font-medium">Direct connection between verified owners and students.</p>
+    </div>
+    <div class="p-8 rounded-3xl bg-white border border-line shadow-soft text-center space-y-2">
+      <p class="text-4xl font-extrabold text-indigo-600">500+</p>
+      <p class="text-sm font-bold text-gray-700">Verified Jaipur PGs</p>
+      <p class="text-xs text-gray-400 font-medium">Inspected across Sitapura, Malviya Nagar & Jagatpura.</p>
+    </div>
+    <div class="p-8 rounded-3xl bg-white border border-line shadow-soft text-center space-y-2">
+      <p class="text-4xl font-extrabold text-green-600">360°</p>
+      <p class="text-sm font-bold text-gray-700">Virtual Room Tours</p>
+      <p class="text-xs text-gray-400 font-medium">Explore rooms remotely before making a visit.</p>
+    </div>
+  </div>
+
+  <!-- Mission & Vision Details -->
+  <div class="grid md:grid-cols-2 gap-8 items-center bg-white rounded-4xl border border-line p-8 sm:p-12 shadow-soft">
+    <div class="space-y-4">
+      <h3 class="text-2xl font-extrabold">Our Core Mission</h3>
+      <p class="text-sm text-gray-500 font-medium leading-relaxed">
+        Students moving to educational hubs like Jaipur face steep, unjustified brokerage commissions, lack of verified safety data, and misleading room photos. RoomZy solves this by offering transparent Parent Trust & Safety Scores, verified appliance checklists, and 360-degree panoramic tours.
+      </p>
+    </div>
+    <div class="space-y-4">
+      <h3 class="text-2xl font-extrabold">The Student & Parent Promise</h3>
+      <p class="text-sm text-gray-500 font-medium leading-relaxed">
+        We ensure that every listing features clear curfew timings, mess hygiene ratings, and direct owner phone numbers. Site visits are always 100% free, empowering families to make informed and secure housing decisions.
+      </p>
+    </div>
+  </div>
 </div>
 
 <!-- OWNER PORTAL / ADD REAL PG VIEW -->
@@ -463,9 +523,9 @@ tailwind.config = {
         <ul class="space-y-2 text-sm text-gray-400 font-medium">
           <li><a href="#explore" onclick="showTenantView()" class="hover:text-white transition">Explore All PGs</a></li>
           <li><a href="#perks" onclick="showTenantView()" class="hover:text-white transition">Why RoomZy</a></li>
+          <li><button onclick="showAboutView()" class="hover:text-white transition text-left">About Us</button></li>
           <li><button onclick="openOwnerPortal()" class="hover:text-white transition text-left">List Your Property</button></li>
           <li><button onclick="openOwnerPortal()" class="hover:text-white transition text-left">Owner Login Portal</button></li>
-          <li><button onclick="openAboutModal()" class="hover:text-white transition text-left">About RoomZy</button></li>
         </ul>
       </div>
 
@@ -492,7 +552,7 @@ tailwind.config = {
   </div>
 </footer>
 
-<!-- MODALS -->
+<!-- PROPERTY DETAILS MODAL -->
 <div id="propModal" class="hidden fixed inset-0 z-[70]">
   <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeProp()"></div>
   <div class="absolute inset-x-0 bottom-0 top-auto sm:inset-0 sm:m-auto sm:h-[90vh] sm:max-w-[1040px] bg-white sm:rounded-3xl rounded-t-3xl overflow-hidden shadow-pop flex flex-col max-h-[95vh]">
@@ -501,18 +561,6 @@ tailwind.config = {
       <button onclick="closeProp()" class="h-9 w-9 grid place-items-center rounded-xl hover:bg-mist border border-line">✕</button>
     </div>
     <div class="flex-1 overflow-y-auto" id="pmBody"></div>
-  </div>
-</div>
-
-<div id="aboutModal" class="hidden fixed inset-0 z-[80]">
-  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeAboutModal()"></div>
-  <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[540px] bg-white rounded-3xl shadow-pop p-6 sm:p-8">
-    <button onclick="closeAboutModal()" class="absolute right-4 top-4 h-9 w-9 grid place-items-center rounded-xl hover:bg-mist border border-line">✕</button>
-    <div class="text-left space-y-4">
-      <span class="px-3 py-1 rounded-full bg-coral-50 text-coral font-bold text-xs">About RoomZy</span>
-      <h2 class="text-2xl font-extrabold">Redefining student rentals in Jaipur.</h2>
-      <p class="text-xs text-gray-500 leading-relaxed font-medium">RoomZy eliminates high brokerage fees and provides appliance & infrastructure transparency.</p>
-    </div>
   </div>
 </div>
 
@@ -588,14 +636,27 @@ function showToast(msg){
   setTimeout(() => t.classList.add('opacity-0', 'translate-y-3'), 2500);
 }
 
-function openOwnerPortal(){ $('#tenantView').classList.add('hidden'); $('#ownerView').classList.remove('hidden'); window.scrollTo(0,0); }
+function openOwnerPortal(){ 
+  $('#tenantView').classList.add('hidden'); 
+  $('#aboutView').classList.add('hidden');
+  $('#ownerView').classList.remove('hidden'); 
+  window.scrollTo(0,0); 
+}
+
 function showTenantView(){ 
   $('#ownerView').classList.add('hidden'); 
+  $('#aboutView').classList.add('hidden');
   $('#tenantView').classList.remove('hidden'); 
   fetchPropertiesFromDatabase();
+  window.scrollTo(0,0);
 }
-function openAboutModal(){ $('#aboutModal').classList.remove('hidden'); }
-function closeAboutModal(){ $('#aboutModal').classList.add('hidden'); }
+
+function showAboutView(){
+  $('#tenantView').classList.add('hidden');
+  $('#ownerView').classList.add('hidden');
+  $('#aboutView').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
 
 function sendOTP(){
   const phone = $('#ownerPhone').value.trim();
@@ -735,7 +796,6 @@ function resetFilters(){
 }
 
 function updateSliders(){
-  // Sync header slider inputs to sidebar / state if needed, or handle both independently
   let hMin = parseInt($('#hMin').value);
   let hMax = parseInt($('#hMax').value);
   if (hMin > hMax - 500) { hMin = hMax - 500; $('#hMin').value = hMin; }
@@ -744,7 +804,6 @@ function updateSliders(){
   let sMax = parseInt($('#sMax').value);
   if (sMin > sMax - 500) { sMin = sMax - 500; $('#sMin').value = sMin; }
 
-  // Use sidebar values as primary, or fallback to header if active
   state.min = sMin; state.max = sMax;
 
   const minPercent = ((sMin - 7000) / (20000 - 7000)) * 100;
@@ -766,7 +825,6 @@ function setupSliderEvents(){
     const el = $('#' + id); 
     if(el) {
       el.addEventListener('input', () => {
-        // Sync header and sidebar sliders together smoothly
         if(id === 'hMin' || id === 'hMax') {
           $('#sMin').value = $('#hMin').value;
           $('#sMax').value = $('#hMax').value;
