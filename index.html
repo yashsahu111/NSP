@@ -504,36 +504,6 @@ tailwind.config = {
   </div>
 </div>
 
-<!-- DIGITAL KYC & FREE AGREEMENT MODAL -->
-<div id="kycModal" class="hidden fixed inset-0 z-[85]">
-  <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeKycModal()"></div>
-  <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[500px] bg-white rounded-3xl shadow-pop p-6 sm:p-8">
-    <button onclick="closeKycModal()" class="absolute right-4 top-4 h-9 w-9 grid place-items-center rounded-xl hover:bg-mist border border-line">✕</button>
-    <div class="text-left space-y-4">
-      <span class="px-3 py-1 rounded-full bg-green-50 text-green-700 font-bold text-xs">100% Free Visit & Booking</span>
-      <h2 class="text-xl font-extrabold" id="kycModalTitle">Digital Tenant KYC & Agreement</h2>
-      <p class="text-xs text-gray-500 leading-relaxed font-medium">Site visits are 100% free! Since you have finalized your stay with the owner, submit your details below to generate your free digital rental agreement & KYC verification.</p>
-      
-      <div class="space-y-3 pt-2">
-        <div>
-          <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Full Student / Professional Name *</label>
-          <input type="text" id="kycFullName" placeholder="e.g. Rahul Sharma" class="w-full h-11 px-3 rounded-xl border border-line text-xs font-semibold outline-none focus:border-coral">
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Mobile Number *</label>
-          <input type="tel" id="kycPhone" placeholder="e.g. 9828011223" class="w-full h-11 px-3 rounded-xl border border-line text-xs font-semibold outline-none focus:border-coral">
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-gray-600 uppercase mb-1">College / Office ID Number *</label>
-          <input type="text" id="kycIdNum" placeholder="e.g. 24BCSE1022 or Employee ID" class="w-full h-11 px-3 rounded-xl border border-line text-xs font-semibold outline-none focus:border-coral">
-        </div>
-      </div>
-
-      <button onclick="submitKycBooking()" class="w-full h-12 rounded-2xl bg-coral text-white font-extrabold text-sm shadow-redglow mt-2">Submit Free Digital KYC & Confirm Stay</button>
-    </div>
-  </div>
-</div>
-
 <div id="aboutModal" class="hidden fixed inset-0 z-[80]">
   <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" onclick="closeAboutModal()"></div>
   <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[540px] bg-white rounded-3xl shadow-pop p-6 sm:p-8">
@@ -609,7 +579,6 @@ const INITIAL_MOCK_PGS = [
 
 let liveProperties = [];
 let currentModalTab = 'photos';
-let selectedPgName = '';
 const state = { city:'Jaipur (All)', min:7000, max:20000, gender:'Any', occ:[], amen:[] };
 const $ = s => document.querySelector(s);
 const inr = n => '₹' + n.toLocaleString('en-IN');
@@ -772,7 +741,7 @@ function updateSliders(){
 
   const minPercent = ((sMin - 7000) / (20000 - 7000)) * 100;
   const maxPercent = ((sMax - 7000) / (20000 - 7000)) * 100;
-  if($('#sFill')) { $('#sFill').style.left = minPercent + '\%'; $('#sFill').style.width = (maxPercent - minPercent) + '%'; }
+  if($('#sFill')) { $('#sFill').style.left = minPercent + '%'; $('#sFill').style.width = (maxPercent - minPercent) + '%'; }
   if($('#sideBudgetVal')) $('#sideBudgetVal').textContent = `₹${sMin.toLocaleString('en-IN')} – ₹${sMax.toLocaleString('en-IN')}`;
 
   render();
@@ -912,7 +881,7 @@ function renderModalContent(l){
 
       <!-- PARENT TRUST & SAFETY SCORE -->
       <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-100 space-y-2">
-        <p class="text-xs font-extrabold uppercase tracking-wider text-indigo-700">🛡️️ Parent Trust & Safety Score (${trust.safety})</p>
+        <p class="text-xs font-extrabold uppercase tracking-wider text-indigo-700">🛡 Parent Trust & Safety Score (${trust.safety})</p>
         <div class="grid sm:grid-cols-3 gap-3 pt-1">
           <div class="p-2.5 bg-white rounded-xl border border-indigo-100">
             <p class="text-[10px] text-gray-400 font-bold uppercase">Gate Curfew</p>
@@ -961,42 +930,17 @@ function renderModalContent(l){
         </div>
       </div>
 
-      <!-- CONTACT OWNER & FREE VISIT ACTION BAR -->
+      <!-- CONTACT OWNER ACTION BAR -->
       <div class="p-5 rounded-3xl bg-coral-50 border border-coral-200 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
           <p class="text-xs text-gray-500 font-bold uppercase">Monthly Rent: <strong class="text-coral text-base">${inr(l.price)} / mo</strong></p>
-          <p class="text-xs text-green-700 font-bold mt-0.5">✨ Site visits are 100% Free! Call owner or submit free KYC.</p>
+          <p class="text-xs text-green-700 font-bold mt-0.5">✨ Site visits are 100% Free! Call owner directly.</p>
         </div>
-        <div class="flex items-center gap-3 w-full sm:w-auto">
-          <a href="tel:${l.phone}" class="flex-1 sm:flex-none h-11 px-5 rounded-2xl bg-white border border-coral text-coral font-extrabold text-xs grid place-items-center hover:bg-coral-50">📞 Call Owner (${l.phone})</a>
-          <button onclick="openKycModal('${l.name}')" class="flex-1 sm:flex-none h-11 px-6 rounded-2xl bg-coral text-white font-extrabold text-xs shadow-redglow">Free Digital KYC & Agreement</button>
+        <div class="w-full sm:w-auto">
+          <a href="tel:${l.phone}" class="flex h-11 px-8 rounded-2xl bg-coral text-white font-extrabold text-xs shadow-redglow grid place-items-center">📞 Call Owner (${l.phone})</a>
         </div>
       </div>
     </div>`;
-}
-
-function openKycModal(pgName){
-  selectedPgName = pgName;
-  $('#kycModalTitle').textContent = `Free Digital KYC & Agreement for ${pgName}`;
-  $('#kycModal').classList.remove('hidden');
-}
-
-function closeKycModal(){
-  $('#kycModal').classList.add('hidden');
-}
-
-function submitKycBooking(){
-  const name = $('#kycFullName').value.trim();
-  const phone = $('#kycPhone').value.trim();
-  const idNum = $('#kycIdNum').value.trim();
-  
-  if(!name || !phone || phone.length < 10 || !idNum){
-    showToast('Please fill out all KYC details and ID number');
-    return;
-  }
-  showToast('🎉 Digital KYC Submitted Successfully! Rental agreement generated for free.');
-  closeKycModal();
-  closeProp();
 }
 
 function closeProp(){ $('#propModal').classList.add('hidden'); }
