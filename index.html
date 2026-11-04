@@ -7,7 +7,7 @@
 <meta name="description" content="RoomZy helps students & professionals find verified PGs, hostels and co-living spaces in Jaipur with zero brokerage.">
 
 <!-- ROOMZY FAVICON LOGO -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23312E81' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 10.5 12 3l9 7.5'/><path d='M5 9.8V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.8'/><path d='M9.5 21v-6h5v6'/></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E53935' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 10.5 12 3l9 7.5'/><path d='M5 9.8V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.8'/><path d='M9.5 21v-6h5v6'/></svg>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,18 +18,18 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        brand: { DEFAULT: '#312E81', dark: '#1E1B4B', light: '#EEF2FF', border: '#C7D2FE' },
-        emerald: { DEFAULT: '#059669', hover: '#047857', light: '#ECFDF5' },
-        ink: '#0F172A',
-        mist: '#F8FAFC',
-        line: '#E2E8F0'
+        brand: { DEFAULT: '#E53935', dark: '#C62828', light: '#FFF1F1', border: '#FFC9C7' },
+        teal: { DEFAULT: '#0D9488', hover: '#0F766E', light: '#CCFBF1' },
+        ink: '#111827',
+        mist: '#F9FAFB',
+        line: '#E5E7EB'
       },
       fontFamily: { sans: ['"Plus Jakarta Sans"','Inter','system-ui','sans-serif'] },
       boxShadow: {
-        soft: '0 2px 8px -2px rgba(15,23,42,.06), 0 8px 24px -8px rgba(15,23,42,.08)',
-        card: '0 4px 12px -4px rgba(15,23,42,.08), 0 16px 40px -16px rgba(15,23,42,.15)',
-        pop:  '0 10px 40px -8px rgba(15,23,42,.2)',
-        glow: '0 8px 24px -8px rgba(49,46,129,.35)'
+        soft: '0 2px 8px -2px rgba(17,24,39,.06), 0 8px 24px -8px rgba(17,24,39,.08)',
+        card: '0 4px 12px -4px rgba(17,24,39,.08), 0 16px 40px -16px rgba(17,24,39,.15)',
+        pop:  '0 10px 40px -8px rgba(17,24,39,.22)',
+        glow: '0 8px 24px -8px rgba(229,57,53,.4)'
       },
       borderRadius: { '4xl':'2rem' }
     }
@@ -38,26 +38,26 @@ tailwind.config = {
 </script>
 <style>
   html{scroll-behavior:smooth}
-  body{font-family:'Plus Jakarta Sans',Inter,system-ui,sans-serif;background:#F8FAFC;color:#0F172A;-webkit-font-smoothing:antialiased}
+  body{font-family:'Plus Jakarta Sans',Inter,system-ui,sans-serif;background:#F9FAFB;color:#111827;-webkit-font-smoothing:antialiased}
   ::-webkit-scrollbar{width:10px;height:10px}
-  ::-webkit-scrollbar-track{background:#F1F5F9}
-  ::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:99px;border:2px solid #F1F5F9}
-  ::-webkit-scrollbar-thumb:hover{background:#94A3B8}
+  ::-webkit-scrollbar-track{background:#F3F4F6}
+  ::-webkit-scrollbar-thumb{background:#D8DCE3;border-radius:99px;border:2px solid #F3F4F6}
+  ::-webkit-scrollbar-thumb:hover{background:#c2c7d0}
 
   .range-wrap{position:relative;height:34px}
-  .range-track{position:absolute;top:15px;left:0;right:0;height:4px;background:#E2E8F0;border-radius:99px}
-  .range-fill{position:absolute;top:15px;height:4px;background:linear-gradient(90deg,#312E81,#4F46E5);border-radius:99px}
+  .range-track{position:absolute;top:15px;left:0;right:0;height:4px;background:#E5E7EB;border-radius:99px}
+  .range-fill{position:absolute;top:15px;height:4px;background:linear-gradient(90deg,#FF3B30,#E53935);border-radius:99px}
   .range-wrap input[type=range]{position:absolute;top:0;left:0;width:100%;height:34px;margin:0;background:transparent;pointer-events:none;-webkit-appearance:none;appearance:none}
   .range-wrap input[type=range]:focus{outline:none}
-  .range-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;pointer-events:auto;height:20px;width:20px;border-radius:50%;background:#fff;border:4px solid #312E81;box-shadow:0 2px 8px rgba(15,23,42,.25);cursor:grab;margin-top:0}
+  .range-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;pointer-events:auto;height:20px;width:20px;border-radius:50%;background:#fff;border:4px solid #E53935;box-shadow:0 2px 8px rgba(17,24,39,.25);cursor:grab;margin-top:0}
 
   .card-hov{transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s}
   .card-hov:hover{transform:translateY(-6px)}
 
-  .pulse-dot::after{content:'';position:absolute;inset:0;border-radius:99px;background:rgba(49,46,129,.4);animation:pulser 2s ease-out infinite}
+  .pulse-dot::after{content:'';position:absolute;inset:0;border-radius:99px;background:rgba(229,57,53,.45);animation:pulser 2s ease-out infinite}
   @keyframes pulser{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.6);opacity:0}}
 
-  .gradtext{background:linear-gradient(95deg,#312E81,#4F46E5 55%,#6366F1);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .gradtext{background:linear-gradient(95deg,#E53935,#FF6B5A 55%,#FF3B30);-webkit-background-clip:text;background-clip:text;color:transparent}
   .glass{backdrop-filter:blur(14px) saturate(160%);background:rgba(255,255,255,.88)}
   .shine{position:relative;overflow:hidden}
   .shine::after{content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg)}
@@ -73,7 +73,7 @@ tailwind.config = {
     <div class="h-[68px] flex items-center gap-4">
 
       <a href="#" onclick="showTenantView(); return false;" class="flex items-center gap-2.5 shrink-0 group">
-        <span class="relative grid place-items-center h-10 w-10 rounded-2xl bg-gradient-to-br from-brand to-[#4F46E5] shadow-glow group-hover:scale-105 transition">
+        <span class="relative grid place-items-center h-10 w-10 rounded-2xl bg-gradient-to-br from-brand to-[#FF6B5A] shadow-glow group-hover:scale-105 transition">
           <svg viewBox="0 0 24 24" class="h-[22px] w-[22px] text-white" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.8"/><path d="M9.5 21v-6h5v6"/>
           </svg>
@@ -150,7 +150,7 @@ tailwind.config = {
 <!-- TENANT MAIN VIEW -->
 <div id="tenantView">
   <!-- HERO BANNER SECTION -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-brand-light/60 via-white to-mist border-b border-line">
+  <section class="relative overflow-hidden bg-gradient-to-b from-brand-light/50 via-white to-mist border-b border-line">
     <div class="max-w-[1500px] mx-auto px-4 sm:px-6 pt-10 pb-12 lg:pt-14 lg:pb-16">
       <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-10 lg:gap-14 items-center">
         <div>
@@ -430,12 +430,12 @@ tailwind.config = {
       
       <div class="lg:col-span-2 space-y-4">
         <a href="#" onclick="showTenantView(); return false;" class="flex items-center gap-2.5">
-          <span class="grid place-items-center h-10 w-10 rounded-2xl bg-gradient-to-br from-brand to-[#4F46E5] shadow-glow">
+          <span class="grid place-items-center h-10 w-10 rounded-2xl bg-gradient-to-br from-brand to-[#FF6B5A] shadow-glow">
             <svg viewBox="0 0 24 24" class="h-[22px] w-[22px] text-white" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.8"/><path d="M9.5 21v-6h5v6"/>
             </svg>
           </span>
-          <span class="text-[22px] font-extrabold tracking-tight">Room<span class="text-indigo-400">Zy</span> <span class="text-xs px-2 py-0.5 rounded-full bg-white/10 text-indigo-300 font-bold ml-1">Jaipur</span></span>
+          <span class="text-[22px] font-extrabold tracking-tight">Room<span class="text-brand">Zy</span> <span class="text-xs px-2 py-0.5 rounded-full bg-white/10 text-brand font-bold ml-1">Jaipur</span></span>
         </a>
         <p class="text-sm text-gray-400 max-w-sm leading-relaxed">
           RoomZy is Jaipur's leading student rental platform providing verified zero-brokerage PGs, hostels, and co-living spaces with real-time room sync and total safety.
@@ -443,7 +443,7 @@ tailwind.config = {
       </div>
 
       <div class="space-y-3">
-        <p class="text-xs font-extrabold uppercase tracking-widest text-indigo-400">Top Localities</p>
+        <p class="text-xs font-extrabold uppercase tracking-widest text-brand">Top Localities</p>
         <ul class="space-y-2 text-sm text-gray-400 font-medium">
           <li><a href="#explore" onclick="pickCity('Sitapura')" class="hover:text-white transition">Sitapura PGs</a></li>
           <li><a href="#explore" onclick="pickCity('Malviya Nagar')" class="hover:text-white transition">Malviya Nagar Hostels</a></li>
@@ -452,7 +452,7 @@ tailwind.config = {
       </div>
 
       <div class="space-y-3">
-        <p class="text-xs font-extrabold uppercase tracking-widest text-indigo-400">Quick Links</p>
+        <p class="text-xs font-extrabold uppercase tracking-widest text-brand">Quick Links</p>
         <ul class="space-y-2 text-sm text-gray-400 font-medium">
           <li><a href="#explore" onclick="showTenantView()" class="hover:text-white transition">Explore All PGs</a></li>
           <li><button onclick="showFlatmatesView()" type="button" class="hover:text-white transition text-left">👥 Flatmate Board</button></li>
@@ -461,7 +461,7 @@ tailwind.config = {
       </div>
 
       <div class="space-y-3">
-        <p class="text-xs font-extrabold uppercase tracking-widest text-indigo-400">Jaipur Office</p>
+        <p class="text-xs font-extrabold uppercase tracking-widest text-brand">Jaipur Office</p>
         <p class="text-sm text-gray-400 leading-relaxed font-medium">
           Plot 14, Near Apex Circle, JLN Marg, Jaipur, Rajasthan 302017
         </p>
@@ -578,7 +578,7 @@ function updateAuthNavSlot(){
     const stu = JSON.parse(activeStudent);
     const initial = stu.name ? stu.name.charAt(0).toUpperCase() : 'U';
     slot.innerHTML = `
-      <button onclick="openProfileModal()" type="button" class="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-brand-light border border-brand/30 hover:bg-indigo-100 transition">
+      <button onclick="openProfileModal()" type="button" class="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-brand-light border border-brand/30 hover:bg-brand-100 transition">
         <span class="h-8 w-8 rounded-xl bg-brand text-white font-extrabold text-xs grid place-items-center shadow-soft">${initial}</span>
         <span class="text-xs font-extrabold text-ink max-w-[100px] truncate">${sanitizeHTML(stu.name)}</span>
       </button>`;
@@ -728,7 +728,7 @@ function renderFlatmatesBoard(){
         <p class="text-xs text-gray-600 mt-2 leading-relaxed">"${sanitizeHTML(p.desc)}"</p>
       </div>
       <div class="pt-2 border-t border-line flex items-center justify-between">
-        <a href="https://wa.me/91${p.phone}?text=Hi%20${encodeURIComponent(p.name)},%20I%20saw%20your%20flatmate%20post%20on%20RoomZy!" target="_blank" class="h-10 px-4 rounded-xl bg-emerald-600 text-white font-extrabold text-xs grid place-items-center hover:bg-emerald-700 transition">💬 WhatsApp Flatmate</a>
+        <a href="https://wa.me/91${p.phone}?text=Hi%20${encodeURIComponent(p.name)},%20I%20saw%20your%20flatmate%20post%20on%20RoomZy!" target="_blank" class="h-10 px-4 rounded-xl bg-teal text-white font-extrabold text-xs grid place-items-center hover:bg-teal-hover transition">💬 WhatsApp Flatmate</a>
         <a href="tel:${p.phone}" class="h-10 px-4 rounded-xl bg-mist border border-line text-xs font-extrabold grid place-items-center hover:border-brand transition">📞 Call</a>
       </div>
     </div>
@@ -794,7 +794,7 @@ function render(){
   $('#cards').innerHTML = list.map(l => {
     const isSoldOut = (l.availableBeds !== undefined && l.availableBeds <= 0);
     const badgeText = isSoldOut ? '🔴 House Full' : `🟢 ${l.availableBeds} Beds Available`;
-    const badgeColor = isSoldOut ? 'bg-red-100 text-red-700' : 'bg-emerald-50 text-emerald-700';
+    const badgeColor = isSoldOut ? 'bg-red-100 text-red-700' : 'bg-teal-light text-teal';
 
     return `
     <article class="card-hov bg-white rounded-3xl border border-line overflow-hidden hover:shadow-card">
@@ -858,7 +858,7 @@ function openPropDetails(id){
         <div class="p-6 rounded-3xl bg-white border border-line shadow-soft space-y-4">
           <div class="flex items-center justify-between">
             <h2 class="text-2xl font-extrabold">${sanitizeHTML(l.name)}</h2>
-            <span class="px-3.5 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 font-extrabold text-xs">🟢 ${l.availableBeds || 3} Beds Available</span>
+            <span class="px-3.5 py-1.5 rounded-xl bg-teal-light text-teal font-extrabold text-xs">🟢 ${l.availableBeds || 3} Beds Available</span>
           </div>
           <p class="text-sm text-gray-500">📍 ${sanitizeHTML(l.area)}</p>
           <div class="flex flex-wrap gap-2 pt-2">${amenitiesHtml}</div>
@@ -901,7 +901,7 @@ function openPropDetails(id){
           <div class="border-b border-line pb-4">
             <div class="flex items-center justify-between mb-1">
               <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Monthly Rent</span>
-              <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-md">Zero Brokerage</span>
+              <span class="text-[11px] font-bold text-teal bg-teal-light px-2.5 py-0.5 rounded-md">Zero Brokerage</span>
             </div>
             <div class="flex items-baseline gap-2">
               <span class="text-3xl font-extrabold text-ink">${inr(l.price)}</span>
@@ -910,10 +910,10 @@ function openPropDetails(id){
           </div>
 
           <div class="space-y-3">
-            <button onclick="handleTokenBooking(${l.id})" type="button" class="w-full h-11 rounded-xl bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-700 transition flex items-center justify-center gap-2 shadow-sm">
+            <button onclick="handleTokenBooking(${l.id})" type="button" class="w-full h-11 rounded-xl bg-teal text-white font-bold text-xs hover:bg-teal-hover transition flex items-center justify-center gap-2 shadow-sm">
               ⚡ Book Bed (₹500 Token)
             </button>
-            <button onclick="handleWhatsAppInquiry('${sanitizeHTML(l.name)}', '${sanitizeHTML(l.phone)}')" type="button" class="w-full h-11 rounded-xl bg-emerald-500 text-white font-bold text-xs hover:bg-emerald-600 transition flex items-center justify-center gap-2 shadow-sm">
+            <button onclick="handleWhatsAppInquiry('${sanitizeHTML(l.name)}', '${sanitizeHTML(l.phone)}')" type="button" class="w-full h-11 rounded-xl bg-teal-hover text-white font-bold text-xs hover:opacity-90 transition flex items-center justify-center gap-2 shadow-sm">
               💬 Chat on WhatsApp
             </button>
             <button onclick="handleCallOwnerClick('${sanitizeHTML(l.phone)}')" type="button" class="w-full h-11 rounded-xl bg-brand hover:bg-brand-dark text-white font-bold text-xs transition flex items-center justify-center gap-2 shadow-sm">
