@@ -727,7 +727,7 @@ function renderFlatmatesBoard(){
         <p class="text-xs text-gray-600 mt-2 leading-relaxed">"${sanitizeHTML(p.desc)}"</p>
       </div>
       <div class="pt-2 border-t border-line flex items-center justify-between">
-        <a href="https://wa.me/91${p.phone}?text=Hi%20${encodeURIComponent(p.name)},%20I%20saw%20your%20flatmate%20post%20on%20RoomZy!" target="_blank" class="h-10 px-4 rounded-xl bg-green-600 text-white font-extrabold text-xs grid place-items-center">💬 WhatsApp Flatmate</a>
+        <a href="https://wa.me/91${p.phone}?text=Hi%20${encodeURIComponent(p.name)},%20I%20saw%20your%20flatmate%20post%20on%20RoomZy!" target="_blank" class="h-10 px-4 rounded-xl bg-emerald-600 text-white font-extrabold text-xs grid place-items-center">💬 WhatsApp Flatmate</a>
         <a href="tel:${p.phone}" class="h-10 px-4 rounded-xl bg-mist border border-line text-xs font-extrabold grid place-items-center">📞 Call</a>
       </div>
     </div>
@@ -816,7 +816,7 @@ function render(){
   renderFilterControls();
 }
 
-/* OPEN PROPERTY DETAILS IN-PAGE VIEW WITH SIMILAR PGs BELOW REVIEWS & REDESIGNED PRICE CARD */
+/* OPEN PROPERTY DETAILS IN-PAGE VIEW WITH PROFESSIONAL PRICE CARD & SIMILAR PGs BELOW REVIEWS */
 function openPropDetails(id){
   const l = liveProperties.find(x => x.id === id);
   if(!l) return;
@@ -829,7 +829,7 @@ function openPropDetails(id){
   const trust = l.trustScore || { safety: '9.8/10', curfew: '10:00 PM', foodHygiene: '4.9/5 Star', cctv: '24/7 CCTV' };
   
   const reviewsHtml = l.reviews ? l.reviews.map(r => `
-    <div class="p-4 rounded-2xl bg-white border border-line space-y-1">
+    <div class="p-4 rounded-2xl bg-white border border-line space-y-1 shadow-soft">
       <div class="flex items-center justify-between"><p class="text-xs font-extrabold text-ink">${sanitizeHTML(r.name)}</p><p class="text-xs font-bold text-amber-500">⭐ ${r.rating}/5</p></div>
       <p class="text-xs text-gray-600">"${sanitizeHTML(r.comment)}"</p>
     </div>`).join('') : '';
@@ -894,32 +894,34 @@ function openPropDetails(id){
         ` : ''}
       </div>
 
-      <!-- IMPROVED PRICE CARD UI (Redesigned Sticky Sidebar) -->
+      <!-- CLEAN, PROFESSIONAL PRICE CARD UI -->
       <div class="sticky top-[92px]">
-        <div class="rounded-3xl bg-gradient-to-br from-white via-white to-coral-50/40 border-[1.5px] border-coral/20 shadow-pop p-7 space-y-6">
+        <div class="rounded-3xl bg-white border border-line shadow-card p-6 space-y-6">
           <div class="border-b border-line pb-4">
-            <span class="inline-block px-3 py-1 rounded-full bg-coral-50 text-coral text-[10px] font-extrabold tracking-widest uppercase mb-2">Verified Zero Brokerage</span>
-            <div class="flex items-baseline justify-between">
-              <span class="text-xs text-gray-500 font-bold uppercase tracking-wider">Monthly Rent</span>
-              <span class="text-[11px] font-extrabold text-green-600 bg-green-50 px-2 py-0.5 rounded-md">Best Price Guaranteed</span>
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Monthly Rent</span>
+              <span class="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">Zero Brokerage</span>
             </div>
-            <p class="text-4xl font-extrabold text-ink mt-1">${inr(l.price)}<span class="text-xs font-semibold text-gray-400"> / mo</span></p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-extrabold text-ink">${inr(l.price)}</span>
+              <span class="text-xs font-medium text-gray-500">/ month</span>
+            </div>
           </div>
 
-          <div class="space-y-3.5">
-            <button onclick="handleTokenBooking(${l.id})" type="button" class="shine w-full h-12 rounded-2xl bg-gradient-to-r from-green-600 to-emerald-600 text-white font-extrabold text-sm shadow-md hover:opacity-95 transition flex items-center justify-center gap-2">
+          <div class="space-y-3">
+            <button onclick="handleTokenBooking(${l.id})" type="button" class="w-full h-11 rounded-xl bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-700 transition flex items-center justify-center gap-2 shadow-sm">
               ⚡ Book Bed (₹500 Token)
             </button>
-            <button onclick="handleWhatsAppInquiry('${sanitizeHTML(l.name)}', '${sanitizeHTML(l.phone)}')" type="button" class="w-full h-12 rounded-2xl bg-emerald-500 text-white font-extrabold text-sm shadow-md hover:bg-emerald-600 transition flex items-center justify-center gap-2">
+            <button onclick="handleWhatsAppInquiry('${sanitizeHTML(l.name)}', '${sanitizeHTML(l.phone)}')" type="button" class="w-full h-11 rounded-xl bg-emerald-500 text-white font-bold text-xs hover:bg-emerald-600 transition flex items-center justify-center gap-2 shadow-sm">
               💬 Chat on WhatsApp
             </button>
-            <button onclick="handleCallOwnerClick('${sanitizeHTML(l.phone)}')" type="button" class="w-full h-12 rounded-2xl bg-coral hover:bg-coral-dark text-white font-extrabold text-sm shadow-redglow transition flex items-center justify-center gap-2">
+            <button onclick="handleCallOwnerClick('${sanitizeHTML(l.phone)}')" type="button" class="w-full h-11 rounded-xl bg-coral hover:bg-coral-dark text-white font-bold text-xs transition flex items-center justify-center gap-2 shadow-sm">
               📞 Call Owner (Protected)
             </button>
           </div>
 
           <div class="pt-2 border-t border-line text-center">
-            <p class="text-[11px] text-gray-400 font-medium">🔒 100% Secure & Verified RoomZy Listing</p>
+            <p class="text-[11px] text-gray-400 font-medium">🔒 100% Verified RoomZy Listing</p>
           </div>
         </div>
       </div>
