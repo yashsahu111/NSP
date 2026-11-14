@@ -6,17 +6,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ROOMZY - Find Your Perfect PG</title>
 
+<!-- ROBOTO FONT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
+
+/* GLOBAL */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
     background: #fafafa;
     color: #222;
+    padding-bottom: 75px;
 }
 
 /* HEADER */
@@ -35,6 +43,7 @@ body {
     font-weight: 800;
     color: #750078;
     white-space: nowrap;
+    letter-spacing: -1px;
 }
 
 .logo span {
@@ -55,6 +64,7 @@ body {
 
 .search-input i {
     font-size: 23px;
+    font-style: normal;
 }
 
 .search-input input {
@@ -62,10 +72,16 @@ body {
     outline: none;
     width: 100%;
     font-size: 16px;
+    font-weight: 400;
+}
+
+.search-input input::placeholder {
+    color: #858585;
 }
 
 .city {
     font-size: 16px;
+    font-weight: 500;
     cursor: pointer;
     white-space: nowrap;
 }
@@ -77,13 +93,14 @@ body {
     padding: 12px 25px;
     border-radius: 6px;
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
 }
 
 .menu {
     font-size: 29px;
     cursor: pointer;
+    color: #111;
 }
 
 /* HERO */
@@ -93,6 +110,7 @@ body {
     linear-gradient(90deg, rgba(0,0,0,.88), rgba(0,0,0,.45), rgba(0,0,0,.05)),
     url("https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1600")
     center 55% / cover no-repeat;
+
     display: flex;
     align-items: center;
     padding-left: 4.4%;
@@ -103,6 +121,7 @@ body {
     font-size: 45px;
     line-height: 1.13;
     font-weight: 800;
+    letter-spacing: -.7px;
 }
 
 .hero-content h1 span {
@@ -111,6 +130,7 @@ body {
 
 .hero-content p {
     font-size: 18px;
+    font-weight: 400;
     margin-top: 18px;
 }
 
@@ -120,7 +140,7 @@ body {
     color: white;
     border: none;
     padding: 15px 25px;
-    font-weight: bold;
+    font-weight: 700;
     border-radius: 9px;
     font-size: 14px;
     cursor: pointer;
@@ -133,6 +153,7 @@ body {
     min-height: 87px;
     border-radius: 13px;
     box-shadow: 0 5px 22px rgba(0,0,0,.08);
+
     display: grid;
     grid-template-columns: 1.1fr 1.3fr 1.05fr 200px;
     align-items: center;
@@ -154,6 +175,7 @@ body {
 
 .booking-item strong {
     font-size: 15px;
+    font-weight: 700;
 }
 
 .booking-item small {
@@ -161,6 +183,7 @@ body {
     color: #84909b;
     margin-top: 7px;
     font-size: 13px;
+    font-weight: 400;
 }
 
 .booking-item input,
@@ -170,6 +193,7 @@ body {
     font-size: 15px;
     background: white;
     width: 100%;
+    color: #222;
 }
 
 .search-btn {
@@ -177,9 +201,8 @@ body {
     border: none;
     color: white;
     height: 54px;
-    margin: 0 0;
     border-radius: 10px;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 15px;
     cursor: pointer;
 }
@@ -197,11 +220,13 @@ body {
     background: white;
     border: 1px solid #e6e6e6;
     border-radius: 11px;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 8px;
+
     cursor: pointer;
     transition: .2s;
 }
@@ -223,6 +248,7 @@ body {
 
 .category strong {
     font-size: 14px;
+    font-weight: 600;
 }
 
 .blue { color: #2470df; }
@@ -246,12 +272,14 @@ body {
 
 .section-heading h2 {
     font-size: 22px;
+    font-weight: 700;
 }
 
 .section-heading a {
     color: #e66c81;
     text-decoration: none;
     font-size: 14px;
+    font-weight: 500;
 }
 
 .property-grid {
@@ -284,6 +312,7 @@ body {
     padding: 6px 8px;
     border-radius: 5px;
     font-size: 12px;
+    font-weight: 500;
 }
 
 .property-info {
@@ -292,12 +321,14 @@ body {
 
 .property-info h3 {
     font-size: 17px;
+    font-weight: 700;
     margin-bottom: 8px;
 }
 
 .property-info p {
     color: #777;
     font-size: 13px;
+    font-weight: 400;
 }
 
 /* BOTTOM NAVIGATION */
@@ -308,9 +339,11 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
+
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     align-items: center;
+
     box-shadow: 0 -3px 12px rgba(0,0,0,.06);
     z-index: 10;
 }
@@ -324,6 +357,7 @@ body {
     color: #78818d;
     cursor: pointer;
     font-size: 13px;
+    font-weight: 400;
 }
 
 .nav-item .nav-icon {
@@ -334,8 +368,9 @@ body {
     color: #ec4766;
 }
 
-/* RESPONSIVE */
+/* RESPONSIVE TABLET */
 @media(max-width: 900px) {
+
     .header {
         gap: 15px;
         padding: 0 20px;
@@ -359,7 +394,9 @@ body {
     }
 }
 
+/* RESPONSIVE MOBILE */
 @media(max-width: 600px) {
+
     .header {
         height: 75px;
         gap: 12px;
@@ -422,6 +459,7 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
 </style>
 </head>
 
@@ -453,6 +491,7 @@ body {
 <section class="hero">
 
     <div class="hero-content">
+
         <h1>
             Find Your Perfect<br>
             PG, <span>Hassle Free</span>
@@ -463,6 +502,7 @@ body {
         <button onclick="document.querySelector('.booking').scrollIntoView({behavior:'smooth'})">
             Explore PGs →
         </button>
+
     </div>
 
 </section>
@@ -472,6 +512,7 @@ body {
 
     <div class="booking-item">
         <div class="symbol">📍</div>
+
         <div>
             <strong>Jaipur</strong>
             <small>Change City</small>
@@ -480,6 +521,7 @@ body {
 
     <div class="booking-item">
         <div class="symbol">▣</div>
+
         <div>
             <input type="date" id="checkin">
             <small>Check-in Date</small>
@@ -488,6 +530,7 @@ body {
 
     <div class="booking-item">
         <div class="symbol">👥</div>
+
         <div>
             <select id="occupancy">
                 <option value="">Any Occupancy</option>
@@ -495,6 +538,7 @@ body {
                 <option>Double Sharing</option>
                 <option>Triple Sharing</option>
             </select>
+
             <small>Select Occupancy</small>
         </div>
     </div>
@@ -556,39 +600,55 @@ body {
     <div class="property-grid">
 
         <div class="property-card">
-            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700" alt="PG Property">
+
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700" alt="Premium PG">
+
             <div class="rating">★ 4.6 (1.2k)</div>
+
             <div class="property-info">
                 <h3>Premium Living PG</h3>
                 <p>Jaipur, Rajasthan</p>
             </div>
+
         </div>
 
         <div class="property-card">
-            <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=700" alt="PG Property">
+
+            <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=700" alt="Comfort Stay">
+
             <div class="rating">★ 4.4 (856)</div>
+
             <div class="property-info">
                 <h3>Comfort Stay PG</h3>
                 <p>Jaipur, Rajasthan</p>
             </div>
+
         </div>
 
         <div class="property-card">
-            <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=700" alt="PG Property">
+
+            <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=700" alt="Modern Coliving">
+
             <div class="rating">★ 4.5 (742)</div>
+
             <div class="property-info">
                 <h3>Modern Co-Living</h3>
                 <p>Jaipur, Rajasthan</p>
             </div>
+
         </div>
 
         <div class="property-card">
-            <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=700" alt="PG Property">
+
+            <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=700" alt="Luxury PG">
+
             <div class="rating">★ 4.3 (621)</div>
+
             <div class="property-info">
                 <h3>Luxury Living PG</h3>
                 <p>Jaipur, Rajasthan</p>
             </div>
+
         </div>
 
     </div>
@@ -620,24 +680,31 @@ body {
 
 </nav>
 
+<!-- JAVASCRIPT -->
 <script>
+
 function selectCategory(element) {
+
     document.querySelectorAll('.category').forEach(category => {
         category.classList.remove('active');
     });
 
     element.classList.add('active');
+
 }
 
 function changeNav(element) {
+
     document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.remove('active');
     });
 
     element.classList.add('active');
+
 }
 
 function searchPG() {
+
     const date = document.getElementById('checkin').value;
     const occupancy = document.getElementById('occupancy').value;
 
@@ -646,7 +713,9 @@ function searchPG() {
         'Check-in: ' + (date || 'Any Date') + '\n' +
         'Occupancy: ' + (occupancy || 'Any Occupancy')
     );
+
 }
+
 </script>
 
 </body>
