@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RoomZy Jaipur - Find Your Stay</title>
+    <!-- Google Fonts for exact typography match -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
         }
 
         html {
@@ -40,9 +44,9 @@
             align-items: center;
             gap: 6px;
             font-size: 23px;
-            font-weight: 900;
-            color: #581c87; /* Rich deep purple matching image */
-            letter-spacing: 0.5px;
+            font-weight: 800;
+            color: #581c87;
+            letter-spacing: 0.2px;
         }
 
         /* Top Search Bar matching image */
@@ -69,6 +73,7 @@
             width: 100%;
             font-size: 14px;
             color: #475569;
+            font-weight: 400;
         }
 
         .top-search input::placeholder {
@@ -78,23 +83,34 @@
         .header-right {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 20px;
         }
 
         .city-selector {
             font-size: 14.5px;
-            font-weight: 600;
+            font-weight: 400; /* Regular weight matching screenshot */
             color: #1e293b;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .city-selector svg {
+            width: 12px;
+            height: 12px;
+            stroke: #475569;
+            stroke-width: 2.5;
+            fill: none;
         }
 
         .sign-in-btn {
-            background: #fb3f5c; /* Exact vibrant pinkish-red from screenshot */
+            background: #fb3f5c;
             color: white;
             border: none;
             padding: 8px 22px;
             border-radius: 8px;
-            font-weight: 700;
+            font-weight: 600;
             font-size: 14px;
             cursor: pointer;
         }
@@ -522,7 +538,9 @@
     </div>
 
     <div class="header-right">
-        <span class="city-selector">Jaipur ▾</span>
+        <span class="city-selector">Jaipur 
+            <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+        </span>
         <button class="sign-in-btn" onclick="showLogin()">Sign in</button>
         <div class="menu-icon" onclick="showOwner()">☰</div>
     </div>
