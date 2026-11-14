@@ -248,7 +248,7 @@
             background: #e11d48;
         }
 
-        /* Category Tabs (Exact icons matching reference[cite: 14]) */
+        /* Category Tabs */
         .categories-container {
             max-width: 1200px;
             margin: 25px auto 0 auto;
@@ -620,40 +620,35 @@
     </div>
 </div>
 
-<!-- Category Tabs (Exact icons matching reference[cite: 14]) -->
+<!-- Category Tabs (Fixed Icons) -->
 <div class="categories-container">
     <div class="category-card active" onclick="filterCategory('', this)">
-        <!-- Blue House Icon -->
         <svg class="category-icon-svg" viewBox="0 0 24 24" fill="#2563eb"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22" fill="#fff"/></svg>
         <div class="category-title">All PGs</div>
     </div>
     <div class="category-card" onclick="filterCategory('Boys', this)">
-        <!-- Blue Male Icon -->
         <svg class="category-icon-svg" viewBox="0 0 24 24" fill="#2563eb"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0Z"/></svg>
         <div class="category-title">Boys PG</div>
     </div>
     <div class="category-card" onclick="filterCategory('Girls', this)">
-        <!-- Pink Female Icon -->
         <svg class="category-icon-svg" viewBox="0 0 24 24" fill="#fb7185"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0Z"/></svg>
         <div class="category-title">Girls PG</div>
     </div>
     <div class="category-card" onclick="filterCategory('Co-ed', this)">
-        <!-- Purple Group Icon -->
         <svg class="category-icon-svg" viewBox="0 0 24 24" fill="#9333ea"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         <div class="category-title">Co-living</div>
     </div>
     <div class="category-card" onclick="filterOccupancy('Single', this)">
-        <!-- Orange Bed Icon -->
-        <svg class="category-icon-svg" viewBox="0 0 24 24" fill="#fb923c"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
+        <!-- Fixed Single Room Bed Icon -->
+        <svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
         <div class="category-title">Single Room</div>
     </div>
     <div class="category-card" onclick="filterOccupancy('Double', this)">
-        <!-- Green Bed Icon -->
-        <svg class="category-icon-svg" viewBox="0 0 24 24" fill="#10b981"><path d="M6 4v16"/><path d="M2 10h20"/><path d="M2 18h20"/><path d="M10 10v8"/></svg>
+        <!-- Fixed Double Sharing Bed Icon -->
+        <svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v16"/><path d="M2 10h20"/><path d="M2 18h20"/><path d="M10 10v8"/></svg>
         <div class="category-title">Double Sharing</div>
     </div>
     <div class="category-card" onclick="filterLuxury(this)">
-        <!-- Gold Crown Icon -->
         <svg class="category-icon-svg" viewBox="0 0 24 24" fill="#f59e0b"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7z"/><path d="M5 20h14"/></svg>
         <div class="category-title">Luxury PG</div>
     </div>
@@ -764,6 +759,28 @@
             rating: "4.8 (930)",
             image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=700",
             amenities: "Wi-Fi, AC, Meals, Swimming Pool"
+        },
+        {
+            id: 7,
+            name: "Royal Crown Hostel",
+            location: "Gopalpura",
+            price: 7200,
+            gender: "Boys",
+            occupancy: "Double",
+            rating: "4.7 (512)",
+            image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=700",
+            amenities: "Wi-Fi, Power Backup, Meals"
+        },
+        {
+            id: 8,
+            name: "Sunshine Girls PG",
+            location: "C-Scheme",
+            price: 11000,
+            gender: "Girls",
+            occupancy: "Double",
+            rating: "4.9 (1.1k)",
+            image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700",
+            amenities: "Wi-Fi, AC, Security, Meals"
         }
     ];
 
