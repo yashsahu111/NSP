@@ -4,117 +4,919 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RoomZy Jaipur - Find Your Stay</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f8fafc;
+            color: #0f172a;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-area span {
+            color: #ef4444;
+        }
+
+        /* Top Search Bar */
+        .top-search {
+            display: flex;
+            align-items: center;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 99px;
+            padding: 8px 16px;
+            width: 420px;
+            gap: 10px;
+        }
+
+        .top-search input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            font-size: 14px;
+            color: #334155;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .city-selector {
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            cursor: pointer;
+        }
+
+        .sign-in-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 99px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .menu-icon {
+            font-size: 20px;
+            cursor: pointer;
+            color: #334155;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 420px;
+            background: linear-gradient(90deg, rgba(15,23,42,0.85) 30%, rgba(15,23,42,0.4) 100%),
+                        url("https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1600") center/cover;
+            display: flex;
+            align-items: center;
+            padding: 50px 5%;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-size: 46px;
+            line-height: 1.15;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: #ef4444;
+        }
+
+        .hero p {
+            font-size: 15px;
+            color: #cbd5e1;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .explore-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Floating Search Filter Bar */
+        .filter-bar-wrapper {
+            max-width: 1200px;
+            margin: -35px auto 0 auto;
+            padding: 0 5%;
+            position: relative;
+            z-index: 30;
+        }
+
+        .filter-bar {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 15px 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 15px;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 5px 15px;
+            border-right: 1px solid #e2e8f0;
+        }
+
+        .filter-item:last-of-type {
+            border-right: none;
+        }
+
+        .filter-label {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 700;
+        }
+
+        .filter-value {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0f172a;
+            cursor: pointer;
+        }
+
+        .search-action-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .search-action-btn:hover {
+            background: #dc2626;
+        }
+
+        /* Category Tabs */
+        .categories-container {
+            max-width: 1200px;
+            margin: 35px auto 0 auto;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 15px;
+        }
+
+        .category-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 20px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .category-card.active {
+            border-color: #ef4444;
+            background: #fff5f5;
+        }
+
+        .category-card:hover {
+            border-color: #ef4444;
+        }
+
+        .category-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .category-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        /* Properties Section */
+        .properties-section {
+            max-width: 1200px;
+            margin: 45px auto;
+            padding: 0 5%;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .view-all {
+            color: #ef4444;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .property-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            transition: 0.3s;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            height: 160px;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .rating-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(15,23,42,0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .property-info {
+            padding: 15px;
+        }
+
+        .property-info h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #0f172a;
+        }
+
+        .property-info p {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 12px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 10px;
+        }
+
+        .price {
+            font-size: 16px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .price span {
+            font-size: 11px;
+            color: #64748b;
+            font-weight: normal;
+        }
+
+        .details-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+            margin-top: 60px;
+        }
+
+        footer h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        footer h2 span {
+            color: #ef4444;
+        }
+
+        footer p {
+            color: #94a3b8;
+            font-size: 13px;
+            margin: 5px 0;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 440px;
+            padding: 30px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .modal-content input,
+        .modal-content select {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 8px 0 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .modal-content button[type="submit"],
+        .modal-content button.action-sub {
+            width: 100%;
+            background: #ef4444;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* Mobile Responsive */
+        @media(max-width: 1024px) {
+            .categories-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .property-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .filter-bar {
+                grid-template-columns: 1fr;
+            }
+            .top-search {
+                display: none;
+            }
+        }
+
+        @media(max-width: 600px) {
+            .categories-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .property-container {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
 </head>
 <body>
 
+<!-- Header -->
 <header>
-    <div class="logo">RoomZy<span>.</span></div>
+    <div class="logo-area">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.8"/><path d="M9.5 21v-6h5v6"/></svg>
+        ROOMZY<span>.</span>
+    </div>
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#properties">Find PG</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-    </nav>
+    <div class="top-search">
+        <svg width="16" height="16" fill="none" stroke="#94a3b8" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="globalSearch" placeholder="Search for PGs, Rooms, Hostels and Co-living" oninput="searchPG()">
+    </div>
 
-    <div class="nav-buttons">
-        <button onclick="showLogin()">Login</button>
-        <button onclick="showOwner()">List Property</button>
+    <div class="header-right">
+        <span class="city-selector">Jaipur ▾</span>
+        <button class="sign-in-btn" onclick="showLogin()">Sign in</button>
+        <div class="menu-icon" onclick="showOwner()">☰</div>
     </div>
 </header>
 
+<!-- Hero Section -->
 <section class="hero" id="home">
     <div class="hero-content">
-        <h1>Find Your Perfect<br>
-            <span>PG & Hostel</span>
-        </h1>
-
-        <p>
-            Discover affordable PGs and hostels in Jaipur.
-            Find a place that feels like home.
-        </p>
-
-        <div class="search-box">
-            <input type="text" id="location"
-                   placeholder="Enter area in Jaipur">
-
-            <select id="budget">
-                <option value="">Any Budget</option>
-                <option value="7000">Under ₹7,000</option>
-                <option value="10000">Under ₹10,000</option>
-                <option value="15000">Under ₹15,000</option>
-            </select>
-
-            <button onclick="searchPG()">Search</button>
-        </div>
+        <h1>Find Your Perfect<br><span>PG, Hassle Free</span></h1>
+        <p>Safe • Comfortable • Verified student and professional accommodations.</p>
+        <button class="explore-btn" onclick="document.getElementById('properties').scrollIntoView({behavior:'smooth'})">Explore PGs →</button>
     </div>
 </section>
 
-<section class="properties" id="properties">
-    <h2>Popular PGs in Jaipur</h2>
-    <p class="subtitle">Find your comfortable student accommodation</p>
+<!-- Floating Search Filter Bar -->
+<div class="filter-bar-wrapper">
+    <div class="filter-bar">
+        <div class="filter-item">
+            <span class="filter-label">Jaipur</span>
+            <input type="text" id="location" class="filter-value" placeholder="Change City / Area" oninput="searchPG()">
+        </div>
+        <div class="filter-item">
+            <span class="filter-label">Check-in Date</span>
+            <input type="date" id="checkInDate" class="filter-value">
+        </div>
+        <div class="filter-item">
+            <span class="filter-label">Select Occupancy</span>
+            <select id="occupancy" class="filter-value" onchange="searchPG()">
+                <option value="">Any Occupancy</option>
+                <option value="Single">Single Sharing</option>
+                <option value="Double">Double Sharing</option>
+                <option value="Triple">Triple Sharing</option>
+            </select>
+        </div>
+        <div>
+            <button class="search-action-btn" onclick="searchPG()">Search</button>
+        </div>
+    </div>
+</div>
 
-    <div class="filters">
-        <select id="gender" onchange="searchPG()">
-            <option value="">All Preferences</option>
-            <option value="Boys">Boys</option>
-            <option value="Girls">Girls</option>
-            <option value="Co-ed">Co-ed</option>
-        </select>
+<!-- Category Tabs -->
+<div class="categories-container">
+    <div class="category-card active" onclick="filterCategory('', this)">
+        <div class="category-icon">🏠</div>
+        <div class="category-title">All PGs</div>
+    </div>
+    <div class="category-card" onclick="filterCategory('Boys', this)">
+        <div class="category-icon">👨</div>
+        <div class="category-title">Boys PG</div>
+    </div>
+    <div class="category-card" onclick="filterCategory('Girls', this)">
+        <div class="category-icon">👩</div>
+        <div class="category-title">Girls PG</div>
+    </div>
+    <div class="category-card" onclick="filterCategory('Co-ed', this)">
+        <div class="category-icon">👥</div>
+        <div class="category-title">Co-living</div>
+    </div>
+    <div class="category-card" onclick="filterOccupancy('Single', this)">
+        <div class="category-icon">🛏️</div>
+        <div class="category-title">Single Room</div>
+    </div>
+    <div class="category-card" onclick="filterOccupancy('Double', this)">
+        <div class="category-icon">🛏️🛏️</div>
+        <div class="category-title">Double Sharing</div>
+    </div>
+    <div class="category-card" onclick="filterLuxury(this)">
+        <div class="category-icon">👑</div>
+        <div class="category-title">Luxury PG</div>
+    </div>
+</div>
 
-        <select id="occupancy" onchange="searchPG()">
-            <option value="">All Rooms</option>
-            <option value="Single">Single Sharing</option>
-            <option value="Double">Double Sharing</option>
-            <option value="Triple">Triple Sharing</option>
-        </select>
+<!-- Properties Section -->
+<section class="properties-section" id="properties">
+    <div class="section-header">
+        <h2>Top Rated PGs in Jaipur</h2>
+        <a href="#" class="view-all" onclick="resetFilters(); return false;">View All →</a>
     </div>
 
     <div class="property-container" id="propertyList"></div>
 </section>
 
-<section class="about" id="about">
-    <h2>Why Choose RoomZy?</h2>
-
-    <div class="features">
-        <div class="feature">
-            <h3>🏠 Easy Searching</h3>
-            <p>Find PGs according to your location and budget.</p>
-        </div>
-
-        <div class="feature">
-            <h3>💰 Zero Brokerage</h3>
-            <p>Connect with property owners directly.</p>
-        </div>
-
-        <div class="feature">
-            <h3>🔍 Multiple Options</h3>
-            <p>Compare different properties and facilities.</p>
-        </div>
-    </div>
-</section>
-
-<section class="owner-section">
-    <h2>Are You a Property Owner?</h2>
-    <p>List your PG or hostel and connect with students.</p>
-    <button onclick="showOwner()">Register Your Property</button>
-</section>
-
+<!-- Footer -->
 <footer id="contact">
-    <h2>RoomZy<span>.</span></h2>
+    <h2>ROOMZY<span>.</span></h2>
     <p>Your comfort, our priority.</p>
     <p>© 2026 RoomZy Jaipur. Demo Website.</p>
 </footer>
 
+<!-- Modal -->
 <div id="modal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
+        <span class="close" onclick="closeModal()">×</span>
         <div id="modalBody"></div>
     </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+    const properties = [
+        {
+            id: 1,
+            name: "The Study House",
+            location: "Mansarovar",
+            price: 6500,
+            gender: "Boys",
+            occupancy: "Double",
+            rating: "4.6 (1.2k)",
+            image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=700",
+            amenities: "Wi-Fi, Meals, Laundry"
+        },
+        {
+            id: 2,
+            name: "Bloom Girls Residence",
+            location: "Malviya Nagar",
+            price: 9200,
+            gender: "Girls",
+            occupancy: "Single",
+            rating: "4.4 (856)",
+            image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=700",
+            amenities: "Wi-Fi, AC, Laundry"
+        },
+        {
+            id: 3,
+            name: "Urban Nest Hostel",
+            location: "Vaishali Nagar",
+            price: 7800,
+            gender: "Co-ed",
+            occupancy: "Triple",
+            rating: "4.5 (742)",
+            image: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=700",
+            amenities: "Wi-Fi, Meals, AC"
+        },
+        {
+            id: 4,
+            name: "Pink City Luxury Stay",
+            location: "Raja Park",
+            price: 13500,
+            gender: "Girls",
+            occupancy: "Single",
+            rating: "4.3 (621)",
+            image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=700",
+            amenities: "Wi-Fi, AC, Meals, Gym"
+        },
+        {
+            id: 5,
+            name: "Campus Corner PG",
+            location: "Jagatpura",
+            price: 5900,
+            gender: "Boys",
+            occupancy: "Triple",
+            rating: "4.2 (410)",
+            image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=700",
+            amenities: "Wi-Fi, Laundry"
+        },
+        {
+            id: 6,
+            name: "Olive Living Co-living",
+            location: "Tonk Road",
+            price: 14500,
+            gender: "Co-ed",
+            occupancy: "Single",
+            rating: "4.8 (930)",
+            image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=700",
+            amenities: "Wi-Fi, AC, Meals, Swimming Pool"
+        }
+    ];
+
+    let savedProperties = [];
+    try {
+        savedProperties = JSON.parse(localStorage.getItem("roomzyProperties")) || [];
+    } catch (e) {
+        savedProperties = [];
+    }
+
+    let allProperties = [...savedProperties, ...properties];
+    let currentOwner = null;
+
+    function displayProperties(list) {
+        const container = document.getElementById("propertyList");
+        container.innerHTML = "";
+
+        if (list.length === 0) {
+            container.innerHTML = "<h3 style='grid-column: 1/-1; text-align:center; color:#64748b;'>No PGs found matching your criteria!</h3>";
+            return;
+        }
+
+        list.forEach(property => {
+            container.innerHTML += `
+                <div class="property-card">
+                    <div class="card-img-wrapper">
+                        <img src="${property.image}" alt="PG Room">
+                        <div class="rating-badge">★ ${property.rating || '4.5'}</div>
+                    </div>
+                    <div class="property-info">
+                        <h3>${escapeText(property.name)}</h3>
+                        <p>📍 ${escapeText(property.location)}, Jaipur</p>
+                        <p>👤 ${escapeText(property.gender)} • ${escapeText(property.occupancy)}</p>
+                        <div class="card-footer">
+                            <div class="price">
+                                ₹${Number(property.price).toLocaleString("en-IN")}<span>/mo</span>
+                            </div>
+                            <button class="details-btn" onclick="viewDetails(${property.id})">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    function escapeText(value) {
+        return String(value ?? "").replace(/[&<>"']/g, char => ({
+            "&": "&",
+            "<": "<",
+            ">": ">",
+            '"': """,
+            "'": "'"
+        })[char]);
+    }
+
+    function searchPG() {
+        const loc1 = document.getElementById("location").value.toLowerCase().trim();
+        const loc2 = document.getElementById("globalSearch").value.toLowerCase().trim();
+        const location = loc1 || loc2;
+
+        const occupancy = document.getElementById("occupancy").value;
+
+        const filtered = allProperties.filter(property => {
+            const locationMatch = !location || property.location.toLowerCase().includes(location) || property.name.toLowerCase().includes(location);
+            const occupancyMatch = !occupancy || property.occupancy === occupancy;
+            return locationMatch && occupancyMatch;
+        });
+
+        displayProperties(filtered);
+    }
+
+    function filterCategory(genderVal, element) {
+        document.querySelectorAll('.category-card').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+
+        if (!genderVal) {
+            displayProperties(allProperties);
+            return;
+        }
+
+        const filtered = allProperties.filter(p => p.gender === genderVal);
+        displayProperties(filtered);
+    }
+
+    function filterOccupancy(occVal, element) {
+        document.querySelectorAll('.category-card').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+
+        const filtered = allProperties.filter(p => p.occupancy === occVal);
+        displayProperties(filtered);
+    }
+
+    function filterLuxury(element) {
+        document.querySelectorAll('.category-card').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+
+        const filtered = allProperties.filter(p => p.price >= 11000);
+        displayProperties(filtered);
+    }
+
+    function resetFilters() {
+        document.getElementById("location").value = "";
+        document.getElementById("globalSearch").value = "";
+        document.getElementById("occupancy").value = "";
+        document.querySelectorAll('.category-card').forEach((el, idx) => {
+            if(idx === 0) el.classList.add('active');
+            else el.classList.remove('active');
+        });
+        displayProperties(allProperties);
+    }
+
+    function viewDetails(id) {
+        const property = allProperties.find(p => p.id === id);
+        if (!property) return;
+
+        const modal = document.getElementById("modal");
+        const body = document.getElementById("modalBody");
+
+        body.innerHTML = `
+            <h2>${escapeText(property.name)}</h2>
+            <p>📍 ${escapeText(property.location)}, Jaipur</p>
+            <p>Gender Preference: ${escapeText(property.gender)}</p>
+            <p>Room Type: ${escapeText(property.occupancy)} Sharing</p>
+            <p>Amenities: ${escapeText(property.amenities || 'Wi-Fi, Power Backup')}</p>
+            <h3 style="color:#ef4444;margin:15px 0">
+                ₹${Number(property.price).toLocaleString("en-IN")} / Month
+            </h3>
+            <button class="action-sub" onclick="showEnquiry(${property.id})">
+                Contact Owner / Book Visit
+            </button>
+        `;
+        modal.style.display = "flex";
+    }
+
+    function showEnquiry(id) {
+        const property = allProperties.find(p => p.id === id);
+        if (!property) return;
+
+        document.getElementById("modalBody").innerHTML = `
+            <h2>Send Enquiry</h2>
+            <p style="font-size:13px; color:#64748b; margin-bottom:10px;">Property: ${escapeText(property.name)}</p>
+            <form id="enquiryForm">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="tel" placeholder="Phone Number" required>
+                <button type="submit">Submit Enquiry</button>
+            </form>
+        `;
+
+        document.getElementById("enquiryForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Demo enquiry submitted successfully! Owner will contact you shortly.");
+            closeModal();
+        });
+    }
+
+    function showLogin() {
+        document.getElementById("modalBody").innerHTML = `
+            <h2>Student Login</h2>
+            <form id="loginForm">
+                <input type="email" placeholder="Email Address" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        `;
+        document.getElementById("modal").style.display = "flex";
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Demo student login successful!");
+            closeModal();
+        });
+    }
+
+    function showOwner() {
+        document.getElementById("modalBody").innerHTML = `
+            <h2>Property Owner Portal</h2>
+            <form id="ownerForm">
+                <input type="text" id="ownerName" placeholder="Owner Name" required>
+                <input type="email" id="ownerEmail" placeholder="Email Address" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Owner Login / Register</button>
+            </form>
+        `;
+        document.getElementById("modal").style.display = "flex";
+        document.getElementById("ownerForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            currentOwner = {
+                name: document.getElementById("ownerName").value,
+                email: document.getElementById("ownerEmail").value
+            };
+            alert("Owner session active!");
+            showOwnerDashboard();
+        });
+    }
+
+    function showOwnerDashboard() {
+        document.getElementById("modalBody").innerHTML = `
+            <h2>Owner Dashboard</h2>
+            <p>Welcome, ${escapeText(currentOwner.name)}</p>
+            <button class="action-sub" style="margin-top:15px;" onclick="addPropertyModal()">+ Add New PG Listing</button>
+        `;
+    }
+
+    function addPropertyModal() {
+        document.getElementById("modalBody").innerHTML = `
+            <h2>List Your PG</h2>
+            <form id="propertyForm">
+                <input type="text" id="pgName" placeholder="Property Name" required>
+                <input type="text" id="pgLocation" placeholder="Area in Jaipur" required>
+                <input type="number" id="pgPrice" placeholder="Monthly Rent (₹)" min="1000" required>
+                <select id="pgGender">
+                    <option value="Boys">Boys</option>
+                    <option value="Girls">Girls</option>
+                    <option value="Co-ed">Co-ed</option>
+                </select>
+                <select id="pgOccupancy">
+                    <option value="Single">Single Sharing</option>
+                    <option value="Double">Double Sharing</option>
+                    <option value="Triple">Triple Sharing</option>
+                </select>
+                <input type="text" id="pgAmenities" placeholder="Amenities (Wi-Fi, AC, Meals)">
+                <button type="submit">Publish Listing</button>
+            </form>
+        `;
+
+        document.getElementById("propertyForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const newProperty = {
+                id: Date.now(),
+                name: document.getElementById("pgName").value,
+                location: document.getElementById("pgLocation").value,
+                price: Number(document.getElementById("pgPrice").value),
+                gender: document.getElementById("pgGender").value,
+                occupancy: document.getElementById("pgOccupancy").value,
+                amenities: document.getElementById("pgAmenities").value,
+                rating: "New",
+                image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=700",
+                owner: currentOwner.email
+            };
+
+            savedProperties.push(newProperty);
+            localStorage.setItem("roomzyProperties", JSON.stringify(savedProperties));
+            allProperties = [...savedProperties, ...properties];
+            displayProperties(allProperties);
+            alert("Property listed successfully!");
+            closeModal();
+        });
+    }
+
+    function closeModal() {
+        document.getElementById("modal").style.display = "none";
+    }
+
+    // Initial load
+    displayProperties(allProperties);
+</script>
 
 </body>
 </html>
