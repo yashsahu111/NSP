@@ -85,6 +85,40 @@ let selectedCategory = "All";
 let currentRole = "";
 let currentSearch = "";
 
+// ================= USER ACCOUNT SYSTEM =================
+
+const USERS_KEY = 'roomzyUsers';
+const SESSION_KEY = 'roomzySession';
+
+function getUsers() {
+    return JSON.parse(localStorage.getItem(USERS_KEY) || '{}');
+}
+function saveUsers(users) {
+    localStorage.setItem(USERS_KEY, JSON.stringify(users));
+}
+function getCurrentUser() {
+    return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+}
+function setCurrentUser(user) {
+    localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+}
+function logout() {
+    localStorage.removeItem(SESSION_KEY);
+    closeLogin();
+    alert('You have been logged out.');
+}
+
+// Restore session on load
+window.addEventListener('load', () => {
+    const user = getCurrentUser();
+    if (user) {
+        document.getElementById('homePage').style.display = 'none';
+        document.getElementById('loginPage').classList.add('show');
+        document.getElementById('bottomNav').style.display = 'none';
+        showAccountDashboard(user);
+    }
+});
+
 // ================= STORAGE =================
 
 const STORAGE_KEY = 'roomzyBookings';
@@ -379,158 +413,91 @@ function backToRoles() {
 }
 
 
-// ================= LOGIN =================
-
-function handleLogin(event, role) {
-
-    event.preventDefault();
-
-    let email, password;
-
-    if (role === "student") {
-
-        email = document.getElementById("studentEmail").value;
-
-        password = document.getElementById("studentPassword").value;
-
-    } else {
-
-        email = document.getElementById("ownerEmail").value;
-
-        password = document.getElementById("ownerPassword").value;
-
-    }
-
-    // Demo-only validation.
-    // Real login requires a secure backend.
-
-    if (email && password.length >= 6) {
-
-        if (role === "student") {
-
-            alert("Student login demo successful!");
-
-        } else {
-
-            alert("PG Owner login demo successful!");
-
-        }
-
-        closeLogin();
-
-    }
-
-}
-
-
 // ================= REGISTRATION =================
 
-function showRegister(role) {
-
-    currentRole = role;
-
-    document.getElementById("studentForm").hidden = true;
-
-    document.getElementById("ownerForm").hidden = true;
-
-    document.getElementById("roleSelection").hidden = true;
-
-    document.getElementById("registerForm").hidden = false;
-
-    const owner = role === "owner";
-
-    document.getElementById("registerTitle").textContent =
-        owner ? "PG Owner Registration" : "Student Registration";
-
-    document.getElementById("registerSubtitle").textContent =
-        owner
-        ? "Register your PG business with ROOMZY."
-        : "Create your student account on ROOMZY.";
-
-    document.getElementById("ownerExtra").hidden = !owner;
-
-    document.getElementById("registerIcon").innerHTML =
-        owner
-        ? '<i class="fa-solid fa-building"></i>'
-        : '<i class="fa-solid fa-graduation-cap"></i>';
-
-    document.getElementById("registerIcon").className =
-        "form-icon " + (owner ? "owner-icon" : "student-icon");
-
-}
-
-
-function backToLoginForm() {
-
-    document.getElementById("registerForm").hidden = true;
-
-    if (currentRole === "owner") {
-
-        document.getElementById("ownerForm").hidden = false;
-
-    } else {
-
-        document.getElementById("studentForm").hidden = false;
-
-    }
-
-}
-
-
-// REGISTRATION SUBMIT
-
 function handleRegister(event) {
-
     event.preventDefault();
 
     const name = document.getElementById("registerName").value;
-
     const email = document.getElementById("registerEmail").value;
-
     const phone = document.getElementById("registerPhone").value;
-
     const password = document.getElementById("registerPassword").value;
 
     if (!/^[0-9]{10}$/.test(phone)) {
-
         alert("Enter a valid 10-digit mobile number.");
-
         return;
-
     }
 
     if (password.length < 6) {
-
         alert("Password must contain at least 6 characters.");
-
         return;
-
     }
 
-    if (currentRole === "owner") {
-
-        const property = document.getElementById("propertyName").value;
-
-        const city = document.getElementById("propertyCity").value;
-
-        if (!property.trim() || !city.trim()) {
-
-            alert("Please enter your PG name and property city.");
-
-            return;
-
-        }
-
+    const users = getUsers();
+    if (users[email]) {
+        alert("User already exists with this email!");
+        return;
     }
 
-    alert(
-        "Registration form submitted successfully for " +
-        name +
-        "!\n\nThis is a frontend demo. Connect a backend to create your account."
-    );
+    const userData = {
+        name,
+        email,
+        phone,
+        password,
+        role: currentRole,
+        propertyName: document.getElementById("propertyName").value,
+        propertyCity: document.getElementById("propertyCity").value,
+        timestamp: new Date().toISOString()
+    };
 
+    users[email] = userData;
+    saveUsers(users);
+
+    alert("Registration successful! Please login.");
     backToRoles();
+}
 
+// ================= LOGIN =================
+
+function handleLogin(event, role) {
+    event.preventDefault();
+
+    const email = document.getElementById(`${role}Email`).value;
+    const password = document.getElementById(`${role}Password`).value;
+
+    const users = getUsers();
+    const user = users[email];
+
+    if (user && user.password === password && user.role === role) {
+        setCurrentUser(user);
+        alert(`Welcome back, ${user.name}!`);
+        closeLogin();
+        // UI updates for logged-in state
+    } else {
+        alert("Invalid email or password!");
+    }
+}
+
+function showAccountDashboard(user) {
+    document.getElementById('roleSelection').hidden = true;
+    document.getElementById('studentForm').hidden = true;
+    document.getElementById('ownerForm').hidden = true;
+    document.getElementById('registerForm').hidden = true;
+
+    const container = document.querySelector('.login-container');
+    container.innerHTML = `
+        <button class="back-btn" onclick="closeLogin()">← Back to Home</button>
+        <div class="login-brand">
+            <h1>Welcome, ${user.name}</h1>
+            <p>${user.role.toUpperCase()} ACCOUNT</p>
+        </div>
+        <div class="dashboard">
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Phone:</strong> ${user.phone}</p>
+            ${user.role === 'owner' ? `<p><strong>Property:</strong> ${user.propertyName} (${user.propertyCity})</p>` : ''}
+            <button class="submit-btn" onclick="logout()">Logout</button>
+        </div>
+    `;
 }
 
 
