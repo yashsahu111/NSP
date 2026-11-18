@@ -497,6 +497,48 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 </nav>
 
 
+<!-- ================= MODALS ================= -->
+
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeBookModal()">&times;</button>
+        <h2 id="modalTitle">Book Your Stay</h2>
+        <p id="modalSub">Complete your details to confirm booking.</p>
+
+        <form id="bookingForm" onsubmit="handleBooking(event)">
+            <input type="hidden" id="bookPgId">
+            <div class="form-row">
+                <div>
+                    <label>Check-in Date</label>
+                    <input type="date" id="bookDate" required>
+                </div>
+                <div>
+                    <label>Duration (Months)</label>
+                    <input type="number" id="bookMonths" min="1" value="6" required>
+                </div>
+            </div>
+            <label>Notes (Optional)</label>
+            <textarea id="bookNotes" placeholder="Any special requests?"></textarea>
+
+            <button type="submit" class="confirm-btn">Confirm Booking</button>
+        </form>
+    </div>
+</div>
+
+
+<div id="bookingsPage" class="bookings-page" hidden>
+    <div class="bookings-container">
+        <div class="bookings-header">
+            <button onclick="goHome()" class="back-btn">← Back</button>
+            <h1>My Bookings</h1>
+        </div>
+        <div id="bookingsList" class="bookings-list">
+            <!-- Bookings will be listed here -->
+        </div>
+    </div>
+</div>
+
+
 <script src="script.js"></script>
 
 </body>

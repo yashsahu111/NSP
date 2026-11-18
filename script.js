@@ -85,6 +85,22 @@ let selectedCategory = "All";
 let currentRole = "";
 let currentSearch = "";
 
+// ================= STORAGE =================
+
+const STORAGE_KEY = 'roomzyBookings';
+const FAV_KEY = 'roomzyFavs';
+
+function getBookings() {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+}
+function saveBookings(list) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+}
+
+const favorites = new Set(JSON.parse(localStorage.getItem(FAV_KEY) || '[]'));
+
+// ================= DISPLAY PGs =================
+
 
 // ================= DISPLAY PGs =================
 
@@ -103,7 +119,7 @@ function displayProperties(data) {
         card.className = "pg-card";
 
         card.innerHTML = `
-            <div class="pg-image">
+            <div class="pg-image" onclick="openDetail(${pg.id})" style="cursor:pointer">
 
                 <img src="${pg.image}" alt="${pg.name}" loading="lazy">
 
@@ -122,7 +138,7 @@ function displayProperties(data) {
 
             </div>
 
-            <div class="pg-info">
+            <div class="pg-info" onclick="openDetail(${pg.id})" style="cursor:pointer">
 
                 <h3>${pg.name}</h3>
 
@@ -144,7 +160,10 @@ function displayProperties(data) {
                         <small>/month</small>
                     </div>
 
-                    <i class="fa-solid fa-chevron-right"></i>
+                    <button class="book-now-btn"
+                        onclick="event.stopPropagation(); openBookModal(${pg.id})">
+                        Book Now
+                    </button>
 
                 </div>
 
@@ -554,9 +573,114 @@ function scrollToPG() {
 }
 
 
-// ================= FAVORITES =================
+// ================= BOOKING LOGIC =================
 
-const favorites = new Set(JSON.parse(localStorage.getItem('roomzyFavs') || '[]'));
+function openBookModal(id) {
+    const pg = properties.find(p => p.id === id);
+    if (!pg) return;
+
+    document.getElementById('bookPgId').value = id;
+    document.getElementById('modalTitle').textContent = `Book ${pg.name}`;
+    document.getElementById('bookingModal').classList.add('show');
+}
+
+function closeBookModal() {
+    document.getElementById('bookingModal').classList.remove('show');
+    document.getElementById('bookingForm').reset();
+}
+
+function handleBooking(event) {
+    event.preventDefault();
+
+    const id = parseInt(document.getElementById('bookPgId').value);
+    const date = document.getElementById('bookDate').value;
+    const months = document.getElementById('bookMonths').value;
+    const notes = document.getElementById('bookNotes').value;
+
+    const pg = properties.find(p => p.id === id);
+
+    const booking = {
+        id: Date.now(),
+        pgId: id,
+        pgName: pg.name,
+        pgImage: pg.image,
+        date: date,
+        months: months,
+        notes: notes,
+        status: 'Confirmed',
+        timestamp: new Date().toISOString()
+    };
+
+    const bookings = getBookings();
+    bookings.push(booking);
+    saveBookings(bookings);
+
+    alert(`Successfully booked ${pg.name}!`);
+    closeBookModal();
+    openMyBookings();
+}
+
+function openMyBookings() {
+    const page = document.getElementById('bookingsPage');
+    const list = document.getElementById('bookingsList');
+    const bookings = getBookings();
+
+    list.innerHTML = '';
+
+    if (bookings.length === 0) {
+        list.innerHTML = '<p style="text-align:center; padding: 40px; color:#999;">No bookings found. Start exploring!</p>';
+    } else {
+        bookings.reverse().forEach(b => {
+            const item = document.createElement('div');
+            item.className = 'booking-item';
+            item.innerHTML = `
+                <img src="${b.pgImage}" class="booking-img">
+                <div class="booking-details">
+                    <h3>${b.pgName}</h3>
+                    <p><i class="fa-regular fa-calendar"></i> Check-in: ${new Date(b.date).toLocaleDateString()}</p>
+                    <p><i class="fa-regular fa-clock"></i> Duration: ${b.months} Months</p>
+                    <button class="cancel-booking" onclick="cancelBooking(${b.id})">Cancel Booking</button>
+                </div>
+                <div class="booking-status">${b.status}</div>
+            `;
+            list.appendChild(item);
+        });
+    }
+
+    page.hidden = false;
+    document.getElementById('homePage').style.display = 'none';
+    document.getElementById('loginPage').classList.remove('show');
+
+    // Update bottom nav
+    document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('selected'));
+    document.querySelector('[onclick="openLogin()"] i').parentElement.classList.add('selected');
+}
+
+function cancelBooking(id) {
+    if (!confirm('Are you sure you want to cancel this booking?')) return;
+    const bookings = getBookings().filter(b => b.id !== id);
+    saveBookings(bookings);
+    openMyBookings();
+}
+
+
+// Update bottom nav for My Bookings click
+function setupBottomNav() {
+    const bookingBtn = document.querySelector('[onclick="openLogin()"]');
+    if (bookingBtn) {
+        bookingBtn.setAttribute('onclick', 'openMyBookings()');
+        bookingBtn.querySelector('span').textContent = 'My Bookings';
+    }
+}
+
+// Update Detail logic
+function openDetail(id) {
+    // For now, just open the book modal as the detail view
+    openBookModal(id);
+}
+
+
+// ================= FAVORITES =================
 
 function toggleFavorite(event, id) {
     event.stopPropagation();
@@ -565,7 +689,7 @@ function toggleFavorite(event, id) {
     } else {
         favorites.add(id);
     }
-    localStorage.setItem('roomzyFavs', JSON.stringify([...favorites]));
+    localStorage.setItem(FAV_KEY, JSON.stringify([...favorites]));
     filterProperties();
 }
 
@@ -621,3 +745,4 @@ window.addEventListener('load', () => {
 });
 
 displayProperties(properties);
+setupBottomNav();
