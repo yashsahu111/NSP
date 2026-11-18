@@ -748,4 +748,3 @@ window.addEventListener('load', () => {
 });
 
 displayProperties(properties);
-setupBottomNav();
