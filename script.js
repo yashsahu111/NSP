@@ -114,6 +114,12 @@ function displayProperties(data) {
                 ${pg.verified ?
                     `<div class="verified">✓ Verified</div>` : ""}
 
+                <button class="favorite-btn" data-id="${pg.id}"
+                    onclick="toggleFavorite(event, ${pg.id})"
+                    title="Save to favorites">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
+
             </div>
 
             <div class="pg-info">
@@ -547,6 +553,35 @@ function scrollToPG() {
 
 }
 
+
+// ================= FAVORITES =================
+
+const favorites = new Set(JSON.parse(localStorage.getItem('roomzyFavs') || '[]'));
+
+function toggleFavorite(event, id) {
+    event.stopPropagation();
+    if (favorites.has(id)) {
+        favorites.delete(id);
+    } else {
+        favorites.add(id);
+    }
+    localStorage.setItem('roomzyFavs', JSON.stringify([...favorites]));
+    filterProperties();
+}
+
+// Update heart icon state
+const _origDisplay = displayProperties;
+displayProperties = function(data) {
+    _origDisplay(data);
+    setTimeout(() => {
+        document.querySelectorAll('.favorite-btn').forEach(btn => {
+            const id = parseInt(btn.dataset.id);
+            btn.querySelector('i').className = favorites.has(id)
+                ? 'fa-solid fa-heart'
+                : 'fa-regular fa-heart';
+        });
+    }, 50);
+};
 
 // ================= INITIALIZE =================
 
