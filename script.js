@@ -550,4 +550,39 @@ function scrollToPG() {
 
 // ================= INITIALIZE =================
 
+// Fade-in cards on load
+function animateCards() {
+    const cards = document.querySelectorAll('.pg-card');
+    cards.forEach((card, i) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            card.style.transition = 'opacity .5s ease, transform .5s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, i * 80);
+    });
+}
+
+// Re-run animations when PG list changes
+const _origDisplay = displayProperties;
+displayProperties = function(data) {
+    _origDisplay(data);
+    setTimeout(animateCards, 50);
+};
+
+// Hero entrance
+window.addEventListener('load', () => {
+    const hero = document.querySelector('.hero-content');
+    if (hero) {
+        hero.style.opacity = '0';
+        hero.style.transform = 'translateY(30px)';
+        setTimeout(() => {
+            hero.style.transition = 'opacity .8s ease, transform .8s ease';
+            hero.style.opacity = '1';
+            hero.style.transform = 'translateY(0)';
+        }, 100);
+    }
+});
+
 displayProperties(properties);
