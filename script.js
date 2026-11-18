@@ -693,10 +693,15 @@ function toggleFavorite(event, id) {
     filterProperties();
 }
 
-// Update heart icon state
+// Update heart icon state and animations
 const _origDisplay = displayProperties;
 displayProperties = function(data) {
     _origDisplay(data);
+
+    // Animate cards
+    setTimeout(animateCards, 50);
+
+    // Update hearts
     setTimeout(() => {
         document.querySelectorAll('.favorite-btn').forEach(btn => {
             const id = parseInt(btn.dataset.id);
@@ -722,13 +727,6 @@ function animateCards() {
         }, i * 80);
     });
 }
-
-// Re-run animations when PG list changes
-const _origDisplay = displayProperties;
-displayProperties = function(data) {
-    _origDisplay(data);
-    setTimeout(animateCards, 50);
-};
 
 // Hero entrance
 window.addEventListener('load', () => {
