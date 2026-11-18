@@ -22,19 +22,20 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <header class="top-header">
 
     <a href="#" class="roomzy-logo" onclick="goHome()">
-        <svg viewBox="0 0 300 75" xmlns="http://www.w3.org/2000/svg">
-
-            <path d="M8 43 L35 12 L58 34 L68 34 L68 19 L82 19 L82 34 L105 34"
-            fill="none" stroke="#ef7900" stroke-width="7"/>
-
-            <path d="M21 40 L21 53 Q21 63 33 63 L102 63"
-            fill="none" stroke="#4b91a7" stroke-width="7"
-            stroke-linecap="round"/>
-
-            <text x="105" y="53" font-size="43"
-            font-weight="800" fill="#800080"
-            font-family="Arial">ROOMZY</text>
-
+        <svg viewBox="0 0 320 80" xmlns="http://www.w3.org/2000/svg">
+            <!-- Location Pin Icon -->
+            <g transform="translate(5, 2)">
+                <!-- Outer Pin Shape -->
+                <path d="M35 2 C18 2 5 15 5 32 C5 50 35 72 35 72 C35 72 65 50 65 32 C65 15 52 2 35 2 Z" fill="#008B8B" />
+                <!-- Inner Circle / Background for House -->
+                <circle cx="35" cy="30" r="22" fill="#FF8C00" />
+                <!-- House Shape inside Pin -->
+                <path d="M22 32 L35 20 L48 32 V44 H22 Z" fill="#FFFFFF" opacity="0.95"/>
+                <!-- Door detail -->
+                <rect x="31" y="34" width="8" height="10" fill="#FF8C00" rx="1"/>
+            </g>
+            <!-- Brand Text: ROOMZY -->
+            <text x="82" y="52" font-size="36" font-weight="800" fill="#20232b" font-family="Inter, Arial, sans-serif">ROOM<tspan fill="#FF8C00">ZY</tspan></text>
         </svg>
     </a>
 
