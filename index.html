@@ -21,9 +21,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 <header class="top-header">
 
-    <a href="#" class="roomzy-logo" onclick="goHome()" style="display: flex; align-items: center; gap: 10px; text-decoration: none; width: auto; min-width: unset;">
-        <img src="logo.png" alt="ROOMZY PG logo" width="52" height="52" style="flex-shrink: 0; width: 52px; height: 52px; object-fit: contain;">
-        <span style="font-size: 26px; font-weight: 800; color: #800080; font-family: 'Inter', Arial, sans-serif; letter-spacing: 1px;">ROOM<span style="color: #ef7900;">ZY</span></span>
+    <a href="#" class="roomzy-logo" onclick="goHome()">
+        <img src="logo.png" alt="ROOMZY Logo" class="logo-img">
+        <span class="logo-text">ROOM<span>ZY</span></span>
     </a>
 
     <div class="header-search">
@@ -203,6 +203,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         <!-- BRAND -->
 
         <div class="login-brand">
+            <img src="logo.png" alt="ROOMZY Logo" class="login-logo-img">
             <h1>ROOM<span>ZY</span></h1>
             <p>JOIN WITH US</p>
         </div>
@@ -416,8 +417,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
         <div class="login-footer">
-            By continuing, you agree to ROOMZY's Terms & Privacy Policy.
+            By continuing, you agree to ROOMZY's <a href="#">Terms</a> & <a href="#">Privacy Policy</a>.
         </div>
+
+        <a href="#" class="back-to-home" onclick="goHome()">← Back to Home</a>
 
     </div>
 
