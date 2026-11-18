@@ -12,6 +12,13 @@ const properties = [
         occupancy: "Single",
         amenities: ["Wi-Fi", "AC", "Meals"],
         image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800",
+        photos: [
+            "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800",
+            "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800",
+            "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800"
+        ],
+        video: "https://www.w3schools.com/html/mov_bbb.mp4",
+        image360: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=1600",
         verified: true
     },
     {
@@ -25,6 +32,13 @@ const properties = [
         occupancy: "Double",
         amenities: ["Wi-Fi", "AC", "Laundry"],
         image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800",
+        photos: [
+            "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800",
+            "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=800",
+            "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800"
+        ],
+        video: "https://www.w3schools.com/html/movie.mp4",
+        image360: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=1600",
         verified: true
     },
     {
@@ -38,6 +52,13 @@ const properties = [
         occupancy: "Single",
         amenities: ["Wi-Fi", "AC", "Meals"],
         image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
+        photos: [
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
+            "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800",
+            "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800"
+        ],
+        video: "https://www.w3schools.com/html/mov_bbb.mp4",
+        image360: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1600",
         verified: true
     },
     {
@@ -51,6 +72,13 @@ const properties = [
         occupancy: "Double",
         amenities: ["Wi-Fi", "AC", "Laundry"],
         image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800",
+        photos: [
+            "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800",
+            "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800",
+            "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800"
+        ],
+        video: "https://www.w3schools.com/html/movie.mp4",
+        image360: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1600",
         verified: true
     },
     {
@@ -64,6 +92,13 @@ const properties = [
         occupancy: "Double",
         amenities: ["Wi-Fi", "Meals", "Laundry"],
         image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800",
+        photos: [
+            "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800",
+            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800",
+            "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800"
+        ],
+        video: "https://www.w3schools.com/html/mov_bbb.mp4",
+        image360: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1600",
         verified: true
     },
     {
@@ -77,6 +112,13 @@ const properties = [
         occupancy: "Single",
         amenities: ["Wi-Fi", "AC", "Meals"],
         image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800",
+        photos: [
+            "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800",
+            "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800",
+            "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800"
+        ],
+        video: "https://www.w3schools.com/html/movie.mp4",
+        image360: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=1600",
         verified: true
     }
 ];
@@ -153,7 +195,7 @@ function displayProperties(data) {
         card.className = "pg-card";
 
         card.innerHTML = `
-            <div class="pg-image" onclick="openDetail(${pg.id})" style="cursor:pointer">
+            <div class="pg-image" onclick="openDetail(${pg.id})" style="cursor:pointer" title="View details">
 
                 <img src="${pg.image}" alt="${pg.name}" loading="lazy">
 
@@ -172,7 +214,7 @@ function displayProperties(data) {
 
             </div>
 
-            <div class="pg-info" onclick="openDetail(${pg.id})" style="cursor:pointer">
+            <div class="pg-info" onclick="openDetail(${pg.id})" style="cursor:pointer" title="View details">
 
                 <h3>${pg.name}</h3>
 
@@ -680,8 +722,48 @@ function setupBottomNav() {
 
 // Update Detail logic
 function openDetail(id) {
-    // For now, just open the book modal as the detail view
-    openBookModal(id);
+    const pg = properties.find(p => p.id === id);
+    if (!pg) return;
+
+    document.getElementById('detailName').textContent = pg.name;
+    document.getElementById('detailLocation').innerHTML =
+        `<i class="fa-solid fa-location-dot"></i> ${pg.location}`;
+
+    document.getElementById('detailAmenities').innerHTML =
+        pg.amenities.map(a =>
+            `<span class="amenity-tag">${a}</span>`
+        ).join('');
+
+    // Photos
+    const gallery = document.getElementById('detailGallery');
+    gallery.innerHTML = '';
+    (pg.photos || [pg.image]).forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = pg.name;
+        gallery.appendChild(img);
+    });
+
+    // Video
+    document.getElementById('detailVideo').src = pg.video || '';
+
+    // 360 view
+    document.getElementById('view360').style.backgroundImage =
+        pg.image360 ? `url(${pg.image360})` : `url(${pg.image})`;
+
+    document.getElementById('detailModal').classList.add('show');
+}
+
+function closeDetailModal() {
+    document.getElementById('detailModal').classList.remove('show');
+}
+
+function switchTab(tab) {
+    document.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.detail-tab-content').forEach(c => c.classList.remove('active'));
+
+    document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+    document.getElementById(`tab-${tab}`).classList.add('active');
 }
 
 
