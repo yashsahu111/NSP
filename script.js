@@ -415,6 +415,44 @@ function backToRoles() {
 
 // ================= REGISTRATION =================
 
+function showRegister(role) {
+    currentRole = role;
+
+    document.getElementById("studentForm").hidden = true;
+    document.getElementById("ownerForm").hidden = true;
+    document.getElementById("roleSelection").hidden = true;
+    document.getElementById("registerForm").hidden = false;
+
+    const owner = role === "owner";
+
+    document.getElementById("registerTitle").textContent =
+        owner ? "PG Owner Registration" : "Student Registration";
+
+    document.getElementById("registerSubtitle").textContent =
+        owner
+        ? "Register your PG business with ROOMZY."
+        : "Create your student account on ROOMZY.";
+
+    document.getElementById("ownerExtra").hidden = !owner;
+
+    document.getElementById("registerIcon").innerHTML =
+        owner
+        ? '<i class="fa-solid fa-building"></i>'
+        : '<i class="fa-solid fa-graduation-cap"></i>';
+
+    document.getElementById("registerIcon").className =
+        "form-icon " + (owner ? "owner-icon" : "student-icon");
+}
+
+function backToLoginForm() {
+    document.getElementById("registerForm").hidden = true;
+    if (currentRole === "owner") {
+        document.getElementById("ownerForm").hidden = false;
+    } else {
+        document.getElementById("studentForm").hidden = false;
+    }
+}
+
 function handleRegister(event) {
     event.preventDefault();
 
