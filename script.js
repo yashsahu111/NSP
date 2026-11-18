@@ -725,45 +725,28 @@ function openDetail(id) {
     const pg = properties.find(p => p.id === id);
     if (!pg) return;
 
-    document.getElementById('detailName').textContent = pg.name;
-    document.getElementById('detailLocation').innerHTML =
-        `<i class="fa-solid fa-location-dot"></i> ${pg.location}`;
-
-    document.getElementById('detailAmenities').innerHTML =
-        pg.amenities.map(a =>
-            `<span class="amenity-tag">${a}</span>`
-        ).join('');
-
-    // Photos
-    const gallery = document.getElementById('detailGallery');
-    gallery.innerHTML = '';
-    (pg.photos || [pg.image]).forEach(src => {
-        const img = document.createElement('img');
-        img.src = src;
-        img.alt = pg.name;
-        gallery.appendChild(img);
-    });
-
-    // Video
-    document.getElementById('detailVideo').src = pg.video || '';
-
-    // 360 view
-    document.getElementById('view360').style.backgroundImage =
-        pg.image360 ? `url(${pg.image360})` : `url(${pg.image})`;
+    const content = document.getElementById('detailContent');
+    content.innerHTML = `
+        <div class="pg-detail-view">
+            <img src="${pg.image}" class="detail-main-img">
+            <div class="detail-body">
+                <h2>${pg.name}</h2>
+                <p><i class="fa-solid fa-location-dot"></i> ${pg.location}</p>
+                <div class="detail-amenities">
+                    ${pg.amenities.map(a => `<span class="amenity-tag">${a}</span>`).join('')}
+                </div>
+                <p class="detail-desc">Experience a comfortable stay with all essential amenities. ${pg.name} offers a safe environment perfect for students and working professionals.</p>
+                <div class="detail-price">₹ ${pg.price.toLocaleString("en-IN")} <small>/month</small></div>
+                <button class="confirm-btn" onclick="openBookModal(${pg.id}); closeDetailModal();">Book Now</button>
+            </div>
+        </div>
+    `;
 
     document.getElementById('detailModal').classList.add('show');
 }
 
 function closeDetailModal() {
     document.getElementById('detailModal').classList.remove('show');
-}
-
-function switchTab(tab) {
-    document.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.detail-tab-content').forEach(c => c.classList.remove('active'));
-
-    document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
-    document.getElementById(`tab-${tab}`).classList.add('active');
 }
 
 

@@ -107,42 +107,25 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     </section>
 
 
-    <!-- HOW IT WORKS -->
+    <!-- PG LISTINGS -->
 
-    <section class="how-section">
-        <h2 class="how-title">How It Works</h2>
-        <div class="how-steps">
-            <div class="step-card">
-                <div class="step-num">1</div>
-                <i class="fa-solid fa-search"></i>
-                <h3>Search</h3>
-                <p>Find PGs by city, price, and amenities.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-num">2</div>
-                <i class="fa-solid fa-eye"></i>
-                <h3>Explore</h3>
-                <p>View photos, videos & 360° room tours.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-num">3</div>
-                <i class="fa-solid fa-calendar-check"></i>
-                <h3>Book</h3>
-                <p>Confirm your stay in seconds.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-num">4</div>
-                <i class="fa-solid fa-key"></i>
-                <h3>Move In</h3>
-                <p>Enjoy your safe, comfortable new home.</p>
-            </div>
+    <section class="pg-section" id="pgSection">
+
+        <div class="section-heading">
+            <h2>Top Rated PGs in <span id="headingCity">Jaipur</span></h2>
+            <button onclick="showAll()">View All →</button>
         </div>
+
+        <div class="pg-grid" id="pgGrid"></div>
+
+        <div class="no-results" id="noResults" hidden>
+            <h3>No PGs found</h3>
+            <button onclick="showAll()">Show All PGs</button>
+        </div>
+
     </section>
 
-
-    <!-- SEARCH -->
-
-    <section class="search-box">
+</main>
 
         <div class="search-item">
             <i class="fa-solid fa-location-dot"></i>
@@ -577,38 +560,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <div id="detailModal" class="modal">
     <div class="modal-content detail-modal">
         <button class="close-modal" onclick="closeDetailModal()">&times;</button>
-
-        <div class="detail-tabs">
-            <button class="detail-tab active" data-tab="photos" onclick="switchTab('photos')">Photos</button>
-            <button class="detail-tab" data-tab="video" onclick="switchTab('video')">Video</button>
-            <button class="detail-tab" data-tab="view360" onclick="switchTab('view360')">360° View</button>
-        </div>
-
-        <div id="tab-photos" class="detail-tab-content active">
-            <div class="detail-gallery" id="detailGallery"></div>
-        </div>
-
-        <div id="tab-video" class="detail-tab-content">
-            <div class="detail-video-wrap">
-                <video id="detailVideo" controls></video>
-            </div>
-        </div>
-
-        <div id="tab-view360" class="detail-tab-content">
-            <div class="view360-wrap">
-                <div id="view360" class="view360-inner">
-                    <i class="fa-solid fa-sync"></i>
-                </div>
-                <p class="view360-hint">Drag to rotate the room view</p>
-            </div>
-        </div>
-
-        <div class="detail-info">
-            <h2 id="detailName"></h2>
-            <p id="detailLocation"></p>
-            <div id="detailAmenities"></div>
-            <button class="confirm-btn" onclick="closeDetailModal()">Close</button>
-        </div>
+        <div id="detailContent"></div>
     </div>
 </div>
 
