@@ -21,22 +21,21 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 <header class="top-header">
 
-    <a href="#" class="roomzy-logo" onclick="goHome()">
-        <svg viewBox="0 0 320 80" xmlns="http://www.w3.org/2000/svg">
-            <!-- Location Pin Icon -->
-            <g transform="translate(5, 2)">
-                <!-- Outer Pin Shape -->
-                <path d="M35 2 C18 2 5 15 5 32 C5 50 35 72 35 72 C35 72 65 50 65 32 C65 15 52 2 35 2 Z" fill="#008B8B" />
-                <!-- Inner Circle / Background for House -->
-                <circle cx="35" cy="30" r="22" fill="#FF8C00" />
-                <!-- House Shape inside Pin -->
-                <path d="M22 32 L35 20 L48 32 V44 H22 Z" fill="#FFFFFF" opacity="0.95"/>
-                <!-- Door detail -->
-                <rect x="31" y="34" width="8" height="10" fill="#FF8C00" rx="1"/>
-            </g>
-            <!-- Brand Text: ROOMZY -->
-            <text x="82" y="52" font-size="36" font-weight="800" fill="#20232b" font-family="Inter, Arial, sans-serif">ROOM<tspan fill="#FF8C00">ZY</tspan></text>
+    <a href="#" class="roomzy-logo" onclick="goHome()" style="display: flex; align-items: center; gap: 10px; text-decoration: none; width: auto; min-width: unset;">
+        <svg viewBox="0 0 100 100" width="48" height="48" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
+            <!-- Outer Teal Location Pin -->
+            <path d="M50 5 C30 5, 15 20, 15 40 C15 65, 50 95, 50 95 C50 95, 85 65, 85 40 C85 20, 70 5, 50 5 Z" fill="#008b8b" />
+            <!-- Orange House Shape -->
+            <polygon points="50,15 20,40 80,40" fill="#f07830" />
+            <rect x="68" y="22" width="6" height="12" fill="#f07830" />
+            <rect x="26" y="40" width="48" height="32" fill="#f07830" />
+            <!-- Door -->
+            <rect x="44" y="52" width="12" height="20" fill="#c05010" rx="2" />
+            <circle cx="53" cy="62" r="1.5" fill="#ffffff" />
+            <!-- 'PG' text -->
+            <text x="50" y="48" font-size="22" font-weight="900" fill="#ffffff" text-anchor="middle" font-family="Arial, sans-serif">PG</text>
         </svg>
+        <span style="font-size: 26px; font-weight: 800; color: #800080; font-family: 'Inter', Arial, sans-serif; letter-spacing: 1px;">ROOM<span style="color: #ef7900;">ZY</span></span>
     </a>
 
     <div class="header-search">
