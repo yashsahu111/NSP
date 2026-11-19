@@ -782,6 +782,73 @@ displayProperties = function(data) {
     }, 50);
 };
 
+// ================= FOOTER MODALS & HANDLERS =================
+
+function openAboutModal() {
+    closeLogin();
+    document.getElementById('aboutModal').classList.add('show');
+}
+
+function openContactModal() {
+    closeLogin();
+    document.getElementById('contactModal').classList.add('show');
+}
+
+function openTermsModal() {
+    closeLogin();
+    document.getElementById('termsModal').classList.add('show');
+}
+
+function openPrivacyModal() {
+    closeLogin();
+    document.getElementById('privacyModal').classList.add('show');
+}
+
+function openRefundModal() {
+    closeLogin();
+    document.getElementById('refundModal').classList.add('show');
+}
+
+function openCookiesModal() {
+    closeLogin();
+    document.getElementById('cookiesModal').classList.add('show');
+}
+
+function closeLegalModal(modalId) {
+    document.getElementById(modalId).classList.remove('show');
+}
+
+function handleNewsletter(event) {
+    event.preventDefault();
+    const email = document.getElementById('newsletterEmail').value;
+    if (email) {
+        alert(`Thanks for subscribing! We'll send updates to ${email}`);
+        document.getElementById('newsletterEmail').value = '';
+    }
+}
+
+function handleContactForm(event) {
+    event.preventDefault();
+    alert('Message sent! We\'ll get back to you soon.');
+    event.target.reset();
+}
+
+// Close modals on outside click
+document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('show');
+        }
+    });
+});
+
+// Close modals on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.modal.show').forEach(m => m.classList.remove('show'));
+    }
+});
+
 // ================= INITIALIZE =================
 
 // Fade-in cards on load
