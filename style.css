@@ -2526,6 +2526,11 @@ button {
     color: #20232b;
 }
 
+.brand-highlight {
+    color: var(--red);
+    font-weight: 900;
+}
+
 .why-choose-card p {
     font-size: 14px;
     color: var(--gray);
