@@ -562,8 +562,7 @@ button {
     box-shadow: 0 4px 14px rgba(245,118,85,0.3);
     transition: .25s;
     font-size: 14px;
-    width: 100%;
-    margin-left: auto;
+    justify-self: end;
 }
 
 .search-btn:hover {
