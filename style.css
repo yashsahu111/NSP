@@ -499,7 +499,7 @@ button {
     border: 1px solid #e5e9ef;
 
     display: grid;
-    grid-template-columns: 1fr 1.2fr 1fr 190px;
+    grid-template-columns: 1fr 1.2fr 1fr 200px;
     align-items: center;
     padding: 6px;
     transition: .25s;
