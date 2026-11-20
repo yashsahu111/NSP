@@ -2445,8 +2445,23 @@ button {
 }
 
 .why-choose-icon {
-    font-size: 42px;
-    margin-bottom: 16px;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 18px;
+    border-radius: 18px;
+    background: #fff0ec;
+    color: var(--red);
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .25s;
+}
+
+.why-choose-card:hover .why-choose-icon {
+    background: var(--red);
+    color: #fff;
+    transform: scale(1.08) rotate(-4deg);
 }
 
 .why-choose-card h3 {
