@@ -1217,3 +1217,34 @@ window.addEventListener('load', () => {
 });
 
 displayProperties(properties);
+
+// Populate Popular PGs grid
+(function populatePopularGrid() {
+    const grid = document.getElementById('popularGrid');
+    if (!grid) return;
+    const popularProps = properties.filter(p => [2, 5, 6, 1].includes(p.id));
+    grid.innerHTML = popularProps.map(pg => `
+        <div class="pg-card" onclick="openPgDetail(${pg.id})">
+            <div class="pg-image" onclick="openPgDetail(${pg.id})" style="cursor:pointer" title="View details">
+                <img src="${pg.image}" alt="${pg.name}" loading="lazy"
+                     onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'260\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%23eef2f7\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'sans-serif\\' font-size=\\'14\\' fill=\\'%2394a3b8\\'>No image available</text></svg>'">
+                <div class="rating">★ ${pg.rating} (${pg.reviews})</div>
+                ${pg.verified ? `<div class="verified">✓ Verified</div>` : ''}
+                <button class="favorite-btn" data-id="${pg.id}"
+                    onclick="toggleFavorite(event, ${pg.id})"
+                    title="Save to favorites">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
+            </div>
+            <div class="pg-info" onclick="openPgDetail(${pg.id})" style="cursor:pointer" title="View details">
+                <h3>${pg.name}</h3>
+                <div class="pg-location"><i class="fa-solid fa-location-dot"></i> ${pg.location}</div>
+                <div class="pg-amenities">${pg.amenities.map(a => `<span>✓ ${a}</span>`).join('')}</div>
+                <div class="pg-bottom">
+                    <div class="price">₹${pg.price.toLocaleString()}<span style="font-size:11px;color:var(--gray)">/mo</span></div>
+                    <div class="pg-occupancy">${pg.occupancy}</div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+})();
