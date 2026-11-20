@@ -212,9 +212,6 @@ const favorites = new Set(JSON.parse(localStorage.getItem(FAV_KEY) || '[]'));
 
 // ================= DISPLAY PGs =================
 
-
-// ================= DISPLAY PGs =================
-
 function displayProperties(data) {
 
     const grid = document.getElementById("pgGrid");
@@ -233,7 +230,7 @@ function displayProperties(data) {
         const ownerAdded = getOwnerProperties().some(p => p.id === pg.id);
 
         card.innerHTML = `
-            <div class="pg-image" onclick="openDetail(${pg.id})" style="cursor:pointer" title="View details">
+            <div class="pg-image" onclick="openPgDetail(${pg.id})" style="cursor:pointer" title="View details">
 
                 <img src="${pg.image}" alt="${pg.name}" loading="lazy"
                      onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'260\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%23eef2f7\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'sans-serif\\' font-size=\\'14\\' fill=\\'%2394a3b8\\'>No image available</text></svg>'">
@@ -256,7 +253,7 @@ function displayProperties(data) {
 
             </div>
 
-            <div class="pg-info" onclick="openDetail(${pg.id})" style="cursor:pointer" title="View details">
+            <div class="pg-info" onclick="openPgDetail(${pg.id})" style="cursor:pointer" title="View details">
 
                 <h3>${pg.name}</h3>
 
@@ -333,21 +330,6 @@ function filterProperties() {
         );
 
     }
-
-    // Price range filter
-    const minPrice = parseInt(document.getElementById("priceMin").value) || 0;
-    const maxPrice = parseInt(document.getElementById("priceMax").value) || 999999;
-    result = result.filter(p => p.price >= minPrice && p.price <= maxPrice);
-
-    // Sorting
-    const sort = document.getElementById("sortSelect").value;
-    result.sort((a, b) => {
-        if (sort === "priceLow")  return a.price - b.price;
-        if (sort === "priceHigh") return b.price - a.price;
-        if (sort === "rating")    return parseFloat(b.rating) - parseFloat(a.rating);
-        if (sort === "name")      return a.name.localeCompare(b.name);
-        return 0;
-    });
 
     displayProperties(result);
 }
@@ -843,6 +825,7 @@ function toggleMenu() {
     document.getElementById("menuDropdown")
     .classList.toggle("show");
 
+
 }
 
 
@@ -878,7 +861,7 @@ function scrollToPG() {
 // ================= BOOKING LOGIC =================
 
 function openBookModal(id) {
-    const pg = properties.find(p => p.id === id);
+    const pg = [...getAllProperties()].find(p => p.id === id);
     if (!pg) return;
 
     document.getElementById('bookPgId').value = id;
@@ -899,7 +882,7 @@ function handleBooking(event) {
     const months = document.getElementById('bookMonths').value;
     const notes = document.getElementById('bookNotes').value;
 
-    const pg = properties.find(p => p.id === id);
+    const pg = [...getAllProperties()].find(p => p.id === id);
 
     const booking = {
         id: Date.now(),
@@ -975,23 +958,21 @@ function setupBottomNav() {
     }
 }
 
-// Update Detail logic
-function openDetail(id) {
+// PG Detail Page (replaces modal)
+function openPgDetail(id) {
     const pg = [...getAllProperties()].find(p => p.id === id);
     if (!pg) return;
 
-    const content = document.getElementById('detailContent');
+    const content = document.getElementById('pgDetailContent');
     const ownerAdded = getOwnerProperties().some(p => p.id === pg.id);
-
-    // Generate unique reviews for each PG
     const reviews = generateReviews(pg.id);
 
     content.innerHTML = `
-        <div class="pg-detail-view">
-            <div class="detail-left">
-                <div class="detail-gallery">
+        <div class="pg-detail-full">
+            <div class="detail-gallery-section">
+                <div class="detail-gallery-main">
                     <img id="mainImg" src="${pg.image}" class="detail-main-img" alt="${pg.name}"
-                         onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'600\\' height=\\'400\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%23eef2f7\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'sans-serif\\' font-size=\\'16\\' fill=\\'%2394a3b8\\'>No image available</text></svg>'">
+                         onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'800\\' height=\\'500\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%23eef2f7\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' font-family=\\'sans-serif\\' font-size=\\'18\\' fill=\\'%2394a3b8\\'>No image available</text></svg>'">
                     ${pg.video ? `<button class="video-btn" onclick="playVideo('${pg.video}')"><i class="fa-solid fa-play"></i></button>` : ''}
                 </div>
                 <div class="detail-thumbs">
@@ -1002,20 +983,37 @@ function openDetail(id) {
                     `).join('')}
                 </div>
             </div>
-            <div class="detail-body">
+
+            <div class="detail-info-section">
                 <div class="detail-header">
-                    <h2>${pg.name}</h2>
+                    <h1>${pg.name}</h1>
                     ${ownerAdded ? '<span class="new-badge">🆕 New Listing</span>' : ''}
                     ${pg.verified ? '<span class="verified-badge"><i class="fa-solid fa-shield-check"></i> Verified</span>' : ''}
                 </div>
                 <p class="detail-location"><i class="fa-solid fa-location-dot"></i> ${pg.location}</p>
+
+                <div class="detail-meta">
+                    <div class="meta-item">
+                        <i class="fa-solid fa-bed"></i>
+                        <span>${pg.category} • ${pg.occupancy}</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fa-solid fa-star"></i>
+                        <span>${pg.rating} (${pg.reviews} reviews)</span>
+                    </div>
+                </div>
+
                 <div class="detail-amenities">
                     ${pg.amenities.map(a => `<span class="amenity-tag">${a}</span>`).join('')}
                 </div>
-                <p class="detail-desc">${pg.description || `Experience a comfortable stay with all essential amenities at ${pg.name}. Located in ${pg.location}, this property offers a safe and welcoming environment perfect for students and working professionals.`}</p>
+
+                <div class="detail-description">
+                    <h3>About this PG</h3>
+                    <p>${pg.description || `Experience a comfortable stay with all essential amenities at ${pg.name}. Located in ${pg.location}, this property offers a safe and welcoming environment perfect for students and working professionals.`}</p>
+                </div>
 
                 <div class="detail-reviews">
-                    <h4><i class="fa-solid fa-star"></i> Reviews (${reviews.length})</h4>
+                    <h3><i class="fa-solid fa-star"></i> Reviews (${reviews.length})</h3>
                     ${reviews.map(r => `
                         <div class="review-card">
                             <div class="review-header">
@@ -1028,13 +1026,30 @@ function openDetail(id) {
                     `).join('')}
                 </div>
 
-                <div class="detail-price">₹ ${pg.price.toLocaleString("en-IN")} <small>/month</small></div>
-                <button class="confirm-btn" onclick="openBookModal(${pg.id}); closeDetailModal();">Book Now</button>
+                <div class="detail-price-bar">
+                    <div class="price-info">
+                        <span class="price-label">Starting from</span>
+                        <span class="price-value">₹ ${pg.price.toLocaleString("en-IN")}<small>/month</small></span>
+                    </div>
+                    <button class="confirm-btn detail-book-btn" onclick="openBookModal(${pg.id}); closePgDetail();">Book Now</button>
+                </div>
             </div>
         </div>
     `;
 
-    document.getElementById('detailModal').classList.add('show');
+    document.getElementById('pgDetailPage').hidden = false;
+    document.getElementById('homePage').style.display = 'none';
+    document.getElementById('bottomNav').style.display = 'none';
+    document.getElementById('footer').style.display = 'none';
+    window.scrollTo(0, 0);
+}
+
+function closePgDetail() {
+    document.getElementById('pgDetailPage').hidden = true;
+    document.getElementById('homePage').style.display = 'block';
+    document.getElementById('bottomNav').style.display = 'flex';
+    document.getElementById('footer').style.display = '';
+    window.scrollTo(0, 0);
 }
 
 function switchMainImg(thumb, src) {
@@ -1071,17 +1086,12 @@ function generateReviews(pgId) {
         "Well maintained property. The common areas are always clean. Recommended.",
         "Affordable and comfortable. The warden is friendly and cooperative."
     ];
-    // Deterministic but varied
     return texts.map((t, i) => ({
         name: names[(pgId + i) % names.length],
         rating: 4 + (pgId + i) % 2,
         date: new Date(Date.now() - (i + 1) * 86400000 * 7).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }),
         text: t
     })).slice(0, 4);
-}
-
-function closeDetailModal() {
-    document.getElementById('detailModal').classList.remove('show');
 }
 
 
