@@ -269,12 +269,12 @@ button {
 
 .hero {
     height: auto;
-    min-height: 60vh;
+    min-height: 64vh;
     background: #fff;
     color: #222;
     position: relative;
     overflow: hidden;
-    padding: 30px 5% 70px;
+    padding: 50px 5% 70px;
 }
 
 .hero-container {
@@ -303,7 +303,7 @@ button {
     font-weight: 800;
     padding: 6px 12px;
     border-radius: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     letter-spacing: 0.5px;
 }
 
@@ -516,8 +516,8 @@ button {
 .search-item {
     display: flex;
     align-items: center;
-    gap: 15px;
-    padding: 10px 20px;
+    gap: 12px;
+    padding: 14px 20px;
     border-right: 1px solid #eee;
 }
 
@@ -530,6 +530,7 @@ button {
     display: block;
     font-size: 15px;
     font-weight: 700;
+    color: #20232b;
 }
 
 .search-item small {
