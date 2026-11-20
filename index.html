@@ -139,7 +139,31 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
             </div>
         </div>
 
-        <button class="search-btn" onclick="searchPG()">
+        <div class="search-item">
+            <i class="fa-solid fa-filter"></i>
+            <div>
+                <select id="sortSelect" onchange="filterProperties()">
+                    <option value="">Sort by</option>
+                    <option value="priceLow">Price: Low to High</option>
+                    <option value="priceHigh">Price: High to Low</option>
+                    <option value="rating">Rating: High to Low</option>
+                    <option value="name">Name: A-Z</option>
+                </select>
+                <small>Sort</small>
+            </div>
+        </div>
+
+        <div class="search-item price-range">
+            <i class="fa-solid fa-rupee-sign"></i>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                <input type="number" id="priceMin" placeholder="Min" min="0" max="100000" style="width:80px;padding:8px;border:1px solid #ddd;border-radius:6px;">
+                <span>–</span>
+                <input type="number" id="priceMax" placeholder="Max" min="0" max="100000" style="width:80px;padding:8px;border:1px solid #ddd;border-radius:6px;">
+                <small style="margin-top:4px;">Price Range</small>
+            </div>
+        </div>
+
+        <button class="search-btn" onclick="filterProperties()">
             Search
         </button>
 
