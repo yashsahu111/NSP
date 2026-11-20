@@ -793,8 +793,31 @@ const openRefundModal = () => openLegalModal('refundModal');
 const openCookiesModal = () => openLegalModal('cookiesModal');
 const closeLegalModal = id => document.getElementById(id).classList.remove('show');
 
-function handleNewsletter(e) { e.preventDefault(); const v = document.getElementById('newsletterEmail').value; if(v) { alert(`Subscribed: ${v}`); document.getElementById('newsletterEmail').value=''; } }
-function handleContactForm(e) { e.preventDefault(); alert('Message sent!'); e.target.reset(); }
+// Newsletter handler (works with form's input)
+function handleNewsletter(e) {
+    e.preventDefault();
+    const input = e.target.querySelector('input[type="email"]');
+    const email = input?.value?.trim();
+    if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        input.value = '';
+        input.blur();
+        // Show success toast
+        showToast('Thanks for subscribing! 🎉');
+    }
+}
+
+// Simple toast notification
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add('show'));
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
 
 // Close modals on outside click / Escape
 document.querySelectorAll('.modal').forEach(m => m.addEventListener('click', e => { if(e.target===m) m.classList.remove('show'); }));

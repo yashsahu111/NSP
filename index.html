@@ -219,6 +219,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <!-- ================= FOOTER ================= -->
 
 <footer class="footer" id="footer">
+    <!-- Subtle background pattern -->
+    <div class="footer-pattern" aria-hidden="true"></div>
+
     <div class="footer-container">
 
         <!-- Brand Section -->
@@ -228,11 +231,31 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
                 <span class="footer-logo-text">ROOM<span>ZY</span></span>
             </a>
             <p class="footer-tagline">Find your perfect PG, hassle‑free.</p>
+
+            <!-- Trust Indicators -->
+            <div class="footer-trust-inline">
+                <span class="trust-pill"><i class="fa-solid fa-shield-check"></i> 50K+ Students</span>
+                <span class="trust-pill"><i class="fa-solid fa-building-lock"></i> 2.5K+ Verified</span>
+                <span class="trust-pill"><i class="fa-solid fa-star"></i> 4.8 Rating</span>
+            </div>
+
             <div class="footer-social">
                 <a href="#" class="social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
                 <a href="#" class="social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
                 <a href="#" class="social-link" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
                 <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="social-link" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+
+            <!-- Newsletter Signup -->
+            <div class="footer-newsletter">
+                <h4>Stay Updated</h4>
+                <p>Get deals, tips & new listings in your inbox.</p>
+                <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+                    <input type="email" placeholder="Enter your email" required aria-label="Email address">
+                    <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+                <p class="newsletter-note">No spam, unsubscribe anytime.</p>
             </div>
         </div>
 
@@ -240,31 +263,63 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         <div class="footer-section">
             <h3>Quick Links</h3>
             <ul>
-                <li><a href="#" onclick="goHome()">Home</a></li>
-                <li><a href="#" onclick="scrollToPG()">Explore PGs</a></li>
-                <li><a href="#" onclick="openMyBookings()">My Bookings</a></li>
-                <li><a href="#" onclick="openLogin()">Sign In</a></li>
+                <li><a href="#" onclick="goHome()"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+                <li><a href="#" onclick="scrollToPG()"><i class="fa-solid fa-chevron-right"></i> Explore PGs</a></li>
+                <li><a href="#" onclick="openMyBookings()"><i class="fa-solid fa-chevron-right"></i> My Bookings</a></li>
+                <li><a href="#" onclick="openLogin()"><i class="fa-solid fa-chevron-right"></i> Sign In</a></li>
+                <li><a href="#" onclick="scrollToPG()"><i class="fa-solid fa-chevron-right"></i> For Students</a></li>
+                <li><a href="#" onclick="alert('List your PG on ROOMZY')"><i class="fa-solid fa-chevron-right"></i> For Owners</a></li>
             </ul>
         </div>
 
-        <!-- Legal -->
+        <!-- Resources -->
         <div class="footer-section">
-            <h3>Legal</h3>
+            <h3>Resources</h3>
             <ul>
-                <li><a href="#" onclick="openTermsModal()">Terms</a></li>
-                <li><a href="#" onclick="openPrivacyModal()">Privacy</a></li>
-                <li><a href="#" onclick="openRefundModal()">Refund</a></li>
-                <li><a href="#" onclick="openCookiesModal()">Cookies</a></li>
+                <li><a href="#" onclick="openTermsModal()"><i class="fa-solid fa-chevron-right"></i> Terms of Service</a></li>
+                <li><a href="#" onclick="openPrivacyModal()"><i class="fa-solid fa-chevron-right"></i> Privacy Policy</a></li>
+                <li><a href="#" onclick="openRefundModal()"><i class="fa-solid fa-chevron-right"></i> Refund Policy</a></li>
+                <li><a href="#" onclick="openCookiesModal()"><i class="fa-solid fa-chevron-right"></i> Cookie Policy</a></li>
+                <li><a href="#" onclick="alert('Help Center coming soon')"><i class="fa-solid fa-chevron-right"></i> Help Center</a></li>
+                <li><a href="#" onclick="alert('Safety Guidelines coming soon')"><i class="fa-solid fa-chevron-right"></i> Safety Guidelines</a></li>
             </ul>
         </div>
 
-        <!-- Contact -->
+        <!-- Contact & App Download -->
         <div class="footer-section footer-contact">
-            <h3>Contact</h3>
+            <h3>Contact & App</h3>
             <ul class="contact-info">
                 <li><i class="fa-solid fa-envelope"></i> <a href="mailto:support@roomzy.in">support@roomzy.in</a></li>
                 <li><i class="fa-solid fa-phone"></i> <a href="tel:+918000000000">+91 80000 00000</a></li>
+                <li><i class="fa-solid fa-location-dot"></i> <span>Jaipur, Rajasthan, India</span></li>
             </ul>
+
+            <!-- App Download -->
+            <div class="app-download">
+                <span class="app-label">Download the App</span>
+                <div class="app-buttons">
+                    <a href="#" class="app-btn" aria-label="Google Play">
+                        <i class="fa-brands fa-google-play"></i>
+                        <span>
+                            <small>GET IT ON</small>
+                            <strong>Google Play</strong>
+                        </span>
+                    </a>
+                    <a href="#" class="app-btn" aria-label="App Store">
+                        <i class="fa-brands fa-apple"></i>
+                        <span>
+                            <small>DOWNLOAD ON THE</small>
+                            <strong>App Store</strong>
+                        </span>
+                    </a>
+                </div>
+                <div class="app-qr">
+                    <div class="qr-placeholder" aria-label="QR Code for app download">
+                        <i class="fa-solid fa-qrcode"></i>
+                        <span>Scan to Download</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -272,14 +327,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     <!-- Footer Bottom -->
     <div class="footer-bottom">
         <div class="footer-bottom-content">
-            <p class="copyright">&copy; 2025 ROOMZY. All rights reserved.</p>
+            <p class="copyright">&copy; <span id="currentYear">2025</span> ROOMZY. All rights reserved.</p>
             <div class="footer-bottom-links">
-                <span>Made with <i class="fa-solid fa-heart" style="color: #e74c3c;"></i> for students</span>
-                <span>|</span>
+                <span class="made-with">Made with <i class="fa-solid fa-heart" style="color: #e74c3c;"></i> for students across India</span>
+                <span class="divider">|</span>
                 <a href="#" onclick="openTermsModal()">Terms</a>
-                <span>|</span>
+                <span class="divider">|</span>
                 <a href="#" onclick="openPrivacyModal()">Privacy</a>
-                <span>|</span>
+                <span class="divider">|</span>
                 <a href="#" onclick="openCookiesModal()">Cookies</a>
             </div>
         </div>
@@ -287,6 +342,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
             <span class="trust-badge"><i class="fa-solid fa-shield-halved"></i> 100% Verified</span>
             <span class="trust-badge"><i class="fa-solid fa-lock"></i> Secure Payments</span>
             <span class="trust-badge"><i class="fa-solid fa-headphones"></i> 24/7 Support</span>
+            <span class="trust-badge"><i class="fa-solid fa-credit-card"></i> Easy Refunds</span>
         </div>
     </div>
 
@@ -681,6 +737,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 <script src="script.js"></script>
+
+<!-- Auto-update copyright year -->
+<script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
