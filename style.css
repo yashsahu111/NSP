@@ -503,6 +503,8 @@ button {
     align-items: center;
     padding: 6px;
     transition: .25s;
+    max-width: 860px;
+    margin-left: auto;
 }
 
 .search-box:hover {
