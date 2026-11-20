@@ -857,6 +857,24 @@ function scrollToPG() {
 
 }
 
+function scrollToWhyChoose() {
+
+    const section = document.getElementById("whyChooseSection") || document.querySelector(".why-choose-section");
+    if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+    }
+
+}
+
+function scrollToTestimonials() {
+
+    const section = document.getElementById("testimonialsSection") || document.querySelector(".testimonials-section");
+    if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+    }
+
+}
+
 
 // ================= BOOKING LOGIC =================
 

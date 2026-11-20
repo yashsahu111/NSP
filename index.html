@@ -24,21 +24,47 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     <a href="#" class="roomzy-logo" onclick="goHome()">
         <img src="logo.png" alt="ROOMZY Logo" class="logo-img">
         <span class="logo-text">ROOM<span>ZY</span></span>
+        <span class="logo-city">Jaipur</span>
     </a>
 
-    <div class="header-search">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="headerSearch"
-        placeholder="Search for PGs, Rooms, Hostels and Co-living">
+    <div class="header-search-pill" id="headerSearchPill">
+        <div class="search-field" onclick="changeCity()">
+            <i class="fa-solid fa-location-dot" style="color: var(--red);"></i>
+            <div class="search-field-content">
+                <span class="search-label">JAIPUR AREA</span>
+                <span class="search-value" id="cityName">Jaipur (All)</span>
+            </div>
+            <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #666;"></i>
+        </div>
+        <div class="search-divider"></div>
+        <div class="search-field">
+            <i class="fa-regular fa-calendar" style="color: #666;"></i>
+            <div class="search-field-content">
+                <span class="search-label">MOVE-IN</span>
+                <span class="search-value">Immediate</span>
+            </div>
+        </div>
+        <div class="search-divider"></div>
+        <div class="search-field">
+            <i class="fa-solid fa-indian-rupee-sign" style="color: #666;"></i>
+            <div class="search-field-content">
+                <span class="search-label">BUDGET</span>
+                <span class="search-value">₹7,000 – ₹20,000</span>
+            </div>
+        </div>
+        <button class="search-submit" onclick="filterProperties()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
     </div>
 
-    <div class="header-city" onclick="changeCity()">
-        <span id="cityName">Jaipur</span>
-        <i class="fa-solid fa-chevron-down"></i>
-    </div>
+    <nav class="header-nav">
+        <a href="#" onclick="scrollToPG()">Explore PGs</a>
+        <a href="#" onclick="scrollToWhyChoose()">Why RoomZy</a>
+        <a href="#" onclick="openAboutModal()">About Us</a>
+    </nav>
 
-    <button class="signin-btn" onclick="openLogin()">
-        Sign in
+    <button class="student-login-btn" onclick="openLogin()">
+        Student Login
     </button>
 
     <button class="menu-btn" onclick="toggleMenu()">
@@ -48,8 +74,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     <div class="menu-dropdown" id="menuDropdown">
         <a href="#" onclick="goHome()">Home</a>
         <a href="#" onclick="scrollToPG()">Explore PGs</a>
-        <a href="#" onclick="openLogin()">Sign in</a>
-        <a href="#" onclick="alert('Contact: support@roomzy.in')">Contact Us</a>
+        <a href="#" onclick="scrollToWhyChoose()">Why RoomZy</a>
+        <a href="#" onclick="openAboutModal()">About Us</a>
+        <a href="#" onclick="openLogin()">Student Login</a>
     </div>
 
 </header>
@@ -62,22 +89,29 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     <!-- HERO -->
 
     <section class="hero">
-
-        <div class="hero-content">
-
-            <h1>
-                Find Your Perfect<br>
-                PG, <span>Hassle Free</span>
-            </h1>
-
-            <p>Safe • Comfortable • Verified</p>
-
-            <button class="explore-btn" onclick="scrollToPG()">
-                Explore PGs <i class="fa-solid fa-arrow-right"></i>
-            </button>
-
+        <div class="hero-container">
+            <div class="hero-left">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-shield-check"></i> Verified student PGs & co-living in Jaipur
+                </div>
+                <h1>Find your next <span class="hero-highlight">student home</span> without brokerage.</h1>
+                <p class="hero-desc">RoomZy brings together verified PGs, hostels and co-living spaces in Sitapura, Malviya Nagar & Jagatpura equipped with high-speed WiFi, modern appliances, and real-time bed availability tracking.</p>
+                <div class="hero-buttons">
+                    <button class="hero-primary-btn" onclick="scrollToPG()">Explore stays <i class="fa-solid fa-arrow-right"></i></button>
+                    <button class="hero-secondary-btn" onclick="openLogin()">Student Login</button>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=900" alt="Shree Radhe Krishna PG Hostel" onerror="this.style.display='none'">
+                    <div class="featured-overlay">
+                        <span class="featured-badge">FEATURED SITAPURA STAY</span>
+                        <h3>Shree Radhe Krishna PG Hostel</h3>
+                        <p>₹8,500/mo · Real-time bed sync & Zero Brokerage</p>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </section>
 
 
