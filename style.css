@@ -555,13 +555,15 @@ button {
     background: var(--red);
     color: white;
     border: none;
-    padding: 17px;
+    padding: 17px 28px;
     border-radius: 10px;
     font-weight: 700;
     cursor: pointer;
     box-shadow: 0 4px 14px rgba(245,118,85,0.3);
     transition: .25s;
     font-size: 14px;
+    width: 100%;
+    margin-left: auto;
 }
 
 .search-btn:hover {
