@@ -504,9 +504,9 @@ button {
     padding: 6px;
     transition: .25s;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1050px;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 2.5%;
 }
 
 .search-box:hover {
