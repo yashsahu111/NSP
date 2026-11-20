@@ -193,6 +193,10 @@ window.addEventListener('load', () => {
         document.getElementById('bottomNav').style.display = 'none';
         document.getElementById('footer').style.display = 'none';
         showAccountDashboard(user);
+    } else {
+        // Render PGs on the home page
+        displayProperties(properties);
+        if (typeof populatePopularGrid === 'function') populatePopularGrid();
     }
 });
 
