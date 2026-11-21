@@ -123,92 +123,61 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
         <!-- SEARCH MOVED TO HERO BOTTOM -->
         <section class="search-box">
-
-            <div class="search-item">
-                <i class="fa-solid fa-location-dot"></i>
-                <div>
-                    <strong id="searchCity">Jaipur</strong>
-                    <small>Change City</small>
+            <div class="search-bar">
+                <div class="search-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <strong id="searchCity">Jaipur</strong>
+                        <small>Change City</small>
+                    </div>
+                    <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #667085; margin-left: auto;"></i>
                 </div>
-                <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #667085; margin-left: auto;"></i>
-            </div>
 
-            <div class="search-item">
-                <i class="fa-regular fa-calendar"></i>
-                <div>
-                    <input type="date" id="checkIn">
-                    <small>Check-in Date</small>
+                <div class="search-item">
+                    <i class="fa-regular fa-calendar"></i>
+                    <div>
+                        <input type="date" id="checkIn">
+                        <small>Check-in Date</small>
+                    </div>
                 </div>
-            </div>
 
-            <div class="search-item">
-                <i class="fa-solid fa-users"></i>
-                <div>
-                    <select id="occupancy">
-                        <option value="All">Any Occupancy</option>
-                        <option value="Single">1 Person</option>
-                        <option value="Double">2 Persons</option>
-                    </select>
-                    <small>Select Occupancy</small>
+                <div class="search-item">
+                    <i class="fa-solid fa-users"></i>
+                    <div>
+                        <select id="occupancy">
+                            <option value="All">Any Occupancy</option>
+                            <option value="Single">1 Person</option>
+                            <option value="Double">2 Persons</option>
+                        </select>
+                        <small>Select Occupancy</small>
+                    </div>
+                    <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #667085; margin-left: auto;"></i>
                 </div>
-                <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #667085; margin-left: auto;"></i>
+
+                <button class="search-btn" onclick="filterProperties()">
+                    Search
+                </button>
             </div>
-
-            <button class="search-btn" onclick="filterProperties()">
-                Search
-            </button>
-
         </section>
     </section>
 
 
     <!-- CATEGORIES -->
 
-    <section class="categories">
-
-        <div class="category active" data-category="All"
-        onclick="selectCategory(this)">
-            <i class="fa-solid fa-house category-blue"></i>
-            <span>All PGs</span>
+    
+    <!-- CATEGORIES -->
+    <section class="categories-section">
+        <div class="category-scroll">
+            <div class="category-pill active" data-category="All" onclick="selectCategory(this)">All PGs</div>
+            <div class="category-pill" data-category="Boys" onclick="selectCategory(this)">Boys PG</div>
+            <div class="category-pill" data-category="Girls" onclick="selectCategory(this)">Girls PG</div>
+            <div class="category-pill" data-category="Co-living" onclick="selectCategory(this)">Co-living</div>
+            <div class="category-pill" data-category="Single" onclick="selectCategory(this)">Single Room</div>
+            <div class="category-pill" data-category="Double" onclick="selectCategory(this)">Double Sharing</div>
+            <div class="category-pill" data-category="Luxury" onclick="selectCategory(this)">Luxury PG</div>
         </div>
-
-        <div class="category" data-category="Boys"
-        onclick="selectCategory(this)">
-            <i class="fa-solid fa-person category-blue"></i>
-            <span>Boys PG</span>
-        </div>
-
-        <div class="category" data-category="Girls"
-        onclick="selectCategory(this)">
-            <i class="fa-solid fa-person-dress category-pink"></i>
-            <span>Girls PG</span>
-        </div>
-
-        <div class="category" data-category="Co-living"
-        onclick="selectCategory(this)">
-            <i class="fa-solid fa-people-group category-purple"></i>
-            <span>Co-living</span>
-        </div>
-
-        <div class="category" data-category="Single"
-        onclick="selectCategory(this)">
-            <i class="fa-solid fa-bed category-orange"></i>
-            <span>Single Room</span>
-        </div>
-
-        <div class="category" data-category="Double"
-        onclick="selectCategory(this)">
-            <i class="fa-solid fa-bed category-green"></i>
-            <span>Double Sharing</span>
-        </div>
-
-        <div class="category" data-category="Luxury"
-        onclick="selectCategory(this)">
-            <i class="fa-solid fa-crown category-yellow"></i>
-            <span>Luxury PG</span>
-        </div>
-
     </section>
+
 
 
     <!-- PG LISTINGS -->
