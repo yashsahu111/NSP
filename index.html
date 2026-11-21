@@ -94,65 +94,71 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
                 <div class="hero-badge">
                     <i class="fa-solid fa-circle-check"></i> Verified student PGs & co-living in Jaipur
                 </div>
-                <h1>Find your next <span class="hero-highlight">student home</span> without brokerage.</h1>
-                <p class="hero-desc">RoomZy brings together verified PGs, hostels and co-living spaces in Sitapura, Malviya Nagar & Jagatpura equipped with high-speed WiFi, modern appliances, and real-time bed availability tracking.</p>
+                <h1>Your Home Away From Home, <span class="hero-highlight">Simplified.</span></h1>
+                <p class="hero-desc">Discover handpicked, fully-managed student stays in Jaipur's prime hubs. From high-speed WiFi to daily meals, we handle the comfort while you focus on your future.</p>
                 <div class="hero-buttons">
                     <button class="hero-primary-btn" onclick="scrollToPG()">Explore stays <i class="fa-solid fa-arrow-right"></i></button>
                     <button class="hero-secondary-btn" onclick="openLogin()">Sign in</button>
                 </div>
             </div>
             <div class="hero-right">
-                <div class="featured-card">
-                    <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=900" alt="Shree Radhe Krishna PG Hostel" onerror="this.style.display='none'">
-                    <div class="featured-overlay">
-                        <span class="featured-badge">FEATURED SITAPURA STAY</span>
-                        <h3>Shree Radhe Krishna PG Hostel</h3>
-                        <p>₹8,500/mo · Real-time bed sync & Zero Brokerage</p>
+                <div class="hero-images">
+                    <div class="featured-card card-small">
+                        <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800" alt="Student Life" onerror="this.style.display='none'">
+                        <div class="featured-overlay">
+                            <span class="featured-badge">PREMIUM CO-LIVING</span>
+                            <h3>Modern Stays</h3>
+                        </div>
+                    </div>
+                    <div class="featured-card card-small">
+                        <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800" alt="Co-living Space" onerror="this.style.display='none'">
+                        <div class="featured-overlay">
+                            <span class="featured-badge">SITAPURA HUB</span>
+                            <h3>Student Hostels</h3>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
+        <!-- SEARCH MOVED TO HERO BOTTOM -->
+        <section class="search-box">
 
-    <!-- SEARCH -->
-
-    <section class="search-box">
-
-        <div class="search-item">
-            <i class="fa-solid fa-location-dot"></i>
-            <div>
-                <strong id="searchCity">Jaipur</strong>
-                <small>Change City</small>
+            <div class="search-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <div>
+                    <strong id="searchCity">Jaipur</strong>
+                    <small>Change City</small>
+                </div>
+                <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #667085; margin-left: auto;"></i>
             </div>
-            <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #667085; margin-left: auto;"></i>
-        </div>
 
-        <div class="search-item">
-            <i class="fa-regular fa-calendar"></i>
-            <div>
-                <input type="date" id="checkIn">
-                <small>Check-in Date</small>
+            <div class="search-item">
+                <i class="fa-regular fa-calendar"></i>
+                <div>
+                    <input type="date" id="checkIn">
+                    <small>Check-in Date</small>
+                </div>
             </div>
-        </div>
 
-        <div class="search-item">
-            <i class="fa-solid fa-users"></i>
-            <div>
-                <select id="occupancy">
-                    <option value="All">Any Occupancy</option>
-                    <option value="Single">1 Person</option>
-                    <option value="Double">2 Persons</option>
-                </select>
-                <small>Select Occupancy</small>
+            <div class="search-item">
+                <i class="fa-solid fa-users"></i>
+                <div>
+                    <select id="occupancy">
+                        <option value="All">Any Occupancy</option>
+                        <option value="Single">1 Person</option>
+                        <option value="Double">2 Persons</option>
+                    </select>
+                    <small>Select Occupancy</small>
+                </div>
+                <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #667085; margin-left: auto;"></i>
             </div>
-            <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #667085; margin-left: auto;"></i>
-        </div>
 
-        <button class="search-btn" onclick="filterProperties()">
-            Search
-        </button>
+            <button class="search-btn" onclick="filterProperties()">
+                Search
+            </button>
 
+        </section>
     </section>
 
 
