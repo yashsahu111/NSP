@@ -325,6 +325,14 @@ function filterProperties() {
         );
     }
 
+    const city = document.getElementById("searchCity").value;
+
+    if (city) {
+        result = result.filter(
+            p => p.location === city
+        );
+    }
+
     if (currentSearch) {
 
         result = result.filter(p =>
@@ -403,7 +411,7 @@ function changeCity() {
     const name = city.trim();
 
     document.getElementById("cityName").textContent = name;
-    document.getElementById("searchCity").textContent = name;
+    document.getElementById("searchCity").value = name;
     document.getElementById("headingCity").textContent = name;
 
 }
