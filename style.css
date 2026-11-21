@@ -178,6 +178,8 @@ button {
     display: flex;
     gap: 24px;
     align-items: center;
+    margin-left: auto;
+    margin-right: 24px;
 }
 
 .header-nav a {
