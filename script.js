@@ -190,7 +190,7 @@ window.addEventListener('load', () => {
     if (user) {
         document.getElementById('homePage').style.display = 'none';
         document.getElementById('loginPage').classList.add('show');
-        document.getElementById('bottomNav').style.display = 'none';
+        
         document.getElementById('footer').style.display = 'none';
         showAccountDashboard(user);
     } else {
@@ -419,7 +419,7 @@ function openLogin() {
 
     document.getElementById("loginPage").classList.add("show");
 
-    document.getElementById("bottomNav").style.display = "none";
+    
 
     document.getElementById("footer").style.display = "none";
 
@@ -440,7 +440,7 @@ function closeLogin() {
 
     document.getElementById("homePage").style.display = "block";
 
-    document.getElementById("bottomNav").style.display = "flex";
+    
 
     document.getElementById("footer").style.display = "";
 
@@ -959,7 +959,7 @@ function openMyBookings() {
     document.getElementById('loginPage').classList.remove('show');
 
     // Update bottom nav
-    document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('selected'));
+    );
     document.querySelector('[onclick="openLogin()"] i').parentElement.classList.add('selected');
 }
 
@@ -1061,7 +1061,7 @@ function openPgDetail(id) {
 
     document.getElementById('pgDetailPage').hidden = false;
     document.getElementById('homePage').style.display = 'none';
-    document.getElementById('bottomNav').style.display = 'none';
+    
     document.getElementById('footer').style.display = 'none';
     window.scrollTo(0, 0);
 }
@@ -1069,7 +1069,7 @@ function openPgDetail(id) {
 function closePgDetail() {
     document.getElementById('pgDetailPage').hidden = true;
     document.getElementById('homePage').style.display = 'block';
-    document.getElementById('bottomNav').style.display = 'flex';
+    
     document.getElementById('footer').style.display = '';
     window.scrollTo(0, 0);
 }

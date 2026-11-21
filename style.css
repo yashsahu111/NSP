@@ -17,7 +17,7 @@
 body {
     background: #f7f8fa;
     color: #20232b;
-    padding-bottom: 75px;
+    padding-bottom: 0;
     line-height: 1.6;
     font-weight: 500;
     position: relative;
@@ -1191,50 +1191,6 @@ button {
 }
 
 
-/* ================= BOTTOM NAV ================= */
-
-.bottom-nav {
-    height: 70px;
-    background: white;
-    border-top: 1px solid #eee;
-    box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
-
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    background: none;
-    border: none;
-    color: #20232b;
-    font-size: 12px;
-    transition: .25s;
-    padding: 8px 12px;
-    border-radius: 10px;
-}
-
-.nav-item i {
-    font-size: 21px;
-    transition: .25s;
-}
-
-.nav-item.selected {
-    color: var(--red);
-}
-
-.nav-item.selected i {
-    transform: translateY(-3px) scale(1.1);
 }
 
 .book-now-btn {
