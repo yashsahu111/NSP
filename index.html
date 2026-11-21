@@ -23,53 +23,25 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
     <a href="#" class="roomzy-logo" onclick="goHome()">
         <img src="logo.png" alt="ROOMZY Logo" class="logo-img">
-        <span class="logo-text">ROOM<span>ZY</span></span>
+        <span class="logo-text">ROOM<span class="brand-highlight">ZY</span></span>
         <span class="logo-city">Jaipur</span>
     </a>
 
-    <div class="header-search-pill" id="headerSearchPill">
-        <div class="search-field" onclick="changeCity()">
-            <i class="fa-solid fa-location-dot" style="color: var(--red);"></i>
-            <div class="search-field-content">
-                <span class="search-label">JAIPUR AREA</span>
-                <span class="search-value" id="cityName">Jaipur (All)</span>
-            </div>
-            <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #666;"></i>
-        </div>
-        <div class="search-divider"></div>
-        <div class="search-field">
-            <i class="fa-regular fa-calendar" style="color: #666;"></i>
-            <div class="search-field-content">
-                <span class="search-label">MOVE-IN</span>
-                <span class="search-value">Immediate</span>
-            </div>
-        </div>
-        <div class="search-divider"></div>
-        <div class="search-field">
-            <i class="fa-solid fa-indian-rupee-sign" style="color: #666;"></i>
-            <div class="search-field-content">
-                <span class="search-label">BUDGET</span>
-                <span class="search-value">₹7,000 – ₹20,000</span>
-            </div>
-        </div>
-        <button class="search-submit" onclick="filterProperties()">
-            <i class="fa-solid fa-magnifying-glass"></i>
+    <div class="header-right">
+        <nav class="header-nav">
+            <a href="#" onclick="scrollToPG()">Explore PGs</a>
+            <a href="#" onclick="scrollToWhyChoose()">Why RoomZy</a>
+            <a href="#" onclick="openAboutModal()">About Us</a>
+        </nav>
+
+        <button class="student-login-btn" onclick="openLogin()">
+            Sign in
+        </button>
+
+        <button class="menu-btn" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
         </button>
     </div>
-
-    <nav class="header-nav">
-        <a href="#" onclick="scrollToPG()">Explore PGs</a>
-        <a href="#" onclick="scrollToWhyChoose()">Why RoomZy</a>
-        <a href="#" onclick="openAboutModal()">About Us</a>
-    </nav>
-
-    <button class="student-login-btn" onclick="openLogin()">
-        Sign in
-    </button>
-
-    <button class="menu-btn" onclick="toggleMenu()">
-        <i class="fa-solid fa-bars"></i>
-    </button>
 
     <div class="menu-dropdown" id="menuDropdown">
         <a href="#" onclick="goHome()">Home</a>

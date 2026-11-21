@@ -75,12 +75,18 @@ button {
 }
 
 .roomzy-logo .logo-text {
-    font-size: 26px;
+    font-size: 32px;
     font-weight: 800;
     color: var(--dark);
-    letter-spacing: 1px;
+    letter-spacing: -1px;
     text-decoration: none;
     font-family: 'Inter', sans-serif;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 32px;
 }
 
 .roomzy-logo .logo-text span {
@@ -99,79 +105,7 @@ button {
     height: 100%;
 }
 
-/* Search pill */
-.header-search-pill {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    background: #fafafa;
-    border: 1px solid #e5e5e5;
-    border-radius: 30px;
-    height: 44px;
-    overflow: hidden;
-}
-
-.search-field {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 0 12px;
-    height: 44px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.search-field:hover {
-    background: #f2f2f2;
-}
-
-.search-field i {
-    font-size: 16px;
-}
-
-.search-field-content {
-    display: flex;
-    flex-direction: column;
-}
-
-.search-label {
-    font-size: 10px;
-    font-weight: 700;
-    color: #888;
-    letter-spacing: 0.4px;
-}
-
-.search-value {
-    font-size: 13px;
-    color: #222;
-    font-weight: 600;
-}
-
-.search-divider {
-    width: 1px;
-    height: 24px;
-    background: #e5e5e5;
-}
-
-.search-submit {
-    background: var(--red);
-    border: none;
-    color: white;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    transition: background 0.2s, transform 0.2s;
-}
-
-.search-submit:hover {
-    background: #f57655;
-    transform: scale(1.05);
-}
+/* Search pill removed */
 
 /* Header navigation */
 .header-nav {
