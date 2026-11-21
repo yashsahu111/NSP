@@ -4,7 +4,7 @@ const properties = [
     {
         id: 1,
         name: "Zolo HSR Living",
-        location: "Sitapura, Jaipur",
+        location: "HSR Layout, Bangalore",
         price: 12000,
         rating: "4.6",
         reviews: "1.2k",
@@ -24,7 +24,7 @@ const properties = [
     {
         id: 2,
         name: "The Nest PG",
-        location: "Jagatpura, Jaipur",
+        location: "Koramangala, Bangalore",
         price: 10500,
         rating: "4.4",
         reviews: "856",
@@ -44,7 +44,7 @@ const properties = [
     {
         id: 3,
         name: "Stanza Living Sigma",
-        location: "Malviya Nagar, Jaipur",
+        location: "Andheri, Mumbai",
         price: 14000,
         rating: "4.5",
         reviews: "742",
@@ -64,7 +64,7 @@ const properties = [
     {
         id: 4,
         name: "PG Life Residency",
-        location: "Vaishali Nagar, Jaipur",
+        location: "Gurgaon, NCR",
         price: 9500,
         rating: "4.3",
         reviews: "621",
@@ -84,7 +84,7 @@ const properties = [
     {
         id: 5,
         name: "Royal Girls Residence",
-        location: "Mansarovar, Jaipur",
+        location: "South Delhi, Delhi",
         price: 11000,
         rating: "4.8",
         reviews: "520",
@@ -104,7 +104,7 @@ const properties = [
     {
         id: 6,
         name: "Luxury Urban Homes",
-        location: "Jagatpura, Jaipur",
+        location: "Pune, Maharashtra",
         price: 18000,
         rating: "4.9",
         reviews: "380",
@@ -700,7 +700,7 @@ function openAddPgForm() {
                 </select>
 
                 <label>Location</label>
-                <input type="text" id="pgLocation" placeholder="e.g., Malviya Nagar, Jaipur" required>
+                <input type="text" id="pgLocation" placeholder="e.g., Koramangala, Bangalore" required>
 
                 <label>Price per Month (₹)</label>
                 <input type="number" id="pgPrice" min="1000" max="100000" placeholder="12000" required>
