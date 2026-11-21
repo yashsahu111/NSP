@@ -332,16 +332,16 @@ button {
 
 .card-small:first-child {
     z-index: 2;
-    left: 20%;
-    top: 0;
-    transform: rotate(-8deg);
+    left: 15%;
+    top: 20px;
+    transform: rotate(-10deg);
 }
 
 .card-small:last-child {
     z-index: 1;
-    right: 20%;
-    bottom: 0;
-    transform: rotate(8deg);
+    right: 15%;
+    bottom: 20px;
+    transform: rotate(10deg);
 }
 
 .featured-card {
