@@ -341,7 +341,7 @@ function filterProperties() {
 
 function selectCategory(element) {
 
-    document.querySelectorAll(".category").forEach(c =>
+    document.querySelectorAll(".category-pill, .category").forEach(c =>
         c.classList.remove("active")
     );
 
@@ -364,16 +364,18 @@ function showAll() {
     selectedCategory = "All";
     currentSearch = "";
 
-    document.getElementById("headerSearch").value = "";
+    const searchInput = document.getElementById("headerSearch");
+    if (searchInput) searchInput.value = "";
 
-    document.getElementById("occupancy").value = "All";
+    const occupancySelect = document.getElementById("occupancy");
+    if (occupancySelect) occupancySelect.value = "All";
 
-    document.querySelectorAll(".category").forEach(c =>
+    document.querySelectorAll(".category-pill, .category").forEach(c =>
         c.classList.remove("active")
     );
 
-    document.querySelector('[data-category="All"]')
-        .classList.add("active");
+    const allPill = document.querySelector('[data-category="All"]');
+    if (allPill) allPill.classList.add("active");
 
     displayProperties(properties);
 
