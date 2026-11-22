@@ -14,6 +14,11 @@
     --gray: #20232b;
 }
 
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 body {
     background: #f7f8fa;
     color: #20232b;
@@ -1199,54 +1204,157 @@ button {
 @media(max-width: 600px) {
 
     .top-header {
-        height: 65px;
-        padding: 0 10px;
+        height: 64px;
+        padding: 0 16px;
         gap: 8px;
     }
 
     .roomzy-logo .logo-img {
-        width: 32px;
-        height: 32px;
+        width: 34px;
+        height: 34px;
     }
 
     .roomzy-logo .logo-text {
-        font-size: 20px;
+        font-size: 24px;
+        letter-spacing: -0.5px;
     }
 
-    .header-search {
-        height: 37px;
-        padding: 0 7px;
-        gap: 6px;
+    .header-right {
+        gap: 10px;
     }
 
-    .header-search input {
-        font-size: 10px;
-    }
-
-    .header-search i {
+    .student-login-btn {
+        padding: 7px 14px;
         font-size: 13px;
-    }
-
-    .header-city {
-        display: none;
-    }
-
-    .signin-btn {
-        padding: 9px 10px;
-        font-size: 11px;
+        border-radius: 8px;
     }
 
     .menu-btn {
-        font-size: 19px;
+        font-size: 20px;
+        padding: 4px;
+    }
+
+    .menu-dropdown {
+        top: 64px;
+        right: 12px;
+        width: 190px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
     }
 
     .hero {
-        height: 220px;
-        padding: 20px;
+        height: auto;
+        min-height: auto;
+        padding: 24px 16px 36px;
     }
 
-    .hero-content h1 {
-        font-size: 29px;
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .hero-badge {
+        font-size: 11px;
+        padding: 5px 12px;
+        margin-bottom: 12px;
+    }
+
+    .hero-left h1 {
+        font-size: 32px;
+        line-height: 1.15;
+        letter-spacing: -0.8px;
+        margin-bottom: 12px;
+    }
+
+    .hero-desc {
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 0 auto 18px;
+        max-width: 320px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        justify-content: center;
+    }
+
+    .hero-primary-btn {
+        padding: 12px 22px;
+        font-size: 14px;
+    }
+
+    .hero-images {
+        height: 290px;
+        margin-top: 6px;
+        width: 100%;
+        position: relative;
+    }
+
+    .card-small {
+        width: 175px;
+        height: 235px;
+        border-radius: 18px;
+        border: 3px solid white;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    }
+
+    .card-small:first-child {
+        left: calc(50% - 105px);
+        top: 35px;
+        transform: rotate(-7deg);
+    }
+
+    .card-small:last-child {
+        left: calc(50% - 35px);
+        top: 15px;
+        transform: rotate(7deg);
+    }
+}
+
+@media(max-width: 380px) {
+
+    .top-header {
+        padding: 0 12px;
+    }
+
+    .roomzy-logo .logo-text {
+        font-size: 21px;
+    }
+
+    .student-login-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    .hero-left h1 {
+        font-size: 27px;
+    }
+
+    .hero-desc {
+        font-size: 13px;
+        max-width: 280px;
+    }
+
+    .hero-images {
+        height: 260px;
+    }
+
+    .card-small {
+        width: 155px;
+        height: 210px;
+        border-radius: 16px;
+    }
+
+    .card-small:first-child {
+        left: calc(50% - 95px);
+        top: 30px;
+    }
+
+    .card-small:last-child {
+        left: calc(50% - 30px);
+        top: 12px;
     }
 
     .search-box {
