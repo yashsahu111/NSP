@@ -1227,7 +1227,7 @@ displayProperties(properties);
 (function populatePopularGrid() {
     const grid = document.getElementById('popularGrid');
     if (!grid) return;
-    const popularProps = properties.filter(p => [2, 5, 6, 1].includes(p.id));
+    const popularProps = properties.filter(p => [2, 5, 6, 1, 3, 4].includes(p.id));
     grid.innerHTML = popularProps.map(pg => `
         <div class="pg-card" onclick="openPgDetail(${pg.id})">
             <div class="pg-image" onclick="openPgDetail(${pg.id})" style="cursor:pointer" title="View details">
