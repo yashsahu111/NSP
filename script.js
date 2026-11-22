@@ -1190,16 +1190,57 @@ displayProperties = function(data) {
     }, 50);
 };
 
-// ================= FOOTER MODALS & HANDLERS =================
+// Dedicated About Us Page (create it dynamically)
+function openAboutPage() {
+    const main = document.getElementById('homePage');
+    main.style.display = 'none';
 
-function openLegalModal(id) { closeLogin(); document.getElementById(id).classList.add('show'); }
-const openAboutModal = () => openLegalModal('aboutModal');
-const openContactModal = () => openLegalModal('contactModal');
-const openTermsModal = () => openLegalModal('termsModal');
-const openPrivacyModal = () => openLegalModal('privacyModal');
-const openRefundModal = () => openLegalModal('refundModal');
-const openCookiesModal = () => openLegalModal('cookiesModal');
-const closeLegalModal = id => document.getElementById(id).classList.remove('show');
+    // Create/Reuse About Page
+    let about = document.getElementById('aboutPage');
+    if (!about) {
+        about = document.createElement('section');
+        about.id = 'aboutPage';
+        about.className = 'pg-detail-page';
+        about.style.padding = '40px 20px';
+        about.innerHTML = `
+            <div class="pg-detail-container" style="max-width:800px; background:white; padding:40px; border-radius:16px;">
+                <button class="detail-back-btn" onclick="goHome()">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Home
+                </button>
+                <h1>About RoomZy</h1>
+                <p style="margin:20px 0;">RoomZy is your trusted companion in finding the perfect student accommodation. We bridge the gap between verified PG owners and students looking for a home away from home.</p>
+                <h3>Our Mission</h3>
+                <p style="margin:20px 0;">To provide a seamless, transparent, and verified housing experience for students across India, ensuring safety and comfort above all.</p>
+            </div>
+        `;
+        document.body.insertBefore(about, document.getElementById('footer'));
+    }
+    about.hidden = false;
+    document.getElementById('footer').style.display = 'none';
+    window.scrollTo(0,0);
+}
+
+// Update header About Us link
+function openAboutModal() {
+    openAboutPage();
+}
+
+// Utility to close About page
+function goHome() {
+    const about = document.getElementById('aboutPage');
+    if(about) about.hidden = true;
+
+    const detail = document.getElementById('pgDetailPage');
+    if(detail) detail.hidden = true;
+
+    document.getElementById('homePage').style.display = 'block';
+    document.getElementById('footer').style.display = 'block';
+    document.getElementById('loginPage').classList.remove('show');
+
+    // Close menu if open
+    document.getElementById('menuDropdown').classList.remove('show');
+    window.scrollTo(0,0);
+}
 
 // Newsletter handler (works with form's input)
 function handleNewsletter(e) {
