@@ -234,6 +234,94 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 </main>
 
+<!-- ================= SIGN IN PAGE ================= -->
+<div id="loginPage" class="login-page">
+    <div class="login-container">
+        <!-- ROLE SELECTION -->
+        <div id="roleSelection" class="role-selection">
+            <div class="role-card" onclick="selectRole('student')" role="button" tabindex="0">
+                <div class="role-icon student-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <h3>Student</h3>
+                <p>Find a verified PG or co-living space near your campus.</p>
+                <button class="role-button student-button">Continue</button>
+            </div>
+            <div class="role-card" onclick="selectRole('owner')" role="button" tabindex="0">
+                <div class="role-icon owner-icon"><i class="fa-solid fa-building"></i></div>
+                <h3>PG Owner</h3>
+                <p>List your PG, manage bookings and grow your occupancy.</p>
+                <button class="role-button owner-button">Continue</button>
+            </div>
+        </div>
+
+        <!-- STUDENT LOGIN / REGISTER FORM -->
+        <div id="studentForm" class="auth-form" hidden>
+            <button class="back-btn" onclick="backToRoles()">← Back</button>
+            <div class="login-brand">
+                <h1>Welcome back</h1>
+                <p>Sign in to your student account</p>
+            </div>
+            <form id="studentLoginForm" onsubmit="handleLogin(event, 'student')">
+                <label>Email</label>
+                <input type="email" id="studentEmail" placeholder="you@email.com" required>
+                <label>Password</label>
+                <input type="password" id="studentPassword" placeholder="••••••••" required>
+                <button type="submit" class="submit-btn student-submit">Sign In</button>
+            </form>
+            <div class="register-text">
+                Don't have an account? <button type="button" onclick="showRegister('student')">Create Account</button>
+            </div>
+        </div>
+
+        <!-- PG OWNER LOGIN / REGISTER FORM -->
+        <div id="ownerForm" class="auth-form" hidden>
+            <button class="back-btn" onclick="backToRoles()">← Back</button>
+            <div class="login-brand">
+                <h1>Welcome back</h1>
+                <p>Sign in to your PG owner account</p>
+            </div>
+            <form id="ownerLoginForm" onsubmit="handleLogin(event, 'owner')">
+                <label>Email</label>
+                <input type="email" id="ownerEmail" placeholder="you@email.com" required>
+                <label>Password</label>
+                <input type="password" id="ownerPassword" placeholder="••••••••" required>
+                <button type="submit" class="submit-btn owner-submit">Sign In</button>
+            </form>
+            <div class="register-text">
+                Don't have an account? <button type="button" onclick="showRegister('owner')">Create Account</button>
+            </div>
+        </div>
+
+        <!-- REGISTRATION FORM -->
+        <div id="registerForm" class="auth-form" hidden>
+            <button class="back-btn" onclick="backToLoginForm()">← Back</button>
+            <div class="login-brand">
+                <h2 id="registerTitle">Create Account</h2>
+                <p id="registerSubtitle">Join ROOMZY</p>
+            </div>
+            <form id="registrationForm" onsubmit="handleRegister(event)">
+                <label>Full Name</label>
+                <input type="text" id="registerName" placeholder="Enter your full name" required>
+                <label>Email</label>
+                <input type="email" id="registerEmail" placeholder="you@email.com" required>
+                <label>Mobile Number</label>
+                <input type="tel" id="registerPhone" placeholder="10-digit mobile number" required>
+                <label>Password</label>
+                <input type="password" id="registerPassword" placeholder="At least 6 characters" required>
+                <div id="ownerExtra" hidden>
+                    <label>PG / Property Name</label>
+                    <input type="text" id="propertyName" placeholder="e.g., Sunshine PG" required>
+                    <label>PG City</label>
+                    <input type="text" id="propertyCity" placeholder="e.g., Jaipur" required>
+                </div>
+                <button type="submit" class="submit-btn">Create Account</button>
+            </form>
+            <div class="register-text">
+                Already have an account? <button type="button" onclick="backToLoginForm()">Sign In</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- ================= BOOKING MODAL ================= -->
 
 <div id="bookingModal" class="modal">
@@ -277,7 +365,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 
 <!-- ================= FOOTER ================= -->
-<footer class="site-footer">
+<footer class="site-footer" id="footer">
     <div class="footer-container">
         <div class="footer-col brand-col">
             <div class="footer-brand">

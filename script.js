@@ -181,12 +181,14 @@ function setCurrentUser(user) {
 function logout() {
     localStorage.removeItem(SESSION_KEY);
     closeLogin();
+    updateHeaderAccount();
     alert('You have been logged out.');
 }
 
 // Restore session on load
 window.addEventListener('load', () => {
     const user = getCurrentUser();
+    updateHeaderAccount();
     if (user) {
         document.getElementById('homePage').style.display = 'none';
         const loginPage = document.getElementById('loginPage');
@@ -200,6 +202,33 @@ window.addEventListener('load', () => {
         populatePopularGrid();
     }
 });
+
+// Show the signed-in user in the header instead of "Sign in"
+function updateHeaderAccount() {
+    const btn = document.querySelector('.student-login-btn');
+    if (!btn) return;
+    const user = getCurrentUser();
+    if (user) {
+        btn.innerHTML = `<i class="fa-regular fa-circle-user"></i> ${user.name.split(' ')[0]}`;
+        btn.setAttribute('onclick', 'openAccount()');
+        btn.title = 'Open my account';
+    } else {
+        btn.innerHTML = 'Sign in';
+        btn.setAttribute('onclick', 'openLogin()');
+        btn.removeAttribute('title');
+    }
+}
+
+function openAccount() {
+    const user = getCurrentUser();
+    if (!user) { openLogin(); return; }
+    document.getElementById('homePage').style.display = 'none';
+    document.getElementById('loginPage').classList.add('show');
+    document.getElementById('footer').style.display = 'none';
+    document.getElementById('menuDropdown').classList.remove('show');
+    showAccountDashboard(user);
+    window.scrollTo(0, 0);
+}
 
 // ================= STORAGE =================
 
@@ -527,13 +556,15 @@ function showRegister(role) {
 
     document.getElementById("ownerExtra").hidden = !owner;
 
-    document.getElementById("registerIcon").innerHTML =
-        owner
-        ? '<i class="fa-solid fa-building"></i>'
-        : '<i class="fa-solid fa-graduation-cap"></i>';
-
-    document.getElementById("registerIcon").className =
-        "form-icon " + (owner ? "owner-icon" : "student-icon");
+    const iconEl = document.getElementById("registerIcon");
+    if (iconEl) {
+        iconEl.innerHTML =
+            owner
+            ? '<i class="fa-solid fa-building"></i>'
+            : '<i class="fa-solid fa-graduation-cap"></i>';
+        iconEl.className =
+            "form-icon " + (owner ? "owner-icon" : "student-icon");
+    }
 }
 
 function backToLoginForm() {
@@ -602,10 +633,54 @@ function handleLogin(event, role) {
         setCurrentUser(user);
         alert(`Welcome back, ${user.name}!`);
         closeLogin();
-        // UI updates for logged-in state
+        updateHeaderAccount();
+        showAccountDashboard(user);
     } else {
         alert("Invalid email or password!");
     }
+}
+
+function handleRegister(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("registerName").value;
+    const email = document.getElementById("registerEmail").value;
+    const phone = document.getElementById("registerPhone").value;
+    const password = document.getElementById("registerPassword").value;
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+        alert("Enter a valid 10-digit mobile number.");
+        return;
+    }
+
+    if (password.length < 6) {
+        alert("Password must contain at least 6 characters.");
+        return;
+    }
+
+    const users = getUsers();
+    if (users[email]) {
+        alert("User already exists with this email!");
+        return;
+    }
+
+    const userData = {
+        name,
+        email,
+        phone,
+        password,
+        role: currentRole,
+        propertyName: document.getElementById("propertyName").value,
+        propertyCity: document.getElementById("propertyCity").value,
+        timestamp: new Date().toISOString()
+    };
+
+    users[email] = userData;
+    saveUsers(users);
+
+    alert("Registration successful! Please login.");
+    backToRoles();
+    updateHeaderAccount();
 }
 
 function showAccountDashboard(user) {
