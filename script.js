@@ -583,6 +583,7 @@ function handleRegister(event) {
     const email = document.getElementById("registerEmail").value;
     const phone = document.getElementById("registerPhone").value;
     const password = document.getElementById("registerPassword").value;
+    const confirmPassword = document.getElementById("registerConfirmPassword").value;
 
     if (!/^[0-9]{10}$/.test(phone)) {
         alert("Enter a valid 10-digit mobile number.");
@@ -594,67 +595,8 @@ function handleRegister(event) {
         return;
     }
 
-    const users = getUsers();
-    if (users[email]) {
-        alert("User already exists with this email!");
-        return;
-    }
-
-    const userData = {
-        name,
-        email,
-        phone,
-        password,
-        role: currentRole,
-        propertyName: document.getElementById("propertyName").value,
-        propertyCity: document.getElementById("propertyCity").value,
-        timestamp: new Date().toISOString()
-    };
-
-    users[email] = userData;
-    saveUsers(users);
-
-    alert("Registration successful! Please login.");
-    backToRoles();
-}
-
-// ================= LOGIN =================
-
-function handleLogin(event, role) {
-    event.preventDefault();
-
-    const email = document.getElementById(`${role}Email`).value;
-    const password = document.getElementById(`${role}Password`).value;
-
-    const users = getUsers();
-    const user = users[email];
-
-    if (user && user.password === password && user.role === role) {
-        setCurrentUser(user);
-        alert(`Welcome back, ${user.name}!`);
-        closeLogin();
-        updateHeaderAccount();
-        showAccountDashboard(user);
-    } else {
-        alert("Invalid email or password!");
-    }
-}
-
-function handleRegister(event) {
-    event.preventDefault();
-
-    const name = document.getElementById("registerName").value;
-    const email = document.getElementById("registerEmail").value;
-    const phone = document.getElementById("registerPhone").value;
-    const password = document.getElementById("registerPassword").value;
-
-    if (!/^[0-9]{10}$/.test(phone)) {
-        alert("Enter a valid 10-digit mobile number.");
-        return;
-    }
-
-    if (password.length < 6) {
-        alert("Password must contain at least 6 characters.");
+    if (password !== confirmPassword) {
+        alert("Password and Confirm Password do not match!");
         return;
     }
 
@@ -681,6 +623,28 @@ function handleRegister(event) {
     alert("Registration successful! Please login.");
     backToRoles();
     updateHeaderAccount();
+}
+
+// ================= LOGIN =================
+
+function handleLogin(event, role) {
+    event.preventDefault();
+
+    const email = document.getElementById(`${role}Email`).value;
+    const password = document.getElementById(`${role}Password`).value;
+
+    const users = getUsers();
+    const user = users[email];
+
+    if (user && user.password === password && user.role === role) {
+        setCurrentUser(user);
+        alert(`Welcome back, ${user.name}!`);
+        closeLogin();
+        updateHeaderAccount();
+        showAccountDashboard(user);
+    } else {
+        alert("Invalid email or password!");
+    }
 }
 
 function showAccountDashboard(user) {
