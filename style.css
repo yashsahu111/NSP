@@ -2691,6 +2691,83 @@ button {
     }
 }
 
+/* ================= FOOTER ================= */
+
+.site-footer {
+    padding: 32px 5%;
+    background: #fff;
+    border-top: 1px solid #f0f0f4;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.footer-logo {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+}
+
+.footer-brand-text {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--dark);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+}
+
+.footer-brand-text .brand-highlight {
+    color: var(--red);
+}
+
+.footer-links {
+    display: flex;
+    gap: 24px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #667085;
+    font-size: 14px;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: var(--red);
+}
+
+.footer-copy p {
+    font-size: 13px;
+    color: #9aa3b2;
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .site-footer {
+        padding: 24px 16px;
+    }
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+}
+
 @media(max-width: 600px) {
     .pg-detail-page {
         padding: 12px;
