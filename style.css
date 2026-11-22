@@ -365,15 +365,15 @@ button {
 /* ================= TOP RATED PGS SECTION ================= */
 
 .pg-section {
-    padding: 70px 5% 90px;
+    padding: 70px 0 90px;
     background: #fbfbfc;
     border-top: 1px solid #f0f0f4;
 }
 
 .section-container {
-    max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 5%;
+    padding: 0 3%;
 }
 
 .section-heading {
@@ -382,7 +382,6 @@ button {
     align-items: flex-end;
     margin-bottom: 36px;
     gap: 20px;
-    text-align: center;
 }
 
 .section-badge {
@@ -1755,28 +1754,11 @@ button {
     }
 
     .pg-section {
-        margin: 20px 12px;
+        padding: 40px 0 55px;
     }
 
     .pg-grid {
-        gap: 10px;
-    }
-
-    .pg-image {
-        height: 100px;
-    }
-
-    .pg-info h3 {
-        font-size: 11px;
-    }
-
-    .pg-location,
-    .pg-amenities {
-        font-size: 9px;
-    }
-
-    .price {
-        font-size: 12px;
+        gap: 12px;
     }
 
     .login-page {
