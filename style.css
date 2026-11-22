@@ -365,7 +365,7 @@ button {
 /* ================= TOP RATED PGS SECTION ================= */
 
 .pg-section {
-    padding: 70px 0 90px;
+    padding: 70px 5% 90px;
     background: #fbfbfc;
     border-top: 1px solid #f0f0f4;
 }
@@ -444,14 +444,14 @@ button {
 
 .pg-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
+    grid-template-columns: 1fr;
+    gap: 20px;
 }
 
 .pg-card {
     background: white;
     border: 1px solid #ebebeb;
-    border-radius: 18px;
+    border-radius: 24px;
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
