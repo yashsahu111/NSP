@@ -382,6 +382,7 @@ button {
     align-items: flex-end;
     margin-bottom: 36px;
     gap: 20px;
+    text-align: center;
 }
 
 .section-badge {
@@ -444,8 +445,8 @@ button {
 
 .pg-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
 }
 
 .pg-card {
