@@ -365,15 +365,14 @@ button {
 /* ================= TOP RATED PGS SECTION ================= */
 
 .pg-section {
-    padding: 36px 5% 0;
+    padding: 36px 0 0;
     background: #fbfbfc;
     border-top: 1px solid #f0f0f4;
 }
 
 .section-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0;
+    width: 100%;
+    padding: 0 5%;
 }
 
 .section-heading {
