@@ -189,14 +189,15 @@ window.addEventListener('load', () => {
     const user = getCurrentUser();
     if (user) {
         document.getElementById('homePage').style.display = 'none';
-        document.getElementById('loginPage').classList.add('show');
-        
-        document.getElementById('footer').style.display = 'none';
+        const loginPage = document.getElementById('loginPage');
+        if (loginPage) loginPage.classList.add('show');
+        const footer = document.getElementById('footer');
+        if (footer) footer.style.display = 'none';
         showAccountDashboard(user);
     } else {
         // Render PGs on the home page
         displayProperties(properties);
-        if (typeof populatePopularGrid === 'function') populatePopularGrid();
+        populatePopularGrid();
     }
 });
 
@@ -317,7 +318,8 @@ function filterProperties() {
 
     }
 
-    const occupancy = document.getElementById("occupancy").value;
+    const occupancyEl = document.getElementById("occupancy");
+    const occupancy = occupancyEl ? occupancyEl.value : "All";
 
     if (occupancy !== "All") {
         result = result.filter(
@@ -384,14 +386,13 @@ function showAll() {
 
 // ================= HEADER SEARCH =================
 
-document.getElementById("headerSearch")
-.addEventListener("input", function() {
-
-    currentSearch = this.value.trim().toLowerCase();
-
-    filterProperties();
-
-});
+const headerSearchInput = document.getElementById("headerSearch");
+if (headerSearchInput) {
+    headerSearchInput.addEventListener("input", function() {
+        currentSearch = this.value.trim().toLowerCase();
+        filterProperties();
+    });
+}
 
 
 // ================= CITY CHANGE =================
@@ -1222,9 +1223,10 @@ window.addEventListener('load', () => {
 });
 
 displayProperties(properties);
+populatePopularGrid();
 
 // Populate Popular PGs grid
-(function populatePopularGrid() {
+function populatePopularGrid() {
     const grid = document.getElementById('popularGrid');
     if (!grid) return;
     const popularProps = properties.filter(p => [2, 5, 6, 1, 3, 4].includes(p.id));
@@ -1252,4 +1254,4 @@ displayProperties(properties);
             </div>
         </div>
     `).join('');
-})();
+}
