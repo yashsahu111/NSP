@@ -484,9 +484,19 @@ function closeLogin() {
 // BACK TO HOMEPAGE
 
 function goHome() {
-
     closeLogin();
 
+    const about = document.getElementById('aboutPage');
+    if (about) about.hidden = true;
+
+    const detail = document.getElementById('pgDetailPage');
+    if (detail) detail.hidden = true;
+
+    document.getElementById('homePage').style.display = 'block';
+    document.getElementById('footer').style.display = 'block';
+
+    document.getElementById('menuDropdown').classList.remove('show');
+    window.scrollTo(0, 0);
 }
 
 
@@ -1223,23 +1233,6 @@ function openAboutPage() {
 // Update header About Us link
 function openAboutModal() {
     openAboutPage();
-}
-
-// Utility to close About page
-function goHome() {
-    const about = document.getElementById('aboutPage');
-    if(about) about.hidden = true;
-
-    const detail = document.getElementById('pgDetailPage');
-    if(detail) detail.hidden = true;
-
-    document.getElementById('homePage').style.display = 'block';
-    document.getElementById('footer').style.display = 'block';
-    document.getElementById('loginPage').classList.remove('show');
-
-    // Close menu if open
-    document.getElementById('menuDropdown').classList.remove('show');
-    window.scrollTo(0,0);
 }
 
 // Newsletter handler (works with form's input)
