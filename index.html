@@ -82,17 +82,63 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
                 </div>
             </div>
         </div>
+    </section>
 
+    <!-- ================= TOP RATED PGS SECTION ================= -->
 
+    <section class="pg-section" id="pgSection">
+        <div class="section-container">
+            <div class="section-heading">
+                <div class="heading-content">
+                    <div class="section-badge">
+                        <i class="fa-solid fa-star"></i> Handpicked & Verified
+                    </div>
+                    <h2>Top Rated PGs</h2>
+                    <p class="section-subheading">Browse our highest-rated student accommodations and co-living spaces.</p>
+                </div>
+                <button class="view-all-btn" onclick="showAll()">View all <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
 
+            <div class="pg-grid" id="pgGrid"></div>
 
-    
-
-
-
-    
+            <div class="no-results" id="noResults" hidden>
+                <i class="fa-solid fa-magnifying-glass" style="font-size:32px;color:var(--red);margin-bottom:12px;"></i>
+                <h3>No PGs found</h3>
+                <p>Try resetting filters or check back later.</p>
+                <button onclick="showAll()">Show All PGs</button>
+            </div>
+        </div>
+    </section>
 
 </main>
+
+<!-- ================= BOOKING MODAL ================= -->
+
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeBookModal()">&times;</button>
+        <h2 id="modalTitle">Book Your Stay</h2>
+        <p id="modalSub">Complete your details to confirm booking.</p>
+
+        <form id="bookingForm" onsubmit="handleBooking(event)">
+            <input type="hidden" id="bookPgId">
+            <div class="form-row">
+                <div>
+                    <label>Check-in Date</label>
+                    <input type="date" id="bookDate" required>
+                </div>
+                <div>
+                    <label>Duration (Months)</label>
+                    <input type="number" id="bookMonths" min="1" value="6" required>
+                </div>
+            </div>
+            <label>Notes (Optional)</label>
+            <textarea id="bookNotes" placeholder="Any special requests?"></textarea>
+
+            <button type="submit" class="confirm-btn">Confirm Booking</button>
+        </form>
+    </div>
+</div>
 
 
 

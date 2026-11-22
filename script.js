@@ -961,7 +961,6 @@ function openMyBookings() {
     document.getElementById('loginPage').classList.remove('show');
 
     // Update bottom nav
-    );
     document.querySelector('[onclick="openLogin()"] i').parentElement.classList.add('selected');
 }
 
