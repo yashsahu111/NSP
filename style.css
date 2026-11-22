@@ -371,17 +371,21 @@ button {
 }
 
 .section-container {
-    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 3%;
+    padding: 0 5%;
 }
 
 .section-heading {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: flex-end;
     margin-bottom: 36px;
     gap: 20px;
+}
+
+.heading-content {
+    padding-left: 0;
 }
 
 .section-badge {
@@ -1628,6 +1632,10 @@ button {
     }
     .section-container {
         padding: 0 16px;
+    }
+
+    .heading-content {
+        padding-left: 0;
     }
     .pg-grid {
         grid-template-columns: 1fr;
