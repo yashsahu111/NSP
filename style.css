@@ -2041,6 +2041,10 @@ button {
     grid-template-columns: repeat(3, 1fr);
 }
 
+.testimonial-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
 .why-choose-grid {
     grid-template-columns: repeat(4, 1fr);
 }
