@@ -903,8 +903,34 @@ button {
 .login-page {
     display: none;
     min-height: calc(100vh - 72px);
-    background: #fff;
-    padding: 35px 15px 50px;
+    background: linear-gradient(160deg, #fff5f2 0%, #f7f8fa 60%, #eef2ff 100%);
+    padding: 50px 15px 60px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.login-page::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 360px;
+    height: 360px;
+    background: radial-gradient(circle, rgba(245,118,85,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.login-page::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(245,118,85,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
 }
 
 .login-page.show {
@@ -912,22 +938,31 @@ button {
 }
 
 .login-container {
-    max-width: 850px;
+    max-width: 900px;
     margin: auto;
     background: white;
-    border-radius: 18px;
-    padding: 30px 40px;
-    box-shadow: 0 10px 40px #20232b0c;
+    border-radius: 24px;
+    padding: 44px 40px;
+    box-shadow: 0 20px 60px rgba(32,35,43,0.08);
     position: relative;
+    z-index: 1;
 }
 
 .back-btn,
 .form-back {
     background: none;
     border: none;
-    color: #555;
+    color: var(--red);
     font-size: 14px;
+    font-weight: 600;
     margin-bottom: 20px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.back-btn:hover,
+.form-back:hover {
+    text-decoration: underline;
 }
 
 .login-brand {
@@ -958,6 +993,7 @@ button {
     font-size: 11px;
     font-weight: 700;
     margin-top: 5px;
+    color: var(--gray);
 }
 
 .login-heading {
@@ -999,9 +1035,10 @@ button {
 }
 
 .social-btn:hover {
-    border-color: var(--purple);
+    border-color: var(--red);
     background: #fff0ec;
     transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(245,118,85,0.15);
 }
 
 .social-btn i {
@@ -1041,79 +1078,94 @@ button {
 
 .role-card {
     border: 1px solid #e7e7e7;
-    border-radius: 14px;
-    padding: 28px 22px;
+    border-radius: 18px;
+    padding: 32px 24px;
     text-align: center;
     transition: .25s;
     cursor: pointer;
+    background: linear-gradient(180deg, #fff 0%, #fafafa 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.role-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--red), #ffb099);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .3s ease;
 }
 
 .role-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px #20232b12;
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(32,35,43,0.12);
     border-color: #fff0ec;
+}
+
+.role-card:hover::before {
+    transform: scaleX(1);
 }
 
 .role-icon,
 .form-icon {
-    width: 75px;
-    height: 75px;
-    margin: 0 auto 18px;
-    border-radius: 18px;
+    width: 84px;
+    height: 84px;
+    margin: 0 auto 20px;
+    border-radius: 22px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    font-size: 32px;
+    font-size: 36px;
+    background: linear-gradient(135deg, #fff0ec, #fff);
+    box-shadow: 0 6px 18px rgba(245,118,85,0.12);
 }
 
 .student-icon {
-    background: #fff0ec;
-    color: var(--purple);
+    color: var(--red);
 }
 
 .owner-icon {
-    background: #fff0ec;
-    color: var(--orange);
+    color: var(--red);
 }
 
 .role-card h3 {
-    font-size: 19px;
+    font-size: 21px;
     margin-bottom: 10px;
+    color: var(--dark);
 }
 
 .role-card p {
     color: var(--gray);
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.7;
     min-height: 65px;
 }
 
 .role-button {
     width: 100%;
-    padding: 13px 10px;
+    padding: 14px 10px;
     border: none;
-    border-radius: 8px;
-    margin-top: 15px;
-    font-size: 13px;
+    border-radius: 10px;
+    margin-top: 18px;
+    font-size: 14px;
     font-weight: 700;
     color: white;
+    background: var(--red);
+    transition: .2s;
+    box-shadow: 0 6px 16px rgba(245,118,85,0.3);
 }
 
-.student-button,
-.student-submit {
-    background: var(--purple);
-}
-
-.owner-button,
-.owner-submit {
-    background: var(--orange);
-}
-
-.role-button:hover,
-.submit-btn:hover {
-    opacity: .88;
+.role-button:hover {
+    opacity: .92;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(245,118,85,0.4);
 }
 
 
@@ -1168,20 +1220,49 @@ button {
     box-shadow: 0 0 0 3px #f5765512;
 }
 
+.back-to-home {
+    display: block;
+    text-align: center;
+    margin-top: 22px;
+    color: var(--red);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.back-to-home:hover {
+    text-decoration: underline;
+}
+
 .submit-btn {
     width: 100%;
     padding: 14px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     color: white;
     font-size: 15px;
     font-weight: 700;
     margin-top: 22px;
-    background: var(--purple);
+    background: var(--red);
+    transition: .2s;
+    box-shadow: 0 6px 16px rgba(245,118,85,0.3);
 }
 
-.owner-submit {
-    background: var(--orange);
+.submit-btn:hover {
+    opacity: .92;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(245,118,85,0.4);
+}
+
+.student-submit,
+.student-button {
+    background: var(--red);
+}
+
+.owner-submit,
+.owner-button {
+    background: var(--red);
 }
 
 .register-text {

@@ -253,6 +253,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
             </div>
         </div>
 
+        <div class="back-to-home" onclick="goHome()">← Back to Home</div>
+
         <!-- STUDENT LOGIN / REGISTER FORM -->
         <div id="studentForm" class="auth-form" hidden>
             <button class="back-btn" onclick="backToRoles()">← Back</button>
@@ -267,6 +269,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
                 <input type="password" id="studentPassword" placeholder="••••••••" required>
                 <button type="submit" class="submit-btn student-submit">Sign In</button>
             </form>
+            <div class="social-divider">or continue with</div>
+            <div class="social-login">
+                <button class="social-btn" onclick="alert('Google login coming soon')"><i class="fa-brands fa-google"></i> Google</button>
+                <button class="social-btn" onclick="alert('Facebook login coming soon')"><i class="fa-brands fa-facebook"></i> Facebook</button>
+            </div>
             <div class="register-text">
                 Don't have an account? <button type="button" onclick="showRegister('student')">Create Account</button>
             </div>
@@ -286,6 +293,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
                 <input type="password" id="ownerPassword" placeholder="••••••••" required>
                 <button type="submit" class="submit-btn owner-submit">Sign In</button>
             </form>
+            <div class="social-divider">or continue with</div>
+            <div class="social-login">
+                <button class="social-btn" onclick="alert('Google login coming soon')"><i class="fa-brands fa-google"></i> Google</button>
+                <button class="social-btn" onclick="alert('Facebook login coming soon')"><i class="fa-brands fa-facebook"></i> Facebook</button>
+            </div>
             <div class="register-text">
                 Don't have an account? <button type="button" onclick="showRegister('owner')">Create Account</button>
             </div>
