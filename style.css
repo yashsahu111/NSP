@@ -2193,40 +2193,6 @@ button {
     }
 }
 
-/* Mobile: compact Why Choose RoomZy cards */
-@media (max-width: 600px) {
-    .why-choose-section {
-        padding: 28px 16px 40px;
-    }
-    .why-choose-section .section-heading h2 {
-        font-size: 22px;
-    }
-    .why-choose-section .section-subheading {
-        font-size: 12px;
-    }
-    .why-choose-grid {
-        gap: 12px;
-    }
-    .why-choose-card {
-        padding: 18px 14px;
-        border-radius: 14px;
-    }
-    .why-choose-icon {
-        width: 52px;
-        height: 52px;
-        font-size: 22px;
-        margin-bottom: 12px;
-    }
-    .why-choose-card h3 {
-        font-size: 15px;
-        margin-bottom: 4px;
-    }
-    .why-choose-card p {
-        font-size: 11px;
-        line-height: 1.4;
-    }
-}
-
 .owner-pg-card {
     display: flex;
     gap: 16px;
@@ -2235,6 +2201,70 @@ button {
     border-radius: 12px;
     padding: 12px;
     transition: all 0.2s ease;
+}
+
+/* ================= MOBILE: Why Choose RoomZy as horizontal carousel ================= */
+
+@media (max-width: 600px) {
+    .why-choose-section {
+        padding: 32px 16px 40px;
+    }
+    .why-choose-section .section-heading {
+        margin-bottom: 20px;
+    }
+    .why-choose-section .section-heading h2 {
+        font-size: 24px;
+    }
+    .why-choose-section .section-subheading {
+        font-size: 13px;
+    }
+    .why-choose-grid {
+        display: flex;
+        overflow-x: auto;
+        gap: 14px;
+        padding: 8px 4px 16px;
+        margin: 0 -4px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .why-choose-grid::-webkit-scrollbar {
+        display: none;
+    }
+    .why-choose-card {
+        flex: 0 0 auto;
+        width: 220px;
+        min-width: 220px;
+        scroll-snap-align: start;
+        padding: 22px 18px;
+        border-radius: 16px;
+        background: #fff;
+        border: 1px solid #f0f0f4;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    }
+    .why-choose-card:hover {
+        transform: none;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        border-color: var(--red);
+    }
+    .why-choose-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+        margin-bottom: 14px;
+        background: #fff0ec;
+        color: var(--red);
+        border-radius: 16px;
+    }
+    .why-choose-card h3 {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+    .why-choose-card p {
+        font-size: 12px;
+        line-height: 1.5;
+        color: #667085;
+    }
 }
 
 .owner-pg-card:hover {
