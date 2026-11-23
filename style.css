@@ -2193,6 +2193,40 @@ button {
     }
 }
 
+/* Mobile: compact Why Choose RoomZy cards */
+@media (max-width: 600px) {
+    .why-choose-section {
+        padding: 28px 16px 40px;
+    }
+    .why-choose-section .section-heading h2 {
+        font-size: 22px;
+    }
+    .why-choose-section .section-subheading {
+        font-size: 12px;
+    }
+    .why-choose-grid {
+        gap: 12px;
+    }
+    .why-choose-card {
+        padding: 18px 14px;
+        border-radius: 14px;
+    }
+    .why-choose-icon {
+        width: 52px;
+        height: 52px;
+        font-size: 22px;
+        margin-bottom: 12px;
+    }
+    .why-choose-card h3 {
+        font-size: 15px;
+        margin-bottom: 4px;
+    }
+    .why-choose-card p {
+        font-size: 11px;
+        line-height: 1.4;
+    }
+}
+
 .owner-pg-card {
     display: flex;
     gap: 16px;
