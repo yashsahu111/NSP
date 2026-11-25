@@ -616,17 +616,20 @@ function resetStudentOtpState(isStudent) {
         sendBtn.classList.remove("verified");
         sendBtn.textContent = "Send OTP";
     }
-    if (otpBox) otpBox.hidden = true;
+    if (otpBox) otpBox.hidden = !isStudent;
     if (otpInput) {
         otpInput.value = "";
         otpInput.disabled = false;
     }
     if (verifyBtn) {
         verifyBtn.disabled = false;
+        verifyBtn.classList.remove("verified");
         verifyBtn.textContent = "Verify OTP";
     }
     if (statusMsg) {
-        statusMsg.textContent = "";
+        statusMsg.textContent = isStudent
+            ? 'Click "Send OTP" above to receive your 6-digit verification code.'
+            : "";
         statusMsg.className = "otp-status-msg";
     }
 }
@@ -801,7 +804,16 @@ async function handleVerifyOtp() {
             sendBtn.classList.add("verified");
             sendBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Verified';
         }
-        if (otpBox) otpBox.hidden = true;
+        if (otpInput) otpInput.disabled = true;
+        if (verifyBtn) {
+            verifyBtn.disabled = true;
+            verifyBtn.classList.add("verified");
+            verifyBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Verified';
+        }
+        if (statusMsg) {
+            statusMsg.className = "otp-status-msg success";
+            statusMsg.textContent = "Mobile number verified! You can now click Create Account.";
+        }
         showToast("Mobile number verified!");
     } catch (_) {
         if (verifyBtn) {
