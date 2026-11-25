@@ -165,6 +165,18 @@ function deleteOwnerProperty(id) {
 
 const USERS_KEY = 'roomzyUsers';
 const SESSION_KEY = 'roomzySession';
+const TOKEN_KEY = 'roomzyToken';
+let initialLoginMarkup = null;
+
+function ensureLoginMarkup() {
+    const container = document.querySelector('.login-container');
+    if (!container) return;
+    if (!initialLoginMarkup) {
+        initialLoginMarkup = container.innerHTML;
+    } else if (!document.getElementById('roleSelection')) {
+        container.innerHTML = initialLoginMarkup;
+    }
+}
 
 function getUsers() {
     return JSON.parse(localStorage.getItem(USERS_KEY) || '{}');
@@ -175,19 +187,52 @@ function saveUsers(users) {
 function getCurrentUser() {
     return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
 }
-function setCurrentUser(user) {
+function setCurrentUser(user, token) {
     localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+    if (token) {
+        localStorage.setItem(TOKEN_KEY, token);
+    }
 }
-function logout() {
+function getAuthToken() {
+    return localStorage.getItem(TOKEN_KEY);
+}
+async function logout() {
+    try {
+        await fetch('/api/auth/logout', { method: 'POST' });
+    } catch (_) {}
     localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(TOKEN_KEY);
+    ensureLoginMarkup();
     closeLogin();
     updateHeaderAccount();
     alert('You have been logged out.');
 }
 
 // Restore session on load
-window.addEventListener('load', () => {
-    const user = getCurrentUser();
+window.addEventListener('load', async () => {
+    ensureLoginMarkup();
+    const token = getAuthToken();
+    let user = getCurrentUser();
+
+    if (token) {
+        try {
+            const res = await fetch('/api/auth/me', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (res.ok) {
+                const data = await res.json();
+                user = data.user;
+                setCurrentUser(user, token);
+            } else {
+                localStorage.removeItem(SESSION_KEY);
+                localStorage.removeItem(TOKEN_KEY);
+                user = null;
+            }
+        } catch (_) {
+            // Keep cached session if network temporarily fails
+        }
+    }
+
     updateHeaderAccount();
     if (user) {
         document.getElementById('homePage').style.display = 'none';
@@ -446,6 +491,7 @@ function changeCity() {
 // OPEN LOGIN PAGE
 
 function openLogin() {
+    ensureLoginMarkup();
 
     document.getElementById("homePage").style.display = "none";
 
@@ -565,6 +611,8 @@ function showRegister(role) {
         : "Create your student account on ROOMZY.";
 
     document.getElementById("ownerExtra").hidden = !owner;
+    document.getElementById("propertyName").required = owner;
+    document.getElementById("propertyCity").required = owner;
 
     const iconEl = document.getElementById("registerIcon");
     if (iconEl) {
@@ -586,14 +634,16 @@ function backToLoginForm() {
     }
 }
 
-function handleRegister(event) {
+async function handleRegister(event) {
     event.preventDefault();
 
-    const name = document.getElementById("registerName").value;
-    const email = document.getElementById("registerEmail").value;
-    const phone = document.getElementById("registerPhone").value;
+    const name = document.getElementById("registerName").value.trim();
+    const email = document.getElementById("registerEmail").value.trim();
+    const phone = document.getElementById("registerPhone").value.trim();
     const password = document.getElementById("registerPassword").value;
     const confirmPassword = document.getElementById("registerConfirmPassword").value;
+    const propertyName = document.getElementById("propertyName").value.trim();
+    const propertyCity = document.getElementById("propertyCity").value.trim();
 
     if (!/^[0-9]{10}$/.test(phone)) {
         alert("Enter a valid 10-digit mobile number.");
@@ -610,58 +660,81 @@ function handleRegister(event) {
         return;
     }
 
-    const users = getUsers();
-    if (users[email]) {
-        alert("User already exists with this email!");
-        return;
+    try {
+        const res = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name,
+                email,
+                phone,
+                password,
+                role: currentRole || 'student',
+                propertyName,
+                propertyCity
+            })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.error || "Registration failed. Please try again.");
+            return;
+        }
+
+        const regForm = document.getElementById("registrationForm");
+        if (regForm) regForm.reset();
+
+        alert(data.message || "Registration successful! Please login.");
+        backToLoginForm();
+        updateHeaderAccount();
+    } catch (err) {
+        alert("Unable to connect to server. Please try again.");
     }
-
-    const userData = {
-        name,
-        email,
-        phone,
-        password,
-        role: currentRole,
-        propertyName: document.getElementById("propertyName").value,
-        propertyCity: document.getElementById("propertyCity").value,
-        timestamp: new Date().toISOString()
-    };
-
-    users[email] = userData;
-    saveUsers(users);
-
-    alert("Registration successful! Please login.");
-    backToRoles();
-    updateHeaderAccount();
 }
 
 // ================= LOGIN =================
 
-function handleLogin(event, role) {
+async function handleLogin(event, role) {
     event.preventDefault();
 
-    const email = document.getElementById(`${role}Email`).value;
+    const email = document.getElementById(`${role}Email`).value.trim();
     const password = document.getElementById(`${role}Password`).value;
 
-    const users = getUsers();
-    const user = users[email];
+    try {
+        const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password, role })
+        });
 
-    if (user && user.password === password && user.role === role) {
-        setCurrentUser(user);
-        alert(`Welcome back, ${user.name}!`);
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.error || "Invalid email or password!");
+            return;
+        }
+
+        setCurrentUser(data.user, data.token);
+        alert(data.message || `Welcome back, ${data.user.name}!`);
         closeLogin();
         updateHeaderAccount();
-        showAccountDashboard(user);
-    } else {
-        alert("Invalid email or password!");
+        showAccountDashboard(data.user);
+    } catch (err) {
+        alert("Unable to connect to server. Please try again.");
     }
 }
 
 function showAccountDashboard(user) {
-    document.getElementById('roleSelection').hidden = true;
-    document.getElementById('studentForm').hidden = true;
-    document.getElementById('ownerForm').hidden = true;
-    document.getElementById('registerForm').hidden = true;
+    ensureLoginMarkup();
+    const roleEl = document.getElementById('roleSelection');
+    const studentEl = document.getElementById('studentForm');
+    const ownerEl = document.getElementById('ownerForm');
+    const regEl = document.getElementById('registerForm');
+    if (roleEl) roleEl.hidden = true;
+    if (studentEl) studentEl.hidden = true;
+    if (ownerEl) ownerEl.hidden = true;
+    if (regEl) regEl.hidden = true;
 
     const container = document.querySelector('.login-container');
 
