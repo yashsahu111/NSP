@@ -7,7 +7,7 @@
 <title>RoomZy | Find Your Perfect PG</title>
 <link rel="icon" type="image/png" href="logo.png">
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=2">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -321,11 +321,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
                     <button type="button" id="sendOtpBtn" class="otp-action-btn" onclick="handleSendOtp()" hidden>Send OTP</button>
                 </div>
                 <div id="studentOtpBox" class="otp-verify-box" hidden>
+                    <label>Mobile OTP Verification</label>
                     <div class="phone-otp-group">
                         <input type="text" id="registerOtpInput" placeholder="Enter 6-digit OTP" maxlength="6" inputmode="numeric">
                         <button type="button" id="verifyOtpBtn" class="otp-action-btn otp-verify-btn" onclick="handleVerifyOtp()">Verify OTP</button>
                     </div>
-                    <p id="otpStatusMsg" class="otp-status-msg"></p>
+                    <p id="otpStatusMsg" class="otp-status-msg">Click "Send OTP" above to receive your 6-digit verification code.</p>
                 </div>
                 <label>Password</label>
                 <input type="password" id="registerPassword" placeholder="At least 6 characters" required>
@@ -436,7 +437,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     </div>
 </footer>
 
-<script src="script.js"></script>
+<script src="script.js?v=2"></script>
 
 <!-- Auto-update copyright year -->
 <script>
