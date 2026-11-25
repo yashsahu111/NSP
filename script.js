@@ -675,10 +675,13 @@ async function handleRegister(event) {
             })
         });
 
-        const data = await res.json();
+        let data = {};
+        try {
+            data = await res.json();
+        } catch (_) {}
 
         if (!res.ok) {
-            alert(data.error || "Registration failed. Please try again.");
+            alert(data.error || `Registration failed (${res.status}). Please try again.`);
             return;
         }
 
@@ -708,7 +711,10 @@ async function handleLogin(event, role) {
             body: JSON.stringify({ email, password, role })
         });
 
-        const data = await res.json();
+        let data = {};
+        try {
+            data = await res.json();
+        } catch (_) {}
 
         if (!res.ok) {
             alert(data.error || "Invalid email or password!");
