@@ -979,9 +979,9 @@ button {
 
 .login-brand h1 {
     color: var(--dark);
-    font-size: 35px;
+    font-size: 32px;
     font-weight: 800;
-    letter-spacing: 2px;
+    letter-spacing: -0.5px;
 }
 
 .login-brand h1 span {
@@ -989,11 +989,11 @@ button {
 }
 
 .login-brand p {
-    letter-spacing: 5px;
-    font-size: 11px;
-    font-weight: 700;
-    margin-top: 5px;
-    color: var(--gray);
+    letter-spacing: normal;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 6px;
+    color: #667085;
 }
 
 .login-heading {
@@ -1269,12 +1269,26 @@ button {
     text-align: center;
     font-size: 13px;
     margin-top: 20px;
+    color: #667085;
 }
 
-.register-text a {
+.register-text a,
+.register-text button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 4px;
     color: var(--purple);
+    font-size: 13px;
     font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
     text-decoration: none;
+}
+
+.register-text a:hover,
+.register-text button:hover {
+    text-decoration: underline;
 }
 
 .login-footer {
