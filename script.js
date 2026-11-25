@@ -592,6 +592,226 @@ function backToRoles() {
 
 // ================= REGISTRATION =================
 
+let studentOtpVerificationToken = "";
+let studentVerifiedPhone = "";
+let otpResendInterval = null;
+
+function resetStudentOtpState(isStudent) {
+    studentOtpVerificationToken = "";
+    studentVerifiedPhone = "";
+    if (otpResendInterval) {
+        clearInterval(otpResendInterval);
+        otpResendInterval = null;
+    }
+
+    const sendBtn = document.getElementById("sendOtpBtn");
+    const otpBox = document.getElementById("studentOtpBox");
+    const otpInput = document.getElementById("registerOtpInput");
+    const statusMsg = document.getElementById("otpStatusMsg");
+    const verifyBtn = document.getElementById("verifyOtpBtn");
+
+    if (sendBtn) {
+        sendBtn.hidden = !isStudent;
+        sendBtn.disabled = false;
+        sendBtn.classList.remove("verified");
+        sendBtn.textContent = "Send OTP";
+    }
+    if (otpBox) otpBox.hidden = true;
+    if (otpInput) {
+        otpInput.value = "";
+        otpInput.disabled = false;
+    }
+    if (verifyBtn) {
+        verifyBtn.disabled = false;
+        verifyBtn.textContent = "Verify OTP";
+    }
+    if (statusMsg) {
+        statusMsg.textContent = "";
+        statusMsg.className = "otp-status-msg";
+    }
+}
+
+function onRegisterPhoneChange() {
+    if (currentRole !== "student") return;
+    const phoneInput = document.getElementById("registerPhone");
+    const currentPhone = phoneInput ? phoneInput.value.trim() : "";
+    if (studentVerifiedPhone && currentPhone !== studentVerifiedPhone) {
+        resetStudentOtpState(true);
+    }
+}
+
+function startOtpCooldown(seconds) {
+    const sendBtn = document.getElementById("sendOtpBtn");
+    if (!sendBtn) return;
+    if (otpResendInterval) clearInterval(otpResendInterval);
+
+    let remaining = seconds;
+    sendBtn.disabled = true;
+    sendBtn.textContent = `Resend (${remaining}s)`;
+
+    otpResendInterval = setInterval(() => {
+        remaining -= 1;
+        if (studentOtpVerificationToken) {
+            clearInterval(otpResendInterval);
+            otpResendInterval = null;
+            return;
+        }
+        if (remaining <= 0) {
+            clearInterval(otpResendInterval);
+            otpResendInterval = null;
+            sendBtn.disabled = false;
+            sendBtn.textContent = "Resend OTP";
+        } else {
+            sendBtn.textContent = `Resend (${remaining}s)`;
+        }
+    }, 1000);
+}
+
+async function handleSendOtp() {
+    const phone = document.getElementById("registerPhone").value.trim();
+    const sendBtn = document.getElementById("sendOtpBtn");
+    const otpBox = document.getElementById("studentOtpBox");
+    const statusMsg = document.getElementById("otpStatusMsg");
+    const otpInput = document.getElementById("registerOtpInput");
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+        alert("Enter a valid 10-digit mobile number first.");
+        return;
+    }
+
+    studentOtpVerificationToken = "";
+    studentVerifiedPhone = "";
+    if (sendBtn) {
+        sendBtn.disabled = true;
+        sendBtn.classList.remove("verified");
+        sendBtn.textContent = "Sending...";
+    }
+
+    try {
+        const res = await fetch("/api/auth/send-otp", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ phone })
+        });
+
+        let data = {};
+        try {
+            data = await res.json();
+        } catch (_) {}
+
+        if (!res.ok) {
+            if (sendBtn) {
+                sendBtn.disabled = false;
+                sendBtn.textContent = "Send OTP";
+            }
+            alert(data.error || "Failed to send OTP. Please try again.");
+            return;
+        }
+
+        if (otpBox) otpBox.hidden = false;
+        if (otpInput) {
+            otpInput.value = "";
+            otpInput.disabled = false;
+            otpInput.focus();
+        }
+
+        if (statusMsg) {
+            statusMsg.className = "otp-status-msg";
+            statusMsg.textContent = data.demoOtp
+                ? `OTP sent! (Demo OTP: ${data.demoOtp}) — valid for 5 mins.`
+                : `${data.message} — valid for 5 mins.`;
+        }
+
+        if (data.demoOtp) {
+            showToast(`Your RoomZy OTP is ${data.demoOtp}`);
+        } else {
+            showToast("OTP sent to your mobile number!");
+        }
+
+        startOtpCooldown(30);
+    } catch (_) {
+        if (sendBtn) {
+            sendBtn.disabled = false;
+            sendBtn.textContent = "Send OTP";
+        }
+        alert("Unable to connect to server. Please try again.");
+    }
+}
+
+async function handleVerifyOtp() {
+    const phone = document.getElementById("registerPhone").value.trim();
+    const otp = document.getElementById("registerOtpInput").value.trim();
+    const verifyBtn = document.getElementById("verifyOtpBtn");
+    const sendBtn = document.getElementById("sendOtpBtn");
+    const otpBox = document.getElementById("studentOtpBox");
+    const statusMsg = document.getElementById("otpStatusMsg");
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+        alert("Enter a valid 10-digit mobile number.");
+        return;
+    }
+
+    if (!/^[0-9]{6}$/.test(otp)) {
+        if (statusMsg) {
+            statusMsg.className = "otp-status-msg error";
+            statusMsg.textContent = "Please enter a valid 6-digit OTP.";
+        }
+        return;
+    }
+
+    if (verifyBtn) {
+        verifyBtn.disabled = true;
+        verifyBtn.textContent = "Verifying...";
+    }
+
+    try {
+        const res = await fetch("/api/auth/verify-otp", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ phone, otp })
+        });
+
+        let data = {};
+        try {
+            data = await res.json();
+        } catch (_) {}
+
+        if (!res.ok) {
+            if (verifyBtn) {
+                verifyBtn.disabled = false;
+                verifyBtn.textContent = "Verify OTP";
+            }
+            if (statusMsg) {
+                statusMsg.className = "otp-status-msg error";
+                statusMsg.textContent = data.error || "Invalid OTP! Please try again.";
+            }
+            return;
+        }
+
+        studentOtpVerificationToken = data.verificationToken;
+        studentVerifiedPhone = phone;
+
+        if (otpResendInterval) {
+            clearInterval(otpResendInterval);
+            otpResendInterval = null;
+        }
+
+        if (sendBtn) {
+            sendBtn.disabled = true;
+            sendBtn.classList.add("verified");
+            sendBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Verified';
+        }
+        if (otpBox) otpBox.hidden = true;
+        showToast("Mobile number verified!");
+    } catch (_) {
+        if (verifyBtn) {
+            verifyBtn.disabled = false;
+            verifyBtn.textContent = "Verify OTP";
+        }
+        alert("Unable to connect to server. Please try again.");
+    }
+}
+
 function showRegister(role) {
     currentRole = role;
 
@@ -613,6 +833,8 @@ function showRegister(role) {
     document.getElementById("ownerExtra").hidden = !owner;
     document.getElementById("propertyName").required = owner;
     document.getElementById("propertyCity").required = owner;
+
+    resetStudentOtpState(!owner);
 
     const iconEl = document.getElementById("registerIcon");
     if (iconEl) {
@@ -644,10 +866,18 @@ async function handleRegister(event) {
     const confirmPassword = document.getElementById("registerConfirmPassword").value;
     const propertyName = document.getElementById("propertyName").value.trim();
     const propertyCity = document.getElementById("propertyCity").value.trim();
+    const role = currentRole || 'student';
 
     if (!/^[0-9]{10}$/.test(phone)) {
         alert("Enter a valid 10-digit mobile number.");
         return;
+    }
+
+    if (role === "student") {
+        if (!studentOtpVerificationToken || studentVerifiedPhone !== phone) {
+            alert("Please verify your mobile number via OTP first.");
+            return;
+        }
     }
 
     if (password.length < 6) {
@@ -669,9 +899,10 @@ async function handleRegister(event) {
                 email,
                 phone,
                 password,
-                role: currentRole || 'student',
+                role,
                 propertyName,
-                propertyCity
+                propertyCity,
+                otpVerificationToken: role === "student" ? studentOtpVerificationToken : ""
             })
         });
 
@@ -687,6 +918,7 @@ async function handleRegister(event) {
 
         const regForm = document.getElementById("registrationForm");
         if (regForm) regForm.reset();
+        resetStudentOtpState(role === "student");
 
         alert(data.message || "Registration successful! Please login.");
         backToLoginForm();
