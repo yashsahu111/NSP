@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { registerUser, loginUser, getAuthenticatedUser } = require('./api/_lib/auth');
+const { sendOtp, verifyOtp, registerUser, loginUser, getAuthenticatedUser } = require('./api/_lib/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -8,6 +8,26 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // ================= AUTH API ROUTES =================
+
+app.post('/api/auth/send-otp', async (req, res) => {
+    try {
+        const result = await sendOtp(req.body);
+        return res.status(result.status).json(result.json);
+    } catch (err) {
+        console.error('Send OTP error:', err);
+        return res.status(500).json({ error: 'Server error while sending OTP.' });
+    }
+});
+
+app.post('/api/auth/verify-otp', async (req, res) => {
+    try {
+        const result = await verifyOtp(req.body);
+        return res.status(result.status).json(result.json);
+    } catch (err) {
+        console.error('Verify OTP error:', err);
+        return res.status(500).json({ error: 'Server error while verifying OTP.' });
+    }
+});
 
 app.post('/api/auth/register', async (req, res) => {
     try {

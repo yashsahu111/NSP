@@ -316,7 +316,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
                 <label>Email</label>
                 <input type="email" id="registerEmail" placeholder="you@email.com" required>
                 <label>Mobile Number</label>
-                <input type="tel" id="registerPhone" placeholder="10-digit mobile number" required>
+                <div class="phone-otp-group">
+                    <input type="tel" id="registerPhone" placeholder="10-digit mobile number" maxlength="10" oninput="onRegisterPhoneChange()" required>
+                    <button type="button" id="sendOtpBtn" class="otp-action-btn" onclick="handleSendOtp()" hidden>Send OTP</button>
+                </div>
+                <div id="studentOtpBox" class="otp-verify-box" hidden>
+                    <div class="phone-otp-group">
+                        <input type="text" id="registerOtpInput" placeholder="Enter 6-digit OTP" maxlength="6" inputmode="numeric">
+                        <button type="button" id="verifyOtpBtn" class="otp-action-btn otp-verify-btn" onclick="handleVerifyOtp()">Verify OTP</button>
+                    </div>
+                    <p id="otpStatusMsg" class="otp-status-msg"></p>
+                </div>
                 <label>Password</label>
                 <input type="password" id="registerPassword" placeholder="At least 6 characters" required>
                 <label>Confirm Password</label>

@@ -1178,8 +1178,81 @@ button {
 
 .auth-form[hidden],
 .role-selection[hidden],
-#ownerExtra[hidden] {
+#ownerExtra[hidden],
+#sendOtpBtn[hidden],
+#studentOtpBox[hidden] {
     display: none !important;
+}
+
+.phone-otp-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.phone-otp-group input {
+    flex: 1;
+}
+
+.otp-action-btn {
+    height: 45px;
+    padding: 0 14px;
+    border: 1.5px solid var(--red);
+    border-radius: 7px;
+    background: #fff0ec;
+    color: var(--red);
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: 0.2s;
+    flex-shrink: 0;
+}
+
+.otp-action-btn:hover:not(:disabled) {
+    background: var(--red);
+    color: white;
+}
+
+.otp-action-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.otp-action-btn.verified {
+    border-color: #16a34a;
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.otp-verify-btn {
+    background: var(--red);
+    color: white;
+}
+
+.otp-verify-btn:hover:not(:disabled) {
+    opacity: 0.92;
+}
+
+.otp-verify-box {
+    margin-top: 10px;
+}
+
+.otp-status-msg {
+    font-size: 12px;
+    margin-top: 6px;
+    color: #667085;
+    line-height: 1.4;
+}
+
+.otp-status-msg.success {
+    color: #15803d;
+    font-weight: 600;
+}
+
+.otp-status-msg.error {
+    color: #dc2626;
+    font-weight: 600;
 }
 
 .auth-form h2 {
